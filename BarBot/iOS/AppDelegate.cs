@@ -16,11 +16,20 @@ namespace BarBot.iOS
 			set;
 		}
 
+		public static UIStoryboard Storyboard = UIStoryboard.FromName("Main", null);
+		public static UIViewController initialViewController;
+
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			// Override point for customization after application launch.
 			// If not required for your application you can safely delete this method
 
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
+
+			initialViewController = Storyboard.InstantiateInitialViewController() as UIViewController;
+
+			Window.RootViewController = initialViewController;
+			Window.MakeKeyAndVisible();
 			return true;
 		}
 
