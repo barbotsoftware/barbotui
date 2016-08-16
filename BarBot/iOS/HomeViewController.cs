@@ -6,9 +6,10 @@ namespace BarBot.iOS
 {
 	public partial class HomeViewController : UIViewController
 	{
+
 		partial void SignInButton_TouchUpInside(UIButton sender)
 		{
-			this.NavigationController.PushViewController();
+			Console.WriteLine("sign in segue");
 		}
 
 		public HomeViewController() : base("HomeViewController", null)
@@ -16,13 +17,12 @@ namespace BarBot.iOS
 		}
 
 		public HomeViewController(IntPtr handle) : base (handle) 
-{
+		{
 		}
 
-		public void Initialize()
+		public override void AwakeFromNib()
 		{
-			//Instatiating View Controller with Storyboard ID 'PinkViewController'
-			pinkViewController = Storyboard.InstantiateViewController("PinkViewController") as PinkViewController;
+			base.AwakeFromNib();
 		}
 
 		public override void ViewDidLoad()

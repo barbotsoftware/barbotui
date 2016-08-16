@@ -6,8 +6,19 @@ namespace BarBot.iOS
 {
     public partial class SignInViewController : UIViewController
     {
-        public SignInViewController (IntPtr handle) : base (handle)
+		
+		partial void FacebookButton_TouchUpInside(UIButton sender)
+		{
+			throw new NotImplementedException();
+		}
+
+		partial void GoogleButton_TouchUpInside(UIButton sender)
+		{
+			throw new NotImplementedException();
+		}
+
+		public SignInViewController (IntPtr handle) : base (handle)
         {
-        }
+		}
     }
 }

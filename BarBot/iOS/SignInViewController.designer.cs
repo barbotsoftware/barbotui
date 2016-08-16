@@ -14,8 +14,33 @@ namespace BarBot.iOS
     [Register ("SignInViewController")]
     partial class SignInViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton FacebookButton { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton GoogleButton { get; set; }
+
+        [Action ("FacebookButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void FacebookButton_TouchUpInside (UIKit.UIButton sender);
+
+        [Action ("GoogleButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void GoogleButton_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
+            if (FacebookButton != null) {
+                FacebookButton.Dispose ();
+                FacebookButton = null;
+            }
+
+            if (GoogleButton != null) {
+                GoogleButton.Dispose ();
+                GoogleButton = null;
+            }
         }
     }
 }
