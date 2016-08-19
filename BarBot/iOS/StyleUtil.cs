@@ -2,7 +2,7 @@
 using UIKit;
 namespace BarBot.iOS
 {
-	public class CustomStyles
+	public class StyleUtil
 	{
 		public UIColor BarBotBlue = new UIColor(
 			new nfloat(4.0 / 255.0),

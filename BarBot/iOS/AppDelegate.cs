@@ -22,8 +22,9 @@ namespace BarBot.iOS
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var controller = new HomeViewController();
+			var navController = new UINavigationController(controller);
 
-			Window.RootViewController = controller;
+			Window.RootViewController = navController;
 
 			// make the window visible
 			Window.MakeKeyAndVisible();
