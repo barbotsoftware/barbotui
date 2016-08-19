@@ -1,59 +1,49 @@
 ﻿using System;
-
+using CoreGraphics;
 using UIKit;
 
 namespace BarBot.iOS
 {
-	public partial class HomeViewController : UIViewController
+	public class HomeViewController : UIViewController
 	{
+		private CustomStyles styles;
 
-		public UIColor BarBotBlue = new UIColor(
-			new nfloat(4.0/255.0), 
-			new nfloat(75.0/255.0), 
-			new nfloat(154.0/255.0),
-			new nfloat(1.0));
-		
-		partial void SignInButton_TouchUpInside(UIButton sender)
+		public HomeViewController()
 		{
-			Console.WriteLine("sign in segue");
-		}
-
-		public HomeViewController() : base("HomeViewController", null)
-		{
-		}
-
-		public HomeViewController(IntPtr handle) : base (handle) 
-		{
-		}
-
-		public override void AwakeFromNib()
-		{
-			base.AwakeFromNib();
+			styles = new CustomStyles();
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib
-			ConfigureView();
+			View.BackgroundColor = UIColor.White;
+
+			View.AddSubview(TitleLabel());
+			View.AddSubview(SignInButton());
 		}
 
-		public void ConfigureView()
+		private UILabel TitleLabel()
 		{
-			SignInButton.Layer.CornerRadius = RegisterButton.Layer.CornerRadius = new nfloat(5.0);
-			SignInButton.Layer.BorderWidth = RegisterButton.Layer.BorderWidth = new nfloat(0.9);
-			SignInButton.Layer.BorderColor = RegisterButton.Layer.BorderColor = BarBotBlue.CGColor;
-			var insets = new UIEdgeInsets(new nfloat(2.0), new nfloat(2.0), new nfloat(2.0),
-												   new nfloat(2.0));
-			SignInButton.TitleEdgeInsets = RegisterButton.TitleEdgeInsets = insets;
+			var titleLabel = new UILabel();
+			titleLabel.Text = "BarBot";
+			titleLabel.TextColor = styles.BarBotBlue;
+			return titleLabel;
 		}
 
-		public override void DidReceiveMemoryWarning()
+		private UIButton SignInButton()
 		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
+			var signInButton = UIButton.FromType(UIButtonType.System);
+			signInButton.Frame = new CGRect(20, 200, 280, 44);
+			signInButton.SetTitle("Sign In", UIControlState.Normal);
+
+			signInButton.TouchUpInside += (sender, e) =>
+			{
+				//this.NavigationController.PushViewController(signInViewController, true);
+			};
+
+			return signInButton;
 		}
+			
 	}
 }
-
 
