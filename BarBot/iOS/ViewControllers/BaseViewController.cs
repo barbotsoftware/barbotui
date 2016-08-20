@@ -13,21 +13,21 @@ namespace BarBot.iOS
 			styles = new StyleUtil();
 		}
 
-		protected UIButton createUIButton(string title, int x, int y)
+		protected UIButton createUIButton(string title, nfloat x, nfloat y, nfloat width)
 		{
-			var btn = UIButton.FromType(UIButtonType.System);
-			btn.Frame = new CGRect(x, y, View.Bounds.Width - 30, 44);
-			btn.SetTitle(title, UIControlState.Normal);
-			btn.SetTitleColor(UIColor.White, UIControlState.Normal);
-			btn.BackgroundColor = styles.BarBotBlue;
-			btn.Layer.CornerRadius = new nfloat(5.0);
-			btn.Layer.BorderWidth = new nfloat(0.9);
-			btn.Layer.BorderColor = styles.BarBotBlue.CGColor;
+			var button = UIButton.FromType(UIButtonType.System);
+			button.Frame = new CGRect(x, y, width, 40);
+			button.SetTitle(title, UIControlState.Normal);
+			button.SetTitleColor(UIColor.White, UIControlState.Normal);
+			button.BackgroundColor = styles.BarBotBlue;
+			button.Layer.CornerRadius = new nfloat(5.0);
+			button.Layer.BorderWidth = new nfloat(0.9);
+			button.Layer.BorderColor = styles.BarBotBlue.CGColor;
 			var insets = new UIEdgeInsets(new nfloat(2.0), new nfloat(2.0), new nfloat(2.0),
 								 new nfloat(2.0));
-			btn.TitleEdgeInsets = insets;
+			button.TitleEdgeInsets = insets;
 
-			return btn;
+			return button;
 		}
 	}
 }

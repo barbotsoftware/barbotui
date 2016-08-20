@@ -22,27 +22,31 @@ namespace BarBot.iOS
 			{
 				Placeholder = "Email",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(15, 82, w - 30, h)
+				Frame = new CGRect(20, 82, w - 40, h)
 			};
 
 			passwordField = new UITextField
 			{
 				Placeholder = "Password",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(15, 116, w - 30, h),
+				Frame = new CGRect(20, 116, w - 40, h),
 				SecureTextEntry = true
 			};
 
-			submitButton = createUIButton("Submit", 15, 148);
+			submitButton = createUIButton("Submit", 20, 148, w - 40);
 
 			submitButton.TouchUpInside += (sender, e) =>
 			{
 				Console.WriteLine("Submit button pressed");
 			};
 
-			View.AddSubview(usernameField);
-			View.AddSubview(passwordField);
-			View.AddSubview(submitButton);
+			View.AddSubviews(new UIView[] { usernameField, passwordField, submitButton });
+		}
+
+		public override void ViewWillAppear(Boolean animated)
+		{
+			base.ViewWillAppear(animated);
+			NavigationController.SetNavigationBarHidden(false, true);
 		}
 	}
 }
