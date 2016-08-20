@@ -7,7 +7,7 @@ namespace BarBot.iOS
 	public class BaseUserValidationViewController: BaseViewController
 	{
 		UITextField usernameField, passwordField;
-		UIButton submitButton;
+		protected UIButton submitButton;
 
 		public override void ViewDidLoad()
 		{
@@ -15,7 +15,19 @@ namespace BarBot.iOS
 
 			View.BackgroundColor = UIColor.White;
 
-			nfloat h = 31.0f;
+			configureTextFields();
+			View.AddSubviews(new UIView[] { usernameField, passwordField });
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			base.ViewWillAppear(animated);
+			NavigationController.SetNavigationBarHidden(false, true);
+		}
+
+		void configureTextFields()
+		{
+			nfloat h = 40.0f;
 			nfloat w = View.Bounds.Width;
 
 			usernameField = new UITextField
@@ -29,24 +41,14 @@ namespace BarBot.iOS
 			{
 				Placeholder = "Password",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(20, 116, w - 40, h),
+				Frame = new CGRect(20, 142, w - 40, h),
 				SecureTextEntry = true
 			};
-
-			submitButton = createUIButton("Submit", 20, 148, w - 40);
-
-			submitButton.TouchUpInside += (sender, e) =>
-			{
-				Console.WriteLine("Submit button pressed");
-			};
-
-			View.AddSubviews(new UIView[] { usernameField, passwordField, submitButton });
 		}
 
-		public override void ViewWillAppear(Boolean animated)
+		protected void configureSubmitButton(string title)
 		{
-			base.ViewWillAppear(animated);
-			NavigationController.SetNavigationBarHidden(false, true);
+			submitButton = createUIButton(title, 20, 202, View.Bounds.Width - 40);
 		}
 	}
 }

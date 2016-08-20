@@ -16,11 +16,11 @@ namespace BarBot.iOS
 		protected UIButton createUIButton(string title, nfloat x, nfloat y, nfloat width)
 		{
 			var button = UIButton.FromType(UIButtonType.System);
-			button.Frame = new CGRect(x, y, width, 40);
+			button.Frame = new CGRect(x, y, width, 45);
 			button.SetTitle(title, UIControlState.Normal);
 			button.SetTitleColor(UIColor.White, UIControlState.Normal);
 			button.BackgroundColor = styles.BarBotBlue;
-			button.Layer.CornerRadius = new nfloat(5.0);
+			button.Layer.CornerRadius = new nfloat(2.0);
 			button.Layer.BorderWidth = new nfloat(0.9);
 			button.Layer.BorderColor = styles.BarBotBlue.CGColor;
 			var insets = new UIEdgeInsets(new nfloat(2.0), new nfloat(2.0), new nfloat(2.0),

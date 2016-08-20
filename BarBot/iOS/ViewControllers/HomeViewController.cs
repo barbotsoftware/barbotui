@@ -6,8 +6,9 @@ namespace BarBot.iOS
 {
 	public class HomeViewController : BaseViewController
 	{
-		UIButton signInButton, registerButton;
 		UILabel titleLabel;
+		UIImageView logoImageView;
+		UIButton signInButton, registerButton;
 
 		public override void ViewDidLoad()
 		{
@@ -15,9 +16,10 @@ namespace BarBot.iOS
 			View.BackgroundColor = UIColor.White;
 
 			configureTitleLabel();
+			configureLogoImage();
 			configureSignInButton();
 			configureRegisterButton();
-			View.AddSubviews(new UIView[] { signInButton, registerButton, titleLabel });
+			View.AddSubviews(new UIView[] { titleLabel, logoImageView, signInButton, registerButton });
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -31,9 +33,18 @@ namespace BarBot.iOS
 			titleLabel = new UILabel();
 			titleLabel.Text = "BarBot";
 			titleLabel.TextColor = styles.BarBotBlue;
-			titleLabel.Font = UIFont.SystemFontOfSize(50, UIFontWeight.Bold);
+			titleLabel.Font = UIFont.SystemFontOfSize(75, UIFontWeight.Bold);
 			titleLabel.TextAlignment = UITextAlignment.Center;
-			titleLabel.Frame = new CGRect(20, 50, View.Bounds.Width - 40, 50);
+			titleLabel.Frame = new CGRect(20, 70, View.Bounds.Width - 40, 75);
+		}
+
+		void configureLogoImage()
+		{
+			nfloat sq = View.Bounds.Width - 60;
+			UIImage logoImage = UIImage.FromBundle("Images/180iphoneapp.png");
+			logoImageView = new UIImageView();
+			logoImageView.Image = logoImage;
+			logoImageView.Frame = new CGRect(30, 175, sq, sq);
 		}
 
 		void configureSignInButton()

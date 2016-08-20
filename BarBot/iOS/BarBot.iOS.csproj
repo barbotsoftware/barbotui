@@ -104,6 +104,8 @@
   <ItemGroup>
     <Folder Include="Resources\" />
     <Folder Include="ViewControllers\" />
+    <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
+    <Folder Include="Images\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -121,6 +123,9 @@
     <Compile Include="ViewControllers\RegisterViewController.cs" />
     <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
     <Compile Include="ViewControllers\BaseViewController.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Images\180iphoneapp.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

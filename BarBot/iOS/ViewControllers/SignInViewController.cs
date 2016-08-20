@@ -7,8 +7,9 @@ namespace BarBot.iOS
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
 			Title = "Sign In";
+			configureSubmitButton("Sign In");
+			View.AddSubview(submitButton);
 		}
 	}
 }
