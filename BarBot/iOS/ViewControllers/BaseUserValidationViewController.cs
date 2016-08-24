@@ -34,7 +34,9 @@ namespace BarBot.iOS
 			{
 				Placeholder = "Email",
 				BorderStyle = UITextBorderStyle.RoundedRect,
-				Frame = new CGRect(20, 82, w - 40, h)
+				Frame = new CGRect(20, 82, w - 40, h),
+				KeyboardType = UIKeyboardType.EmailAddress,
+				ReturnKeyType = UIReturnKeyType.Next
 			};
 
 			passwordField = new UITextField
