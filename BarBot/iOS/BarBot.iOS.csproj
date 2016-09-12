@@ -117,12 +117,12 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="StyleUtil.cs" />
     <Compile Include="ViewControllers\HomeViewController.cs" />
     <Compile Include="ViewControllers\SignInViewController.cs" />
     <Compile Include="ViewControllers\RegisterViewController.cs" />
     <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
     <Compile Include="ViewControllers\BaseViewController.cs" />
+    <Compile Include="Constants.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Images\180iphoneapp.png" />
