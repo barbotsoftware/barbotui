@@ -32,7 +32,7 @@ namespace BarBot.iOS
 		{
 			titleLabel = new UILabel();
 			titleLabel.Text = "BarBot";
-			titleLabel.TextColor = styles.BarBotBlue;
+			titleLabel.TextColor = Color.BarBotBlue;
 			titleLabel.Font = UIFont.SystemFontOfSize(75, UIFontWeight.Bold);
 			titleLabel.TextAlignment = UITextAlignment.Center;
 			titleLabel.Frame = new CGRect(20, 70, View.Bounds.Width - 40, 75);
