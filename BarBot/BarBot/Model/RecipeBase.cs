@@ -6,59 +6,19 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-using System;
 namespace BarBot.Model
 {
     public abstract class RecipeBase
     {
-        private String recipeId;
-        private String name;
-        private String imageURL;
+		public string RecipeId { get; set; }
+		public string Name { get; set; }
+		public string ImageURL { get; set; }
 
-        public RecipeBase(String recipeId, String name, String imageURL)
+        protected RecipeBase(string recipeId, string name, string imageURL)
         {
-            this.RecipeId = recipeId;
-            this.Name = name;
-            this.ImageURL = imageURL;
-        }
-
-        public string RecipeId
-        {
-            get
-            {
-                return recipeId;
-            }
-
-            set
-            {
-                recipeId = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
-        }
-
-        public string ImageURL
-        {
-            get
-            {
-                return imageURL;
-            }
-
-            set
-            {
-                imageURL = value;
-            }
+			RecipeId = recipeId;
+            Name = name;
+            ImageURL = imageURL;
         }
     }
 }

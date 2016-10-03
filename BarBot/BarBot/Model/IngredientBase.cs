@@ -6,44 +6,17 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-using System;
 namespace BarBot.Model
 {
     public abstract class IngredientBase
-    {
-        private String ingredientId;
-        private String name;
+	{
+		public string IngredientId { get; set; }
+		public string Name { get; set; }
 
-        public IngredientBase(String ingredientId, String name)
+        protected IngredientBase(string ingredientId, string name)
         {
-            this.IngredientId = ingredientId;
-            this.Name = name;
-        }
-
-        public string IngredientId
-        {
-            get
-            {
-                return ingredientId;
-            }
-
-            set
-            {
-                ingredientId = value;
-            }
-        }
-
-        public string Name
-        {
-            get
-            {
-                return name;
-            }
-
-            set
-            {
-                name = value;
-            }
+            IngredientId = ingredientId;
+            Name = name;
         }
     }
 }

@@ -6,12 +6,11 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-using System;
 namespace BarBot.ViewModel
 {
 	public class RecipeTileViewModel : Model.RecipeBase
 	{
-        public RecipeTileViewModel(String recipeId, String name, String imageURL) : base(recipeId, name, imageURL)
+        public RecipeTileViewModel(string recipeId, string name, string imageURL) : base(recipeId, name, imageURL)
         {
         }
 	}

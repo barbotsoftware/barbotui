@@ -30,7 +30,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Model\IngredientBase.cs" />
-    <Compile Include="MyClass.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\RecipeBase.cs" />
     <Compile Include="ViewModel\RecipeTileViewModel.cs" />
