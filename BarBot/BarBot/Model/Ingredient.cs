@@ -1,5 +1,5 @@
 ﻿/*
- * IngredientBase.cs
+ * Ingredient.cs
  * BarBot
  * 
  * Created by Naveen Yadav on 9/22/16.
