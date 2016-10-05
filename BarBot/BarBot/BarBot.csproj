@@ -29,11 +29,12 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Model\IngredientBase.cs" />
+    <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Model\RecipeBase.cs" />
+    <Compile Include="Model\Recipe.cs" />
     <Compile Include="ViewModel\RecipeTileViewModel.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Model\JsonModelObject.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
