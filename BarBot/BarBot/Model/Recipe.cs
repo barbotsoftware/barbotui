@@ -10,35 +10,35 @@ namespace BarBot.Model
 {
 	public class Recipe : JsonModelObject
 	{
-		public string RecipeId { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
-		public string ImageURL { get; set; }
-		public Ingredient[] Ingredients { get; set; }
+		public string Img { get; set; }
+		public Step[] Steps { get; set; }
 
-		public Recipe(string recipeId, string name, string imageURL, Ingredient[] ingredients)
+		public Recipe(string id, string name, string img, Step[] steps)
 		{
-			RecipeId = recipeId;
+			Id = id;
 			Name = name;
-			ImageURL = imageURL;
-			Ingredients = ingredients;
+			Img = img;
+			Steps = steps;
 		}
 
 		public Recipe(string json)
 		{
 			var r = (Recipe)parseJSON(json);
-			RecipeId = r.RecipeId;
+			Id = r.Id;
 			Name = r.Name;
-			ImageURL = r.ImageURL;
-			Ingredients = r.Ingredients;
+			Img = r.Img;
+			Steps = r.Steps;
 
 			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}
 
 		// {
-		// 		"Name": "Cuba Libre",
-		//		"RecipeId": "recipe_8a4d7a",
-		// 		"ImageURL": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg",
-		//		"Ingredients": [{
+		// 		"name": "Cuba Libre",
+		//		"id": "recipe_8a4d7a",
+		// 		"img": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg",
+		//		"steps": [{
 		//			"IngredientId": "ingredient_1b4549",
 		//			"Quantity": "1.0",
 		//			"Measurement": "oz"

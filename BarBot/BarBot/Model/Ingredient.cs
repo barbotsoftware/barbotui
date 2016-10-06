@@ -10,14 +10,14 @@ namespace BarBot.Model
 {
 	public class Ingredient : JsonModelObject
 	{
-		public string IngredientId { get; set; }
+		public string Id { get; set; }
 		public string Name { get; set; }
 		public double? Quantity { get; set; }
 		public string Measurement { get; set; }
 
-        public Ingredient(string ingredientId, string name, double? quantity, string measurement)
+        public Ingredient(string id, string name, double? quantity, string measurement)
         {
-            IngredientId = ingredientId;
+            Id = id;
             Name = name;
 			Quantity = quantity;
 			Measurement = measurement;
@@ -26,7 +26,7 @@ namespace BarBot.Model
 		public Ingredient(string json)
 		{
 			var i = (Ingredient)parseJSON(json);
-			IngredientId = i.IngredientId;
+			Id = i.Id;
 			Name = i.Name;
 			Quantity = i.Quantity;
 			Measurement = i.Measurement;

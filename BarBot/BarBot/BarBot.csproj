@@ -35,6 +35,7 @@
     <Compile Include="ViewModel\RecipeTileViewModel.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Model\JsonModelObject.cs" />
+    <Compile Include="Model\Step.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

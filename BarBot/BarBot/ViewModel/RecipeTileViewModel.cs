@@ -10,8 +10,8 @@ namespace BarBot.ViewModel
 {
 	public class RecipeTileViewModel : Model.Recipe
 	{
-        public RecipeTileViewModel(string recipeId, string name, string imageURL, Model.Ingredient[] ingredients) 
-			: base(recipeId, name, imageURL, ingredients)
+        public RecipeTileViewModel(string recipeId, string name, string imageURL, Model.Step[] steps) 
+			: base(recipeId, name, imageURL, steps)
         {
         }
 

@@ -7,6 +7,7 @@
  */
 
 using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace BarBot.Model
 {
@@ -18,7 +19,10 @@ namespace BarBot.Model
 
 		public string toJSON()
 		{
-			return JsonConvert.SerializeObject(this);
+			return JsonConvert.SerializeObject(
+				this, 
+				Formatting.Indented, 
+				new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
 		}
 
 		public object parseJSON(string json)
