@@ -15,6 +15,10 @@ namespace BarBot.Model
 		public string Img { get; set; }
 		public Step[] Steps { get; set; }
 
+		public Recipe()
+		{
+		}
+
 		public Recipe(string id, string name, string img, Step[] steps)
 		{
 			Id = id;
@@ -25,7 +29,7 @@ namespace BarBot.Model
 
 		public Recipe(string json)
 		{
-			var r = (Recipe)parseJSON(json);
+			var r = (Recipe)parseJSON(json, typeof(Recipe));
 			Id = r.Id;
 			Name = r.Name;
 			Img = r.Img;
@@ -33,16 +37,5 @@ namespace BarBot.Model
 
 			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}
-
-		// {
-		// 		"name": "Cuba Libre",
-		//		"id": "recipe_8a4d7a",
-		// 		"img": "http:\/\/192.168.1.41\/barbot\/public\/images\/term.jpg",
-		//		"steps": [{
-		//			"IngredientId": "ingredient_1b4549",
-		//			"Quantity": "1.0",
-		//			"Measurement": "oz"
-		//		}]
-		// }
     }
 }

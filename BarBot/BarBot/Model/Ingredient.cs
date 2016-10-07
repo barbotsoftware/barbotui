@@ -12,24 +12,28 @@ namespace BarBot.Model
 	{
 		public string Id { get; set; }
 		public string Name { get; set; }
-		public double? Quantity { get; set; }
-		public string Measurement { get; set; }
+		public string Brand { get; set; }
+		public string Type { get; set; }
 
-        public Ingredient(string id, string name, double? quantity, string measurement)
+		public Ingredient()
+		{
+		}
+
+        public Ingredient(string id, string name, string brand, string type)
         {
             Id = id;
             Name = name;
-			Quantity = quantity;
-			Measurement = measurement;
+			Brand = brand;
+			Type = type;
         }
 
 		public Ingredient(string json)
 		{
-			var i = (Ingredient)parseJSON(json);
+			var i = (Ingredient)parseJSON(json, typeof(Ingredient));
 			Id = i.Id;
 			Name = i.Name;
-			Quantity = i.Quantity;
-			Measurement = i.Measurement;
+			Brand = i.Brand;
+			Type = i.Type;
 		}
     }
 }

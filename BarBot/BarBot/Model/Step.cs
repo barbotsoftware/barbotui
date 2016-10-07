@@ -16,6 +16,10 @@ namespace BarBot.Model
 		public double? Quantity { get; set; }
 		public string Measurement { get; set; }
 
+		public Step()
+		{
+		}
+
 		public Step(int stepNumber, int type, string ingredientId, double quantity, string measurement) 
 		{
 			StepNumber = stepNumber;
@@ -27,12 +31,17 @@ namespace BarBot.Model
 
 		public Step(string json)
 		{
-			var s = (Step)parseJSON(json);
+			var s = (Step)parseJSON(json, typeof(Step));
 			StepNumber = s.StepNumber;
 			Type = s.Type;
 			IngredientId = s.IngredientId;
 			Quantity = s.Quantity;
 			Measurement = s.Measurement;
+		}
+
+		public override string ToString()
+		{
+			return string.Format("[Step: StepNumber={0}, Type={1}, IngredientId={2}, Quantity={3}, Measurement={4}]", StepNumber, Type, IngredientId, Quantity, Measurement);
 		}
 	}
 }

@@ -6,8 +6,10 @@ namespace BarBot.Test
 	{
 		public static void Main(string[] args)
 		{
-			JsonModelTest t = new JsonModelTest();
-			t.runTest();
+			var t = new JsonModelTest();
+			t.testRecipe();
+			t.testIngredient();
+			t.testStep();
 		}
 	}
 }
