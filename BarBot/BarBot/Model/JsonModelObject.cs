@@ -20,9 +20,15 @@ namespace BarBot.Model
 		public string toJSON()
 		{
 			return JsonConvert.SerializeObject(
-				this, 
-				Formatting.Indented, 
-				new JsonSerializerSettings { ContractResolver = new CamelCasePropertyNamesContractResolver() });
+				this,
+				Formatting.Indented,
+				new JsonSerializerSettings
+				{
+					ContractResolver = new DefaultContractResolver
+					{
+						NamingStrategy = new SnakeCaseNamingStrategy()
+					}
+				});
 		}
 
 		public object parseJSON(string json)
