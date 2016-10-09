@@ -78,7 +78,9 @@ namespace BarBot
 			}
 
 			if (!Echo)
+			{
 				return;
+			}
 		}
 
 		private void Connection_OnOpened()
@@ -96,6 +98,7 @@ namespace BarBot
 		private void Connection_OnMessage(string obj)
 		{
 			Debug.WriteLine(obj);
+			Echo = obj != null;
 		}
 
 		private void Connection_OnError(string obj)

@@ -1,5 +1,6 @@
 ﻿using Foundation;
 using UIKit;
+using System.Collections.Generic;
 
 namespace BarBot.iOS
 {
@@ -28,6 +29,14 @@ namespace BarBot.iOS
 
 			// make the window visible
 			Window.MakeKeyAndVisible();
+
+			Dictionary<string, string> Args = new Dictionary<string, string>()
+			{
+				{ "barbot_id", "barbot_805d2a" }
+			};
+
+			var DataManager = new DataManager();
+			DataManager.RequestDataFromServer("get_recipes_for_barbot", Args);
 
 			return true;
 		}
