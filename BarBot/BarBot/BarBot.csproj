@@ -36,11 +36,17 @@
     <Compile Include="Constants.cs" />
     <Compile Include="Model\JsonModelObject.cs" />
     <Compile Include="Model\Step.cs" />
+    <Compile Include="Model\Event.cs" />
+    <Compile Include="WebSocketClient.cs" />
+    <Compile Include="DataManager.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\portable-net45+wp80+win8+wpa81\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="WebSockets.PCL">
+      <HintPath>..\packages\Websockets.Pcl.1.1.9\lib\portable-net45+win+wpa81+wp80+MonoAndroid10+xamarinios10\WebSockets.PCL.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

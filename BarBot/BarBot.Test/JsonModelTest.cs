@@ -11,7 +11,7 @@ namespace BarBot.Test
 
 		public void testRecipe()
 		{
-			Console.WriteLine("testRecipe():"); 
+			Console.WriteLine("testRecipe():");
 			Console.WriteLine();
 
 			var r = new Recipe("recipe_8a4d7a",
