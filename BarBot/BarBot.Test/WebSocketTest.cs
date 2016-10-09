@@ -17,7 +17,7 @@ namespace BarBot.Test
 			};
 
 			var d = new DataManager();
-			Console.WriteLine(d.RequestDataFromServer("get_recipes_for_barbot", a));
+			d.RequestDataFromServer("get_recipes_for_barbot", a);
 		}
 	}
 }

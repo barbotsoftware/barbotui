@@ -17,6 +17,7 @@ namespace BarBot
 	{
 		private IWebSocketConnection connection;
 		private bool Failed;
+		private bool Echo;
 		private string BarBotId { get; set; }
 		private string UserId { get; set; }
 		private string Host { get; set; }
@@ -30,13 +31,15 @@ namespace BarBot
 
 		public void Setup()
 		{
-			#if __IOS__
+#if __IOS__
 				Websockets.Ios.WebsocketConnection.Link();
-			#endif
-
-			#if __ANDROID__
+#else
+#if __ANDROID__
 				Websockets.Droid.WebsocketConnection.Link();
-			#endif
+#else
+			Websockets.Net.WebsocketConnection.Link();
+#endif
+#endif
 		}
 
 		public async void Connect()
@@ -48,7 +51,7 @@ namespace BarBot
 			connection.OnOpened += Connection_OnOpened;
 
 			//Timeout / Setup
-			Failed = false;
+			Echo = Failed = false;
 			Timeout();
 
 			Debug.WriteLine("connecting to server...");
@@ -63,6 +66,19 @@ namespace BarBot
 			{
 				return;
 			}
+		}
+
+		public async void Request(string json)
+		{
+			connection.Send(json);
+
+			while (!Echo && !Failed)
+			{
+				await Task.Delay(10);
+			}
+
+			if (!Echo)
+				return;
 		}
 
 		private void Connection_OnOpened()
@@ -84,17 +100,17 @@ namespace BarBot
 
 		private void Connection_OnError(string obj)
 		{
-			#if __MOBILE__
+#if __MOBILE__
 				Trace.Write("ERROR " + obj);
-			#endif
+#endif
 			Failed = true;
 		}
 
 		private void Connection_OnLog(string obj)
 		{
-			#if __MOBILE__
+#if __MOBILE__
 				Trace.Write(obj);
-			#endif
+#endif
 		}
 	}
 }
