@@ -37,6 +37,7 @@ namespace BarBot.iOS
 
 			var DataManager = new DataManager();
 			DataManager.RequestDataFromServer("get_recipes_for_barbot", Args);
+			DataManager.RequestDataFromServer("get_ingredients_for_barbot", Args);
 
 			return true;
 		}

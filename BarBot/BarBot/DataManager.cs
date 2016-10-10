@@ -13,13 +13,13 @@ namespace BarBot
 {
 	public class DataManager
 	{
-		private WebSocketClient ws;
+		public WebSocketClient socket { get; set; }
 
 		public DataManager()
 		{
-			ws = new WebSocketClient("barbot_805d2a", "user_348604", "192.168.1.80");
-			ws.Setup();
-			ws.Connect();
+			socket = new WebSocketClient("barbot_805d2a", "user_348604", "192.168.1.80");
+			socket.Setup();
+			socket.Connect();
 		}
 
 		public void RequestDataFromServer(string command, Dictionary<string, string> args)
@@ -31,7 +31,11 @@ namespace BarBot
 				{ "args", args }
 			};
 
-			ws.Request(JsonConvert.SerializeObject(json, Formatting.Indented));
+			socket.Request(JsonConvert.SerializeObject(json, Formatting.Indented));
+		}
+
+		public void ParseResponseDataFromServer(string json)
+		{
 		}
 	}
 }
