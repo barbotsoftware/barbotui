@@ -10,9 +10,9 @@ namespace BarBot
 {
 	public class Constants
 	{
-		public Constants()
-		{
-		}
+        public const string GetRecipesForBarbot = "get_recipes_for_barbot";
+        public const string Command = "command";
+        public const string Response = "response";
 	}
 }
 

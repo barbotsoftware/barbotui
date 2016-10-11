@@ -29,6 +29,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="WebSocket\Message.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Model\Recipe.cs" />
@@ -39,6 +40,8 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="WebSocketClient.cs" />
     <Compile Include="DataManager.cs" />
+    <Compile Include="WebSocket\WebSocketEvents.cs" />
+    <Compile Include="WebSocket\WebSocketHandler.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -50,6 +53,9 @@
     </Reference>
     <Reference Include="Websockets.Net">
       <HintPath>..\packages\Websockets.Pcl.1.1.9\lib\net45\Websockets.Net.dll</HintPath>
+    </Reference>
+    <Reference Include="Websockets.Universal">
+      <HintPath>..\..\..\..\..\.nuget\packages\Websockets.Pcl\1.1.9\lib\uap10.0\Websockets.Universal.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
