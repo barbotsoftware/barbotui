@@ -13,6 +13,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Model;
+using BarBot.WebSocket;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 

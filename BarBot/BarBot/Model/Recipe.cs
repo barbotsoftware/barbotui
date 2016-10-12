@@ -1,4 +1,5 @@
-﻿/*
+﻿using System.ComponentModel;
+/*
  * Recipe.cs
  * BarBot
  * 
@@ -8,12 +9,53 @@
 
 namespace BarBot.Model
 {
-	public class Recipe : JsonModelObject
+	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string Img { get; set; }
-		public Step[] Steps { get; set; }
+        private string _id;
+        private string _name;
+        private string _img;
+        private Step[] _steps;
+
+		public string Id
+        {
+            get { return _id; }
+            set
+            {
+                _id = value;
+                OnPropertyChanged("Id");
+            }
+        }
+
+		public string Name
+        {
+            get { return _name; }
+            set
+            {
+                _name = value;
+                OnPropertyChanged("Name");
+            }
+        }
+
+		public string Img
+        {
+            get { return _img; }
+            set
+            {
+                _img = value;
+                OnPropertyChanged("Img");
+            }
+        }
+		public Step[] Steps
+        {
+            get { return _steps; }
+            set
+            {
+                _steps = value;
+                OnPropertyChanged("Steps");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
 
 		public Recipe()
 		{
@@ -37,5 +79,10 @@ namespace BarBot.Model
 
 			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
     }
 }
