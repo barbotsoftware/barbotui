@@ -16,7 +16,7 @@ using BarBot.Model;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace BarBot.UserControls
+namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_RecipeTile : UserControl
     {

@@ -12,5 +12,6 @@
             <TextBox x:Name="HelloMessage" Text="Hello, BarBot!" Margin="10" IsReadOnly="True"/>
             <Button x:Name="Button" Content="Fuck My Shit Up Fam"  Margin="10" HorizontalAlignment="Center" Click="Button_Click"/>
         </StackPanel>
+        <Frame Name="ContentFrame"></Frame>
     </Grid>
 </Page>

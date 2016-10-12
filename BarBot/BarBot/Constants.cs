@@ -13,6 +13,7 @@ namespace BarBot
         public const string GetRecipesForBarbot = "get_recipes_for_barbot";
         public const string Command = "command";
         public const string Response = "response";
-	}
+        public const int Timeout = 10000;
+    }
 }
 

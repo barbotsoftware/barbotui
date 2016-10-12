@@ -30,8 +30,6 @@ namespace BarBot.WebSocket
 #endif
 
             connection = Websockets.WebSocketFactory.Create();
-            connection.OnLog += Connection_OnLog;
-            connection.OnError += Connection_OnError; ;
             connection.OnMessage += Connection_OnMessage;
             connection.OnOpened += Connection_OnOpened;
         }
@@ -86,14 +84,11 @@ namespace BarBot.WebSocket
             }
         }
 
-        private void Connection_OnError(string obj)
+        private async void Timeout()
         {
-            
-        }
+            await Task.Delay(Constants.Timeout);
 
-        private void Connection_OnLog(string obj)
-        {
-            
+            failed = true;
         }
     }
 }

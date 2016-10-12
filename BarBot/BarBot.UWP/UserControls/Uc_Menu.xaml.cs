@@ -17,7 +17,7 @@ using BarBot.WebSocket;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace BarBot.UserControls
+namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_Menu : UserControl
     {
@@ -34,12 +34,12 @@ namespace BarBot.UserControls
         {
             socket = new WebSocketHandler();
 
-            bool success = await socket.OpenConnection("ws://192.168.1.41:8000?id=barbot_5cf502");
+            bool success = await socket.OpenConnection("ws://192.168.1.36:8000?id=barbot_805d2a");
 
             if (success)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", "barbot_5cf502");
+                data.Add("barbot_id", "barbot_805d2a");
 
                 Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
