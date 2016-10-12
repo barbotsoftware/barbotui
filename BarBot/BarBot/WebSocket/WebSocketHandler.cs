@@ -19,7 +19,15 @@ namespace BarBot.WebSocket
 
         public WebSocketHandler()
         {
-            Websockets.Universal.WebsocketConnection.Link();
+#if __IOS__
+			Websockets.Ios.WebsocketConnection.Link();
+#else
+#if __ANDROID__
+			Websockets.Droid.WebsocketConnection.Link();
+#else
+			Websockets.Universal.WebsocketConnection.Link();
+#endif
+#endif
 
             connection = Websockets.WebSocketFactory.Create();
             connection.OnLog += Connection_OnLog;

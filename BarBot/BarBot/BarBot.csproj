@@ -38,8 +38,6 @@
     <Compile Include="Model\JsonModelObject.cs" />
     <Compile Include="Model\Step.cs" />
     <Compile Include="Model\Event.cs" />
-    <Compile Include="WebSocketClient.cs" />
-    <Compile Include="DataManager.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
   </ItemGroup>
