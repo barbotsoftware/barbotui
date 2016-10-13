@@ -13,12 +13,13 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Model;
+using System.ComponentModel;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls
 {
-    public sealed partial class Uc_RecipeTile : UserControl
+    public sealed partial class Uc_RecipeTile : UserControl, INotifyPropertyChanged
     {
         private Recipe recipe;
 
@@ -40,7 +41,15 @@ namespace BarBot.UWP.UserControls
             set
             {
                 recipe = value;
+                OnPropertyChanged("Recipe");
             }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

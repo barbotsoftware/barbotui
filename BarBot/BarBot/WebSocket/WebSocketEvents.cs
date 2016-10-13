@@ -25,5 +25,22 @@ namespace BarBot.WebSocket
                 get { return recipes; }
             }
         }
+
+        public delegate void GetRecipeDetailsEventHandler(object sender, GetRecipeDetailsEventArgs args);
+
+        public class GetRecipeDetailsEventArgs : EventArgs
+        {
+            private Recipe recipe;
+
+            public GetRecipeDetailsEventArgs(Recipe recipe)
+            {
+                this.recipe = recipe;
+            }
+
+            public Recipe Recipe
+            {
+                get { return this.recipe; }
+            }
+        }
     }
 }

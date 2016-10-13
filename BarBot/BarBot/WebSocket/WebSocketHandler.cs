@@ -15,7 +15,12 @@ namespace BarBot.WebSocket
 
         private bool failed = false;
 
+        #region Events
+
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
+        public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
+
+        #endregion
 
         public WebSocketHandler()
         {
@@ -80,6 +85,10 @@ namespace BarBot.WebSocket
                 case Constants.GetRecipesForBarbot:
                     List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(message.Data["recipes"].ToString());
                     GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(recipes));
+                    break;
+                case Constants.GetRecipeDetails:
+                    Recipe recipe = new Recipe(message.Data["recipe"].ToString());
+                    GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
                     break;
             }
         }
