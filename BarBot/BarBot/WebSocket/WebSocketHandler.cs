@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Websockets.Universal;
+using Websockets.Ios;
 using BarBot.Model;
 using Newtonsoft.Json;
 

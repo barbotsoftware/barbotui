@@ -1,6 +1,6 @@
-﻿using Foundation;
+﻿using BarBot.iOS.Menu;
+using Foundation;
 using UIKit;
-using System.Collections.Generic;
 
 namespace BarBot.iOS
 {
@@ -22,7 +22,7 @@ namespace BarBot.iOS
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var controller = new HomeViewController();
+			var controller = new MenuCollectionViewController(new UICollectionViewFlowLayout());
 			var navController = new UINavigationController(controller);
 
 			Window.RootViewController = navController;

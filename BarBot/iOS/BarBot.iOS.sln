@@ -1,0 +1,23 @@
+
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2012
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot.iOS", "BarBot.iOS.csproj", "{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|iPhoneSimulator = Debug|iPhoneSimulator
+		Release|iPhone = Release|iPhone
+		Release|iPhoneSimulator = Release|iPhoneSimulator
+		Debug|iPhone = Debug|iPhone
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Release|iPhone.ActiveCfg = Release|iPhone
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Release|iPhone.Build.0 = Release|iPhone
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Debug|iPhone.ActiveCfg = Debug|iPhone
+		{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}.Debug|iPhone.Build.0 = Debug|iPhone
+	EndGlobalSection
+EndGlobal

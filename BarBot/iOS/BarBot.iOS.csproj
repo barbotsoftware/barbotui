@@ -96,6 +96,9 @@
     <Reference Include="WebSockets.PCL">
       <HintPath>..\packages\Websockets.Pcl.1.1.9\lib\xamarinios10\WebSockets.PCL.dll</HintPath>
     </Reference>
+    <Reference Include="Square.SocketRocket">
+      <HintPath>..\packages\Square.SocketRocket.0.5.0.1\lib\Xamarin.iOS\Square.SocketRocket.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.csproj">
@@ -112,7 +115,7 @@
     <Folder Include="ViewControllers\" />
     <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
     <Folder Include="Images\" />
-    <Folder Include="New Folder\" />
+    <Folder Include="Menu\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -131,6 +134,8 @@
     <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
     <Compile Include="ViewControllers\BaseViewController.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="Menu\MenuCollectionViewController.cs" />
+    <Compile Include="Menu\RecipeCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Images\180iphoneapp.png" />

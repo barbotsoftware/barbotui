@@ -16,7 +16,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
+    <DefineConstants>DEBUG;__IOS__;__ANDROID__;</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
@@ -54,6 +54,9 @@
     </Reference>
     <Reference Include="Websockets.Universal">
       <HintPath>..\..\..\..\..\.nuget\packages\Websockets.Pcl\1.1.9\lib\uap10.0\Websockets.Universal.dll</HintPath>
+    </Reference>
+    <Reference Include="Websockets.Ios">
+      <HintPath>..\packages\Websockets.Pcl.1.1.9\lib\xamarinios10\Websockets.Ios.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
