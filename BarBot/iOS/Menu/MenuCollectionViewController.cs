@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using UIKit;
-using Foundation;
-using BarBot.WebSocket;
-using BarBot.Model;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using UIKit;
 using CoreGraphics;
-using System.Drawing;
+using BarBot.Model;
+using BarBot.WebSocket;
 
 namespace BarBot.iOS.Menu
 {
@@ -27,7 +24,10 @@ namespace BarBot.iOS.Menu
 
 			source = new MenuSource();
 			source.FontSize = 11f;
-			source.ImageViewSize = new SizeF(70, 52.64f);
+			//source.ImageViewSize = new CGRect(CollectionView.Bounds.X,
+			//                                  CollectionView.Bounds.Y,
+			//                                  (CollectionView.Frame.Width / 2.0f) - 4.0f,
+			//                                  CollectionView.Frame.Height - 10.0f);
 
 			CollectionView.RegisterClassForCell(typeof(RecipeCell), RecipeCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
@@ -40,14 +40,14 @@ namespace BarBot.iOS.Menu
 		{
 			socket = new WebSocketHandler();
 
-			bool success = await socket.OpenConnection("ws://localhost:8000?id=barbot_805d2a");
+			bool success = await socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
 
 			if (success)
 			{
-				Dictionary<String, Object> data = new Dictionary<String, Object>();
-				data.Add("barbot_id", "barbot_805d2a");
+				var data = new Dictionary<string, object>();
+				data.Add("barbot_id", Constants.BarBotId);
 
-				Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
+				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
 				socket.GetRecipesEvent += Socket_GetRecipesEvent;
 

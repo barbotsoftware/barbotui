@@ -22,7 +22,7 @@ namespace BarBot.iOS
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var controller = new MenuCollectionViewController(new UICollectionViewFlowLayout());
+			var controller = new MenuCollectionViewController(new GridLayout());
 			var navController = new UINavigationController(controller);
 
 			Window.RootViewController = navController;

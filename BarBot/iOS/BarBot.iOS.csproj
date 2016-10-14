@@ -133,10 +133,11 @@
     <Compile Include="ViewControllers\RegisterViewController.cs" />
     <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
     <Compile Include="ViewControllers\BaseViewController.cs" />
-    <Compile Include="Constants.cs" />
+    <Compile Include="Color.cs" />
     <Compile Include="Menu\MenuCollectionViewController.cs" />
     <Compile Include="Menu\RecipeCell.cs" />
     <Compile Include="Menu\MenuSource.cs" />
+    <Compile Include="Menu\GridLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Images\180iphoneapp.png" />
