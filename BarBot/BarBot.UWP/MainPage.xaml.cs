@@ -27,10 +27,7 @@ namespace BarBot.UWP
         public MainPage()
         {
             this.InitializeComponent();
-        }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
             ContentFrame.Content = new Uc_Menu();
         }
     }

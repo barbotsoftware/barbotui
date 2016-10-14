@@ -9,10 +9,11 @@
 using System;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
+using System.ComponentModel;
 
 namespace BarBot.Model
 {
-	public abstract class JsonModelObject
+	public abstract class JsonModelObject : INotifyPropertyChanged 
 	{
 		JsonSerializerSettings JsonSettings { get; set; }
 
@@ -52,5 +53,12 @@ namespace BarBot.Model
 			var obj = JsonConvert.DeserializeObject(json, type, JsonSettings);
 			return obj;
 		}
-	}
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+    }
 }

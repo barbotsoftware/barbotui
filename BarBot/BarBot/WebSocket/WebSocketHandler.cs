@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Websockets.Universal;
+#if __IOS__
 using Websockets.Ios;
+#endif
 using BarBot.Model;
 using Newtonsoft.Json;
 
@@ -16,12 +18,12 @@ namespace BarBot.WebSocket
 
         private bool failed = false;
 
-        #region Events
+#region Events
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
         public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
 
-        #endregion
+#endregion
 
         public WebSocketHandler()
         {

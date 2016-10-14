@@ -55,8 +55,6 @@ namespace BarBot.Model
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
 		public Recipe()
 		{
 		}
@@ -79,10 +77,5 @@ namespace BarBot.Model
 
 			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
     }
 }
