@@ -5,32 +5,42 @@ using Foundation;
 using BarBot.WebSocket;
 using BarBot.Model;
 using System.Threading.Tasks;
+using CoreGraphics;
+using System.Drawing;
 
 namespace BarBot.iOS.Menu
 {
 	public class MenuCollectionViewController : UICollectionViewController
 	{
-		static NSString recipeCellId = new NSString("RecipeCell");
 		WebSocketHandler socket;
-		List<Recipe> recipes;
+		private MenuSource source;
 
 		public MenuCollectionViewController(UICollectionViewLayout layout) : base(layout)
 		{
-			recipes = new List<Recipe>();
 		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			CollectionView.RegisterClassForCell(typeof(RecipeCell), recipeCellId);
-			init();
+			Title = "BarBot";
+			CollectionView.BackgroundColor = UIColor.White;
+
+			source = new MenuSource();
+			source.FontSize = 11f;
+			source.ImageViewSize = new SizeF(70, 52.64f);
+
+			CollectionView.RegisterClassForCell(typeof(RecipeCell), RecipeCell.CellID);
+			CollectionView.ShowsHorizontalScrollIndicator = false;
+			CollectionView.Source = source;
+
+			connectWebSocket();
 		}
 
-		public async void init()
+		public async void connectWebSocket()
 		{
 			socket = new WebSocketHandler();
 
-			bool success = await socket.OpenConnection("ws://192.168.1.36:8000?id=barbot_805d2a");
+			bool success = await socket.OpenConnection("ws://localhost:8000?id=barbot_805d2a");
 
 			if (success)
 			{
@@ -49,29 +59,12 @@ namespace BarBot.iOS.Menu
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				this.recipes = args.Recipes;
+				foreach (Recipe r in args.Recipes)
+				{
+					source.Rows.Add(r);
+					CollectionView.ReloadData();
+				}
 			}));
-		}
-
-		public override nint NumberOfSections(UICollectionView collectionView)
-		{
-			return 1;
-		}
-
-		public override nint GetItemsCount(UICollectionView collectionView, nint section)
-		{
-			return recipes.Count;
-		}
-
-		public override UICollectionViewCell GetCell(UICollectionView collectionView, Foundation.NSIndexPath indexPath)
-		{
-			var recipeCell = (RecipeCell)collectionView.DequeueReusableCell(recipeCellId, indexPath);
-
-			var recipe = recipes[indexPath.Row];
-
-			recipeCell.Recipe = recipe;
-
-			return recipeCell;
 		}
 	}
 }
