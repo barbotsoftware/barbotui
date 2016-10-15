@@ -10,8 +10,6 @@ namespace BarBot.iOS.Menu
 	public class MenuSource : UICollectionViewSource
 	{
 		public List<Recipe> Rows { get; private set; }
-		public float FontSize { get; set; }
-		//public CGRect ImageViewSize { get; set; }
 
 		public MenuSource()
 		{
@@ -35,14 +33,14 @@ namespace BarBot.iOS.Menu
 
 		public override void ItemHighlighted(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			//var cell = (RecipeCell)collectionView.CellForItem(indexPath);
-			//cell.ImageView.Alpha = 0.5f;
+			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
+			cell.ImageView.Alpha = 0.5f;
 		}
 
 		public override void ItemUnhighlighted(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			//var cell = (RecipeCell)collectionView.CellForItem(indexPath);
-			//cell.ImageView.Alpha = 1;
+			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
+			cell.ImageView.Alpha = 1;
 
 			Recipe row = Rows[indexPath.Row];
 		}
@@ -53,7 +51,7 @@ namespace BarBot.iOS.Menu
 
 			Recipe row = Rows[indexPath.Row];
 
-			cell.UpdateRow(row, FontSize);//, ImageViewSize);
+			cell.UpdateRow(row);
 
 			return cell;
 		}

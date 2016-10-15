@@ -1,16 +1,16 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
-using CoreGraphics;
 using BarBot.Model;
 using BarBot.WebSocket;
+using CoreGraphics;
 
 namespace BarBot.iOS.Menu
 {
 	public class MenuCollectionViewController : UICollectionViewController
 	{
 		WebSocketHandler socket;
-		private MenuSource source;
+		MenuSource source;
 
 		public MenuCollectionViewController(UICollectionViewLayout layout) : base(layout)
 		{
@@ -23,11 +23,6 @@ namespace BarBot.iOS.Menu
 			CollectionView.BackgroundColor = UIColor.White;
 
 			source = new MenuSource();
-			source.FontSize = 11f;
-			//source.ImageViewSize = new CGRect(CollectionView.Bounds.X,
-			//                                  CollectionView.Bounds.Y,
-			//                                  (CollectionView.Frame.Width / 2.0f) - 4.0f,
-			//                                  CollectionView.Frame.Height - 10.0f);
 
 			CollectionView.RegisterClassForCell(typeof(RecipeCell), RecipeCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;

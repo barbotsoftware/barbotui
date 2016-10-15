@@ -12,7 +12,7 @@ namespace BarBot.iOS.Menu
 			nfloat screenWidth = screenRect.Size.Width;
 			nfloat screenHeight = screenRect.Size.Height;
 			nfloat cellWidth = screenWidth / 2.0f;
-			nfloat cellHeight = (screenHeight / 2.0f) - 50.0f;
+			nfloat cellHeight = (screenHeight / 2.0f) - 100.0f;
 
 			ItemSize = new CGSize(cellWidth, cellHeight);
 			SectionInset = new UIEdgeInsets(0, 0, 0, 0);

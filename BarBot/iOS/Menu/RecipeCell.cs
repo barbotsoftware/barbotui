@@ -1,4 +1,6 @@
-﻿using CoreGraphics;
+﻿using System.Net.Http;
+using System.Threading.Tasks;
+using CoreGraphics;
 using Foundation;
 using UIKit;
 using BarBot.Model;
@@ -9,7 +11,7 @@ namespace BarBot.iOS.Menu
 	{
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel LabelView;
-		//public UIImageView ImageView;
+		public UIImageView ImageView;
 
 		[Export("initWithFrame:")]
 		public RecipeCell(CGRect Frame) : base(Frame)
@@ -19,32 +21,45 @@ namespace BarBot.iOS.Menu
 			ContentView.BackgroundColor = UIColor.White;
 			//ContentView.Transform = CGAffineTransform.MakeScale(0.8f, 0.8f);
 
-			//ImageView = new UIImageView 
-			//{
-			//	ContentMode = UIViewContentMode.ScaleToFill	
-			//};
-			//ContentView.AddSubview(ImageView);
+			ImageView = new UIImageView();
+			ContentView.AddSubview(ImageView);
 
 			LabelView = new UILabel
 			{
 				TextColor = Color.BarBotBlue,
-				TextAlignment = UITextAlignment.Center
+				TextAlignment = UITextAlignment.Center,
+				AdjustsFontSizeToFitWidth = true
 			};
 			ContentView.AddSubview(LabelView);
 		}
 
-		public void UpdateRow(Recipe element, float fontSize)//, CGRect imageViewSize)
+		public async void UpdateRow(Recipe element)
 		{
 			LabelView.Text = element.Name;
-			//ImageView.Image = element.Img; load image from server
+			ImageView.Image = await LoadImage(element.Img);
 
-			LabelView.Font = UIFont.FromName("HelveticaNeue-Bold", fontSize);
+			//LabelView.Font = UIFont.FromName("HelveticaNeue-Bold", fontSize);
 
-			//ImageView.Frame = new CGRect(0, 0, imageViewSize.Width, imageViewSize.Height);
+			CGPoint point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			CGSize size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Width * (3.0 / 4.0));
+
+			ImageView.Frame = new CGRect(point, size);
+			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
 			LabelView.Frame = new CGRect(ContentView.Frame.X,
-			                             ContentView.Frame.Y,
+			                             ContentView.Frame.Bottom - 35.0f,
 			                             ContentView.Frame.Width,
-			                             ContentView.Frame.Height);
+			                             24.0f);
+		}
+
+		public async Task<UIImage> LoadImage(string imageUrl)
+		{
+			var httpClient = new HttpClient();
+
+			// await! control returns to the caller and the task continues to run on another thread
+			var contents = await httpClient.GetByteArrayAsync(imageUrl);
+
+			// load from bytes
+			return UIImage.LoadFromData(NSData.FromArray(contents));
 		}
 	}
 }
