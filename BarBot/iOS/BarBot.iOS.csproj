@@ -117,6 +117,7 @@
     <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
     <Folder Include="Images\" />
     <Folder Include="Menu\" />
+    <Folder Include="Order\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -139,9 +140,14 @@
     <Compile Include="Menu\RecipeCell.cs" />
     <Compile Include="Menu\MenuSource.cs" />
     <Compile Include="Menu\GridLayout.cs" />
+    <Compile Include="Order\RecipeDetailViewController.cs" />
+    <Compile Include="BarBotNavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Images\180iphoneapp.png" />
+    <BundleResource Include="Resources\JuliusSansOne-Regular.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </BundleResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

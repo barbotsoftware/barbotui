@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using UIKit;
 using BarBot.Model;
 using BarBot.WebSocket;
-using CoreGraphics;
 
 namespace BarBot.iOS.Menu
 {
@@ -20,7 +19,7 @@ namespace BarBot.iOS.Menu
 		{
 			base.ViewDidLoad();
 			Title = "BarBot";
-			CollectionView.BackgroundColor = UIColor.White;
+			CollectionView.BackgroundColor = Color.RecipeCellGray;
 
 			source = new MenuSource();
 
@@ -60,6 +59,11 @@ namespace BarBot.iOS.Menu
 					CollectionView.ReloadData();
 				}
 			}));
+		}
+
+		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
+		{
+			base.PrepareForSegue(segue, sender);
 		}
 	}
 }

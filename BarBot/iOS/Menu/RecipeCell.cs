@@ -16,10 +16,9 @@ namespace BarBot.iOS.Menu
 		[Export("initWithFrame:")]
 		public RecipeCell(CGRect Frame) : base(Frame)
 		{
-			ContentView.Layer.BorderColor = UIColor.LightGray.CGColor;
+			ContentView.Layer.BorderColor = Color.BorderGray.CGColor;
 			ContentView.Layer.BorderWidth = 1.0f / UIScreen.MainScreen.NativeScale;
-			ContentView.BackgroundColor = UIColor.White;
-			//ContentView.Transform = CGAffineTransform.MakeScale(0.8f, 0.8f);
+			ContentView.BackgroundColor = Color.RecipeCellGray;
 
 			ImageView = new UIImageView();
 			ContentView.AddSubview(ImageView);
@@ -38,10 +37,10 @@ namespace BarBot.iOS.Menu
 			LabelView.Text = element.Name;
 			ImageView.Image = await LoadImage(element.Img);
 
-			//LabelView.Font = UIFont.FromName("HelveticaNeue-Bold", fontSize);
+			LabelView.Font = UIFont.FromName("JuliusSansOne-Regular", 20f);
 
-			CGPoint point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			CGSize size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Width * (3.0 / 4.0));
+			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Width * (3.0 / 4.0));
 
 			ImageView.Frame = new CGRect(point, size);
 			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);

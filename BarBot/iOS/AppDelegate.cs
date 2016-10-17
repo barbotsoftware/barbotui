@@ -23,7 +23,7 @@ namespace BarBot.iOS
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var controller = new MenuCollectionViewController(new GridLayout());
-			var navController = new UINavigationController(controller);
+			var navController = new BarBotNavigationController(controller);
 
 			Window.RootViewController = navController;
 

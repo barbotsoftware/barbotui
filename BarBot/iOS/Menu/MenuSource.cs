@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
-using CoreGraphics;
 using BarBot.Model;
 
 namespace BarBot.iOS.Menu
@@ -43,6 +42,11 @@ namespace BarBot.iOS.Menu
 			cell.ImageView.Alpha = 1;
 
 			Recipe row = Rows[indexPath.Row];
+		}
+
+		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
+		{
+			
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
