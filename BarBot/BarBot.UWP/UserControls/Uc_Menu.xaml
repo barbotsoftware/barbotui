@@ -10,6 +10,18 @@
     d:DesignWidth="400">
 
     <Grid>
-        <StackPanel Name="recipesStackPanel"></StackPanel>
+        <TextBlock Text="Menu" Foreground="#FFAAAAAA"></TextBlock>
+        <Grid Margin="0,24,0,0" Name="recipesGrid">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+                <ColumnDefinition Width="1*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"></RowDefinition>
+                <RowDefinition Height="1*"></RowDefinition>
+            </Grid.RowDefinitions>
+        </Grid>
     </Grid>
 </UserControl>

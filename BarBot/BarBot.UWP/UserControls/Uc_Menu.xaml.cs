@@ -34,12 +34,12 @@ namespace BarBot.UWP.UserControls
         {
             socket = new WebSocketHandler();
 
-            bool success = await socket.OpenConnection("ws://192.168.1.36:8000?id=barbot_805d2a");
+            bool success = await socket.OpenConnection(String.Format("{0}?id={1}", Constants.EndpointURL, Constants.BarbotId));
 
             if (success)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", "barbot_805d2a");
+                data.Add("barbot_id", Constants.BarbotId);
 
                 Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
@@ -54,12 +54,47 @@ namespace BarBot.UWP.UserControls
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                foreach (Recipe recipe in args.Recipes)
+                int count = 0;
+                for(int row = 0; row < recipesGrid.RowDefinitions.Count; row++)
                 {
-                    Uc_RecipeTile recipeTile = new Uc_RecipeTile();
-                    recipesStackPanel.Children.Add(recipeTile);
-                    recipeTile.Recipe.Name = recipe.Name;
+                    for(int col = 0; col < recipesGrid.ColumnDefinitions.Count; col++)
+                    {
+                        if (args.Recipes.Count > count)
+                        {
+                            Uc_RecipeTile recipeTile = new Uc_RecipeTile();
+                            recipeTile.Recipe = args.Recipes.ElementAt(count);
+                            Grid.SetColumn(recipeTile, col);
+                            Grid.SetRow(recipeTile, row);
+                            recipesGrid.Children.Add(recipeTile);
+                            count++;
+                        }
+                        else
+                        {
+                            break;
+                        }
+                    }
                 }
+            });
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            Dictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("recipe_id", "recipe_9aa19a");
+
+            Message message = new Message(Constants.Command, Constants.GetRecipeDetails, data);
+
+            socket.GetRecipesEvent += Socket_GetRecipesEvent1;
+
+            socket.sendMessage(message);
+        }
+
+        private async void Socket_GetRecipesEvent1(object sender, WebSocketEvents.GetRecipesEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () => 
+            {
+                
             });
         }
     }

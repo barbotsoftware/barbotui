@@ -7,9 +7,18 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
     d:DesignHeight="100"
-    d:DesignWidth="100">
-
-    <Grid Background="#FF910B0B" BorderBrush="White" BorderThickness="1">
-        <TextBlock Name="tb_RecipeName" Text="{Binding Path=Recipe.Name}"></TextBlock>
+    d:DesignWidth="100"
+    MinWidth="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"
+    MinHeight="{Binding ActualWidth, RelativeSource={RelativeSource Self}}">
+    
+    <Grid BorderThickness="1" BorderBrush="#FF383838">
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="Black" Offset="1"/>
+                <GradientStop Color="#FF212121"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        <TextBlock Name="tb_RecipeName" Text="{Binding Path=Recipe.Name}" Foreground="#FFA6A6A6"></TextBlock>
+        <Image Name="img_RecipeImage" Source="{Binding Path=Recipe.Img}"></Image>
     </Grid>
 </UserControl>
