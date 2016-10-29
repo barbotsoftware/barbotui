@@ -19,7 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Developer: Naveen Yadav (ULY8T46758)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchUseSGen>true</MtouchUseSGen>
@@ -29,6 +29,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <Optimize>true</Optimize>
@@ -84,6 +85,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -136,18 +138,16 @@
     <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
     <Compile Include="ViewControllers\BaseViewController.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="Menu\MenuCollectionViewController.cs" />
     <Compile Include="Menu\RecipeCell.cs" />
     <Compile Include="Menu\MenuSource.cs" />
     <Compile Include="Menu\GridLayout.cs" />
     <Compile Include="Order\RecipeDetailViewController.cs" />
     <Compile Include="BarBotNavigationController.cs" />
+    <Compile Include="Menu\MenuCollectionViewController.cs" />
   </ItemGroup>
   <ItemGroup>
-    <BundleResource Include="Images\180iphoneapp.png" />
-    <BundleResource Include="Resources\JuliusSansOne-Regular.ttf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </BundleResource>
+    <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
+    <BundleResource Include="Images\navigation_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

@@ -4,10 +4,8 @@ namespace BarBot.iOS
 {
 	struct Color
 	{
-		public static UIColor BarBotBlue = UIColor.FromRGB(0, 75, 153);
-		public static UIColor BackgroundGray = UIColor.FromRGB(34, 34, 34);
-		public static UIColor BorderGray = UIColor.FromRGB(97, 95, 95);
-		public static UIColor RecipeCellGray = UIColor.FromRGB(245, 245, 245);
+		public static UIColor BarBotBlue = UIColor.FromRGB(0/255.0f, 75/255.0f, 153/255.0f);
+		public static UIColor BackgroundGray = UIColor.FromRGBA(34/255.0f, 34/255.0f, 34/255.0f, 1);
 	}
 }
 

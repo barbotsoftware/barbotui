@@ -10,6 +10,7 @@ namespace BarBot.iOS.Menu
 	{
 		WebSocketHandler socket;
 		MenuSource source;
+		UIBarButtonItem customButton;
 
 		public MenuCollectionViewController(UICollectionViewLayout layout) : base(layout)
 		{
@@ -18,8 +19,18 @@ namespace BarBot.iOS.Menu
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			Title = "BarBot";
-			CollectionView.BackgroundColor = Color.RecipeCellGray;
+			Title = "DRINK MENU";
+			CollectionView.BackgroundColor = UIColor.Black;
+
+			customButton = new UIBarButtonItem(
+				UIImage.FromBundle("navigation_icon.png"),
+				UIBarButtonItemStyle.Plain,
+				(s, e) =>
+				{
+					System.Diagnostics.Debug.WriteLine("button tapped");
+				}
+			);
+			NavigationItem.LeftBarButtonItem = customButton;
 
 			source = new MenuSource();
 

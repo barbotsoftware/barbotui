@@ -1,4 +1,5 @@
 ﻿using UIKit;
+using CoreGraphics;
 
 namespace BarBot.iOS
 {
@@ -17,10 +18,18 @@ namespace BarBot.iOS
 		void NavBarStyle()
 		{
 			NavigationBar.TintColor = UIColor.White;
-			NavigationBar.BarTintColor = Color.BarBotBlue;
+			NavigationBar.BarTintColor = Color.BackgroundGray;
+			var NavBorder = new UIView(new CGRect(0,
+			                                      NavigationBar.Frame.Size.Height - 1, 
+			                                      NavigationBar.Frame.Size.Width, 
+			                                      4));
+			NavBorder.BackgroundColor = Color.BarBotBlue;
+			NavBorder.Opaque = true;
+			NavigationBar.AddSubview(NavBorder);
 			NavigationBar.TitleTextAttributes = new UIStringAttributes
 			{
-				ForegroundColor = UIColor.White
+				ForegroundColor = UIColor.White,
+				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
 			};
 		}
 

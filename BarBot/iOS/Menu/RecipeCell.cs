@@ -16,16 +16,16 @@ namespace BarBot.iOS.Menu
 		[Export("initWithFrame:")]
 		public RecipeCell(CGRect Frame) : base(Frame)
 		{
-			ContentView.Layer.BorderColor = Color.BorderGray.CGColor;
+			ContentView.Layer.BorderColor = Color.BackgroundGray.CGColor;
 			ContentView.Layer.BorderWidth = 1.0f / UIScreen.MainScreen.NativeScale;
-			ContentView.BackgroundColor = Color.RecipeCellGray;
+			ContentView.BackgroundColor = UIColor.Black;
 
 			ImageView = new UIImageView();
 			ContentView.AddSubview(ImageView);
 
 			LabelView = new UILabel
 			{
-				TextColor = Color.BarBotBlue,
+				TextColor = UIColor.White,
 				TextAlignment = UITextAlignment.Center,
 				AdjustsFontSizeToFitWidth = true
 			};
@@ -37,7 +37,7 @@ namespace BarBot.iOS.Menu
 			LabelView.Text = element.Name;
 			ImageView.Image = await LoadImage(element.Img);
 
-			LabelView.Font = UIFont.FromName("JuliusSansOne-Regular", 20f);
+			LabelView.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
 
 			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
 			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Width * (3.0 / 4.0));
@@ -45,9 +45,9 @@ namespace BarBot.iOS.Menu
 			ImageView.Frame = new CGRect(point, size);
 			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
 			LabelView.Frame = new CGRect(ContentView.Frame.X,
-			                             ContentView.Frame.Bottom - 35.0f,
+			                             ContentView.Frame.Y,
 			                             ContentView.Frame.Width,
-			                             24.0f);
+			                             ContentView.Frame.Height);
 		}
 
 		public async Task<UIImage> LoadImage(string imageUrl)

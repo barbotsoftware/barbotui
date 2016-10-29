@@ -47,6 +47,7 @@
 	<key>UIAppFonts</key>
 	<array>
 		<string>JuliusSansOne-Regular.ttf</string>
+		<string>Microsoft-Yi-Baiti.ttf</string>
 	</array>
 </dict>
 </plist>
