@@ -9,19 +9,10 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
-        <TextBlock Text="Menu" Foreground="#FFAAAAAA"></TextBlock>
-        <Grid Margin="0,24,0,0" Name="recipesGrid">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-                <ColumnDefinition Width="1*"></ColumnDefinition>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="1*"></RowDefinition>
-                <RowDefinition Height="1*"></RowDefinition>
-            </Grid.RowDefinitions>
-        </Grid>
+    <Grid Margin="30">
+        <Button Click="Button_Click">Reload</Button>
+        <Canvas Name="recipeTileCanvas">
+            
+        </Canvas>
     </Grid>
 </UserControl>

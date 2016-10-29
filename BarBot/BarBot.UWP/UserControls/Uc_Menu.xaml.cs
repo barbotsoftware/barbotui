@@ -54,48 +54,63 @@ namespace BarBot.UWP.UserControls
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                int count = 0;
-                for(int row = 0; row < recipesGrid.RowDefinitions.Count; row++)
+                for(int i = 0; i < 10; i++)
                 {
-                    for(int col = 0; col < recipesGrid.ColumnDefinitions.Count; col++)
+                    if(args.Recipes.ElementAt(i) != null)
                     {
-                        if (args.Recipes.Count > count)
-                        {
-                            Uc_RecipeTile recipeTile = new Uc_RecipeTile();
-                            recipeTile.Recipe = args.Recipes.ElementAt(count);
-                            Grid.SetColumn(recipeTile, col);
-                            Grid.SetRow(recipeTile, row);
-                            recipesGrid.Children.Add(recipeTile);
-                            count++;
-                        }
-                        else
-                        {
-                            break;
-                        }
+                        Uc_RecipeTile tile = new Uc_RecipeTile();
+                        tile.Recipe = args.Recipes.ElementAt(i);
+                        Point pos = getPoint(i);
+                        Canvas.SetLeft(tile, pos.X);
+                        Canvas.SetTop(tile, pos.Y);
+                        recipeTileCanvas.Children.Add(tile);
                     }
                 }
             });
         }
 
-        private void button1_Click(object sender, RoutedEventArgs e)
+        private Point getPoint(int i)
         {
-            Dictionary<String, Object> data = new Dictionary<String, Object>();
-            data.Add("recipe_id", "recipe_9aa19a");
+            int pos = i % 4;
+            int r = i / 4;
 
-            Message message = new Message(Constants.Command, Constants.GetRecipeDetails, data);
+            int top = 0;
+            int left = 0; 
 
-            socket.GetRecipesEvent += Socket_GetRecipesEvent1;
+            if(pos == 0)
+            {
+                top = 0;
+                left = 350 * r;
+            }
+            else if (pos == 1)
+            {
+                top = 180;
+                left = 350 * r;
+            }
+            else if(pos == 2)
+            {
+                top = 80;
+                left = 350 * r + 175;
+            }
+            else if(pos == 3)
+            {
+                top = 280;
+                left = 350 * r + 175;
+            }
 
-            socket.sendMessage(message);
+            return new Point(left, top);
         }
 
-        private async void Socket_GetRecipesEvent1(object sender, WebSocketEvents.GetRecipesEventArgs args)
+        private void Button_Click(object sender, RoutedEventArgs e)
         {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () => 
-            {
-                
-            });
+            Dictionary<String, Object> data = new Dictionary<String, Object>();
+            data.Add("barbot_id", Constants.BarbotId);
+
+            Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
+
+            socket.GetRecipesEvent += Socket_GetRecipesEvent;
+
+            socket.sendMessage(message);
         }
     }
 }
