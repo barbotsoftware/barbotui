@@ -21,6 +21,7 @@ namespace BarBot.iOS.Menu
 			ContentView.BackgroundColor = UIColor.Black;
 
 			ImageView = new UIImageView();
+			ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			ContentView.AddSubview(ImageView);
 
 			LabelView = new UILabel
@@ -40,7 +41,7 @@ namespace BarBot.iOS.Menu
 			LabelView.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
 
 			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Width * (3.0 / 4.0));
+			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
 
 			ImageView.Frame = new CGRect(point, size);
 			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
