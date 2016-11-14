@@ -1,20 +1,21 @@
-# BarBot Mobile Application
-BarBot Mobile allows consumers to interact with BarBot machines on their smart phones. After signing up with Google, Facebook or E-mail, users can search for nearby BarBot locations, browse drink menus and create custom drinks. Enter payment info once using Apply Pay, Android Pay, Venmo or Credit/Debit, and never forget to close your tab again. Skip lines at the bar by ordering from the app, and pouring from a BarBot machine. BarBot Mobile allows the best experience for those looking for that perfectly mixed cocktail!
+# BarBot User Interface
+## Version 0.2.0
 
-## Project
-### BarBot.Shared
-### BarBot.Android
-### BarBot.iOS
+## Setup
+### Windows
+1. Download Visual Studio 2015
+
+### Mac
+1. Download Xcode
+2. Download Xamarin Studio
 
 ## Built With
+* C#/.NET (Xamarin v4.0.3)
+* Universal Windows App Development Tools
 
-* Xamarin Platform
-
-## Versioning
 ## Authors
-
-* **Naveen Yadav** - *Mobile Development Lead*
+* Alex Horstmann
+* Jan Horstmann
+* Naveen Yadav
 
 ## License
-
-## Acknowledgments

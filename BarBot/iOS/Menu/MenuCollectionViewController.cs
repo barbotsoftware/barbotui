@@ -32,7 +32,7 @@ namespace BarBot.iOS.Menu
 			);
 			NavigationItem.LeftBarButtonItem = customButton;
 
-			source = new MenuSource();
+			source = new MenuSource(this);
 
 			CollectionView.RegisterClassForCell(typeof(RecipeCell), RecipeCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
@@ -70,11 +70,6 @@ namespace BarBot.iOS.Menu
 					CollectionView.ReloadData();
 				}
 			}));
-		}
-
-		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
-		{
-			base.PrepareForSegue(segue, sender);
 		}
 	}
 }

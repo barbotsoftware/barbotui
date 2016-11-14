@@ -3,16 +3,19 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using BarBot.Model;
+using BarBot.iOS.Order;
 
 namespace BarBot.iOS.Menu
 {
 	public class MenuSource : UICollectionViewSource
 	{
 		public List<Recipe> Rows { get; private set; }
+		MenuCollectionViewController Controller;
 
-		public MenuSource()
+		public MenuSource(MenuCollectionViewController c)
 		{
 			Rows = new List<Recipe>();
+			Controller = c;
 		}
 
 		public override nint NumberOfSections(UICollectionView collectionView)
@@ -42,6 +45,8 @@ namespace BarBot.iOS.Menu
 			cell.ImageView.Alpha = 1;
 
 			Recipe row = Rows[indexPath.Row];
+			var recipeDetailViewController = new RecipeDetailViewController(row);
+			Controller.NavigationController.PushViewController(recipeDetailViewController, true);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
