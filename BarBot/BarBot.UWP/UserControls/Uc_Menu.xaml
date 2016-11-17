@@ -9,9 +9,9 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid Margin="30">
+    <Grid Margin="30" Height="1080" Width="1920">
         <Button Click="Button_Click">Reload</Button>
-        <Canvas Name="recipeTileCanvas">
+        <Canvas Name="recipeTileCanvas" Height="880" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center">
             
         </Canvas>
     </Grid>

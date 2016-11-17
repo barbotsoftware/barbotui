@@ -6,17 +6,17 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignWidth="200"
-    d:DesignHeight="200">
+    d:DesignWidth="306"
+    d:DesignHeight="360">
 
     <Canvas>
-        <Grid Canvas.Top="75" Canvas.Left="25" Width="150" Background="#33000000" Canvas.ZIndex="99">
-            <TextBlock Text="{Binding Path=Recipe.Name}" FontFamily="Microsoft Yi Baiti" FontSize="24" Typography.Capitals="AllSmallCaps" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <Grid Canvas.Top="150" Canvas.Left="40" Width="260" Background="#33000000" Canvas.ZIndex="99">
+            <TextBlock Text="{Binding Path=Recipe.Name}" FontFamily="Microsoft Yi Baiti" FontSize="40" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         </Grid>
-        <Path x:Name="hexagon" Stroke="#FF222222" StrokeThickness="5" Height="170" Width="200" 
+        <Path x:Name="hexagon" Stroke="#FF222222" StrokeThickness="8" Height="306" Width="360"
                   Loaded="hexagon_Loaded">
             <Path.Fill>
-                <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}"/>
+                <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>
             </Path.Fill>
         </Path>
     </Canvas>

@@ -72,7 +72,7 @@ namespace BarBot.UWP.UserControls
             figure.StartPoint = new Point(0.25 * width, 0);
             AddPoint(0.75 * width, 0);
             AddPoint(width, 0.5 * height);
-            AddPoint(0.75 * width, height + (0.5 * hexagon.StrokeThickness));
+            AddPoint(0.75 * width, height);
             AddPoint(0.25 * width, height);
             AddPoint(0, 0.5 * height);
             figure.IsClosed = true;
