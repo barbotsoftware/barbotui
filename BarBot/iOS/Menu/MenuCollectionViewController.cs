@@ -23,7 +23,7 @@ namespace BarBot.iOS.Menu
 			CollectionView.BackgroundColor = UIColor.Black;
 
 			customButton = new UIBarButtonItem(
-				UIImage.FromBundle("navigation_icon.png"),
+				UIImage.FromFile("Images/navigation_icon.png"),
 				UIBarButtonItemStyle.Plain,
 				(s, e) =>
 				{
@@ -31,6 +31,7 @@ namespace BarBot.iOS.Menu
 				}
 			);
 			NavigationItem.LeftBarButtonItem = customButton;
+			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
 
 			source = new MenuSource(this);
 
