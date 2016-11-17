@@ -54,6 +54,8 @@ namespace BarBot.UWP.UserControls
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
+                recipeTileCanvas.Children.Clear();
+
                 for(int i = 0; i < 10; i++)
                 {
                     if(args.Recipes.ElementAt(i) != null)
@@ -80,22 +82,22 @@ namespace BarBot.UWP.UserControls
             if(pos == 0)
             {
                 top = 0;
-                left = 350 * r;
+                left = 570 * r;
             }
             else if (pos == 1)
             {
-                top = 180;
-                left = 350 * r;
+                top = 320;
+                left = 570 * r;
             }
             else if(pos == 2)
             {
-                top = 80;
-                left = 350 * r + 175;
+                top = 160;
+                left = 570 * r + 285;
             }
             else if(pos == 3)
             {
-                top = 280;
-                left = 350 * r + 175;
+                top = 480;
+                left = 570 * r + 285;
             }
 
             return new Point(left, top);
