@@ -15,7 +15,7 @@ namespace BarBot.iOS.Order
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			Title = Recipe.Name;
+			Title = Recipe.Name.ToUpper();
 		}
 	}
 }

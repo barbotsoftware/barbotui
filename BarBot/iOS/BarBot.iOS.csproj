@@ -147,7 +147,9 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
-    <BundleResource Include="Images\navigation_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\navigation_icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>
