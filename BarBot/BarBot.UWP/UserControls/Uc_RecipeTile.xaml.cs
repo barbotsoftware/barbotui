@@ -52,6 +52,7 @@ namespace BarBot.UWP.UserControls
         private void hexagon_Loaded(object sender, RoutedEventArgs e)
         {
             Windows.UI.Xaml.Shapes.Path hexagon = sender as Windows.UI.Xaml.Shapes.Path;
+            hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width/2, 2) - Math.Pow(hexagon.Width / 4, 2));
             CreateDataPath(hexagon.Width, hexagon.Height);
         }
 
@@ -69,12 +70,24 @@ namespace BarBot.UWP.UserControls
             PathGeometry geometry = new PathGeometry();
             figure = new PathFigure();
 
-            figure.StartPoint = new Point(0.25 * width, 0);
-            AddPoint(0.75 * width, 0);
-            AddPoint(width, 0.5 * height);
-            AddPoint(0.75 * width, height);
-            AddPoint(0.25 * width, height);
-            AddPoint(0, 0.5 * height);
+            //double lineSegmentLength = width / 2;
+            //double segmentHeight = Math.Sqrt(Math.Pow(lineSegmentLength, 2) - Math.Pow(lineSegmentLength/2, 2));
+
+            double stroke = hexagon.StrokeThickness * 0.5;
+
+            figure.StartPoint = new Point(0.25 * width, 0 + stroke); // Top left
+
+            //LineSegment segment = new LineSegment();
+            //segment.Point = new Point(0.75 + 0.5 * hexagon.StrokeThickness, 0 + 0.5 * hexagon.StrokeThickness);
+            //figure.Segments.Add(segment);
+
+            //figure.Segments.Add(new LineSegment(new Point(0.75 * width, 0)));
+            
+            AddPoint( (0.75 * width), 0 + stroke); // Top right
+            AddPoint( width - stroke, (0.5 * height) ); // Mid Right
+            AddPoint( (0.75 * width), height - stroke); // bottom Right
+            AddPoint( (0.25 * width), height - stroke);  // Bottom Left
+            AddPoint(0 + stroke, 0.5 * height); // Middle Left
             figure.IsClosed = true;
             geometry.Figures.Add(figure);
             hexagon.Data = geometry;
@@ -83,8 +96,9 @@ namespace BarBot.UWP.UserControls
         private void AddPoint(double x, double y)
         {
             LineSegment segment = new LineSegment();
-            segment.Point = new Point(x + 0.5 * hexagon.StrokeThickness,
-                y + 0.5 * hexagon.StrokeThickness);
+            //segment.Point = new Point(x + 0.5 * hexagon.StrokeThickness,
+            //y - 0.5 * hexagon.StrokeThickness);
+            segment.Point = new Point(x, y);
             figure.Segments.Add(segment);
         }
 

@@ -77,26 +77,31 @@ namespace BarBot.UWP.UserControls
             int r = i / 4;
 
             int top = 0;
-            int left = 0; 
+            int left = 0;
 
-            if(pos == 0)
+            //311.7691453623979
+
+            if (pos == 0)
             {
-                top = 0;
+                top = 0; 
                 left = 570 * r;
             }
             else if (pos == 1)
             {
-                top = 320;
+                top = 325;
+                //top = 320;
                 left = 570 * r;
             }
             else if(pos == 2)
             {
-                top = 160;
+                top = 165;
+                //top = 160;
                 left = 570 * r + 285;
             }
             else if(pos == 3)
             {
-                top = 480;
+                top = 485;
+                //top = 480;
                 left = 570 * r + 285;
             }
 
