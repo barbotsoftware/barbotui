@@ -1,21 +1,22 @@
-﻿using UIKit;
+using Foundation;
+using System;
+using UIKit;
 using BarBot.ViewModel;
 
 namespace BarBot.iOS.Order
 {
-	public class RecipeDetailViewController : UIViewController
-	{
-		public RecipeViewModel ViewModel { get; private set; }
+    public partial class RecipeDetailViewController : UIViewController
+    {
+		public RecipeViewModel ViewModel { get; set; }
 
-		public RecipeDetailViewController(RecipeViewModel viewModel)
-		{
-			ViewModel = viewModel;
-		}
+		public RecipeDetailViewController (IntPtr handle) : base (handle)
+        {
+        }
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.RecipeName;
 		}
-	}
+    }
 }

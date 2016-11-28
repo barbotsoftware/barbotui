@@ -16,7 +16,6 @@ namespace BarBot.iOS
 			get;
 			set;
 		}
-		public static UIStoryboard Storyboard = UIStoryboard.FromName("Main", null);
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{

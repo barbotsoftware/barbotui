@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="1643">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+    </dependencies>
+    <scenes>
+        <scene sceneID="1642">
+            <objects>
+                <viewController id="1643" sceneMemberID="viewController" customClass="RecipeDetailViewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1640"/>
+                        <viewControllerLayoutGuide type="bottom" id="1641"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="1644">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1645" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="232" y="-82"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Images/navigation_icon.png" width="40" height="40"/>
+    </resources>
+</document>

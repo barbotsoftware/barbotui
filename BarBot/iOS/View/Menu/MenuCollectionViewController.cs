@@ -7,11 +7,11 @@ using BarBot.WebSocket;
 
 namespace BarBot.iOS.Menu
 {
-    public partial class MenuCollectionViewController : UICollectionViewController
+    public class MenuCollectionViewController : UICollectionViewController
     {
 		WebSocketHandler socket;
 		MenuSource source;
-		UIBarButtonItem customButton;
+		//UIBarButtonItem customButton;
 
         public MenuCollectionViewController (IntPtr handle) : base (handle)
         {
@@ -27,15 +27,15 @@ namespace BarBot.iOS.Menu
 			Title = "DRINK MENU";
 			CollectionView.BackgroundColor = UIColor.Black;
 
-			customButton = new UIBarButtonItem(
-				UIImage.FromFile("Images/navigation_icon.png"),
-				UIBarButtonItemStyle.Plain,
-				(s, e) =>
-				{
-					System.Diagnostics.Debug.WriteLine("button tapped");
-				}
-			);
-			NavigationItem.LeftBarButtonItem = customButton;
+			//customButton = new UIBarButtonItem(
+			//	UIImage.FromFile("Images/navigation_icon.png"),
+			//	UIBarButtonItemStyle.Plain,
+			//	(s, e) =>
+			//	{
+			//		System.Diagnostics.Debug.WriteLine("button tapped");
+			//	}
+			//);
+			//NavigationItem.LeftBarButtonItem = customButton;
 			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
 
 			source = new MenuSource(this);
@@ -76,14 +76,6 @@ namespace BarBot.iOS.Menu
 					CollectionView.ReloadData();
 				}
 			}));
-		}
-
-		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
-		{
-			if (segue.Identifier == "RecipeDetailSegue")
-			{
-				//var indexPath = CollectionView.GetIndex
-			}
 		}
 	}
 }

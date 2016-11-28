@@ -9,10 +9,10 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace BarBot.iOS.Menu
+namespace BarBot.iOS.Order
 {
-    [Register ("RecipeCell")]
-    partial class RecipeCell
+    [Register ("RecipeDetailViewController")]
+    partial class RecipeDetailViewController
     {
         void ReleaseDesignerOutlets ()
         {

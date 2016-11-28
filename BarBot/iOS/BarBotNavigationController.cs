@@ -4,7 +4,7 @@ using CoreGraphics;
 
 namespace BarBot.iOS
 {
-	public partial class BarBotNavigationController : UINavigationController
+	public class BarBotNavigationController : UINavigationController
 	{
 		public BarBotNavigationController(UIViewController controller) : base(controller)
 		{

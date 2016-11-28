@@ -8,7 +8,7 @@ using BarBot.Model;
 
 namespace BarBot.iOS.Menu
 {
-    public partial class RecipeCell : UICollectionViewCell
+    public class RecipeCell : UICollectionViewCell
     {
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel LabelView;

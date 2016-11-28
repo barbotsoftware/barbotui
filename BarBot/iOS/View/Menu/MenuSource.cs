@@ -36,24 +36,26 @@ namespace BarBot.iOS.Menu
 
 		public override void ItemHighlighted(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
-			cell.ImageView.Alpha = 0.5f;
+			//var cell = (RecipeCell)collectionView.CellForItem(indexPath);
+			//cell.ImageView.Alpha = 0.5f;
 		}
 
 		public override void ItemUnhighlighted(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
-			cell.ImageView.Alpha = 1;
-
-			Recipe row = Rows[indexPath.Row];
-			RecipeViewModel viewModel = new RecipeViewModel(row);
-			var recipeDetailViewController = new RecipeDetailViewController(viewModel);
-			Controller.NavigationController.PushViewController(recipeDetailViewController, true);
 		}
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			
+			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
+			cell.ImageView.Alpha = 1;
+
+			UIStoryboard Storyboard = UIStoryboard.FromName("Order", null);
+
+			Recipe row = Rows[indexPath.Row];
+			RecipeViewModel viewModel = new RecipeViewModel(row);
+			var recipeDetailViewController = Storyboard.InstantiateInitialViewController() as RecipeDetailViewController;
+			recipeDetailViewController.ViewModel = viewModel;
+			Controller.NavigationController.PushViewController(recipeDetailViewController, true);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
