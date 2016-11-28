@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 using BarBot.Model;
@@ -6,11 +7,15 @@ using BarBot.WebSocket;
 
 namespace BarBot.iOS.Menu
 {
-	public class MenuCollectionViewController : UICollectionViewController
-	{
+    public partial class MenuCollectionViewController : UICollectionViewController
+    {
 		WebSocketHandler socket;
 		MenuSource source;
 		UIBarButtonItem customButton;
+
+        public MenuCollectionViewController (IntPtr handle) : base (handle)
+        {
+        }
 
 		public MenuCollectionViewController(UICollectionViewLayout layout) : base(layout)
 		{
@@ -71,6 +76,14 @@ namespace BarBot.iOS.Menu
 					CollectionView.ReloadData();
 				}
 			}));
+		}
+
+		public override void PrepareForSegue(UIStoryboardSegue segue, Foundation.NSObject sender)
+		{
+			if (segue.Identifier == "RecipeDetailSegue")
+			{
+				//var indexPath = CollectionView.GetIndex
+			}
 		}
 	}
 }

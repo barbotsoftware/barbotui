@@ -13,7 +13,7 @@ using System.ComponentModel;
 
 namespace BarBot.Model
 {
-	public abstract class JsonModelObject : INotifyPropertyChanged 
+	public abstract class JsonModelObject : INotifyPropertyChanged
 	{
 		JsonSerializerSettings JsonSettings { get; set; }
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using BarBot.Model;
+using BarBot.ViewModel;
 using BarBot.iOS.Order;
 
 namespace BarBot.iOS.Menu
@@ -45,7 +46,8 @@ namespace BarBot.iOS.Menu
 			cell.ImageView.Alpha = 1;
 
 			Recipe row = Rows[indexPath.Row];
-			var recipeDetailViewController = new RecipeDetailViewController(row);
+			RecipeViewModel viewModel = new RecipeViewModel(row);
+			var recipeDetailViewController = new RecipeDetailViewController(viewModel);
 			Controller.NavigationController.PushViewController(recipeDetailViewController, true);
 		}
 

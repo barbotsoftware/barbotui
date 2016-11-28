@@ -16,6 +16,7 @@ namespace BarBot.iOS
 			get;
 			set;
 		}
+		public static UIStoryboard Storyboard = UIStoryboard.FromName("Main", null);
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
@@ -26,8 +27,6 @@ namespace BarBot.iOS
 			var navController = new BarBotNavigationController(controller);
 
 			Window.RootViewController = navController;
-
-			// make the window visible
 			Window.MakeKeyAndVisible();
 
 			return true;

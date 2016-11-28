@@ -1,17 +1,22 @@
-﻿using System.Net.Http;
+using System;
+using System.Net.Http;
 using System.Threading.Tasks;
-using CoreGraphics;
 using Foundation;
 using UIKit;
+using CoreGraphics;
 using BarBot.Model;
 
 namespace BarBot.iOS.Menu
 {
-	public class RecipeCell : UICollectionViewCell
-	{
+    public partial class RecipeCell : UICollectionViewCell
+    {
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel LabelView;
 		public UIImageView ImageView;
+
+        public RecipeCell (IntPtr handle) : base (handle)
+        {
+        }
 
 		[Export("initWithFrame:")]
 		public RecipeCell(CGRect Frame) : base(Frame)
@@ -46,9 +51,9 @@ namespace BarBot.iOS.Menu
 			ImageView.Frame = new CGRect(point, size);
 			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
 			LabelView.Frame = new CGRect(ContentView.Frame.X,
-			                             ContentView.Frame.Y,
-			                             ContentView.Frame.Width,
-			                             ContentView.Frame.Height);
+										 ContentView.Frame.Y,
+										 ContentView.Frame.Width,
+										 ContentView.Frame.Height);
 		}
 
 		public async Task<UIImage> LoadImage(string imageUrl)
@@ -61,5 +66,6 @@ namespace BarBot.iOS.Menu
 			// load from bytes
 			return UIImage.LoadFromData(NSData.FromArray(contents));
 		}
+
 	}
 }

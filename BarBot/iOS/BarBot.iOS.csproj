@@ -135,7 +135,6 @@
     <Folder Include="Resources\" />
     <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
     <Folder Include="Images\" />
-    <Folder Include="ViewModel\" />
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Order\" />
@@ -143,6 +142,7 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Main.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -153,18 +153,26 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="BarBotNavigationController.cs" />
     <Compile Include="View\Menu\GridLayout.cs" />
-    <Compile Include="View\Menu\MenuCollectionViewController.cs" />
     <Compile Include="View\Menu\MenuSource.cs" />
-    <Compile Include="View\Menu\RecipeCell.cs" />
     <Compile Include="View\Order\RecipeDetailViewController.cs" />
     <Compile Include="View\Login\BaseUserValidationViewController.cs" />
     <Compile Include="View\Login\BaseViewController.cs" />
     <Compile Include="View\Login\HomeViewController.cs" />
     <Compile Include="View\Login\RegisterViewController.cs" />
     <Compile Include="View\Login\SignInViewController.cs" />
-    <Compile Include="ViewModel\RecipeViewModel.cs" />
+    <Compile Include="BarBotNavigationController.cs" />
+    <Compile Include="BarBotNavigationController.designer.cs">
+      <DependentUpon>BarBotNavigationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\RecipeCell.cs" />
+    <Compile Include="View\Menu\RecipeCell.designer.cs">
+      <DependentUpon>RecipeCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\MenuCollectionViewController.cs" />
+    <Compile Include="View\Menu\MenuCollectionViewController.designer.cs">
+      <DependentUpon>MenuCollectionViewController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

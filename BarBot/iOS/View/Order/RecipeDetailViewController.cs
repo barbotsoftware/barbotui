@@ -1,12 +1,11 @@
 ﻿using UIKit;
-using BarBot.iOS.ViewModel;
+using BarBot.ViewModel;
 
 namespace BarBot.iOS.Order
 {
 	public class RecipeDetailViewController : UIViewController
 	{
-		RecipeViewModel ViewModel;
-		UIImageView ImageView;
+		public RecipeViewModel ViewModel { get; private set; }
 
 		public RecipeDetailViewController(RecipeViewModel viewModel)
 		{
@@ -17,8 +16,6 @@ namespace BarBot.iOS.Order
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.RecipeName;
-			ImageView = new UIImageView(ViewModel.DrinkImage);
-			ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 		}
 	}
 }
