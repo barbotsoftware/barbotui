@@ -6,20 +6,20 @@ using UIKit;
 using CoreGraphics;
 using BarBot.Model;
 
-namespace BarBot.iOS.Menu
+namespace BarBot.iOS.View.Menu
 {
-    public class RecipeCell : UICollectionViewCell
+    public class RecipeCollectionViewCell : UICollectionViewCell
     {
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel LabelView;
 		public UIImageView ImageView;
 
-        public RecipeCell (IntPtr handle) : base (handle)
+        public RecipeCollectionViewCell (IntPtr handle) : base (handle)
         {
         }
 
 		[Export("initWithFrame:")]
-		public RecipeCell(CGRect Frame) : base(Frame)
+		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
 		{
 			ContentView.Layer.BorderColor = Color.BackgroundGray.CGColor;
 			ContentView.Layer.BorderWidth = 1.0f / UIScreen.MainScreen.NativeScale;

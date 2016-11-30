@@ -12,10 +12,76 @@
                         <viewControllerLayoutGuide type="bottom" id="1641"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="1644">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1650" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="25" y="593" width="325" height="45"/>
+                                <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.21568627450980393" blue="0.52549019607843139" alpha="1"/>
+                                <fontDescription key="fontDescription" name="Microsoft-Yi-Baiti" family="Microsoft Yi Baiti" pointSize="22"/>
+                                <state key="normal" title="Order Drink">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                    <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute keyPath="layer.cornerRadius" type="number">
+                                        <real key="value" value="2"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <variation key="heightClass=regular-widthClass=compact">
+                                    <rect key="frame" x="32" y="597" width="310" height="40"/>
+                                    <mask key="constraints">
+                                        <include reference="1667"/>
+                                        <include reference="1668"/>
+                                    </mask>
+                                </variation>
+                                <connections>
+                                    <action selector="OrderButton_TouchUpInside:" destination="1643" id="1662" eventType="touchUpInside"/>
+                                </connections>
+                                <constraints>
+                                    <constraint id="1667" firstAttribute="width" constant="310"/>
+                                    <constraint id="1668" firstAttribute="height" constant="40"/>
+                                    <constraint id="1674" firstAttribute="width" constant="325"/>
+                                    <constraint id="1675" firstAttribute="height" constant="45"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="1667"/>
+                                        <exclude reference="1668"/>
+                                    </mask>
+                                </variation>
+                            </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1676" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="0.0" y="309" width="375" height="255"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1677" rowHeight="44" reuseIdentifier="IngredientCell" customClass="IngredientTableViewCell">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1677" id="1678">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <constraints>
+                                    <constraint id="1681" firstAttribute="width" constant="375"/>
+                                    <constraint id="1682" firstAttribute="height" constant="255"/>
+                                </constraints>
+                            </tableView>
+                        </subviews>
+                        <constraints>
+                            <constraint id="1672" firstItem="1644" firstAttribute="trailing" secondItem="1650" secondAttribute="trailing" constant="25"/>
+                            <constraint id="1673" firstItem="1644" firstAttribute="bottom" secondItem="1650" secondAttribute="bottom" constant="29"/>
+                            <constraint id="1679" firstItem="1644" firstAttribute="trailing" secondItem="1676" secondAttribute="trailing"/>
+                            <constraint id="1680" firstItem="1644" firstAttribute="bottom" secondItem="1676" secondAttribute="bottom" constant="103"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="OrderButton" destination="1650" id="name-outlet-1650"/>
+                        <outlet property="IngredientTable" destination="1676" id="name-outlet-1676"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1645" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -25,4 +91,7 @@
     <resources>
         <image name="Images/navigation_icon.png" width="40" height="40"/>
     </resources>
+    <simulatedMetricsContainer key="defaultSimulatedMetrics">
+        <simulatedScreenMetrics key="destination" type="retina47"/>
+    </simulatedMetricsContainer>
 </document>

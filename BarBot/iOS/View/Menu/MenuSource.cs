@@ -4,9 +4,9 @@ using Foundation;
 using UIKit;
 using BarBot.Model;
 using BarBot.ViewModel;
-using BarBot.iOS.Order;
+using BarBot.iOS.View.Order;
 
-namespace BarBot.iOS.Menu
+namespace BarBot.iOS.View.Menu
 {
 	public class MenuSource : UICollectionViewSource
 	{
@@ -46,7 +46,7 @@ namespace BarBot.iOS.Menu
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCell)collectionView.CellForItem(indexPath);
+			var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
 			cell.ImageView.Alpha = 1;
 
 			UIStoryboard Storyboard = UIStoryboard.FromName("Order", null);
@@ -60,7 +60,7 @@ namespace BarBot.iOS.Menu
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCell)collectionView.DequeueReusableCell(RecipeCell.CellID, indexPath);
+			var cell = (RecipeCollectionViewCell)collectionView.DequeueReusableCell(RecipeCollectionViewCell.CellID, indexPath);
 
 			Recipe row = Rows[indexPath.Row];
 

@@ -9,13 +9,34 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace BarBot.iOS.Order
+namespace BarBot.iOS.View.Order
 {
     [Register ("RecipeDetailViewController")]
     partial class RecipeDetailViewController
     {
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UITableView IngredientTable { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIButton OrderButton { get; set; }
+
+        [Action ("OrderButton_TouchUpInside:")]
+        [GeneratedCode ("iOS Designer", "1.0")]
+        partial void OrderButton_TouchUpInside (UIKit.UIButton sender);
+
         void ReleaseDesignerOutlets ()
         {
+            if (IngredientTable != null) {
+                IngredientTable.Dispose ();
+                IngredientTable = null;
+            }
+
+            if (OrderButton != null) {
+                OrderButton.Dispose ();
+                OrderButton = null;
+            }
         }
     }
 }

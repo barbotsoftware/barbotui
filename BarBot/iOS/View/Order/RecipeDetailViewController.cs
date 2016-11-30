@@ -3,11 +3,16 @@ using System;
 using UIKit;
 using BarBot.ViewModel;
 
-namespace BarBot.iOS.Order
+namespace BarBot.iOS.View.Order
 {
     public partial class RecipeDetailViewController : UIViewController
     {
 		public RecipeViewModel ViewModel { get; set; }
+
+		partial void OrderButton_TouchUpInside(UIButton sender)
+		{
+			throw new NotImplementedException();
+		}
 
 		public RecipeDetailViewController (IntPtr handle) : base (handle)
         {
@@ -17,6 +22,7 @@ namespace BarBot.iOS.Order
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.RecipeName;
+			IngredientTable.DataSource = new IngredientTableViewDataSource(ViewModel);
 		}
     }
 }

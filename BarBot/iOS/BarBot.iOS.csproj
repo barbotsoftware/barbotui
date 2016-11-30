@@ -161,12 +161,17 @@
     <Compile Include="View\Login\RegisterViewController.cs" />
     <Compile Include="View\Login\SignInViewController.cs" />
     <Compile Include="BarBotNavigationController.cs" />
-    <Compile Include="View\Menu\RecipeCell.cs" />
+    <Compile Include="View\Menu\RecipeCollectionViewCell.cs" />
     <Compile Include="View\Menu\MenuCollectionViewController.cs" />
     <Compile Include="View\Order\RecipeDetailViewController.cs" />
     <Compile Include="View\Order\RecipeDetailViewController.designer.cs">
       <DependentUpon>RecipeDetailViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Order\IngredientTableViewCell.cs" />
+    <Compile Include="View\Order\IngredientTableViewCell.designer.cs">
+      <DependentUpon>IngredientTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Order\IngredientTableViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

@@ -5,7 +5,7 @@ using UIKit;
 using BarBot.Model;
 using BarBot.WebSocket;
 
-namespace BarBot.iOS.Menu
+namespace BarBot.iOS.View.Menu
 {
     public class MenuCollectionViewController : UICollectionViewController
     {
@@ -40,7 +40,7 @@ namespace BarBot.iOS.Menu
 
 			source = new MenuSource(this);
 
-			CollectionView.RegisterClassForCell(typeof(RecipeCell), RecipeCell.CellID);
+			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
 
