@@ -11,7 +11,7 @@ namespace BarBot.iOS.View.Order
 
 		partial void OrderButton_TouchUpInside(UIButton sender)
 		{
-			throw new NotImplementedException();
+			//throw new NotImplementedException();
 		}
 
 		public RecipeDetailViewController (IntPtr handle) : base (handle)

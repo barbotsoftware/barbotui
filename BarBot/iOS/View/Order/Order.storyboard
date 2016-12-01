@@ -17,9 +17,9 @@
                         <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="1650" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="25" y="593" width="325" height="45"/>
+                                <rect key="frame" x="25" y="582" width="325" height="60"/>
                                 <color key="backgroundColor" colorSpace="calibratedRGB" red="0.0196078431372549" green="0.21568627450980393" blue="0.52549019607843139" alpha="1"/>
-                                <fontDescription key="fontDescription" name="Microsoft-Yi-Baiti" family="Microsoft Yi Baiti" pointSize="22"/>
+                                <fontDescription key="fontDescription" name="Microsoft-Yi-Baiti" family="Microsoft Yi Baiti" pointSize="28"/>
                                 <state key="normal" title="Order Drink">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleColor" colorSpace="calibratedWhite" white="1" alpha="1"/>
@@ -31,30 +31,17 @@
                                 </userDefinedRuntimeAttributes>
                                 <variation key="heightClass=regular-widthClass=compact">
                                     <rect key="frame" x="32" y="597" width="310" height="40"/>
-                                    <mask key="constraints">
-                                        <include reference="1667"/>
-                                        <include reference="1668"/>
-                                    </mask>
                                 </variation>
                                 <connections>
                                     <action selector="OrderButton_TouchUpInside:" destination="1643" id="1662" eventType="touchUpInside"/>
                                 </connections>
                                 <constraints>
-                                    <constraint id="1667" firstAttribute="width" constant="310"/>
-                                    <constraint id="1668" firstAttribute="height" constant="40"/>
-                                    <constraint id="1674" firstAttribute="width" constant="325"/>
-                                    <constraint id="1675" firstAttribute="height" constant="45"/>
+                                    <constraint id="1730" firstItem="1650" firstAttribute="width" constant="325"/>
                                 </constraints>
-                                <variation key="default">
-                                    <mask key="constraints">
-                                        <exclude reference="1667"/>
-                                        <exclude reference="1668"/>
-                                    </mask>
-                                </variation>
                             </button>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="1676" translatesAutoresizingMaskIntoConstraints="NO">
-                                <rect key="frame" x="0.0" y="309" width="375" height="255"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <rect key="frame" x="0.0" y="302" width="375" height="255"/>
+                                <color key="backgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="1677" rowHeight="44" reuseIdentifier="IngredientCell" customClass="IngredientTableViewCell">
                                         <rect key="frame" x="0.0" y="28" width="375" height="44"/>
@@ -63,19 +50,23 @@
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
+                                        <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                                     </tableViewCell>
                                 </prototypes>
+                                <color key="sectionIndexBackgroundColor" colorSpace="calibratedWhite" white="0" alpha="1"/>
                                 <constraints>
-                                    <constraint id="1681" firstAttribute="width" constant="375"/>
-                                    <constraint id="1682" firstAttribute="height" constant="255"/>
+                                    <constraint id="1736" firstAttribute="width" constant="375"/>
+                                    <constraint id="1737" firstAttribute="height" constant="255"/>
                                 </constraints>
                             </tableView>
                         </subviews>
                         <constraints>
-                            <constraint id="1672" firstItem="1644" firstAttribute="trailing" secondItem="1650" secondAttribute="trailing" constant="25"/>
-                            <constraint id="1673" firstItem="1644" firstAttribute="bottom" secondItem="1650" secondAttribute="bottom" constant="29"/>
-                            <constraint id="1679" firstItem="1644" firstAttribute="trailing" secondItem="1676" secondAttribute="trailing"/>
-                            <constraint id="1680" firstItem="1644" firstAttribute="bottom" secondItem="1676" secondAttribute="bottom" constant="103"/>
+                            <constraint id="1728" firstItem="1650" firstAttribute="leading" secondItem="1644" secondAttribute="leading" constant="25"/>
+                            <constraint id="1729" firstItem="1644" firstAttribute="trailing" secondItem="1650" secondAttribute="trailing" constant="25"/>
+                            <constraint id="1731" firstItem="1641" firstAttribute="top" secondItem="1650" secondAttribute="bottom" constant="25"/>
+                            <constraint id="1734" firstItem="1644" firstAttribute="trailing" secondItem="1676" secondAttribute="trailing"/>
+                            <constraint id="1735" firstItem="1644" firstAttribute="bottom" secondItem="1676" secondAttribute="bottom" constant="110"/>
+                            <constraint id="1738" firstItem="1650" firstAttribute="top" secondItem="1676" secondAttribute="bottom" constant="25"/>
                         </constraints>
                     </view>
                     <connections>

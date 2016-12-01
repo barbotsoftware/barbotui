@@ -20,7 +20,12 @@ namespace BarBot.iOS.View.Order
 
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
-			var NumberOfRows = ViewModel.Recipe.Steps.Length;
+			var NumberOfRows = 0;
+			if (ViewModel.Recipe.Steps != null)
+			{
+				NumberOfRows = ViewModel.Recipe.Steps.Length;
+			}
+
 			return NumberOfRows;
 		}
 	}

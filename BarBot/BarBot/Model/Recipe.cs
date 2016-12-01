@@ -1,11 +1,12 @@
-﻿using System.ComponentModel;
-/*
+﻿/*
  * Recipe.cs
  * BarBot
  * 
  * Created by Naveen Yadav on 9/22/16.
  * Copyright © 2016 BarBot. All rights reserved.
  */
+
+using System.ComponentModel;
 
 namespace BarBot.Model
 {

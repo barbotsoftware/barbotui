@@ -6,15 +6,69 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
+using System.ComponentModel;
+
 namespace BarBot.Model
 {
-	public class Step : JsonModelObject
+	public class Step : JsonModelObject, INotifyPropertyChanged
 	{
-		public int StepNumber { get; set; }
-		public int Type { get; set; }
-		public string IngredientId { get; set; }
-		public double? Quantity { get; set; }
-		public string Measurement { get; set; }
+
+
+		private int _stepNumber;
+		private int _type;
+		private string _ingredientId;
+		private double? _quantity;
+		private string _measurement;
+
+		public int StepNumber
+		{
+			get { return _stepNumber; }
+			set
+			{
+				_stepNumber = value;
+				OnPropertyChanged("StepNumber");
+			}
+		}
+
+		public int Type
+		{
+			get { return _type; }
+			set
+			{
+				_type = value;
+				OnPropertyChanged("Type");
+			}
+		}
+
+		public string IngredientId
+		{
+			get { return _ingredientId; }
+			set
+			{
+				_ingredientId = value;
+				OnPropertyChanged("IngredientId");
+			}
+		}
+
+		public double? Quantity
+		{
+			get { return _quantity; }
+			set
+			{
+				_quantity = value;
+				OnPropertyChanged("Quantity");
+			}
+		}
+
+		public string Measurement
+		{
+			get { return _measurement; }
+			set
+			{
+				_measurement = value;
+				OnPropertyChanged("Measurement");
+			}
+		}
 
 		public Step()
 		{
