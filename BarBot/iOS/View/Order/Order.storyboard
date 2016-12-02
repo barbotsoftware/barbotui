@@ -59,6 +59,12 @@
                                     <constraint id="1737" firstAttribute="height" constant="255"/>
                                 </constraints>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="1742" translatesAutoresizingMaskIntoConstraints="NO">
+                                <rect key="frame" x="68" y="119" width="240" height="210"/>
+                                <constraints>
+                                    <constraint id="1746" firstItem="1742" firstAttribute="width" constant="240"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <constraints>
                             <constraint id="1728" firstItem="1650" firstAttribute="leading" secondItem="1644" secondAttribute="leading" constant="25"/>
@@ -67,11 +73,15 @@
                             <constraint id="1734" firstItem="1644" firstAttribute="trailing" secondItem="1676" secondAttribute="trailing"/>
                             <constraint id="1735" firstItem="1644" firstAttribute="bottom" secondItem="1676" secondAttribute="bottom" constant="110"/>
                             <constraint id="1738" firstItem="1650" firstAttribute="top" secondItem="1676" secondAttribute="bottom" constant="25"/>
+                            <constraint id="1743" firstItem="1742" firstAttribute="centerX" secondItem="1644" secondAttribute="centerX"/>
+                            <constraint id="1744" firstItem="1742" firstAttribute="top" secondItem="1640" secondAttribute="bottom" constant="99"/>
+                            <constraint id="1745" firstItem="1676" firstAttribute="centerY" secondItem="1742" secondAttribute="bottom" constant="100"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="OrderButton" destination="1650" id="name-outlet-1650"/>
                         <outlet property="IngredientTable" destination="1676" id="name-outlet-1676"/>
+                        <outlet property="DrinkImage" destination="1742" id="name-outlet-1742"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1645" userLabel="First Responder" sceneMemberID="firstResponder"/>

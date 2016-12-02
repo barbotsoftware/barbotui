@@ -16,6 +16,10 @@ namespace BarBot.iOS.View.Order
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]
+        UIKit.UIImageView DrinkImage { get; set; }
+
+        [Outlet]
+        [GeneratedCode ("iOS Designer", "1.0")]
         UIKit.UITableView IngredientTable { get; set; }
 
         [Outlet]
@@ -28,6 +32,11 @@ namespace BarBot.iOS.View.Order
 
         void ReleaseDesignerOutlets ()
         {
+            if (DrinkImage != null) {
+                DrinkImage.Dispose ();
+                DrinkImage = null;
+            }
+
             if (IngredientTable != null) {
                 IngredientTable.Dispose ();
                 IngredientTable = null;
