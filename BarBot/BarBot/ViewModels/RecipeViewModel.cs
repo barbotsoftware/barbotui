@@ -1,7 +1,7 @@
-﻿using BarBot.Model;
+﻿using BarBot.Core.Model;
 using MvvmCross.Core.ViewModels;
 
-namespace BarBot.ViewModel
+namespace BarBot.Core.ViewModels
 {
 	public class RecipeViewModel : MvxViewModel
 	{

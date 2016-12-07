@@ -7,10 +7,10 @@ using Websockets.Universal;
 #if __IOS__
 using Websockets.Ios;
 #endif
-using BarBot.Model;
+using BarBot.Core.Model;
 using Newtonsoft.Json;
 
-namespace BarBot.WebSocket
+namespace BarBot.Core.WebSocket
 {
     public class WebSocketHandler
     {

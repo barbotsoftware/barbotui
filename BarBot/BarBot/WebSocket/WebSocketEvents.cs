@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using BarBot.Model;
+using BarBot.Core.Model;
 
-namespace BarBot.WebSocket
+namespace BarBot.Core.WebSocket
 {
     public class WebSocketEvents
     {

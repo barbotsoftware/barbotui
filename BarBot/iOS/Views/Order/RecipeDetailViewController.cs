@@ -1,7 +1,7 @@
 using System;
 using Foundation;
 using UIKit;
-using BarBot.ViewModel;
+using BarBot.Core.ViewModels;
 
 namespace BarBot.iOS.View.Order
 {

@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
-using BarBot.Model;
-using BarBot.ViewModel;
+using BarBot.Core.Model;
+using BarBot.Core.ViewModels;
 using BarBot.iOS.View.Order;
 
 namespace BarBot.iOS.View.Menu

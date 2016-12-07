@@ -39,7 +39,9 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
-    <Compile Include="ViewModel\RecipeViewModel.cs" />
+    <Compile Include="ViewModels\RecipeViewModel.cs" />
+    <Compile Include="App.cs" />
+    <Compile Include="ViewModels\DrinkMenuViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -93,7 +95,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="ViewModel\" />
+    <Folder Include="ViewModels\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
