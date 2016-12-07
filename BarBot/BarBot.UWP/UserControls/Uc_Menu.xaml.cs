@@ -100,7 +100,7 @@ namespace BarBot.UWP.UserControls
             }
             else if(pos == 3)
             {
-                top = 485;
+                top = 490;
                 //top = 480;
                 left = 570 * r + 285;
             }
