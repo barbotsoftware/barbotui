@@ -2,7 +2,7 @@
 using UIKit;
 using CoreGraphics;
 
-namespace BarBot.iOS.Menu
+namespace BarBot.iOS.View.Menu
 {
 	public class GridLayout : UICollectionViewFlowLayout
 	{

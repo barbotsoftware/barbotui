@@ -1,4 +1,5 @@
-﻿using UIKit;
+using System;
+using UIKit;
 using CoreGraphics;
 
 namespace BarBot.iOS
@@ -6,6 +7,10 @@ namespace BarBot.iOS
 	public class BarBotNavigationController : UINavigationController
 	{
 		public BarBotNavigationController(UIViewController controller) : base(controller)
+		{
+		}
+
+		public BarBotNavigationController(IntPtr handle) : base(handle)
 		{
 		}
 
@@ -20,9 +25,9 @@ namespace BarBot.iOS
 			NavigationBar.TintColor = UIColor.White;
 			NavigationBar.BarTintColor = Color.BackgroundGray;
 			var NavBorder = new UIView(new CGRect(0,
-			                                      NavigationBar.Frame.Size.Height - 1, 
-			                                      NavigationBar.Frame.Size.Width, 
-			                                      4));
+												  NavigationBar.Frame.Size.Height - 1,
+												  NavigationBar.Frame.Size.Width,
+												  4));
 			NavBorder.BackgroundColor = Color.BarBotBlue;
 			NavBorder.Opaque = true;
 			NavigationBar.AddSubview(NavBorder);

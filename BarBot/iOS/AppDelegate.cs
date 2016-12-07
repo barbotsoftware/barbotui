@@ -1,4 +1,4 @@
-﻿using BarBot.iOS.Menu;
+﻿using BarBot.iOS.View.Menu;
 using Foundation;
 using UIKit;
 
@@ -26,8 +26,6 @@ namespace BarBot.iOS
 			var navController = new BarBotNavigationController(controller);
 
 			Window.RootViewController = navController;
-
-			// make the window visible
 			Window.MakeKeyAndVisible();
 
 			return true;
