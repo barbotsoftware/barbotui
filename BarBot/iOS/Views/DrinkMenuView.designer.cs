@@ -14,25 +14,8 @@ namespace BarBot.iOS.Views
     [Register ("DrinkMenuView")]
     partial class DrinkMenuView
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UICollectionView DrinkMenuCollectionView { get; set; }
-
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UINavigationBar NavigationBar { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (DrinkMenuCollectionView != null) {
-                DrinkMenuCollectionView.Dispose ();
-                DrinkMenuCollectionView = null;
-            }
-
-            if (NavigationBar != null) {
-                NavigationBar.Dispose ();
-                NavigationBar = null;
-            }
         }
     }
 }

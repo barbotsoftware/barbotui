@@ -15,8 +15,9 @@ namespace BarBot.iOS.Views
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			// Perform any additional setup after loading the view, typically from a nib.
-			//NavBarStyle();
+			Title = "DRINK MENU";
+			NavBarStyle(NavigationController.NavigationBar);
+			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -25,23 +26,28 @@ namespace BarBot.iOS.Views
 			// Release any cached data, images, etc that aren't in use.
 		}
 
-		//void NavBarStyle()
-		//{
-		//	NavigationBar.TintColor = UIColor.White;
-		//	NavigationBar.BarTintColor = Color.BackgroundGray;
-		//	var NavBorder = new UIView(new CGRect(0,
-		//										  NavigationBar.Frame.Size.Height - 1,
-		//										  NavigationBar.Frame.Size.Width,
-		//										  4));
-		//	NavBorder.BackgroundColor = Color.BarBotBlue;
-		//	NavBorder.Opaque = true;
-		//	NavigationBar.AddSubview(NavBorder);
-		//	NavigationBar.TitleTextAttributes = new UIStringAttributes
-		//	{
-		//		ForegroundColor = UIColor.White,
-		//		Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
-		//	};
-		//}
+		void NavBarStyle(UINavigationBar NavBar)
+		{
+			NavBar.TintColor = UIColor.White;
+			NavBar.BarTintColor = Color.BackgroundGray;
+			var NavBorder = new UIView(new CGRect(0,
+												  NavBar.Frame.Size.Height - 1,
+												  NavBar.Frame.Size.Width,
+												  4));
+			NavBorder.BackgroundColor = Color.BarBotBlue;
+			NavBorder.Opaque = true;
+			NavBar.AddSubview(NavBorder);
+			NavBar.TitleTextAttributes = new UIStringAttributes
+			{
+				ForegroundColor = UIColor.White,
+				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
+			};
+		}
+
+		public override UIStatusBarStyle PreferredStatusBarStyle()
+		{
+			return UIStatusBarStyle.LightContent;
+		}
 	}
 }
 
