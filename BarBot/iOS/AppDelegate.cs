@@ -1,13 +1,14 @@
-﻿using BarBot.iOS.Menu;
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using MvvmCross.iOS.Platform;
+using MvvmCross.iOS.Views.Presenters;
+using MvvmCross.Platform;
+using MvvmCross.Core.ViewModels;
 
 namespace BarBot.iOS
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the
-	// User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
 	[Register("AppDelegate")]
-	public class AppDelegate : UIApplicationDelegate
+	public class AppDelegate : MvxApplicationDelegate
 	{
 		// class-level declarations
 
@@ -19,15 +20,16 @@ namespace BarBot.iOS
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var controller = new MenuCollectionViewController(new GridLayout());
-			var navController = new BarBotNavigationController(controller);
+			var presenter = new MvxIosViewPresenter(this, Window);
 
-			Window.RootViewController = navController;
+			var setup = new Setup(this, presenter);
+			setup.Initialize();
 
-			// make the window visible
+			var startup = Mvx.Resolve<IMvxAppStart>();
+			startup.Start();
+
 			Window.MakeKeyAndVisible();
 
 			return true;

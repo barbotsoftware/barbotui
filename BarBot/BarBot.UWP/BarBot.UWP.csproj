@@ -153,7 +153,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\barbotmobile\BarBot\BarBot\BarBot.csproj">
+    <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
       <Project>{641ae0d1-cebf-42a6-a504-c8e9889c648f}</Project>
       <Name>BarBot</Name>
     </ProjectReference>

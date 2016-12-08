@@ -25,7 +25,7 @@
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchLink>None</MtouchLink>
-    <MtouchArch>i386</MtouchArch>
+    <MtouchArch>x86_64</MtouchArch>
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
@@ -102,12 +102,45 @@
       <HintPath>..\packages\Square.SocketRocket.0.5.0.1\lib\Xamarin.iOS\Square.SocketRocket.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\BarBot\BarBot.csproj">
-      <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
-      <Name>BarBot</Name>
-    </ProjectReference>
+    <Reference Include="System.Reactive.Interfaces">
+      <HintPath>..\packages\Rx-Interfaces.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Interfaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Core">
+      <HintPath>..\packages\Rx-Core.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.Linq">
+      <HintPath>..\packages\Rx-Linq.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.Linq.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reactive.PlatformServices">
+      <HintPath>..\packages\Rx-PlatformServices.2.2.5\lib\portable-windows8+net45+wp8\System.Reactive.PlatformServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Splat">
+      <HintPath>..\packages\Splat.1.4.0\lib\Portable-net45+win+wpa81+wp80\Splat.dll</HintPath>
+    </Reference>
+    <Reference Include="ReactiveUI">
+      <HintPath>..\packages\reactiveui-core.7.0.0\lib\Xamarin.iOS10\ReactiveUI.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform">
+      <HintPath>..\packages\MvvmCross.Platform.4.4.0\lib\Xamarin.iOS10\MvvmCross.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Platform.iOS">
+      <HintPath>..\packages\MvvmCross.Platform.4.4.0\lib\Xamarin.iOS10\MvvmCross.Platform.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Core">
+      <HintPath>..\packages\MvvmCross.Core.4.4.0\lib\Xamarin.iOS10\MvvmCross.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.iOS">
+      <HintPath>..\packages\MvvmCross.Core.4.4.0\lib\Xamarin.iOS10\MvvmCross.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Binding">
+      <HintPath>..\packages\MvvmCross.Binding.4.4.0\lib\Xamarin.iOS10\MvvmCross.Binding.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Binding.iOS">
+      <HintPath>..\packages\MvvmCross.Binding.4.4.0\lib\Xamarin.iOS10\MvvmCross.Binding.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="MvvmCross.Localization">
+      <HintPath>..\packages\MvvmCross.Binding.4.4.0\lib\Xamarin.iOS10\MvvmCross.Localization.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
@@ -115,14 +148,18 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="ViewControllers\" />
     <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
     <Folder Include="Images\" />
-    <Folder Include="Menu\" />
-    <Folder Include="Order\" />
+    <Folder Include="Views\" />
+    <Folder Include="Views\Menu\" />
+    <Folder Include="Views\Order\" />
+    <Folder Include="Views\Login\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
+    <InterfaceDefinition Include="Views\Order\Order.storyboard" />
+    <InterfaceDefinition Include="Views\DrinkMenuView.xib" />
+    <InterfaceDefinition Include="Views\DrinkDetailView.xib" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -132,24 +169,46 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="ViewControllers\HomeViewController.cs" />
-    <Compile Include="ViewControllers\SignInViewController.cs" />
-    <Compile Include="ViewControllers\RegisterViewController.cs" />
-    <Compile Include="ViewControllers\BaseUserValidationViewController.cs" />
-    <Compile Include="ViewControllers\BaseViewController.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="Menu\RecipeCell.cs" />
-    <Compile Include="Menu\MenuSource.cs" />
-    <Compile Include="Menu\GridLayout.cs" />
-    <Compile Include="Order\RecipeDetailViewController.cs" />
-    <Compile Include="BarBotNavigationController.cs" />
-    <Compile Include="Menu\MenuCollectionViewController.cs" />
+    <Compile Include="Views\Menu\GridLayout.cs" />
+    <Compile Include="Views\Menu\MenuSource.cs" />
+    <Compile Include="Views\Login\BaseUserValidationViewController.cs" />
+    <Compile Include="Views\Login\BaseViewController.cs" />
+    <Compile Include="Views\Login\HomeViewController.cs" />
+    <Compile Include="Views\Login\RegisterViewController.cs" />
+    <Compile Include="Views\Login\SignInViewController.cs" />
+    <Compile Include="Views\Menu\RecipeCollectionViewCell.cs" />
+    <Compile Include="Views\Menu\MenuCollectionViewController.cs" />
+    <Compile Include="Views\Order\RecipeDetailViewController.cs" />
+    <Compile Include="Views\Order\RecipeDetailViewController.designer.cs">
+      <DependentUpon>RecipeDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\IngredientTableViewCell.cs" />
+    <Compile Include="Views\Order\IngredientTableViewCell.designer.cs">
+      <DependentUpon>IngredientTableViewCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Order\IngredientTableViewDataSource.cs" />
+    <Compile Include="Setup.cs" />
+    <Compile Include="Views\DrinkMenuView.cs" />
+    <Compile Include="Views\DrinkMenuView.designer.cs">
+      <DependentUpon>DrinkMenuView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DrinkDetailView.cs" />
+    <Compile Include="Views\DrinkDetailView.designer.cs">
+      <DependentUpon>DrinkDetailView.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\navigation_icon.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
+      <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
+      <Name>BarBot.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
 </Project>

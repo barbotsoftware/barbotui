@@ -14,9 +14,10 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using BarBot.WebSocket;
+using BarBot.Core.WebSocket;
 using BarBot.UWP.Database;
 using BarBot.UWP.Bluetooth;
+using BarBot.Core;
 using Microsoft.EntityFrameworkCore;
 
 namespace BarBot.UWP
@@ -53,7 +54,7 @@ namespace BarBot.UWP
 
             // Get database configuration
             string endpoint = Constants.EndpointURL;
-            barbotID = Constants.BarbotId;
+            barbotID = Constants.BarBotId;
 
             try
             {

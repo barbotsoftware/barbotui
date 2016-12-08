@@ -1,5 +1,5 @@
 ﻿using System;
-using BarBot.Model;
+using BarBot.Core.Model;
 
 namespace BarBot.Test
 {
@@ -7,7 +7,12 @@ namespace BarBot.Test
 	{
 		public static void Main(string[] args)
 		{
-			Recipe r = new Recipe();
+			Step[] s = { new Step(1, 1, "1", 1.0, "oz") };
+			Recipe r = new Recipe("1",
+								 "blah",
+								 "blah",
+			                      s
+			);
 
 			var t = new JsonModelTest();
 			t.testRecipe(r);

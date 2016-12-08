@@ -6,7 +6,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot.Droid", "Droid\BarBo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot.iOS", "iOS\BarBot.iOS.csproj", "{93C8677B-0CEC-4ECB-9FDB-7BD63BA2512D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot", "BarBot\BarBot.csproj", "{641AE0D1-CEBF-42A6-A504-C8E9889C648F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot.Core", "BarBot\BarBot.Core.csproj", "{641AE0D1-CEBF-42A6-A504-C8E9889C648F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarBot.iOS.Tests", "BarBot.iOS.Tests\BarBot.iOS.Tests.csproj", "{46324636-5BF3-4874-A31A-EF3A7E3C7892}"
 EndProject

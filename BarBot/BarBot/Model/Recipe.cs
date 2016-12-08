@@ -1,5 +1,4 @@
-﻿using System.ComponentModel;
-/*
+﻿/*
  * Recipe.cs
  * BarBot
  * 
@@ -7,7 +6,9 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-namespace BarBot.Model
+using System.ComponentModel;
+
+namespace BarBot.Core.Model
 {
 	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{

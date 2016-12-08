@@ -1,4 +1,4 @@
-﻿using BarBot.Model;
+﻿using BarBot.Core.Model;
 using System;
 using System.Collections.Generic;
 using System.IO;

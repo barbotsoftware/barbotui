@@ -6,13 +6,12 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-using System;
-namespace BarBot.Model
+namespace BarBot.Core.Model
 {
-	public class Event
+	public class Event : JsonModelObject
 	{
-		public string Name { get; set; }
-		public string Data { get; set; }
+		private string _name;
+		private string _data;
 
 		public Event()
 		{
@@ -22,6 +21,33 @@ namespace BarBot.Model
 		{
 			Name = name;
 			Data = data;
+		}
+
+		public Event(string json)
+		{
+			var e = (Event)parseJSON(json, typeof(Event));
+			Name = e.Name;
+			Data = e.Data;
+		}
+
+		public string Name
+		{
+			get { return _name; }
+			set
+			{
+				_name = value;
+				OnPropertyChanged("Name");
+			}
+		}
+
+		public string Data
+		{
+			get { return _data; }
+			set
+			{
+				_data = value;
+				OnPropertyChanged("Data");
+			}
 		}
 	}
 }

@@ -6,7 +6,7 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-namespace BarBot.Model
+namespace BarBot.Core.Model
 {
 	public class Ingredient : JsonModelObject
 	{

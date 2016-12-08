@@ -7,10 +7,10 @@ using Websockets.Universal;
 #if __IOS__
 using Websockets.Ios;
 #endif
-using BarBot.Model;
+using BarBot.Core.Model;
 using Newtonsoft.Json;
 
-namespace BarBot.WebSocket
+namespace BarBot.Core.WebSocket
 {
     public class WebSocketHandler
     {
@@ -18,7 +18,15 @@ namespace BarBot.WebSocket
 
         private bool failed = false;
 
-#region Events
+        private bool isOpen = false;
+
+        public bool IsOpen
+        {
+            get { return isOpen; }
+            set { isOpen = value; }
+        }
+
+        #region Events
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
         public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
@@ -51,6 +59,8 @@ namespace BarBot.WebSocket
                 await Task.Delay(10);
             }
 
+            isOpen = true;
+
             return connection.IsOpen;
         }
 
@@ -62,6 +72,8 @@ namespace BarBot.WebSocket
             {
                 await Task.Delay(10);
             }
+
+            isOpen = false;
 
             return true;
         }

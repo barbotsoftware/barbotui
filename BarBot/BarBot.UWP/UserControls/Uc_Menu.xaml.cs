@@ -12,8 +12,9 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using BarBot.Model;
-using BarBot.WebSocket;
+using BarBot.Core;
+using BarBot.Core.Model;
+using BarBot.Core.WebSocket;
 using BarBot.UWP.Database;
 using BarBot.UWP.Bluetooth;
 
@@ -116,7 +117,7 @@ namespace BarBot.UWP.UserControls
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             Dictionary<String, Object> data = new Dictionary<String, Object>();
-            data.Add("barbot_id", Constants.BarbotId);
+            data.Add("barbot_id", Constants.BarBotId);
 
             Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
