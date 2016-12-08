@@ -22,11 +22,6 @@ namespace BarBot.iOS
 		{
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			//var controller = new MenuCollectionViewController(new GridLayout());
-			//var navController = new BarBotNavigationController(controller);
-
-			//Window.RootViewController = navController;
-
 			var presenter = new MvxIosViewPresenter(this, Window);
 
 			var setup = new Setup(this, presenter);

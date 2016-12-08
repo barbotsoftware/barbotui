@@ -177,7 +177,6 @@
     <Compile Include="Views\Login\HomeViewController.cs" />
     <Compile Include="Views\Login\RegisterViewController.cs" />
     <Compile Include="Views\Login\SignInViewController.cs" />
-    <Compile Include="BarBotNavigationController.cs" />
     <Compile Include="Views\Menu\RecipeCollectionViewCell.cs" />
     <Compile Include="Views\Menu\MenuCollectionViewController.cs" />
     <Compile Include="Views\Order\RecipeDetailViewController.cs" />

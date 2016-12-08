@@ -28,8 +28,12 @@ namespace BarBot.iOS.Views
 
 		void NavBarStyle(UINavigationBar NavBar)
 		{
-			NavBar.TintColor = UIColor.White;
 			NavBar.BarTintColor = Color.BackgroundGray;
+			NavBar.TitleTextAttributes = new UIStringAttributes
+			{
+				ForegroundColor = UIColor.White,
+				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
+			};
 			var NavBorder = new UIView(new CGRect(0,
 												  NavBar.Frame.Size.Height - 1,
 												  NavBar.Frame.Size.Width,
@@ -37,16 +41,6 @@ namespace BarBot.iOS.Views
 			NavBorder.BackgroundColor = Color.BarBotBlue;
 			NavBorder.Opaque = true;
 			NavBar.AddSubview(NavBorder);
-			NavBar.TitleTextAttributes = new UIStringAttributes
-			{
-				ForegroundColor = UIColor.White,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
-			};
-		}
-
-		public override UIStatusBarStyle PreferredStatusBarStyle()
-		{
-			return UIStatusBarStyle.LightContent;
 		}
 	}
 }
