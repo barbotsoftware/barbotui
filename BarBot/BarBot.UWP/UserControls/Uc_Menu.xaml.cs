@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Model;
 using BarBot.WebSocket;
+using BarBot.UWP.Database;
+using BarBot.UWP.Bluetooth;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -23,23 +25,26 @@ namespace BarBot.UWP.UserControls
     {
         private WebSocketHandler socket;
 
+        private string barbotID;
+
         public Uc_Menu()
         {
             this.InitializeComponent();
 
+            App app = Application.Current as App;
+
+            socket = app.webSocket;
+            barbotID = app.barbotID;
+
             init();
         }
 
-        public async void init()
-        {
-            socket = new WebSocketHandler();
-
-            bool success = await socket.OpenConnection(String.Format("{0}?id={1}", Constants.EndpointURL, Constants.BarbotId));
-
-            if (success)
+        public void init()
+        { 
+            if(socket.IsOpen)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", Constants.BarbotId);
+                data.Add("barbot_id", String.Format("barbot_{0}", (Application.Current as App).barbotID));
 
                 Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
@@ -100,7 +105,7 @@ namespace BarBot.UWP.UserControls
             }
             else if(pos == 3)
             {
-                top = 485;
+                top = 490;
                 //top = 480;
                 left = 570 * r + 285;
             }
