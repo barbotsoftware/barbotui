@@ -79,28 +79,34 @@ namespace BarBot.UWP.UserControls
             int top = 0;
             int left = 0;
 
-            //311.7691453623979
+            int margin = 50;
 
+            //311.7691453623979
+            
+            // Top Left
             if (pos == 0)
             {
-                top = 0; 
+                top = 0 + margin; 
                 left = 570 * r;
             }
+            // Bottom Left
             else if (pos == 1)
             {
-                top = 325;
+                top = 325 + margin;
                 //top = 320;
                 left = 570 * r;
             }
+            // Top right (Diagonally down and right from top left)
             else if(pos == 2)
             {
-                top = 165;
+                top = 165 + margin;
                 //top = 160;
                 left = 570 * r + 285;
             }
+            // Bottom right (Diagonally down and right from bottom left)
             else if(pos == 3)
             {
-                top = 490;
+                top = 490 + margin;
                 //top = 480;
                 left = 570 * r + 285;
             }
