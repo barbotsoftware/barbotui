@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using BarBot.Model;
+using BarBot.Core.Model;
 
-namespace BarBot.WebSocket
+namespace BarBot.Core.WebSocket
 {
     public class Message : JsonModelObject
     {

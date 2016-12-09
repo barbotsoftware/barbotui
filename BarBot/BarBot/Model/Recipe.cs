@@ -8,7 +8,7 @@
 
 using System.ComponentModel;
 
-namespace BarBot.Model
+namespace BarBot.Core.Model
 {
 	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{

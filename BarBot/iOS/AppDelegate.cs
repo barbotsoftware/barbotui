@@ -1,11 +1,9 @@
-﻿using BarBot.iOS.View.Menu;
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using BarBot.iOS.View.Menu;
 
 namespace BarBot.iOS
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the
-	// User Interface of the application, as well as listening (and optionally responding) to application events from iOS.
 	[Register("AppDelegate")]
 	public class AppDelegate : UIApplicationDelegate
 	{
@@ -16,16 +14,18 @@ namespace BarBot.iOS
 			get;
 			set;
 		}
+		public static UIStoryboard Storyboard = UIStoryboard.FromName("DrinkMenu", null);
+		public static UIViewController initialViewController;
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var controller = new MenuCollectionViewController(new GridLayout());
-			var navController = new BarBotNavigationController(controller);
+			initialViewController = Storyboard.InstantiateInitialViewController() as DrinkMenuViewController;
 
+			var navController = new UINavigationController(initialViewController);
 			Window.RootViewController = navController;
+
 			Window.MakeKeyAndVisible();
 
 			return true;

@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Serialization;
 using System.ComponentModel;
 
-namespace BarBot.Model
+namespace BarBot.Core.Model
 {
 	public abstract class JsonModelObject : INotifyPropertyChanged
 	{

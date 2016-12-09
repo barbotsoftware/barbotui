@@ -2,8 +2,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
-using BarBot.Model;
-using BarBot.WebSocket;
+using BarBot.Core;
+using BarBot.Core.Model;
+using BarBot.Core.WebSocket;
 
 namespace BarBot.iOS.View.Menu
 {

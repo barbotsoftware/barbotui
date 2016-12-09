@@ -46,8 +46,9 @@
 	<string>UIStatusBarStyleLightContent</string>
 	<key>UIAppFonts</key>
 	<array>
-		<string>JuliusSansOne-Regular.ttf</string>
 		<string>Microsoft-Yi-Baiti.ttf</string>
 	</array>
+	<key>UIViewControllerBasedStatusBarAppearance</key>
+	<false/>
 </dict>
 </plist>

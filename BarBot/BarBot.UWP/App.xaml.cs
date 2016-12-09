@@ -14,6 +14,11 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BarBot.Core.WebSocket;
+using BarBot.UWP.Database;
+using BarBot.UWP.Bluetooth;
+using BarBot.Core;
+using Microsoft.EntityFrameworkCore;
 
 namespace BarBot.UWP
 {
@@ -22,6 +27,14 @@ namespace BarBot.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        public WebSocketHandler webSocket { get; }
+
+        public BarbotContext barbotDB { get; }
+
+        public BLEPublisher blePublisher { get; }
+
+        public string barbotID { get; }
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -30,6 +43,43 @@ namespace BarBot.UWP
         {
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            // Initialize database connection
+            barbotDB = new BarbotContext();
+
+            // Migrate pending migrations
+            barbotDB.Database.Migrate();
+
+            // Get database configuration
+            string endpoint = Constants.EndpointURL;
+            barbotID = Constants.BarBotId;
+
+            try
+            {
+                List<BarbotConfig> config = barbotDB.BarbotConfigs.ToList();
+
+                if (config.Count > 0)
+                {
+                    endpoint = config.ElementAt(0).apiEndpoint;
+                    barbotID = config.ElementAt(0).barbotId;
+                }
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Failed to open websocket connection.");
+            }
+
+            // Initialize bluetooth publisher
+            blePublisher = new BLEPublisher(barbotID);
+
+            // Initialize websocket connection
+            webSocket = new WebSocketHandler();
+            openWebSocket(endpoint);
+        }
+
+        public async void openWebSocket(string endpoint)
+        {
+            await webSocket.OpenConnection(String.Format("{0}?id=barbot_{1}", endpoint, barbotID));
         }
 
         /// <summary>

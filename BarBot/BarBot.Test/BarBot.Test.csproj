@@ -37,7 +37,7 @@
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.csproj">
       <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
-      <Name>BarBot</Name>
+      <Name>BarBot.Core</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

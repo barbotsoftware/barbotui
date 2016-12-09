@@ -1,9 +1,9 @@
-﻿using BarBot.Model;
-using MvvmCross.Core.ViewModels;
+﻿using GalaSoft.MvvmLight;
+using BarBot.Core.Model;
 
-namespace BarBot.ViewModel
+namespace BarBot.Core.ViewModels
 {
-	public class RecipeViewModel : MvxViewModel
+	public class RecipeViewModel : ViewModelBase
 	{
 		private Recipe _recipe;
 		public readonly string RecipeName;
@@ -18,7 +18,7 @@ namespace BarBot.ViewModel
 		public Recipe Recipe
 		{
 			get { return _recipe; }
-			set { _recipe = value; RaisePropertyChanged(() => Recipe); }
+			set { _recipe = value; }
 		}
 	}
 }

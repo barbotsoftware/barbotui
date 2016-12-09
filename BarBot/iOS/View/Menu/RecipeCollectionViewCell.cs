@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using CoreGraphics;
-using BarBot.Model;
+using BarBot.Core.Model;
 
 namespace BarBot.iOS.View.Menu
 {
