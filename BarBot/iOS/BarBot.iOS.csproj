@@ -120,7 +120,6 @@
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
     <InterfaceDefinition Include="View\DrinkDetailView.xib" />
-    <InterfaceDefinition Include="View\Menu\DrinkMenu.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -139,7 +138,9 @@
     <Compile Include="View\Menu\DrinkMenuViewController.designer.cs">
       <DependentUpon>DrinkMenuViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="View\Menu\HexagonFlowLayout.cs" />
+    <Compile Include="View\Menu\HexagonLayout.cs" />
+    <Compile Include="View\Menu\MenuSource.cs" />
+    <Compile Include="View\Menu\DrinkCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

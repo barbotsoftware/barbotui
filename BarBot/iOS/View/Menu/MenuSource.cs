@@ -3,20 +3,18 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using BarBot.Core.Model;
-using BarBot.Core.ViewModels;
-using BarBot.iOS.View.Order;
 
 namespace BarBot.iOS.View.Menu
 {
 	public class MenuSource : UICollectionViewSource
 	{
 		public List<Recipe> Rows { get; private set; }
-		MenuCollectionViewController Controller;
+		//DrinkMenuViewController Controller;
 
-		public MenuSource(MenuCollectionViewController c)
+		public MenuSource(DrinkMenuViewController c)
 		{
 			Rows = new List<Recipe>();
-			Controller = c;
+			//Controller = c;
 		}
 
 		public override nint NumberOfSections(UICollectionView collectionView)
@@ -46,16 +44,16 @@ namespace BarBot.iOS.View.Menu
 
 		public override void ItemSelected(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
-			cell.ImageView.Alpha = 1;
+			//var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
+			//cell.ImageView.Alpha = 1;
 
-			UIStoryboard Storyboard = UIStoryboard.FromName("Order", null);
+			//UIStoryboard Storyboard = UIStoryboard.FromName("Order", null);
 
-			Recipe row = Rows[indexPath.Row];
-			RecipeViewModel viewModel = new RecipeViewModel(row);
-			var recipeDetailViewController = Storyboard.InstantiateInitialViewController() as RecipeDetailViewController;
-			recipeDetailViewController.ViewModel = viewModel;
-			Controller.NavigationController.PushViewController(recipeDetailViewController, true);
+			//Recipe row = Rows[indexPath.Row];
+			//RecipeViewModel viewModel = new RecipeViewModel(row);
+			//var recipeDetailViewController = Storyboard.InstantiateInitialViewController() as RecipeDetailViewController;
+			//recipeDetailViewController.ViewModel = viewModel;
+			//Controller.NavigationController.PushViewController(recipeDetailViewController, true);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
