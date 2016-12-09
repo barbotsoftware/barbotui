@@ -139,6 +139,7 @@
     <Compile Include="View\Menu\DrinkMenuViewController.designer.cs">
       <DependentUpon>DrinkMenuViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="View\Menu\HexagonFlowLayout.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
