@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace BarBot.iOS.Views
+namespace BarBot.iOS.View
 {
 	public partial class DrinkDetailViewController : UIViewController
 	{

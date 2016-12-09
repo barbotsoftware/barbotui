@@ -1,8 +1,9 @@
-﻿using BarBot.Core.Model;
+﻿using GalaSoft.MvvmLight;
+using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModels
 {
-	public class RecipeViewModel
+	public class RecipeViewModel : ViewModelBase
 	{
 		private Recipe _recipe;
 		public readonly string RecipeName;

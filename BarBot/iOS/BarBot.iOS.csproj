@@ -114,12 +114,13 @@
     <Folder Include="Resources\" />
     <Folder Include="Assets.xcassets\BarBotLogo.imageset\" />
     <Folder Include="Images\" />
-    <Folder Include="Views\" />
+    <Folder Include="View\" />
+    <Folder Include="View\Menu\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
-    <InterfaceDefinition Include="Views\DrinkMenuView.xib" />
-    <InterfaceDefinition Include="Views\DrinkDetailView.xib" />
+    <InterfaceDefinition Include="View\DrinkDetailView.xib" />
+    <InterfaceDefinition Include="View\Menu\DrinkMenu.storyboard" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -130,13 +131,13 @@
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="Color.cs" />
-    <Compile Include="Views\DrinkMenuViewController.cs" />
-    <Compile Include="Views\DrinkMenuViewController.designer.cs">
-      <DependentUpon>DrinkMenuViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Views\DrinkDetailViewController.cs" />
-    <Compile Include="Views\DrinkDetailViewController.designer.cs">
+    <Compile Include="View\DrinkDetailViewController.cs" />
+    <Compile Include="View\DrinkDetailViewController.designer.cs">
       <DependentUpon>DrinkDetailViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="View\Menu\DrinkMenuViewController.cs" />
+    <Compile Include="View\Menu\DrinkMenuViewController.designer.cs">
+      <DependentUpon>DrinkMenuViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -9,21 +9,13 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace BarBot.iOS.Views
+namespace BarBot.iOS.View.Menu
 {
-    [Register ("DrinkMenuView")]
+    [Register ("DrinkMenuViewController")]
     partial class DrinkMenuViewController
     {
-        [Outlet]
-        [GeneratedCode ("iOS Designer", "1.0")]
-        UIKit.UICollectionView CollectionView { get; set; }
-
         void ReleaseDesignerOutlets ()
         {
-            if (CollectionView != null) {
-                CollectionView.Dispose ();
-                CollectionView = null;
-            }
         }
     }
 }

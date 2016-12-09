@@ -1,6 +1,6 @@
 ﻿using Foundation;
 using UIKit;
-using BarBot.iOS.Views;
+using BarBot.iOS.View.Menu;
 
 namespace BarBot.iOS
 {
@@ -14,12 +14,16 @@ namespace BarBot.iOS
 			get;
 			set;
 		}
+		public static UIStoryboard Storyboard = UIStoryboard.FromName("DrinkMenu", null);
+		public static UIViewController initialViewController;
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var navController = new UINavigationController(new DrinkMenuViewController());
+			initialViewController = Storyboard.InstantiateInitialViewController() as DrinkMenuViewController;
+
+			var navController = new UINavigationController(initialViewController);
 			Window.RootViewController = navController;
 
 			Window.MakeKeyAndVisible();

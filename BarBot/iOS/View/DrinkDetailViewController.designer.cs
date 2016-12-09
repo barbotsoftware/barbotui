@@ -9,7 +9,7 @@ using System;
 using System.CodeDom.Compiler;
 using UIKit;
 
-namespace BarBot.iOS.Views
+namespace BarBot.iOS.View
 {
     [Register ("DrinkDetailView")]
     partial class DrinkDetailViewController
