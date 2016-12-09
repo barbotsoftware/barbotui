@@ -1,14 +1,11 @@
 ﻿using Foundation;
 using UIKit;
-using MvvmCross.iOS.Platform;
-using MvvmCross.iOS.Views.Presenters;
-using MvvmCross.Platform;
-using MvvmCross.Core.ViewModels;
+using BarBot.iOS.Views;
 
 namespace BarBot.iOS
 {
 	[Register("AppDelegate")]
-	public class AppDelegate : MvxApplicationDelegate
+	public class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
 
@@ -22,13 +19,8 @@ namespace BarBot.iOS
 		{
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
-			var presenter = new MvxIosViewPresenter(this, Window);
-
-			var setup = new Setup(this, presenter);
-			setup.Initialize();
-
-			var startup = Mvx.Resolve<IMvxAppStart>();
-			startup.Start();
+			var navController = new UINavigationController(new DrinkMenuViewController());
+			Window.RootViewController = navController;
 
 			Window.MakeKeyAndVisible();
 

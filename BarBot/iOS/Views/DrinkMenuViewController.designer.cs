@@ -12,7 +12,7 @@ using UIKit;
 namespace BarBot.iOS.Views
 {
     [Register ("DrinkMenuView")]
-    partial class DrinkMenuView
+    partial class DrinkMenuViewController
     {
         [Outlet]
         [GeneratedCode ("iOS Designer", "1.0")]

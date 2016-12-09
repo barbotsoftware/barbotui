@@ -39,6 +39,8 @@
     <Compile Include="Model\Event.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
+    <Compile Include="ViewModels\DrinkMenuViewModel.cs" />
+    <Compile Include="ViewModels\RecipeViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

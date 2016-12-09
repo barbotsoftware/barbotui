@@ -1,9 +1,8 @@
 ﻿using BarBot.Core.Model;
-using MvvmCross.Core.ViewModels;
 
 namespace BarBot.Core.ViewModels
 {
-	public class RecipeViewModel : MvxViewModel
+	public class RecipeViewModel
 	{
 		private Recipe _recipe;
 		public readonly string RecipeName;
@@ -18,7 +17,7 @@ namespace BarBot.Core.ViewModels
 		public Recipe Recipe
 		{
 			get { return _recipe; }
-			set { _recipe = value; RaisePropertyChanged(() => Recipe); }
+			set { _recipe = value; }
 		}
 	}
 }

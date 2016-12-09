@@ -1,11 +1,10 @@
-﻿using MvvmCross.iOS.Views;
-using BarBot.Core.ViewModels;
+﻿using UIKit;
 
 namespace BarBot.iOS.Views
 {
-	public partial class DrinkDetailView : MvxViewController<RecipeViewModel>
+	public partial class DrinkDetailViewController : UIViewController
 	{
-		public DrinkDetailView() : base("DrinkDetailView", null)
+		public DrinkDetailViewController()
 		{
 		}
 
