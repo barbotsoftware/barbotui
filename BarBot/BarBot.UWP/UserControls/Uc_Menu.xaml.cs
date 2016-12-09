@@ -45,7 +45,7 @@ namespace BarBot.UWP.UserControls
             if(socket.IsOpen)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", String.Format("barbot_{0}", (Application.Current as App).barbotID));
+                data.Add("barbot_id", String.Format("barbot_{0}", barbotID));
 
                 Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 

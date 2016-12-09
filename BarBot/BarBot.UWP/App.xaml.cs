@@ -27,15 +27,13 @@ namespace BarBot.UWP
     /// </summary>
     sealed partial class App : Application
     {
-        public WebSocketHandler webSocket;
+        public WebSocketHandler webSocket { get; }
 
-        public BarbotContext barbotDB;
+        public BarbotContext barbotDB { get; }
 
-        public BLEPublisher blePublisher;
+        public BLEPublisher blePublisher { get; }
 
-        public string barbotID;
-
-        private BarbotConfig barbotConfig;
+        public string barbotID { get; }
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
