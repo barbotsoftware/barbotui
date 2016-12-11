@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
+using GalaSoft.MvvmLight.Views;
+using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
 
 namespace BarBot.iOS.View.Menu
@@ -47,13 +49,10 @@ namespace BarBot.iOS.View.Menu
 			//var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
 			//cell.ImageView.Alpha = 1;
 
-			//UIStoryboard Storyboard = UIStoryboard.FromName("Order", null);
-
 			//Recipe row = Rows[indexPath.Row];
-			//RecipeViewModel viewModel = new RecipeViewModel(row);
-			//var recipeDetailViewController = Storyboard.InstantiateInitialViewController() as RecipeDetailViewController;
-			//recipeDetailViewController.ViewModel = viewModel;
-			//Controller.NavigationController.PushViewController(recipeDetailViewController, true);
+
+			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+			nav.NavigateTo(AppDelegate.DrinkDetailKey);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)

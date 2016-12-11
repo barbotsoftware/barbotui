@@ -1,6 +1,10 @@
 ﻿using Foundation;
 using UIKit;
+using GalaSoft.MvvmLight.Ioc;
+using GalaSoft.MvvmLight.Views;
+using Microsoft.Practices.ServiceLocation;
 using BarBot.iOS.View.Menu;
+using BarBot.iOS.View.Detail;
 
 namespace BarBot.iOS
 {
@@ -8,22 +12,31 @@ namespace BarBot.iOS
 	public class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
+		public override UIWindow Window { get; set; }
 
-		public override UIWindow Window
-		{
-			get;
-			set;
-		}
+		public const string DrinkDetailKey = "DrinkDetail";
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			var initialViewController = new DrinkMenuViewController(new HexagonLayout());
 
+			// Add the Navigation Controller and initialize it
 			var navController = new UINavigationController(initialViewController);
 			Window.RootViewController = navController;
 
+			// Initialize and register the Navigation Service
+			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+			var nav = new NavigationService();
+			nav.Initialize(navController);
+			nav.Configure(DrinkDetailKey, typeof(DrinkDetailViewController));
+
+			SimpleIoc.Default.Register<INavigationService>(() => nav);
+
+			// make the window visible
 			Window.MakeKeyAndVisible();
 
 			return true;

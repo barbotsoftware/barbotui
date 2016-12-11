@@ -9,7 +9,7 @@ using BarBot.Core.WebSocket;
 
 namespace BarBot.iOS.View.Menu
 {
-    public partial class DrinkMenuViewController : UICollectionViewController
+    public class DrinkMenuViewController : UICollectionViewController
     {
 		WebSocketHandler socket;
 		MenuSource source;
@@ -42,6 +42,7 @@ namespace BarBot.iOS.View.Menu
 
 		void NavBarStyle(UINavigationBar NavBar)
 		{
+			NavBar.TintColor = UIColor.White;
 			NavBar.BarTintColor = Color.BackgroundGray;
 			NavBar.TitleTextAttributes = new UIStringAttributes
 			{
