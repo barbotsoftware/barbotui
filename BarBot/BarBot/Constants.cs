@@ -20,8 +20,11 @@ namespace BarBot.Core
 
 		// 192.168.0.27 = BiloNet
 		// 80 = ExtraDirtyTruffleButter
-		// 36 = Anchor
-		// 10.0.0.3 = 2TurntUp
+
+		// Anchor
+		//public const string EndpointURL = "ws://192.168.1.36:8000";
+
+		// 2TurntUp
 		public const string EndpointURL = "ws://10.0.0.3:8000";
         
 		public const string BarBotId = "barbot_805d2a";

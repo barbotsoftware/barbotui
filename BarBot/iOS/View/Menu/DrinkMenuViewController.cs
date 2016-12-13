@@ -31,7 +31,10 @@ namespace BarBot.iOS.View.Menu
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
 
-			connectWebSocket();
+			ConnectWebSocket();
+
+			// if new user
+			ShowAlert();
 		}
 
 		public override void DidReceiveMemoryWarning()
@@ -58,7 +61,24 @@ namespace BarBot.iOS.View.Menu
 			NavBar.AddSubview(NavBorder);
 		}
 
-		public async void connectWebSocket()
+		public void ShowAlert()
+		{
+			// Create Alert
+			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
+
+			//Add Text Input
+            nameInputAlertController.AddTextField(textField =>
+			{
+			});
+
+			//  Add Action
+			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, null));
+
+			// Present Alert
+			PresentViewController(nameInputAlertController, true, null);
+		}
+
+		public async void ConnectWebSocket()
 		{
 			socket = new WebSocketHandler();
 

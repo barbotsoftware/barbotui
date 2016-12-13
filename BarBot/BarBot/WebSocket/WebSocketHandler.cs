@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Websockets.Universal;
-#if __IOS__
-using Websockets.Ios;
-#endif
+//using Websockets.Universal;
+//#if __IOS__
+//using Websockets.Ios;
+//#endif
 using BarBot.Core.Model;
 using Newtonsoft.Json;
 
@@ -35,15 +35,15 @@ namespace BarBot.Core.WebSocket
 
         public WebSocketHandler()
         {
-#if __IOS__
-			Websockets.Ios.WebsocketConnection.Link();
-#else
+//#if __IOS__
+//			Websockets.Ios.WebsocketConnection.Link();
+//#else
 #if __ANDROID__
 			Websockets.Droid.WebsocketConnection.Link();
 #else
-			Websockets.Universal.WebsocketConnection.Link();
+			//Websockets.Universal.WebsocketConnection.Link();
 #endif
-#endif
+//#endif
 
             connection = Websockets.WebSocketFactory.Create();
             connection.OnMessage += Connection_OnMessage;
