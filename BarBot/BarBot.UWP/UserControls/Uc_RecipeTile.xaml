@@ -13,7 +13,7 @@
         <Grid Canvas.Top="150" Canvas.Left="40" Width="260" Background="#33000000" Canvas.ZIndex="99">
             <TextBlock Text="{Binding Path=Recipe.Name}" FontFamily="Microsoft Yi Baiti" FontSize="40" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
         </Grid>
-        <Path x:Name="hexagon" Stroke="#FF222222" StrokeThickness="8" Width="360"
+        <Path x:Name="hexagon" x:FieldModifier="public" Stroke="#FF222222" StrokeThickness="8" Width="390"
                   Loaded="hexagon_Loaded">
             <Path.Fill>
                 <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>

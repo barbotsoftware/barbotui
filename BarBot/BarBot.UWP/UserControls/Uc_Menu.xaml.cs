@@ -68,9 +68,9 @@ namespace BarBot.UWP.UserControls
                     {
                         Uc_RecipeTile tile = new Uc_RecipeTile();
                         tile.Recipe = args.Recipes.ElementAt(i);
-                        Point pos = getPoint(i);
-                        Console.WriteLine("Tile: " + tile.Recipe.Name);
-                        Console.WriteLine("Position: " + pos.X + ", " + pos.Y);
+                        Point pos = getPoint(i, (int)tile.hexagon.Width);
+                        //Console.WriteLine("Tile: " + tile.Recipe.Name);
+                        //Console.WriteLine("Position: " + pos.X + ", " + pos.Y);
 
                         Canvas.SetLeft(tile, pos.X);
                         Canvas.SetTop(tile, pos.Y);
@@ -80,7 +80,7 @@ namespace BarBot.UWP.UserControls
             });
         }
 
-        private Point getPoint(int i)
+        private Point getPoint(int i, int width)
         {
             int pos = i % 4;
             int r = i / 4;
@@ -88,39 +88,36 @@ namespace BarBot.UWP.UserControls
             int top = 0;
             int left = 0;
 
-            int margin = 50;
+            int margin = 20;
+            int hexPadding = 20;
+            int height = (int)(2 * Math.Sqrt(Math.Pow(width / 2, 2) - Math.Pow(width / 4, 2)));
 
-            //311.7691453623979
-            
             // Top Left
             if (pos == 0)
             {
-                top = 0 + margin; 
-                left = 570 * r;
+                top = 0;
+                left = r * (width + (width - width / 2) + (hexPadding * 2));
             }
             // Bottom Left
             else if (pos == 1)
             {
-                top = 325 + margin;
-                //top = 320;
-                left = 570 * r;
+                top = height + hexPadding;
+                left = r * (width + (width - width / 2) + (hexPadding * 2));
             }
             // Top right (Diagonally down and right from top left)
             else if(pos == 2)
             {
-                top = 165 + margin;
-                //top = 160;
-                left = 570 * r + 285;
+                top = height/2 + hexPadding/2;
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width - width / 2) + (hexPadding * 2)));
             }
             // Bottom right (Diagonally down and right from bottom left)
             else if(pos == 3)
             {
-                top = 490 + margin;
-                //top = 480;
-                left = 570 * r + 285;
+                top = height + hexPadding + height/2 + hexPadding/2;
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width - width / 2) + (hexPadding * 2)));
             }
 
-            return new Point(left, top);
+            return new Point(left, top + margin);
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
