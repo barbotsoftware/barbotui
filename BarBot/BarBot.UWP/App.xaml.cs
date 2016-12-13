@@ -19,6 +19,7 @@ using BarBot.UWP.Database;
 using BarBot.UWP.Bluetooth;
 using BarBot.Core;
 using Microsoft.EntityFrameworkCore;
+using System.Threading.Tasks;
 
 namespace BarBot.UWP
 {
@@ -27,6 +28,7 @@ namespace BarBot.UWP
     /// </summary>
     sealed partial class App : Application
     {
+        #region Global app properties
         public WebSocketHandler webSocket { get; }
 
         public BarbotContext barbotDB { get; }
@@ -34,6 +36,7 @@ namespace BarBot.UWP
         public BLEPublisher blePublisher { get; }
 
         public string barbotID { get; }
+        #endregion
 
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
@@ -42,6 +45,7 @@ namespace BarBot.UWP
         public App()
         {
             this.InitializeComponent();
+            this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
             this.Suspending += OnSuspending;
 
             // Initialize database connection
@@ -75,6 +79,12 @@ namespace BarBot.UWP
             // Initialize websocket connection
             webSocket = new WebSocketHandler();
             openWebSocket(endpoint);
+
+            // Wait until the websocket connection is open
+            while(!webSocket.IsOpen)
+            {
+                Task.Delay(10);
+            }
         }
 
         public async void openWebSocket(string endpoint)
