@@ -69,6 +69,9 @@ namespace BarBot.UWP.UserControls
                         Uc_RecipeTile tile = new Uc_RecipeTile();
                         tile.Recipe = args.Recipes.ElementAt(i);
                         Point pos = getPoint(i);
+                        Console.WriteLine("Tile: " + tile.Recipe.Name);
+                        Console.WriteLine("Position: " + pos.X + ", " + pos.Y);
+
                         Canvas.SetLeft(tile, pos.X);
                         Canvas.SetTop(tile, pos.Y);
                         recipeTileCanvas.Children.Add(tile);
