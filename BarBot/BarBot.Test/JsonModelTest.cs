@@ -1,5 +1,5 @@
 ﻿using System;
-using BarBot.Model;
+using BarBot.Core.Model;
 
 namespace BarBot.Test
 {

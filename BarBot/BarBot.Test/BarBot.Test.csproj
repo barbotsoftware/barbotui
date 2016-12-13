@@ -35,7 +35,7 @@
     <Compile Include="JsonModelTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\BarBot\BarBot.csproj">
+    <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
       <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
       <Name>BarBot.Core</Name>
     </ProjectReference>
