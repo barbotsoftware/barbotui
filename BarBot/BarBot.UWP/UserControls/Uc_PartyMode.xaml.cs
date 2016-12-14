@@ -13,6 +13,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BarBot.UWP.Bluetooth;
+using BarBot.UWP.IO;
+using BarBot.UWP.Database;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -44,9 +46,14 @@ namespace BarBot.UWP.UserControls
             publisher.Start();
         }
 
-        protected override void OnNavigatingFrom(NavigatingCancelEventArgs e)
+        private void Btn_DrinkMenu_Click(object sender, RoutedEventArgs e)
         {
-            publisher.Stop();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_Menu();
+        }
+
+        private void Btn_OrderQueue_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

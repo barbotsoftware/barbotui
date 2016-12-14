@@ -6,8 +6,31 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-
+    <Page.Resources>
+        <Style x:Key="ImageButtonStyle" TargetType="Button">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Margin="100">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Name="Btn_DrinkMenu" Grid.Column="0" Style="{StaticResource ResourceKey=ImageButtonStyle}" Click="Btn_DrinkMenu_Click">
+            <Button.Content>
+                <Image Source="/Assets/Drink_Menu_Image.png" Grid.Column="0"  />
+            </Button.Content>
+        </Button>
+        <Button Name="Btn_OrderQueue" Grid.Column="1" Style="{StaticResource ResourceKey=ImageButtonStyle}" Click="Btn_OrderQueue_Click">
+            <Button.Content>
+                <Image Source="/Assets/Order_Queue_Image.png" Grid.Column="1" />
+            </Button.Content>
+        </Button>
     </Grid>
 </Page>
