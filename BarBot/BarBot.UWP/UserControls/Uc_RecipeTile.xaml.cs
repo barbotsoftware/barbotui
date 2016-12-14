@@ -12,6 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using BarBot.Core;
 using BarBot.Core.Model;
 using System.ComponentModel;
 
@@ -26,6 +27,7 @@ namespace BarBot.UWP.UserControls
         private double lastWidth = 0;
         private double lastHeight = 0;
         private PathFigure figure;
+        private double HexagonWidth = Constants.HexagonWidth;
 
         public Uc_RecipeTile()
         {
@@ -52,6 +54,7 @@ namespace BarBot.UWP.UserControls
         private void hexagon_Loaded(object sender, RoutedEventArgs e)
         {
             Windows.UI.Xaml.Shapes.Path hexagon = sender as Windows.UI.Xaml.Shapes.Path;
+            hexagon.Width = Constants.HexagonWidth;
             hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width/2, 2) - Math.Pow(hexagon.Width / 4, 2));
             CreateDataPath(hexagon.Width, hexagon.Height);
         }

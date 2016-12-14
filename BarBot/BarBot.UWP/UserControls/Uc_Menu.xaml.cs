@@ -28,6 +28,10 @@ namespace BarBot.UWP.UserControls
 
         private string barbotID;
 
+        // Public in case i wanna access it elsewhere
+        public int margin = 20;
+        public int hexPadding = 20;
+
         public Uc_Menu()
         {
             this.InitializeComponent();
@@ -53,6 +57,14 @@ namespace BarBot.UWP.UserControls
 
                 socket.sendMessage(message);
             }
+
+            // Set image size
+            double BackButtonSizeRatio = BackButton.Height / BackButton.Width;
+            BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
+            BackButton.Width = BackButton.Height / BackButtonSizeRatio;
+            //BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2))) - (hexPadding / 2);
+            // Left, Top
+            BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2), recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2), 0, 0);
         }
 
         private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -87,34 +99,31 @@ namespace BarBot.UWP.UserControls
 
             int top = 0;
             int left = 0;
-
-            int margin = 20;
-            int hexPadding = 20;
             int height = (int)(2 * Math.Sqrt(Math.Pow(width / 2, 2) - Math.Pow(width / 4, 2)));
 
             // Top Left
             if (pos == 0)
             {
                 top = 0;
-                left = r * (width + (width - width / 2) + (hexPadding * 2));
+                left = r * (width + (width / 2) + (hexPadding * 2));
             }
             // Bottom Left
             else if (pos == 1)
             {
                 top = height + hexPadding;
-                left = r * (width + (width - width / 2) + (hexPadding * 2));
+                left = r * (width + (width / 2) + (hexPadding * 2));
             }
             // Top right (Diagonally down and right from top left)
             else if(pos == 2)
             {
                 top = height/2 + hexPadding/2;
-                left = (width - (width / 4) + hexPadding) + (r * (width + (width - width / 2) + (hexPadding * 2)));
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
             }
             // Bottom right (Diagonally down and right from bottom left)
             else if(pos == 3)
             {
                 top = height + hexPadding + height/2 + hexPadding/2;
-                left = (width - (width / 4) + hexPadding) + (r * (width + (width - width / 2) + (hexPadding * 2)));
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
             }
 
             return new Point(left, top + margin);

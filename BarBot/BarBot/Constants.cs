@@ -31,6 +31,10 @@ namespace BarBot.Core
         public const string Command = "command";
         public const string Response = "response";
         public const int Timeout = 10000;
+
+
+        // UI - Hexagon
+        public const int HexagonWidth = 390;
     }
 }
 

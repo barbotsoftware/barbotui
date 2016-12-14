@@ -15,9 +15,10 @@
         </Border>
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="DRINK MENU" VerticalAlignment="Top" Width="495" FontFamily="Microsoft Yi Baiti" FontSize="72" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="0,10,0,0"/>
         <Button Click="Button_Click">Reload</Button>
-        <Canvas Name="recipeTileCanvas" Height="970" Width="1550" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="185,100,185,10">
+        <Canvas Name="recipeTileCanvas" Height="970" Width="1640" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="140,100,140,10">
 
         </Canvas>
+        <Image x:Name="BackButton" Stretch="None" HorizontalAlignment="Left" Height="323" Margin="45,303,0,0" VerticalAlignment="Top" Width="186" Source="ms-appx:///Assets/BackButton.png"/>
 
 
     </Grid>
