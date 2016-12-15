@@ -5,6 +5,7 @@ using UIKit;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -52,7 +53,7 @@ namespace BarBot.iOS.View.Menu
 			//Recipe row = Rows[indexPath.Row];
 
 			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-			nav.NavigateTo(AppDelegate.DrinkDetailKey);
+			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)

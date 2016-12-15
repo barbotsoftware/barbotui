@@ -3,8 +3,12 @@ using UIKit;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
+using BarBot.Core;
+using BarBot.Core.ViewModel;
+using BarBot.Core.WebSocket;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
+using System.Threading.Tasks;
 
 namespace BarBot.iOS
 {
@@ -13,8 +17,7 @@ namespace BarBot.iOS
 	{
 		// class-level declarations
 		public override UIWindow Window { get; set; }
-
-		public const string DrinkDetailKey = "DrinkDetail";
+		public WebSocketHandler Socket { get; set; }
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
@@ -27,17 +30,21 @@ namespace BarBot.iOS
 			var navController = new UINavigationController(initialViewController);
 			Window.RootViewController = navController;
 
+			// make the window visible
+			Window.MakeKeyAndVisible();
+
 			// Initialize and register the Navigation Service
 			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
 			var nav = new NavigationService();
 			nav.Initialize(navController);
-			nav.Configure(DrinkDetailKey, typeof(DrinkDetailViewController));
+			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));
 
 			SimpleIoc.Default.Register<INavigationService>(() => nav);
 
-			// make the window visible
-			Window.MakeKeyAndVisible();
+			// Initialize WebsocketHandler
+			Socket = new IosWebsocketHandler();
+			OpenWebSocket(Constants.EndpointURL, Constants.BarBotId);
 
 			return true;
 		}
@@ -71,6 +78,11 @@ namespace BarBot.iOS
 		public override void WillTerminate(UIApplication application)
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
+		}
+
+		public async void OpenWebSocket(string endpoint, string barbotId)
+		{
+			await Socket.OpenConnection(endpoint + "?id=" + barbotId);
 		}
 	}
 }

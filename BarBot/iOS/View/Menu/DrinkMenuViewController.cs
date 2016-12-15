@@ -6,12 +6,16 @@ using CoreGraphics;
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
     public class DrinkMenuViewController : UICollectionViewController
     {
-		WebSocketHandler socket;
+		//MenuViewModel ViewModel;
+		AppDelegate Delegate;
+		WebSocketHandler Socket;
+		string BarBotId;
 		MenuSource source;
 
         public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
@@ -31,16 +35,14 @@ namespace BarBot.iOS.View.Menu
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
 
-			ConnectWebSocket();
+			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			Socket = Delegate.Socket;
+			BarBotId = Constants.BarBotId;
+
+			GetRecipes();
 
 			// if new user
 			ShowAlert();
-		}
-
-		public override void DidReceiveMemoryWarning()
-		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
 		}
 
 		void NavBarStyle(UINavigationBar NavBar)
@@ -78,22 +80,18 @@ namespace BarBot.iOS.View.Menu
 			PresentViewController(nameInputAlertController, true, null);
 		}
 
-		public async void ConnectWebSocket()
+		public void GetRecipes()
 		{
-			socket = new WebSocketHandler();
-
-			bool success = await socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
-
-			if (success)
+			if (Socket.IsOpen)
 			{
 				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", Constants.BarBotId);
+				data.Add("barbot_id", BarBotId);
 
 				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
-				socket.GetRecipesEvent += Socket_GetRecipesEvent;
+				Socket.GetRecipesEvent += Socket_GetRecipesEvent;
 
-				socket.sendMessage(message);
+				Socket.sendMessage(message);
 			}
 		}
 
