@@ -7,18 +7,23 @@ using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace BarBot.iOS.View.Menu
 {
     public class DrinkMenuViewController : UICollectionViewController
     {
-		private MenuViewModel ViewModel
+		// Keep track of bindings to avoid premature garbage collection
+		private readonly List<Binding> bindings = new List<Binding>();
+
+		private MenuViewModel ViewModel => Application.Locator.Menu;
+
+		public UIBarButtonItem SearchButton
 		{
-			get
-			{
-				return Application.Locator.Menu;
-			}
+			get;
+			private set;
 		}
+
 		AppDelegate Delegate;
 		WebSocketHandler Socket;
 		string BarBotId;
@@ -32,10 +37,16 @@ namespace BarBot.iOS.View.Menu
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.Title;
+			InitSearchButton();
 			NavBarStyle(NavigationController.NavigationBar);
 			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
 
-			source = new MenuSource(this);
+			source = new MenuSource();
+
+			bindings.Add(
+				this.SetBinding(
+					() => ViewModel.Recipes,
+					() => source.Rows));
 
 			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
@@ -67,6 +78,16 @@ namespace BarBot.iOS.View.Menu
 			NavBorder.BackgroundColor = Color.BarBotBlue;
 			NavBorder.Opaque = true;
 			NavBar.AddSubview(NavBorder);
+		}
+
+		void InitSearchButton()
+		{
+			SearchButton = new UIBarButtonItem(UIBarButtonSystemItem.Search);
+			this.NavigationItem.SetRightBarButtonItem(SearchButton, false);
+
+			SearchButton.Clicked += (sender, e) => { };
+
+			//SearchButton.SetCommand("Clicked", ViewModel.SearchCommand);
 		}
 
 		public void ShowAlert()
@@ -108,8 +129,8 @@ namespace BarBot.iOS.View.Menu
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				foreach (Recipe r in args.Recipes)
-				{
-					source.Rows.Add(r);
+				{;
+					ViewModel.Recipes.Add(r);
 				}
 				CollectionView.ReloadData();
 			}));

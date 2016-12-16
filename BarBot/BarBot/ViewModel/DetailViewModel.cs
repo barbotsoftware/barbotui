@@ -1,26 +1,25 @@
 ﻿using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Views;
 using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModel
 {
 	public class DetailViewModel : ViewModelBase
 	{
+		private readonly INavigationService _navigationService;
 		private string _title;
 
 		private Recipe _recipe;
-		public readonly string RecipeName;
-		public readonly Step[] RecipeSteps;
 
-		public DetailViewModel(Recipe r)
+		public DetailViewModel(INavigationService navigationService)
 		{
-			Recipe = r;
-			Title = Recipe.Name.ToUpper();
+			_navigationService = navigationService;
 		}
 
 		public Recipe Recipe
 		{
 			get { return _recipe; }
-			set { _recipe = value; }
+			set { Set(ref _recipe, value); }
 		}
 
 		public string Title

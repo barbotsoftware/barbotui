@@ -9,15 +9,21 @@ using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
+	// TODO: Change to ObservableCollectionViewSource
 	public class MenuSource : UICollectionViewSource
 	{
-		public List<Recipe> Rows { get; private set; }
-		//DrinkMenuViewController Controller;
-
-		public MenuSource(DrinkMenuViewController c)
+		private MenuViewModel ViewModel
 		{
-			Rows = new List<Recipe>();
-			//Controller = c;
+			get
+			{
+				return Application.Locator.Menu;
+			}
+		}
+		public List<Recipe> Rows { get; private set; }
+
+		public MenuSource()
+		{
+			Rows = ViewModel.Recipes;
 		}
 
 		public override nint NumberOfSections(UICollectionView collectionView)
@@ -50,8 +56,9 @@ namespace BarBot.iOS.View.Menu
 			//var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
 			//cell.ImageView.Alpha = 1;
 
-			//Recipe row = Rows[indexPath.Row];
+			Recipe row = Rows[indexPath.Row];
 
+			//ViewModel.NavigateCommand;
 			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
 			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}

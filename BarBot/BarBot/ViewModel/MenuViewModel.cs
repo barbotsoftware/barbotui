@@ -2,6 +2,8 @@
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 
+using System.Collections.Generic;
+
 using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModel
@@ -10,12 +12,13 @@ namespace BarBot.Core.ViewModel
 	{
 		private readonly INavigationService _navigationService;
 		private string _title;
-		private Recipe[] _recipes;
+		private List<Recipe> _recipes;
 		private RelayCommand _navigateCommand;
 
 		public MenuViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
+			_recipes = new List<Recipe>();
 
 			Title = "DRINK MENU";
 		}
@@ -26,7 +29,7 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _title, value); }
 		}
 
-		public Recipe[] Recipes
+		public List<Recipe> Recipes
 		{
 			get { return _recipes; }
 			set { Set(ref _recipes, value); }

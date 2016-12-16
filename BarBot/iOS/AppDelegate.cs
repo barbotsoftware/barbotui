@@ -8,6 +8,7 @@ using BarBot.Core.WebSocket;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
 using Websockets.Ios;
+using GalaSoft.MvvmLight.Threading;
 
 namespace BarBot.iOS
 {
@@ -35,14 +36,16 @@ namespace BarBot.iOS
 			// make the window visible
 			Window.MakeKeyAndVisible();
 
-			// Initialize and register the Navigation Service
-			ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+			// MVVM Light's DispatcherHelper for cross-thread handling.
+			DispatcherHelper.Initialize(application);
 
+			//ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+
+			// Initialize and register the Navigation Service
 			var nav = new NavigationService();
+			SimpleIoc.Default.Register<INavigationService>(() => nav);
 			nav.Initialize(navController);
 			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));
-
-			SimpleIoc.Default.Register<INavigationService>(() => nav);
 
 			return true;
 		}

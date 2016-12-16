@@ -1,16 +1,17 @@
 using Foundation;
 using System;
 using UIKit;
-using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Detail
 {
 	public class DrinkDetailViewController : UIViewController
     {
-        public DrinkDetailViewController()
-        {
-        }
+		private DetailViewModel ViewModel => Application.Locator.Detail;
+        
+		public DrinkDetailViewController() 
+		{
+		}
 
 		public override void ViewDidLoad()
 		{
