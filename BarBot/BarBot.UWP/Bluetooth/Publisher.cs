@@ -8,6 +8,9 @@ using Windows.Storage.Streams;
 
 namespace BarBot.UWP.Bluetooth
 {
+    /// <summary>
+    /// Bluetooth low-energy broadcaster. Advertises company ID and barbot ID. 
+    /// </summary>
     public class BLEPublisher
     {
         private BluetoothLEAdvertisementPublisher publisher;

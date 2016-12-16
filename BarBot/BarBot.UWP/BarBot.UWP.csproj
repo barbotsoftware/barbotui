@@ -12,7 +12,7 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <TargetPlatformIdentifier>UAP</TargetPlatformIdentifier>
     <TargetPlatformVersion>10.0.14393.0</TargetPlatformVersion>
-    <TargetPlatformMinVersion>10.0.10586.0</TargetPlatformMinVersion>
+    <TargetPlatformMinVersion>10.0.14393.0</TargetPlatformMinVersion>
     <MinimumVisualStudioVersion>14</MinimumVisualStudioVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{A5A43C5B-DE2A-4C0C-9213-0A381AF9435A};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -89,7 +89,9 @@
   </PropertyGroup>
   <ItemGroup>
     <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <None Include="App.config" />
+    <None Include="App.config">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="barbot.snk" />
     <None Include="project.json" />
   </ItemGroup>
@@ -100,6 +102,30 @@
     <Compile Include="Bluetooth\Publisher.cs" />
     <Compile Include="Database\BarbotConfig.cs" />
     <Compile Include="Database\BarbotContext.cs" />
+    <Compile Include="Database\CupDispenser.cs" />
+    <Compile Include="Database\FlowSensor.cs" />
+    <Compile Include="Database\GarnishDispenser.cs" />
+    <Compile Include="Database\IceHopper.cs" />
+    <Compile Include="Database\Container.cs" />
+    <Compile Include="Database\IOPort.cs" />
+    <Compile Include="Database\Pump.cs" />
+    <Compile Include="IO\Devices\ICupDispenser.cs" />
+    <Compile Include="IO\Devices\V1\Container.cs" />
+    <Compile Include="IO\Devices\V1\CupDispenser.cs" />
+    <Compile Include="IO\Devices\V1\FlowSensor.cs" />
+    <Compile Include="IO\Devices\V1\GarnishDispenser.cs" />
+    <Compile Include="IO\BarbotIOController.cs" />
+    <Compile Include="IO\Devices\IContainer.cs" />
+    <Compile Include="IO\I2CPort.cs" />
+    <Compile Include="IO\Devices\V1\IceHopper.cs" />
+    <Compile Include="IO\Devices\IGarnishDispenser.cs" />
+    <Compile Include="IO\IIOController.cs" />
+    <Compile Include="IO\Devices\IIceHopper.cs" />
+    <Compile Include="IO\IIOPort.cs" />
+    <Compile Include="IO\IOPort.cs" />
+    <Compile Include="IO\Devices\IPump.cs" />
+    <Compile Include="IO\Devices\IFlowSensor.cs" />
+    <Compile Include="IO\Devices\V1\Pump.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -107,10 +133,17 @@
     <Compile Include="Migrations\20161208044208_CreateBarbotDB.designer.cs">
       <DependentUpon>20161208044208_CreateBarbotDB.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20161214071505_CreateDevices.cs" />
+    <Compile Include="Migrations\20161214071505_CreateDevices.designer.cs">
+      <DependentUpon>20161214071505_CreateDevices.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\Uc_Menu.xaml.cs">
       <DependentUpon>Uc_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Uc_PartyMode.xaml.cs">
+      <DependentUpon>Uc_PartyMode.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_RecipeTile.xaml.cs">
       <DependentUpon>Uc_RecipeTile.xaml</DependentUpon>
@@ -123,8 +156,13 @@
     <None Include="BarBot_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+<<<<<<< HEAD
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\NextButton.png" />
+=======
+    <Content Include="Assets\Drink_Menu_Image.png" />
+    <Content Include="Assets\Order_Queue_Image.png" />
+>>>>>>> ecd53bfa581d4b4d5d417e78a16986f613bfe684
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml">
       <SubType>Designer</SubType>
@@ -148,6 +186,10 @@
     <Page Include="UserControls\Uc_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserControls\Uc_PartyMode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Uc_RecipeTile.xaml">
       <Generator>MSBuild:Compile</Generator>

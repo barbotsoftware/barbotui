@@ -8,6 +8,6 @@
     mc:Ignorable="d">
 
     <Grid Background="#FF131313">
-        <Frame Name="ContentFrame"></Frame>
+        <Frame Name="ContentFrame" x:FieldModifier="public"></Frame>
     </Grid>
 </Page>
