@@ -1,32 +1,21 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-
-using GalaSoft.MvvmLight;
+﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
 
 using BarBot.Core.Model;
-using BarBot.Core.WebSocket;
 
 namespace BarBot.Core.ViewModel
 {
 	public class MenuViewModel : ViewModelBase
 	{
 		private readonly INavigationService _navigationService;
-		//private WebSocketHandler _socket;
-		//private string _barbotId;
-
 		private string _title;
 		private Recipe[] _recipes;
 		private RelayCommand _navigateCommand;
 
-		public MenuViewModel(INavigationService navigationService, 
-		                     WebSocketHandler socket,
-		                     string barbotId)
+		public MenuViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
-			//_socket = socket;
-			//_barbotId = barbotId;
 
 			Title = "DRINK MENU";
 		}

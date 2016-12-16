@@ -20,13 +20,13 @@ namespace BarBot.iOS.View.Menu
 			base.PrepareLayout();
 
 			ScrollDirection = UICollectionViewScrollDirection.Vertical;
-			MinimumInteritemSpacing = -30.0f;
+			MinimumInteritemSpacing = -45.0f;
 			MinimumLineSpacing = 10.0f;
-			SectionInset = new UIEdgeInsets(20.0f, 15.0f, 20.0f, 15.0f);
-			ItemSize = new CGSize(160, 145);
+			SectionInset = new UIEdgeInsets(20.0f, 10.0f, 20.0f, 10.0f);
+			ItemSize = new CGSize(200, 175);
 			HeaderReferenceSize = new CGSize(0, 0);
 			FooterReferenceSize = new CGSize(0, 0);
-			_gap = 76.0f;
+			_gap = 93.0f;
 
 			// Section count
 			_sectionCount = CollectionView.NumberOfSections();

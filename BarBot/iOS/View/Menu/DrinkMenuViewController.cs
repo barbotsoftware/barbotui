@@ -12,7 +12,13 @@ namespace BarBot.iOS.View.Menu
 {
     public class DrinkMenuViewController : UICollectionViewController
     {
-		//MenuViewModel ViewModel;
+		private MenuViewModel ViewModel
+		{
+			get
+			{
+				return Application.Locator.Menu;
+			}
+		}
 		AppDelegate Delegate;
 		WebSocketHandler Socket;
 		string BarBotId;
@@ -25,7 +31,7 @@ namespace BarBot.iOS.View.Menu
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			Title = "DRINK MENU";
+			Title = ViewModel.Title;
 			NavBarStyle(NavigationController.NavigationBar);
 			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
 

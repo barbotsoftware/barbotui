@@ -12,7 +12,7 @@ namespace BarBot.iOS.View.Menu
     {
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel LabelView;
-		//public UIImageView ImageView;
+		public UIImageView ImageView;
 
         public RecipeCollectionViewCell (IntPtr handle) : base (handle)
         {
@@ -21,13 +21,9 @@ namespace BarBot.iOS.View.Menu
 		[Export("initWithFrame:")]
 		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
 		{
-			ContentView.Layer.BorderColor = Color.BackgroundGray.CGColor;
-			ContentView.Layer.BorderWidth = 1.0f / UIScreen.MainScreen.NativeScale;
-			ContentView.BackgroundColor = UIColor.Black;
-
-			//ImageView = new UIImageView();
-			//ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
-			//ContentView.AddSubview(ImageView);
+			ImageView = new UIImageView();
+			ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			ContentView.AddSubview(ImageView);
 
 			LabelView = new UILabel
 			{
@@ -42,13 +38,13 @@ namespace BarBot.iOS.View.Menu
 		public void UpdateRow(Recipe element)
 		{
 			LabelView.Text = element.Name;
-			//ImageView.Image = await LoadImage(element.Img);
+			ImageView.Image = UIImage.FromFile("Images/orange_hexagon.png");//await LoadImage(element.Img);
 
-			//var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			//var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
+			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
 
-			//ImageView.Frame = new CGRect(point, size);
-			//ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
+			ImageView.Frame = new CGRect(point, size);
+			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
 			LabelView.Frame = new CGRect(ContentView.Frame.X,
 										 ContentView.Frame.Y,
 										 ContentView.Frame.Width,

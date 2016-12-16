@@ -151,6 +151,8 @@
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
+    <BundleResource Include="Images\orange_hexagon.png" />
+    <BundleResource Include="Images\orange_hexagon%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\navigation_icon.png" />
