@@ -156,13 +156,10 @@
     <None Include="BarBot_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-<<<<<<< HEAD
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\NextButton.png" />
-=======
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
->>>>>>> ecd53bfa581d4b4d5d417e78a16986f613bfe684
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml">
       <SubType>Designer</SubType>
