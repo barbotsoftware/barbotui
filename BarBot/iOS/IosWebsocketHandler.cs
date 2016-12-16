@@ -1,14 +1,11 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
-using Websockets.Ios;
-using BarBot.Core;
+﻿using Websockets.Ios;
 using BarBot.Core.WebSocket;
 
 namespace BarBot.iOS
 {
-	public class IosWebsocketHandler : WebSocketHandler
+	public class IosWebSocketHandler : WebSocketHandler
 	{
-		public IosWebsocketHandler()
+		public IosWebSocketHandler()
 		{
 			WebsocketConnection.Link();
 			Init();

@@ -42,7 +42,7 @@ namespace BarBot.iOS.View.Menu
 			GetRecipes();
 
 			// if new user
-			ShowAlert();
+			//ShowAlert();
 		}
 
 		void NavBarStyle(UINavigationBar NavBar)
@@ -80,9 +80,11 @@ namespace BarBot.iOS.View.Menu
 			PresentViewController(nameInputAlertController, true, null);
 		}
 
-		public void GetRecipes()
+		public async void GetRecipes()
 		{
-			if (Socket.IsOpen)
+			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
+
+			if (success)
 			{
 				var data = new Dictionary<string, object>();
 				data.Add("barbot_id", BarBotId);

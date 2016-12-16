@@ -3,12 +3,11 @@ using UIKit;
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using Microsoft.Practices.ServiceLocation;
-using BarBot.Core;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
-using System.Threading.Tasks;
+using Websockets.Ios;
 
 namespace BarBot.iOS
 {
@@ -21,6 +20,9 @@ namespace BarBot.iOS
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			// Initialize WebsocketHandler
+			Socket = new IosWebSocketHandler();
+
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
@@ -41,10 +43,6 @@ namespace BarBot.iOS
 			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));
 
 			SimpleIoc.Default.Register<INavigationService>(() => nav);
-
-			// Initialize WebsocketHandler
-			Socket = new IosWebsocketHandler();
-			OpenWebSocket(Constants.EndpointURL, Constants.BarBotId);
 
 			return true;
 		}
@@ -79,12 +77,5 @@ namespace BarBot.iOS
 		{
 			// Called when the application is about to terminate. Save data, if needed. See also DidEnterBackground.
 		}
-
-		public async void OpenWebSocket(string endpoint, string barbotId)
-		{
-			await Socket.OpenConnection(endpoint + "?id=" + barbotId);
-		}
 	}
 }
-
-
