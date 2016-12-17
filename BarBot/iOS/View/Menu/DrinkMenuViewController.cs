@@ -51,6 +51,7 @@ namespace BarBot.iOS.View.Menu
 			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
+			CollectionView.BackgroundColor = UIColor.FromRGB(12, 12, 12);
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			Socket = Delegate.Socket;

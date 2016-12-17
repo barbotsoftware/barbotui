@@ -129,6 +129,7 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
+    <Folder Include="View\Menu\Animation\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -148,11 +149,14 @@
     <Compile Include="View\Menu\DrinkCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
     <Compile Include="IosWebSocketHandler.cs" />
+    <Compile Include="View\Menu\Animation\DismissalAnimator.cs" />
+    <Compile Include="View\Menu\Animation\PresentationAnimator.cs" />
+    <Compile Include="View\Menu\Animation\TransitioningDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
     <BundleResource Include="Images\orange_hexagon.png" />
-    <BundleResource Include="Images\orange_hexagon%402x.png" />
+    <BundleResource Include="Images\HexagonTile.png" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\navigation_icon.png" />

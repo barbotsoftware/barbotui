@@ -38,7 +38,7 @@ namespace BarBot.iOS.View.Menu
 		public void UpdateRow(Recipe element)
 		{
 			LabelView.Text = element.Name;
-			ImageView.Image = UIImage.FromFile("Images/orange_hexagon.png");//await LoadImage(element.Img);
+			ImageView.Image = UIImage.FromFile("Images/HexagonTile.png");
 
 			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
 			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
