@@ -1,6 +1,6 @@
 using System;
-//using System.Net.Http;
-//using System.Threading.Tasks;
+using System.Net.Http;
+using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using CoreGraphics;
@@ -11,20 +11,22 @@ using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
-    public class RecipeCollectionViewCell : UICollectionViewCell
-    {
+	public class RecipeCollectionViewCell : UICollectionViewCell
+	{
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel NameLabel;
+		public UIImageView DrinkImageView;
 		public UIImageView HexagonImageView;
 
-        public RecipeCollectionViewCell (IntPtr handle) : base (handle)
-        {
-        }
+		public RecipeCollectionViewCell(IntPtr handle) : base(handle)
+		{
+		}
 
 		[Export("initWithFrame:")]
 		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
 		{
 			ConfigureBackgroundView();
+			ConfigureDrinkImage();
 			ConfigureNameLabel();
 		}
 
@@ -34,13 +36,13 @@ namespace BarBot.iOS.View.Menu
 			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
 
 			HexagonImageView = new Hexagon("Images/HexagonTile.png",
-			                               point,
-			                               size);
+										   point,
+										   size);
 			HexagonImageView.UserInteractionEnabled = true;
 			HexagonImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			HexagonImageView.Center = ContentView.Center;
 
-			UITapGestureRecognizer tapGesture = new UITapGestureRecognizer(Tapped);
+			var tapGesture = new UITapGestureRecognizer(Tapped);
 			HexagonImageView.AddGestureRecognizer(tapGesture);
 
 			ContentView.AddSubview(HexagonImageView);
@@ -50,6 +52,20 @@ namespace BarBot.iOS.View.Menu
 		{
 			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
 			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
+		}
+
+		void ConfigureDrinkImage()
+		{
+			DrinkImageView = new UIImageView();
+			DrinkImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+
+			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
+
+			DrinkImageView.Frame = new CGRect(point, size);
+			DrinkImageView.Center = ContentView.Center;
+
+			ContentView.AddSubview(DrinkImageView);
 		}
 
 		void ConfigureNameLabel()
@@ -70,38 +86,35 @@ namespace BarBot.iOS.View.Menu
 			ContentView.AddSubview(NameLabel);
 		}
 
-		public void UpdateRow(Recipe element)
+		public async void UpdateRow(Recipe element)
 		{
 			NameLabel.Text = element.Name;
+			DrinkImageView.Image = await LoadImage(element.Img);
 		}
 
-		//public async Task<UIImage> LoadImage(string imageUrl)
-		//{
-		//	var httpClient = new HttpClient();
+		public async Task<UIImage> LoadImage(string imageUrl)
+		{
+			var httpClient = new HttpClient();
 
-		//	// await! control returns to the caller and the task continues to run on another thread
-		//	var contents = await httpClient.GetByteArrayAsync(imageUrl);
+			// await! control returns to the caller and the task continues to run on another thread
+			var contents = await httpClient.GetByteArrayAsync(imageUrl);
 
-		//	// load from bytes
-		//	return UIImage.LoadFromData(NSData.FromArray(contents));
-		//}
+			// load from bytes
+			return UIImage.LoadFromData(NSData.FromArray(contents));
+		}
 	}
 
 	class Hexagon : UIImageView
 	{
-
-		CGRect maskFrame;
-
-		public Hexagon(string inside, CGPoint point, CGSize size)
+		public Hexagon(string img, CGPoint point, CGSize size)
 		{
-			Image = UIImage.FromFile(inside);
+			Image = UIImage.FromFile(img);
 			Frame = new CGRect(point, size);;
-			maskFrame = Frame;
 		}
 
 		public override bool PointInside(CGPoint point, UIEvent uievent)
 		{
-			var p = UIBezierPath.FromOval(maskFrame);
+			var p = UIBezierPath.FromOval(Frame);
 			return p.ContainsPoint(point);
 		}
 	}
