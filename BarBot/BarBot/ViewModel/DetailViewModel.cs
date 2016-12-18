@@ -6,21 +6,23 @@ namespace BarBot.Core.ViewModel
 {
 	public class DetailViewModel : ViewModelBase
 	{
-		private readonly INavigationService _navigationService;
 		private string _title;
+		private string _recipeId;
 
-		private Recipe _recipe;
-
-		public DetailViewModel(INavigationService navigationService)
+		public DetailViewModel()
 		{
-			_navigationService = navigationService;
+			MessengerInstance.Register<string>(this, id => 
+			{
+				Title = id;
+				_recipeId = id;
+			});
 		}
 
-		public Recipe Recipe
-		{
-			get { return _recipe; }
-			set { Set(ref _recipe, value); }
-		}
+		//public Recipe Recipe
+		//{
+		//	get { return _recipe; }
+		//	set { Set(ref _recipe, value); }
+		//}
 
 		public string Title
 		{

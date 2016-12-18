@@ -4,8 +4,6 @@ using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using CoreGraphics;
-using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 
@@ -17,6 +15,8 @@ namespace BarBot.iOS.View.Menu
 		public UILabel NameLabel;
 		public UIImageView DrinkImageView;
 		public UIImageView HexagonImageView;
+		MenuViewModel ViewModel => Application.Locator.Menu;
+		string _recipeId;
 
 		public RecipeCollectionViewCell(IntPtr handle) : base(handle)
 		{
@@ -42,16 +42,10 @@ namespace BarBot.iOS.View.Menu
 			HexagonImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			HexagonImageView.Center = ContentView.Center;
 
-			var tapGesture = new UITapGestureRecognizer(Tapped);
+			var tapGesture = new UITapGestureRecognizer(() => ViewModel.ShowDrinkDetailsCommand(_recipeId));
 			HexagonImageView.AddGestureRecognizer(tapGesture);
 
 			ContentView.AddSubview(HexagonImageView);
-		}
-
-		void Tapped()
-		{
-			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}
 
 		void ConfigureDrinkImage()
@@ -88,6 +82,7 @@ namespace BarBot.iOS.View.Menu
 
 		public async void UpdateRow(Recipe element)
 		{
+			_recipeId = element.Id;
 			NameLabel.Text = element.Name;
 			DrinkImageView.Image = await LoadImage(element.Img);
 		}
@@ -109,7 +104,7 @@ namespace BarBot.iOS.View.Menu
 		public Hexagon(string img, CGPoint point, CGSize size)
 		{
 			Image = UIImage.FromFile(img);
-			Frame = new CGRect(point, size);;
+			Frame = new CGRect(point, size);
 		}
 
 		public override bool PointInside(CGPoint point, UIEvent uievent)

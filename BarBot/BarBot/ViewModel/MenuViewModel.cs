@@ -1,10 +1,11 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Views;
+using GalaSoft.MvvmLight.Messaging;
 
 using System.Collections.Generic;
 
 using BarBot.Core.Model;
+
 
 namespace BarBot.Core.ViewModel
 {
@@ -13,7 +14,6 @@ namespace BarBot.Core.ViewModel
 		private readonly INavigationService _navigationService;
 		private string _title;
 		private List<Recipe> _recipes;
-		private RelayCommand _navigateCommand;
 
 		public MenuViewModel(INavigationService navigationService)
 		{
@@ -35,14 +35,10 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _recipes, value); }
 		}
 
-		public RelayCommand NavigateCommand
+		public void ShowDrinkDetailsCommand(string obj)
 		{
-			get
-			{
-				return _navigateCommand
-					?? (_navigateCommand = new RelayCommand(() => _navigationService.NavigateTo(
-							ViewModelLocator.DrinkDetailKey)));
-			}
+			MessengerInstance.Send(obj);
+			_navigationService.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}
 	}
 }

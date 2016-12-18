@@ -1,5 +1,3 @@
-using Foundation;
-using System;
 using UIKit;
 using BarBot.Core.ViewModel;
 
@@ -17,7 +15,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			base.ViewDidLoad();
 
-			Title = "Drink Detail";
+			Title = ViewModel.Title;
 		}
     }
 }
