@@ -24,7 +24,7 @@ namespace BarBot.iOS.View.Menu
 			MinimumLineSpacing = 7.0f;
 
 			int cellWidth = 200;
-			int cellHeight = 175;
+			int cellHeight = 174;
 
 			nfloat leftInset = (CollectionView.Bounds.Width - (cellWidth * 2 + MinimumInteritemSpacing)) / 2;
 			nfloat rightInset = 0.0f;

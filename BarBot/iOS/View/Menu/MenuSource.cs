@@ -56,11 +56,11 @@ namespace BarBot.iOS.View.Menu
 			//var cell = (RecipeCollectionViewCell)collectionView.CellForItem(indexPath);
 			//cell.ImageView.Alpha = 1;
 
-			Recipe row = Rows[indexPath.Row];
+			//Recipe row = Rows[indexPath.Row];
 
 			//ViewModel.NavigateCommand;
-			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
+			//var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+			//nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)

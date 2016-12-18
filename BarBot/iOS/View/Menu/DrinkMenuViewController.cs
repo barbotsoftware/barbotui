@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
@@ -11,8 +10,8 @@ using GalaSoft.MvvmLight.Helpers;
 
 namespace BarBot.iOS.View.Menu
 {
-    public class DrinkMenuViewController : UICollectionViewController
-    {
+	public class DrinkMenuViewController : UICollectionViewController
+	{
 		// Keep track of bindings to avoid premature garbage collection
 		private readonly List<Binding> bindings = new List<Binding>();
 
@@ -29,9 +28,9 @@ namespace BarBot.iOS.View.Menu
 		string BarBotId;
 		MenuSource source;
 
-        public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
-        {
-        }
+		public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
+		{
+		}
 
 		public override void ViewDidLoad()
 		{
@@ -97,7 +96,7 @@ namespace BarBot.iOS.View.Menu
 			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
 
 			//Add Text Input
-            nameInputAlertController.AddTextField(textField =>
+			nameInputAlertController.AddTextField(textField =>
 			{
 			});
 
@@ -130,11 +129,11 @@ namespace BarBot.iOS.View.Menu
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				foreach (Recipe r in args.Recipes)
-				{;
+				{
 					ViewModel.Recipes.Add(r);
 				}
 				CollectionView.ReloadData();
 			}));
 		}
-    }
+	}
 }

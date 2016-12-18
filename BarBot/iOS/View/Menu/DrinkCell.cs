@@ -4,15 +4,18 @@ using System;
 using Foundation;
 using UIKit;
 using CoreGraphics;
+using GalaSoft.MvvmLight.Views;
+using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
     public class RecipeCollectionViewCell : UICollectionViewCell
     {
 		public static NSString CellID = new NSString("RecipeCell");
-		public UILabel LabelView;
-		public UIImageView ImageView;
+		public UILabel NameLabel;
+		public UIImageView HexagonImageView;
 
         public RecipeCollectionViewCell (IntPtr handle) : base (handle)
         {
@@ -21,34 +24,55 @@ namespace BarBot.iOS.View.Menu
 		[Export("initWithFrame:")]
 		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
 		{
-			ImageView = new UIImageView();
-			ImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
-			ContentView.AddSubview(ImageView);
+			ConfigureBackgroundView();
+			ConfigureNameLabel();
+		}
 
-			LabelView = new UILabel
+		void ConfigureBackgroundView()
+		{
+			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
+
+			HexagonImageView = new Hexagon("Images/HexagonTile.png",
+			                               point,
+			                               size);
+			HexagonImageView.UserInteractionEnabled = true;
+			HexagonImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			HexagonImageView.Center = ContentView.Center;
+
+			UITapGestureRecognizer tapGesture = new UITapGestureRecognizer(Tapped);
+			HexagonImageView.AddGestureRecognizer(tapGesture);
+
+			ContentView.AddSubview(HexagonImageView);
+		}
+
+		void Tapped()
+		{
+			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+			nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
+		}
+
+		void ConfigureNameLabel()
+		{
+			NameLabel = new UILabel
 			{
 				TextColor = UIColor.White,
 				TextAlignment = UITextAlignment.Center,
 				AdjustsFontSizeToFitWidth = true,
 				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
 			};
-			ContentView.AddSubview(LabelView);
+
+			NameLabel.Frame = new CGRect(ContentView.Frame.X,
+										 ContentView.Frame.Y,
+										 ContentView.Frame.Width,
+										 ContentView.Frame.Height);
+
+			ContentView.AddSubview(NameLabel);
 		}
 
 		public void UpdateRow(Recipe element)
 		{
-			LabelView.Text = element.Name;
-			ImageView.Image = UIImage.FromFile("Images/HexagonTile.png");
-
-			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
-
-			ImageView.Frame = new CGRect(point, size);
-			ImageView.Center = new CGPoint(ContentView.Center.X, ContentView.Center.Y);
-			LabelView.Frame = new CGRect(ContentView.Frame.X,
-										 ContentView.Frame.Y,
-										 ContentView.Frame.Width,
-										 ContentView.Frame.Height);
+			NameLabel.Text = element.Name;
 		}
 
 		//public async Task<UIImage> LoadImage(string imageUrl)
@@ -61,5 +85,24 @@ namespace BarBot.iOS.View.Menu
 		//	// load from bytes
 		//	return UIImage.LoadFromData(NSData.FromArray(contents));
 		//}
+	}
+
+	class Hexagon : UIImageView
+	{
+
+		CGRect maskFrame;
+
+		public Hexagon(string inside, CGPoint point, CGSize size)
+		{
+			Image = UIImage.FromFile(inside);
+			Frame = new CGRect(point, size);;
+			maskFrame = Frame;
+		}
+
+		public override bool PointInside(CGPoint point, UIEvent uievent)
+		{
+			var p = UIBezierPath.FromOval(maskFrame);
+			return p.ContainsPoint(point);
+		}
 	}
 }
