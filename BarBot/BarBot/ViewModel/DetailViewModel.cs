@@ -8,21 +8,27 @@ namespace BarBot.Core.ViewModel
 	{
 		private string _title;
 		private string _recipeId;
+		private Recipe _recipe;
 
 		public DetailViewModel()
 		{
 			MessengerInstance.Register<string>(this, id => 
 			{
-				Title = id;
-				_recipeId = id;
+				RecipeId = id;
 			});
 		}
 
-		//public Recipe Recipe
-		//{
-		//	get { return _recipe; }
-		//	set { Set(ref _recipe, value); }
-		//}
+		public string RecipeId
+		{
+			get { return _recipeId; }
+			set { Set(ref _recipeId, value); }
+		}
+
+		public Recipe Recipe
+		{
+			get { return _recipe; }
+			set { Set(ref _recipe, value); }
+		}
 
 		public string Title
 		{

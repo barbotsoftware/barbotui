@@ -153,6 +153,7 @@
     <Compile Include="View\Menu\Animation\DismissalAnimator.cs" />
     <Compile Include="View\Menu\Animation\PresentationAnimator.cs" />
     <Compile Include="View\Menu\Animation\TransitioningDelegate.cs" />
+    <Compile Include="View\Hexagon.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
