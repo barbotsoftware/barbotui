@@ -99,7 +99,7 @@ namespace BarBot.iOS.View.Menu
 		// Initialize and Style Collection View
 		void InitCollectionView()
 		{
-			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
+			CollectionView.RegisterClassForCell(typeof(DrinkCollectionViewCell), DrinkCollectionViewCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
 			CollectionView.BackgroundColor = Color.BackgroundGray;

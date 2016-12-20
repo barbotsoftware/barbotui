@@ -7,7 +7,7 @@ using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
-	public class RecipeCollectionViewCell : UICollectionViewCell
+	public class DrinkCollectionViewCell : UICollectionViewCell
 	{
 		MenuViewModel ViewModel => Application.Locator.Menu;
 		public static NSString CellID = new NSString("RecipeCell");
@@ -19,12 +19,12 @@ namespace BarBot.iOS.View.Menu
 		CGPoint point;
 		CGSize size;
 
-		public RecipeCollectionViewCell(IntPtr handle) : base(handle)
+		public DrinkCollectionViewCell(IntPtr handle) : base(handle)
 		{
 		}
 
 		[Export("initWithFrame:")]
-		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
+		public DrinkCollectionViewCell(CGRect Frame) : base(Frame)
 		{
 			point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
 			size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);

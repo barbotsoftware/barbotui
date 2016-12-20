@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
-using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 
@@ -65,7 +63,7 @@ namespace BarBot.iOS.View.Menu
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCollectionViewCell)collectionView.DequeueReusableCell(RecipeCollectionViewCell.CellID, indexPath);
+			var cell = (DrinkCollectionViewCell)collectionView.DequeueReusableCell(DrinkCollectionViewCell.CellID, indexPath);
 
 			Recipe row = Rows[indexPath.Row];
 

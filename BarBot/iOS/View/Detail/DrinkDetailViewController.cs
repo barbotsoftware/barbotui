@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UIKit;
 using CoreGraphics;
 using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
@@ -15,6 +16,7 @@ namespace BarBot.iOS.View.Detail
 
 		UIImageView DrinkImageView;
 		UIImageView HexagonImageView;
+		UITableView IngredientTableView;
 		UIButton OrderButton;
 
 		AppDelegate Delegate;
@@ -30,18 +32,12 @@ namespace BarBot.iOS.View.Detail
 
 			View.BackgroundColor = Color.BackgroundGray;
 			ConfigureHexagon();
+			ConfigureIngredientTable();
 			ConfigureOrderButton("ORDER DRINK", 20, View.Bounds.Bottom - 80, View.Bounds.Width - 40);
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			Socket = Delegate.Socket;
 			GetRecipeDetails();
-		}
-
-		async void Reload()
-		{
-			Title = ViewModel.Recipe.Name.ToUpper();
-			// TODO: Pass image instead of getting from ws server again
-			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 		}
 
 		void ConfigureHexagon()
@@ -62,6 +58,24 @@ namespace BarBot.iOS.View.Detail
 
 			View.AddSubview(HexagonImageView);
 			View.AddSubview(DrinkImageView);
+		}
+
+		void ConfigureIngredientTable()
+		{
+			IngredientTableView = new UITableView();
+			IngredientTableView.BackgroundColor = Color.BackgroundGray;
+			IngredientTableView.Frame = new CGRect(0, HexagonImageView.Frame.Bottom + 25, View.Frame.Width, 300);
+
+			IngredientTableView.RowHeight = 45;
+			IngredientTableView.ScrollEnabled = true;
+			IngredientTableView.ShowsVerticalScrollIndicator = true;
+			IngredientTableView.AllowsSelection = false;
+			IngredientTableView.Bounces = true;
+
+			IngredientTableView.RegisterClassForCellReuse(typeof(IngredientTableViewCell), IngredientTableViewCell.CellID);
+			IngredientTableView.DataSource = new IngredientTableDataSource();
+
+			View.AddSubview(IngredientTableView);
 		}
 
 		void ConfigureOrderButton(string title, nfloat x, nfloat y, nfloat width)
@@ -102,8 +116,20 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipe = args.Recipe;
+				foreach (Ingredient i in args.Recipe.Ingredients)
+				{
+					ViewModel.Ingredients.Add(i);
+				}
 			}));
 			Reload();
+		}
+
+		async void Reload()
+		{
+			Title = ViewModel.Recipe.Name.ToUpper();
+			// TODO: Pass image instead of getting from ws server again
+			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
+			IngredientTableView.ReloadData();
 		}
     }
 }

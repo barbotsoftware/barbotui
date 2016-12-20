@@ -1,5 +1,5 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
+using System.Collections.Generic;
 using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModel
@@ -9,6 +9,7 @@ namespace BarBot.Core.ViewModel
 		private string _title;
 		private string _recipeId;
 		private Recipe _recipe;
+		private List<Ingredient> _ingredients;
 
 		public DetailViewModel()
 		{
@@ -16,6 +17,7 @@ namespace BarBot.Core.ViewModel
 			{
 				RecipeId = id;
 			});
+			_ingredients = new List<Ingredient>();
 		}
 
 		public string RecipeId
@@ -28,6 +30,12 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _recipe; }
 			set { Set(ref _recipe, value); }
+		}
+
+		public List<Ingredient> Ingredients
+		{
+			get { return _ingredients; }
+			set { Set(ref _ingredients, value); }
 		}
 
 		public string Title

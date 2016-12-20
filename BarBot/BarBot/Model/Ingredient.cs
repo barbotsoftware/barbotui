@@ -6,34 +6,50 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
+using System.ComponentModel;
+
 namespace BarBot.Core.Model
 {
-	public class Ingredient : JsonModelObject
+	public class Ingredient : JsonModelObject, INotifyPropertyChanged
 	{
-		public string Id { get; set; }
-		public string Name { get; set; }
-		public string Brand { get; set; }
-		public string Type { get; set; }
+		private string _ingredientId;
+		private double _quantity;
+
+		public string IngredientId
+		{
+			get { return _ingredientId; }
+			set
+			{
+				_ingredientId = value;
+				OnPropertyChanged("IngredientId");
+			}
+		}
+
+		public double Quantity
+		{
+			get { return _quantity; }
+			set
+			{
+				_quantity = value;
+				OnPropertyChanged("Quantity");
+			}
+		}
 
 		public Ingredient()
 		{
 		}
 
-        public Ingredient(string id, string name, string brand, string type)
+        public Ingredient(string ingredientId, double quantity)
         {
-            Id = id;
-            Name = name;
-			Brand = brand;
-			Type = type;
+            IngredientId = ingredientId;
+			Quantity = quantity;
         }
 
 		public Ingredient(string json)
 		{
 			var i = (Ingredient)parseJSON(json, typeof(Ingredient));
-			Id = i.Id;
-			Name = i.Name;
-			Brand = i.Brand;
-			Type = i.Type;
+			IngredientId = i.IngredientId;
+			Quantity = i.Quantity;
 		}
     }
 }
