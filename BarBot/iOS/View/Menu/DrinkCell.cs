@@ -1,6 +1,4 @@
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
 using Foundation;
 using UIKit;
 using CoreGraphics;
@@ -11,12 +9,15 @@ namespace BarBot.iOS.View.Menu
 {
 	public class RecipeCollectionViewCell : UICollectionViewCell
 	{
+		MenuViewModel ViewModel => Application.Locator.Menu;
 		public static NSString CellID = new NSString("RecipeCell");
 		public UILabel NameLabel;
 		public UIImageView DrinkImageView;
 		public UIImageView HexagonImageView;
-		MenuViewModel ViewModel => Application.Locator.Menu;
+
 		string _recipeId;
+		CGPoint point;
+		CGSize size;
 
 		public RecipeCollectionViewCell(IntPtr handle) : base(handle)
 		{
@@ -25,6 +26,9 @@ namespace BarBot.iOS.View.Menu
 		[Export("initWithFrame:")]
 		public RecipeCollectionViewCell(CGRect Frame) : base(Frame)
 		{
+			point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
+			size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
+
 			ConfigureBackgroundView();
 			ConfigureDrinkImage();
 			ConfigureNameLabel();
@@ -32,9 +36,6 @@ namespace BarBot.iOS.View.Menu
 
 		void ConfigureBackgroundView()
 		{
-			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
-
 			HexagonImageView = new Hexagon("Images/HexagonTile.png",
 										   point,
 										   size);
@@ -53,11 +54,8 @@ namespace BarBot.iOS.View.Menu
 			DrinkImageView = new UIImageView();
 			DrinkImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 
-			var point = new CGPoint(ContentView.Frame.X, ContentView.Frame.Y);
-			var size = new CGSize(ContentView.Frame.Width, ContentView.Frame.Height);
-
-			DrinkImageView.Frame = new CGRect(point, size);
-			DrinkImageView.Center = ContentView.Center;
+			var imgPoint = new CGPoint(point.X, point.Y - 10);
+			DrinkImageView.Frame = new CGRect(imgPoint, size);
 
 			ContentView.AddSubview(DrinkImageView);
 		}
@@ -84,18 +82,7 @@ namespace BarBot.iOS.View.Menu
 		{
 			_recipeId = element.Id;
 			NameLabel.Text = element.Name;
-			DrinkImageView.Image = await LoadImage(element.Img);
-		}
-
-		public async Task<UIImage> LoadImage(string imageUrl)
-		{
-			var httpClient = new HttpClient();
-
-			// await! control returns to the caller and the task continues to run on another thread
-			var contents = await httpClient.GetByteArrayAsync(imageUrl);
-
-			// load from bytes
-			return UIImage.LoadFromData(NSData.FromArray(contents));
+			DrinkImageView.Image = await AsyncUtil.LoadImage(element.Img);
 		}
 	}
 }

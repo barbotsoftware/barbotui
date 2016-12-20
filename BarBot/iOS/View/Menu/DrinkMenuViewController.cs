@@ -47,10 +47,7 @@ namespace BarBot.iOS.View.Menu
 					() => ViewModel.Recipes,
 					() => source.Rows));
 
-			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
-			CollectionView.ShowsHorizontalScrollIndicator = false;
-			CollectionView.Source = source;
-			CollectionView.BackgroundColor = UIColor.FromRGB(12, 12, 12);
+			InitCollectionView();
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			Socket = Delegate.Socket;
@@ -62,10 +59,29 @@ namespace BarBot.iOS.View.Menu
 			//ShowAlert();
 		}
 
+		// Show Name Text Prompt
+		public void ShowAlert()
+		{
+			// Create Alert
+			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
+
+			//Add Text Input
+			nameInputAlertController.AddTextField(textField =>
+			{
+			});
+
+			//  Add Actionn
+			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, null));
+
+			// Present Alert
+			PresentViewController(nameInputAlertController, true, null);
+		}
+
+		// Style Navigation Bar
 		void NavBarStyle(UINavigationBar NavBar)
 		{
 			NavBar.TintColor = UIColor.White;
-			NavBar.BarTintColor = Color.BackgroundGray;
+			NavBar.BarTintColor = Color.NavBarGray;
 			NavBar.TitleTextAttributes = new UIStringAttributes
 			{
 				ForegroundColor = UIColor.White,
@@ -80,6 +96,16 @@ namespace BarBot.iOS.View.Menu
 			NavBar.AddSubview(NavBorder);
 		}
 
+		// Initialize and Style Collection View
+		void InitCollectionView()
+		{
+			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
+			CollectionView.ShowsHorizontalScrollIndicator = false;
+			CollectionView.Source = source;
+			CollectionView.BackgroundColor = Color.BackgroundGray;
+		}
+
+		// Initialize Search Button
 		void InitSearchButton()
 		{
 			SearchButton = new UIBarButtonItem(UIBarButtonSystemItem.Search);
@@ -88,23 +114,6 @@ namespace BarBot.iOS.View.Menu
 			SearchButton.Clicked += (sender, e) => { };
 
 			//SearchButton.SetCommand("Clicked", ViewModel.SearchCommand);
-		}
-
-		public void ShowAlert()
-		{
-			// Create Alert
-			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
-
-			//Add Text Input
-			nameInputAlertController.AddTextField(textField =>
-			{
-			});
-
-			//  Add Action
-			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, null));
-
-			// Present Alert
-			PresentViewController(nameInputAlertController, true, null);
 		}
 
 		public async void GetRecipes()

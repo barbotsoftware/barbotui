@@ -13,6 +13,8 @@ namespace BarBot.iOS.View.Detail
     {
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
+		UIImageView DrinkImageView;
+		UIImageView HexagonImageView;
 		UIButton OrderButton;
 
 		AppDelegate Delegate;
@@ -26,22 +28,46 @@ namespace BarBot.iOS.View.Detail
 		{
 			base.ViewDidLoad();
 
+			View.BackgroundColor = Color.BackgroundGray;
+			ConfigureHexagon();
+			ConfigureOrderButton("ORDER DRINK", 20, View.Bounds.Bottom - 80, View.Bounds.Width - 40);
+
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			Socket = Delegate.Socket;
-			ConfigureOrderButton("ORDER DRINK", 20, View.Bounds.Bottom - 70, View.Bounds.Width - 40);
 			GetRecipeDetails();
 		}
 
-		void Reload()
+		async void Reload()
 		{
-			Title = ViewModel.Recipe.Name;
+			Title = ViewModel.Recipe.Name.ToUpper();
+			// TODO: Pass image instead of getting from ws server again
+			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 		}
 
+		void ConfigureHexagon()
+		{
+			nfloat factor = 174.0f / 200.0f;
+			var point = new CGPoint(View.Frame.X + 10, View.Frame.Y + 75);
+			var imgPoint = new CGPoint(point.X, point.Y - 10);
+			var size = new CGSize(View.Bounds.Width / 2, factor * (View.Bounds.Width / 2));
+
+			HexagonImageView = new Hexagon("Images/HexagonTile.png",
+										   point,
+										   size);
+			HexagonImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+
+			DrinkImageView = new UIImageView();
+			DrinkImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			DrinkImageView.Frame = new CGRect(imgPoint, size);
+
+			View.AddSubview(HexagonImageView);
+			View.AddSubview(DrinkImageView);
+		}
 
 		void ConfigureOrderButton(string title, nfloat x, nfloat y, nfloat width)
 		{
 			OrderButton = UIButton.FromType(UIButtonType.System);
-			OrderButton.Frame = new CGRect(x, y, width, 45);
+			OrderButton.Frame = new CGRect(x, y, width, 60);
 			OrderButton.SetTitle(title, UIControlState.Normal);
 			OrderButton.SetTitleColor(UIColor.White, UIControlState.Normal);
 			OrderButton.Font = UIFont.FromName("Microsoft-Yi-Baiti", 23f);
