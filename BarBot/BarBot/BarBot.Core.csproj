@@ -42,6 +42,7 @@
     <Compile Include="ViewModel\DetailViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
+    <Compile Include="Model\IngredientList.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

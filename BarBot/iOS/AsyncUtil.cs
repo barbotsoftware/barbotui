@@ -1,7 +1,7 @@
-﻿using System.Net.Http;
-using System.Threading.Tasks;
-using Foundation;
+﻿using Foundation;
 using UIKit;
+using System.Threading.Tasks;
+using System.Net.Http;
 
 namespace BarBot.iOS
 {

@@ -29,7 +29,11 @@ namespace BarBot.Core.ViewModel
 		public Recipe Recipe
 		{
 			get { return _recipe; }
-			set { Set(ref _recipe, value); }
+			set 
+			{ 
+				Set(ref _recipe, value);
+				Ingredients = _recipe.Ingredients;
+			}
 		}
 
 		public List<Ingredient> Ingredients
@@ -42,6 +46,11 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _title; }
 			set { Set(ref _title, value); }
+		}
+
+		public void Clear()
+		{
+			Ingredients.Clear();
 		}
 	}
 }

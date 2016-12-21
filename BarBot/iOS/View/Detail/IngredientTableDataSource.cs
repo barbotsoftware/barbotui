@@ -7,7 +7,7 @@ namespace BarBot.iOS.View.Detail
 {
 	public class IngredientTableDataSource : UITableViewDataSource
 	{
-		private List<Ingredient> Rows;
+		public List<Ingredient> Rows { get; private set; }
 
 		private DetailViewModel ViewModel
 		{
@@ -33,6 +33,7 @@ namespace BarBot.iOS.View.Detail
 			var cell = (IngredientTableViewCell)tableView.DequeueReusableCell(IngredientTableViewCell.CellID, indexPath);
 
 			Ingredient row = Rows[indexPath.Row];
+			
 			cell.StyleCell();		// TODO: move to cell constructor
 			cell.UpdateRow(row);
 

@@ -1,14 +1,16 @@
-﻿using Foundation;
+﻿using System.Collections.Generic;
+using Foundation;
 using UIKit;
+
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
+using GalaSoft.MvvmLight.Threading;
+
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
-using BarBot.Core.WebSocket;
+
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
-using Websockets.Ios;
-using GalaSoft.MvvmLight.Threading;
 
 namespace BarBot.iOS
 {
@@ -17,12 +19,16 @@ namespace BarBot.iOS
 	{
 		// class-level declarations
 		public override UIWindow Window { get; set; }
-		public WebSocketHandler Socket { get; set; }
+		public WebSocketUtil WebSocketUtil { get; set; }
+		public IngredientList IngredientsInBarBot { get; set; }
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			// Initialize Ingredient List
+			IngredientsInBarBot = new IngredientList();
+
 			// Initialize WebsocketHandler
-			Socket = new IosWebSocketHandler();
+			WebSocketUtil = new WebSocketUtil();
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -38,8 +44,6 @@ namespace BarBot.iOS
 
 			// MVVM Light's DispatcherHelper for cross-thread handling.
 			DispatcherHelper.Initialize(application);
-
-			//ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
 			// Initialize and register the Navigation Service
 			var nav = new NavigationService();

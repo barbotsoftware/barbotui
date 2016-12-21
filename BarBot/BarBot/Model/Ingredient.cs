@@ -13,6 +13,7 @@ namespace BarBot.Core.Model
 	public class Ingredient : JsonModelObject, INotifyPropertyChanged
 	{
 		private string _ingredientId;
+		private string _name;
 		private double _quantity;
 
 		public string IngredientId
@@ -22,6 +23,16 @@ namespace BarBot.Core.Model
 			{
 				_ingredientId = value;
 				OnPropertyChanged("IngredientId");
+			}
+		}
+
+		public string Name
+		{
+			get { return _name; }
+			set
+			{
+				_name = value;
+				OnPropertyChanged("Name");
 			}
 		}
 
@@ -39,9 +50,10 @@ namespace BarBot.Core.Model
 		{
 		}
 
-        public Ingredient(string ingredientId, double quantity)
+        public Ingredient(string ingredientId, string name, double quantity)
         {
             IngredientId = ingredientId;
+			Name = name;
 			Quantity = quantity;
         }
 
@@ -49,6 +61,7 @@ namespace BarBot.Core.Model
 		{
 			var i = (Ingredient)parseJSON(json, typeof(Ingredient));
 			IngredientId = i.IngredientId;
+			Name = i.Name;
 			Quantity = i.Quantity;
 		}
     }

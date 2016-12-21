@@ -3,15 +3,18 @@ using System.Threading.Tasks;
 using System.Collections.Generic;
 using UIKit;
 using CoreGraphics;
-using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
+using GalaSoft.MvvmLight.Helpers;
 
 namespace BarBot.iOS.View.Detail
 {
 	public class DrinkDetailViewController : UIViewController
     {
+		// Keep track of bindings to avoid premature garbage collection
+		private readonly List<Binding> bindings = new List<Binding>();
+
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
 		UIImageView DrinkImageView;
@@ -20,7 +23,8 @@ namespace BarBot.iOS.View.Detail
 		UIButton OrderButton;
 
 		AppDelegate Delegate;
-		WebSocketHandler Socket;
+		WebSocketUtil WebSocketUtil;
+		IngredientTableDataSource source;
         
 		public DrinkDetailViewController()
 		{
@@ -36,8 +40,20 @@ namespace BarBot.iOS.View.Detail
 			ConfigureOrderButton("ORDER DRINK", 20, View.Bounds.Bottom - 80, View.Bounds.Width - 40);
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			Socket = Delegate.Socket;
-			GetRecipeDetails();
+			WebSocketUtil = Delegate.WebSocketUtil;
+			WebSocketUtil.GetIngredients(Socket_GetIngredientsEvent);
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			// Get Recipe Details on Appear
+			WebSocketUtil.GetRecipeDetails(Socket_GetRecipeDetailsEvent, ViewModel.RecipeId);
+		}
+
+		public override void ViewWillDisappear(bool animated)
+		{
+			// Clear ViewModel on Disappear
+			ViewModel.Clear();
 		}
 
 		void ConfigureHexagon()
@@ -73,7 +89,13 @@ namespace BarBot.iOS.View.Detail
 			IngredientTableView.Bounces = true;
 
 			IngredientTableView.RegisterClassForCellReuse(typeof(IngredientTableViewCell), IngredientTableViewCell.CellID);
-			IngredientTableView.DataSource = new IngredientTableDataSource();
+			source = new IngredientTableDataSource();
+			IngredientTableView.DataSource = source;
+
+			bindings.Add(
+				this.SetBinding(
+					() => ViewModel.Ingredients,
+					() => source.Rows));
 
 			View.AddSubview(IngredientTableView);
 		}
@@ -96,19 +118,17 @@ namespace BarBot.iOS.View.Detail
 			View.AddSubview(OrderButton);
 		}
 
-		public void GetRecipeDetails()
+		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
 		{
-			if (Socket.IsOpen)
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				var data = new Dictionary<string, object>();
-				data.Add("recipe_id", ViewModel.RecipeId);
+				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
+			}));
+		}
 
-				var message = new Message(Constants.Command, Constants.GetRecipeDetails, data);
-
-				Socket.GetRecipeDetailsEvent += Socket_GetRecipeDetailsEvent;
-
-				Socket.sendMessage(message);
-			}
+		void UpdateIngredients()
+		{
+			
 		}
 
 		private async void Socket_GetRecipeDetailsEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -116,10 +136,6 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipe = args.Recipe;
-				foreach (Ingredient i in args.Recipe.Ingredients)
-				{
-					ViewModel.Ingredients.Add(i);
-				}
 			}));
 			Reload();
 		}

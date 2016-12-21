@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 using CoreGraphics;
-using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
@@ -24,8 +23,7 @@ namespace BarBot.iOS.View.Menu
 		}
 
 		AppDelegate Delegate;
-		WebSocketHandler Socket;
-		string BarBotId;
+		WebSocketUtil WebSocketUtil;
 		MenuSource source;
 
 		public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
@@ -50,10 +48,9 @@ namespace BarBot.iOS.View.Menu
 			InitCollectionView();
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			Socket = Delegate.Socket;
-			BarBotId = Constants.BarBotId;
+			WebSocketUtil = Delegate.WebSocketUtil;
 
-			GetRecipes();
+			WebSocketUtil.GetRecipes(Socket_GetRecipesEvent);
 
 			// if new user
 			//ShowAlert();
@@ -114,23 +111,6 @@ namespace BarBot.iOS.View.Menu
 			SearchButton.Clicked += (sender, e) => { };
 
 			//SearchButton.SetCommand("Clicked", ViewModel.SearchCommand);
-		}
-
-		public async void GetRecipes()
-		{
-			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
-
-			if (success)
-			{
-				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", BarBotId);
-
-				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
-
-				Socket.GetRecipesEvent += Socket_GetRecipesEvent;
-
-				Socket.sendMessage(message);
-			}
 		}
 
 		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)

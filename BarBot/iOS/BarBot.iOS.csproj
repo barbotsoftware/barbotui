@@ -154,9 +154,10 @@
     <Compile Include="View\Menu\Animation\PresentationAnimator.cs" />
     <Compile Include="View\Menu\Animation\TransitioningDelegate.cs" />
     <Compile Include="View\Hexagon.cs" />
-    <Compile Include="AsyncUtil.cs" />
+    <Compile Include="WebSocketUtil.cs" />
     <Compile Include="View\Detail\IngredientTableDataSource.cs" />
     <Compile Include="View\Detail\IngredientTableViewCell.cs" />
+    <Compile Include="AsyncUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

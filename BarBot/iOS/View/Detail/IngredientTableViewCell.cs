@@ -22,7 +22,7 @@ namespace BarBot.iOS.View.Detail
 
 		public void UpdateRow(Ingredient element)
 		{
-			TextLabel.Text = element.IngredientId;
+			TextLabel.Text = element.Quantity + " oz " + element.Name;
 		}
 	}
 }

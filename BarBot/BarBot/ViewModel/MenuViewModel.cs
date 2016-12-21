@@ -13,6 +13,7 @@ namespace BarBot.Core.ViewModel
 		private readonly INavigationService _navigationService;
 		private string _title;
 		private List<Recipe> _recipes;
+		private List<Ingredient> _ingredients;
 
 		public MenuViewModel(INavigationService navigationService)
 		{
@@ -32,6 +33,12 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _recipes; }
 			set { Set(ref _recipes, value); }
+		}
+
+		public List<Ingredient> Ingredients
+		{
+			get { return _ingredients; }
+			set { Set(ref _ingredients, value); }
 		}
 
 		public void ShowDrinkDetailsCommand(string obj)
