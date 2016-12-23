@@ -2,13 +2,17 @@
 
 namespace BarBot.Core.Model
 {
-	public class IngredientList
+	public class IngredientList : JsonModelObject
 	{
 		private List<Ingredient> _ingredients;
 
 		public IngredientList()
 		{
-			_ingredients = new List<Ingredient>();
+		}
+
+		public IngredientList(string json)
+		{
+			Ingredients = (List<Ingredient>)parseJSON(json, typeof(List<Ingredient>));
 		}
 
 		public List<Ingredient> Ingredients 
@@ -17,26 +21,26 @@ namespace BarBot.Core.Model
 			set { _ingredients = value; }
 		}
 
-		public Ingredient GetIngredient(string ingredientId)
+		public string GetIngredientName(Ingredient ingredient)
 		{
 			foreach (Ingredient i in Ingredients)
 			{
-				if (i.IngredientId.Equals(ingredientId))
+				if (i.IngredientId.Equals(ingredient.IngredientId))
 				{
-					return i;
+					return i.Name;
 				}
 			}
-			return null;
+			return "";
 		}
 
-		public List<Ingredient> GetIngredientsForIngredientIds(List<Ingredient> list)
-		{
-			var newList = new List<Ingredient>();
-			foreach (Ingredient i in list)
-			{
-				newList.Add(GetIngredient(i.IngredientId));
-			}
-			return newList;
-		}
+		//public List<Ingredient> GetIngredientsForIngredientIds(List<Ingredient> list)
+		//{
+		//	var newList = new List<Ingredient>();
+		//	foreach (Ingredient i in list)
+		//	{
+		//		newList.Add(GetIngredient(i.IngredientId));
+		//	}
+		//	return newList;
+		//}
 	}
 }

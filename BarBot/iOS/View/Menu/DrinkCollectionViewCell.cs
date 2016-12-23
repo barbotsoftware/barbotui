@@ -80,7 +80,7 @@ namespace BarBot.iOS.View.Menu
 
 		public async void UpdateRow(Recipe element)
 		{
-			_recipeId = element.Id;
+			_recipeId = element.RecipeId;
 			NameLabel.Text = element.Name;
 			DrinkImageView.Image = await AsyncUtil.LoadImage(element.Img);
 		}

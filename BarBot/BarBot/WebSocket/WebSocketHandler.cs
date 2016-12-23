@@ -85,16 +85,16 @@ namespace BarBot.Core.WebSocket
             switch(message.Command)
             {
                 case Constants.GetRecipesForBarbot:
-                    List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(message.Data["recipes"].ToString());
-                    GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(recipes));
+					var RecipeList = new RecipeList(message.Data["recipes"].ToString());
+					GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(RecipeList.Recipes));
                     break;
                 case Constants.GetRecipeDetails:
                     Recipe recipe = new Recipe(message.Data["recipe"].ToString());
                     GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
                     break;
 				case Constants.GetIngredientsForBarbot:
-					List<Ingredient> ingredients = JsonConvert.DeserializeObject<List<Ingredient>>(message.Data["ingredients"].ToString());
-					GetIngredientsEvent(this, new WebSocketEvents.GetIngredientsEventArgs(ingredients));
+					var IngredientList = new IngredientList(message.Data["ingredients"].ToString());
+					GetIngredientsEvent(this, new WebSocketEvents.GetIngredientsEventArgs(IngredientList.Ingredients));
 					break;
             }
         }

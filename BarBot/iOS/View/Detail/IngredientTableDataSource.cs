@@ -33,7 +33,8 @@ namespace BarBot.iOS.View.Detail
 
 			if (Delegate.IngredientsInBarBot.Ingredients.Count > 0)
 			{
-				row = Delegate.IngredientsInBarBot.GetIngredient(Rows[indexPath.Row].IngredientId);
+				row = Rows[indexPath.Row];
+				row.Name = Delegate.IngredientsInBarBot.GetIngredientName(row);
 			}
 			else
 			{

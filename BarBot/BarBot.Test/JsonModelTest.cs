@@ -24,7 +24,7 @@ namespace BarBot.Test
 			var x = new Recipe(json);
 			Console.WriteLine("Deserializing... ");
 			Console.WriteLine();
-			Console.WriteLine("Id: " + x.Id);
+			Console.WriteLine("Id: " + x.RecipeId);
 			Console.WriteLine("Name: " + x.Name);
 			Console.WriteLine("Img: " + x.Img);
 			Console.WriteLine("Steps: " + x.Steps[0]);
@@ -51,7 +51,7 @@ namespace BarBot.Test
 			var x = new Ingredient(json);
 			Console.WriteLine("Deserializing... ");
 			Console.WriteLine();
-			Console.WriteLine("Id: " + x.Id);
+			Console.WriteLine("Id: " + x.IngredientId);
 			Console.WriteLine("Name: " + x.Name);
 			Console.WriteLine("Brand: " + x.Brand);
 			Console.WriteLine("Type: " + x.Type);

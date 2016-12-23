@@ -13,18 +13,18 @@ namespace BarBot.Core.Model
 {
 	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{
-        private string _id;
+		private string _recipeId;
         private string _name;
         private string _img;
         private List<Ingredient> _ingredients;
 
-		public string Id
+		public string RecipeId
         {
-            get { return _id; }
+            get { return _recipeId; }
             set
             {
-                _id = value;
-                OnPropertyChanged("Id");
+                _recipeId = value;
+                OnPropertyChanged("RecipeId");
             }
         }
 
@@ -63,7 +63,7 @@ namespace BarBot.Core.Model
 
 		public Recipe(string id, string name, string img, Ingredient[] ingredients)
 		{
-			Id = id;
+			RecipeId = id;
 			Name = name;
 			Img = img;
 			foreach (Ingredient i in ingredients)
@@ -75,7 +75,7 @@ namespace BarBot.Core.Model
 		public Recipe(string json)
 		{
 			var r = (Recipe)parseJSON(json, typeof(Recipe));
-			Id = r.Id;
+			RecipeId = r.RecipeId;
 			Name = r.Name;
 			Img = r.Img;
 			Ingredients = r.Ingredients;

@@ -13,9 +13,9 @@ namespace BarBot.Core.ViewModel
 
 		public DetailViewModel()
 		{
-			MessengerInstance.Register<string>(this, id => 
+			MessengerInstance.Register<string>(this, recipeId => 
 			{
-				RecipeId = id;
+				RecipeId = recipeId;
 			});
 			_ingredients = new List<Ingredient>();
 		}
