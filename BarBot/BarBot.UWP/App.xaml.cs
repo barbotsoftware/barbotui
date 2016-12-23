@@ -20,6 +20,7 @@ using BarBot.UWP.Bluetooth;
 using BarBot.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using BarBot.UWP.IO;
 
 namespace BarBot.UWP
 {
@@ -29,13 +30,19 @@ namespace BarBot.UWP
     sealed partial class App : Application
     {
         #region Global app properties
-        public WebSocketHandler webSocket { get; }
 
-        public BarbotContext barbotDB { get; }
+        public WebSocketHandler webSocket { get; set; }
 
-        public BLEPublisher blePublisher { get; }
+        public BarbotContext barbotDB { get; set; }
 
-        public string barbotID { get; }
+        public BLEPublisher blePublisher { get; set; }
+
+        public BarbotIOController barbotIOController { get; set; }
+
+        public string barbotID { get; set; }
+
+        public Constants.BarbotStatus Status { get; set; }
+
         #endregion
 
         /// <summary>
@@ -48,16 +55,30 @@ namespace BarBot.UWP
             this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
             this.Suspending += OnSuspending;
 
+            init();
+
+            // Wait for initialization to finish
+            while(!Status.Equals(Constants.BarbotStatus.READY))
+            {
+                Task.Delay(10);
+            }
+        }
+
+        public void init()
+        {
+            Status = Constants.BarbotStatus.STARTING;
+
             // Initialize database connection
             barbotDB = new BarbotContext();
 
             // Migrate pending migrations
             barbotDB.Database.Migrate();
 
-            // Get database configuration
+            // Default config values to fall back on
             string endpoint = Constants.EndpointURL;
             barbotID = Constants.BarBotId;
 
+            // Get database configuration
             try
             {
                 List<BarbotConfig> config = barbotDB.BarbotConfigs.ToList();
@@ -76,12 +97,28 @@ namespace BarBot.UWP
             // Initialize bluetooth publisher
             blePublisher = new BLEPublisher(barbotID);
 
+            // Initialize IO Controller
+            List<Container> containers = barbotDB.Containers.Include(x => x.pump.ioPort).Include(x => x.flowSensor.ioPort).ToList();
+            IceHopper iceHopper = barbotDB.IceHoppers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+            GarnishDispenser garnishDispenser = barbotDB.GarnishDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+            CupDispenser cupDispenser = barbotDB.CupDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+            barbotIOController = new BarbotIOController(containers,
+                iceHopper,
+                garnishDispenser,
+                cupDispenser);
+
+            // Wait for IO controller to initialize
+            while (!barbotIOController.Initialized)
+            {
+                Task.Delay(10);
+            }
+
             // Initialize websocket connection
             webSocket = new WebSocketHandler();
             openWebSocket(endpoint);
 
             // Wait until the websocket connection is open
-            while(!webSocket.IsOpen)
+            while (!webSocket.IsOpen)
             {
                 Task.Delay(10);
             }

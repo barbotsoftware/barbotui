@@ -29,6 +29,8 @@ namespace BarBot.UWP.UserControls
 
         private BLEPublisher publisher;
 
+        private BarbotIOController controller;
+
         public Uc_PartyMode()
         {
             this.InitializeComponent();

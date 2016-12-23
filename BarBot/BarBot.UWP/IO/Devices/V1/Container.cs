@@ -14,7 +14,7 @@ namespace BarBot.UWP.IO.Devices.V1
             Pump = pump;
         }
 
-        public IPump Pump { get; set; }
-        public IFlowSensor FlowSensor { get; set; }
+        public Pump Pump;
+        public FlowSensor FlowSensor;
     }
 }

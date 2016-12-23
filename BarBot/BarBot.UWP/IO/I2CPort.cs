@@ -12,13 +12,22 @@ namespace BarBot.UWP.IO.Devices
     /// </summary>
     public class I2CPort : IIOPort
     {
-        int address { get; set; }
+        MCP23017.Pin Pin { get; set; }
 
-        GpioPin gpioPin { get; set; }
+        public MCP23017 MCP;
+
+        public I2CPort() { }
+
+        public I2CPort(MCP23017 mcp, int address)
+        {
+            Pin = (MCP23017.Pin) address; 
+            MCP = mcp;
+        }
 
         public void write(GpioPinValue val)
         {
-
+            MCP.SetDriveMode(Pin, MCP23017.PinMode.Output);
+            MCP.Write(Pin, (MCP23017.PinValue) val);
         }
     }
 }
