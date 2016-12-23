@@ -21,6 +21,7 @@ using BarBot.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using BarBot.UWP.IO;
+using System.Diagnostics;
 
 namespace BarBot.UWP
 {
@@ -91,26 +92,29 @@ namespace BarBot.UWP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to open websocket connection.");
+                Debug.WriteLine(string.Format("Failed to retrieve barbot configuration settings: {0}.", e.Message));
             }
 
             // Initialize bluetooth publisher
             blePublisher = new BLEPublisher(barbotID);
 
             // Initialize IO Controller
-            List<Container> containers = barbotDB.Containers.Include(x => x.pump.ioPort).Include(x => x.flowSensor.ioPort).ToList();
-            IceHopper iceHopper = barbotDB.IceHoppers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
-            GarnishDispenser garnishDispenser = barbotDB.GarnishDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
-            CupDispenser cupDispenser = barbotDB.CupDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
-            barbotIOController = new BarbotIOController(containers,
-                iceHopper,
-                garnishDispenser,
-                cupDispenser);
-
-            // Wait for IO controller to initialize
-            while (!barbotIOController.Initialized)
+            try
             {
-                Task.Delay(10);
+                barbotIOController = new BarbotIOController(barbotDB.getContainers(),
+                    barbotDB.getIceHopper(),
+                    barbotDB.getGarnishDispenser(),
+                    barbotDB.getCupDispenser());
+
+                // Wait for IO controller to initialize
+                while (!barbotIOController.Initialized)
+                {
+                    Task.Delay(10);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
 
             // Initialize websocket connection
