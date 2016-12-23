@@ -1,7 +1,10 @@
 ﻿using System.Threading.Tasks;
 using System.Collections.Generic;
 
+using UIKit;
+
 using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 
 namespace BarBot.iOS
@@ -15,16 +18,21 @@ namespace BarBot.iOS
 			Socket = new IosWebSocketHandler();
 		}
 
-		public async void OpenWebSocket()
-		{
-			await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
-		}
-
-		public async void GetRecipes(WebSocketEvents.GetRecipesEventHandler handler)
+		public async void OpenWebSocket(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+		                                WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
 		{
 			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
 
 			if (success)
+			{
+				GetRecipes(recipesHandler);
+				GetIngredients(ingredientsHandler);
+			}
+		}
+
+		public void GetRecipes(WebSocketEvents.GetRecipesEventHandler handler)
+		{
+			if (Socket.IsOpen)
 			{
 				var data = new Dictionary<string, object>();
 				data.Add("barbot_id", Constants.BarBotId);

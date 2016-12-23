@@ -11,7 +11,11 @@ namespace BarBot.Core.Model
 			_ingredients = new List<Ingredient>();
 		}
 
-		public List<Ingredient> Ingredients { get; set; }
+		public List<Ingredient> Ingredients 
+		{
+			get { return _ingredients; }
+			set { _ingredients = value; }
+		}
 
 		public Ingredient GetIngredient(string ingredientId)
 		{

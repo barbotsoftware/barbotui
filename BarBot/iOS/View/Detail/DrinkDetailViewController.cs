@@ -41,7 +41,6 @@ namespace BarBot.iOS.View.Detail
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.GetIngredients(Socket_GetIngredientsEvent);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -116,19 +115,6 @@ namespace BarBot.iOS.View.Detail
 			OrderButton.TitleEdgeInsets = insets;
 
 			View.AddSubview(OrderButton);
-		}
-
-		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
-		{
-			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
-			{
-				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
-			}));
-		}
-
-		void UpdateIngredients()
-		{
-			
 		}
 
 		private async void Socket_GetRecipeDetailsEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)

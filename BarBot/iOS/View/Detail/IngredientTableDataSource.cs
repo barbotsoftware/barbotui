@@ -9,17 +9,14 @@ namespace BarBot.iOS.View.Detail
 	{
 		public List<Ingredient> Rows { get; private set; }
 
-		private DetailViewModel ViewModel
-		{
-			get
-			{
-				return Application.Locator.Detail;
-			}
-		}
+		private DetailViewModel ViewModel => Application.Locator.Detail;
+
+		AppDelegate Delegate;
 
 		public IngredientTableDataSource()
 		{
 			Rows = ViewModel.Ingredients;
+			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 		}
 
 		public override System.nint RowsInSection(UITableView tableView, System.nint section)
@@ -32,7 +29,16 @@ namespace BarBot.iOS.View.Detail
 		{
 			var cell = (IngredientTableViewCell)tableView.DequeueReusableCell(IngredientTableViewCell.CellID, indexPath);
 
-			Ingredient row = Rows[indexPath.Row];
+			Ingredient row;
+
+			if (Delegate.IngredientsInBarBot.Ingredients.Count > 0)
+			{
+				row = Delegate.IngredientsInBarBot.GetIngredient(Rows[indexPath.Row].IngredientId);
+			}
+			else
+			{
+				row = Rows[indexPath.Row];
+			}
 			
 			cell.StyleCell();		// TODO: move to cell constructor
 			cell.UpdateRow(row);

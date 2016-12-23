@@ -49,8 +49,7 @@ namespace BarBot.iOS.View.Menu
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
-
-			WebSocketUtil.GetRecipes(Socket_GetRecipesEvent);
+			WebSocketUtil.OpenWebSocket(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 
 			// if new user
 			//ShowAlert();
@@ -122,6 +121,14 @@ namespace BarBot.iOS.View.Menu
 					ViewModel.Recipes.Add(r);
 				}
 				CollectionView.ReloadData();
+			}));
+		}
+
+		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
+		{
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
 			}));
 		}
 	}
