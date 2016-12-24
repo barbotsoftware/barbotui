@@ -130,7 +130,6 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
-    <Folder Include="View\Menu\Animation\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -150,9 +149,6 @@
     <Compile Include="View\Menu\DrinkCollectionViewCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
     <Compile Include="IosWebSocketHandler.cs" />
-    <Compile Include="View\Menu\Animation\DismissalAnimator.cs" />
-    <Compile Include="View\Menu\Animation\PresentationAnimator.cs" />
-    <Compile Include="View\Menu\Animation\TransitioningDelegate.cs" />
     <Compile Include="View\Hexagon.cs" />
     <Compile Include="WebSocketUtil.cs" />
     <Compile Include="View\Detail\IngredientTableDataSource.cs" />
