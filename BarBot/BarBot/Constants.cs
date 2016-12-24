@@ -28,6 +28,8 @@ namespace BarBot.Core
 
 		public const string BarBotId = "barbot_805d2a";
 
+		public const string UserId = "user_348604";
+
 		#endregion
 
 		public const string Command = "command";

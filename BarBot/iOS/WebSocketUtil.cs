@@ -17,7 +17,7 @@ namespace BarBot.iOS
 		public async void OpenWebSocket(WebSocketEvents.GetRecipesEventHandler recipesHandler,
 		                                WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
 		{
-			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
+			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.UserId);
 
 			if (success)
 			{
