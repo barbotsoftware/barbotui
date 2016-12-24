@@ -39,7 +39,7 @@ namespace BarBot.Core.WebSocket
 
             public Recipe Recipe
             {
-                get { return this.recipe; }
+                get { return recipe; }
             }
         }
 
@@ -57,6 +57,23 @@ namespace BarBot.Core.WebSocket
 			public List<Ingredient> Ingredients
 			{
 				get { return ingredients; }
+			}
+		}
+
+		public delegate void OrderDrinkEventHandler(object sender, OrderDrinkEventArgs args);
+
+		public class OrderDrinkEventArgs : EventArgs
+		{
+			private string drinkOrderId;
+
+			public OrderDrinkEventArgs(string drinkOrderId)
+			{
+				this.drinkOrderId = drinkOrderId;
+			}
+
+			public string DrinkOrderId
+			{
+				get { return drinkOrderId; }
 			}
 		}
     }

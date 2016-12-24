@@ -223,6 +223,11 @@ namespace BarBot.iOS.View.Detail
 								 new nfloat(2.0));
 			OrderButton.TitleEdgeInsets = insets;
 
+			OrderButton.TouchUpInside += (sender, e) =>
+			{
+				WebSocketUtil.OrderDrink(Socket_OrderDrinkEvent, ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+			};
+
 			UIElements.Add(OrderButton);
 		}
 
@@ -243,6 +248,13 @@ namespace BarBot.iOS.View.Detail
 			// TODO: Pass image instead of getting from ws server again
 			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
+		}
+
+		private async void Socket_OrderDrinkEvent(object sender, WebSocketEvents.OrderDrinkEventArgs args)
+		{
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+			}));
 		}
 	}
 }

@@ -1,10 +1,6 @@
-﻿using System.Threading.Tasks;
-using System.Collections.Generic;
-
-using UIKit;
+﻿using System.Collections.Generic;
 
 using BarBot.Core;
-using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 
 namespace BarBot.iOS
@@ -70,6 +66,24 @@ namespace BarBot.iOS
 				var message = new Message(Constants.Command, Constants.GetIngredientsForBarbot, data);
 
 				Socket.GetIngredientsEvent += handler;
+
+				Socket.sendMessage(message);
+			}
+		}
+
+		public void OrderDrink(WebSocketEvents.OrderDrinkEventHandler handler, string recipeId, bool ice, bool garnish)
+		{
+			if (Socket.IsOpen)
+			{
+				var data = new Dictionary<string, object>();
+				data.Add("barbot_id", Constants.BarBotId);
+				data.Add("recipe_id", recipeId);
+				data.Add("ice", ice ? 1 : 0);
+				data.Add("garnish", garnish ? 1 : 0);
+
+				var message = new Message(Constants.Command, Constants.OrderDrink, data);
+
+				Socket.OrderDrinkEvent += handler;
 
 				Socket.sendMessage(message);
 			}

@@ -8,32 +8,31 @@
 
 namespace BarBot.Core
 {
-	public class Constants
+	public static class Constants
 	{
-        #region Websocket
+		#region Websocket
 
-        public const string GetRecipesForBarbot = "get_recipes_for_barbot";
-        public const string GetRecipeDetails = "get_recipe_details";
-        public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
+		public const string GetRecipesForBarbot = "get_recipes_for_barbot";
+		public const string GetRecipeDetails = "get_recipe_details";
+		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
+		public const string OrderDrink = "order_drink";
 
-		//public const string EndpointURL = "ws://10.0.0.3:8000";
-
-		// 192.168.0.27 = BiloNet
-		// 80 = ExtraDirtyTruffleButter
+		// BiloNet
+		//public const string EndpointURL = "ws://192.168.0.19:8000";
 
 		// Anchor
-		//public const string EndpointURL = "ws://192.168.1.36:8000";
+		public const string EndpointURL = "ws://192.168.1.36:8000";
 
 		// 2TurntUp
-		public const string EndpointURL = "ws://10.0.0.3:8000";
-        
+		//public const string EndpointURL = "ws://10.0.0.3:8000";
+
 		public const string BarBotId = "barbot_805d2a";
 
-        #endregion
+		#endregion
 
-        public const string Command = "command";
-        public const string Response = "response";
-        public const int Timeout = 10000;
-    }
+		public const string Command = "command";
+		public const string Response = "response";
+		public const int Timeout = 10000;
+	}
 }
 
