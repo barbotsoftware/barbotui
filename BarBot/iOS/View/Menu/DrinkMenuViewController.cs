@@ -36,7 +36,7 @@ namespace BarBot.iOS.View.Menu
 			Title = ViewModel.Title;
 			InitSearchButton();
 			NavBarStyle(NavigationController.NavigationBar);
-			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
+			NavigationItem.BackBarButtonItem = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, null);
 
 			source = new MenuSource();
 

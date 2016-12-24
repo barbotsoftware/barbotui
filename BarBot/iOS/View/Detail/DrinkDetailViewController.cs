@@ -1,6 +1,7 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+using Foundation;
 using UIKit;
 using CoreGraphics;
 using BarBot.Core.ViewModel;
@@ -14,6 +15,8 @@ namespace BarBot.iOS.View.Detail
 		private const int SWITCH_OFFSET_RIGHT = 66;
 		private const int SWITCH_TEXT_SIZE = 30;
 		private const int LABEL_OFFSET_RIGHT = 177;
+		private const int ICE_OFFSET_TOP = 170;
+		private const int GARNISH_OFFSET_TOP = 216;
 
 		// Keep track of bindings to avoid premature garbage collection
 		private readonly List<Binding> bindings = new List<Binding>();
@@ -105,7 +108,10 @@ namespace BarBot.iOS.View.Detail
 		{
 			var IceSwitch = new UISwitch();
 			IceSwitch.OnTintColor = Color.BarBotBlue;
-			IceSwitch.Frame = new CGRect(View.Bounds.Right - SWITCH_OFFSET_RIGHT, View.Bounds.Top + 170, 51, 31);
+			IceSwitch.Frame = new CGRect(View.Bounds.Right - SWITCH_OFFSET_RIGHT, 
+			                             View.Bounds.Top + ICE_OFFSET_TOP, 
+			                             51, 
+			                             31);
 			IceSwitch.On = true;
 			UIElements.Add(IceSwitch);
 		}
@@ -126,7 +132,7 @@ namespace BarBot.iOS.View.Detail
 			//IceLabel.Layer.BorderColor = Color.BarBotBlue.CGColor;
 
 			IceLabel.Frame = new CGRect(View.Frame.Right - LABEL_OFFSET_RIGHT, 
-			                            View.Bounds.Top + 169,
+			                            View.Bounds.Top + ICE_OFFSET_TOP - 1,
 			                            IceLabel.IntrinsicContentSize.Width,
 			                            SWITCH_TEXT_SIZE);
 			UIElements.Add(IceLabel);
@@ -137,7 +143,7 @@ namespace BarBot.iOS.View.Detail
 			var GarnishSwitch = new UISwitch();
 			GarnishSwitch.OnTintColor = Color.BarBotBlue;
 			GarnishSwitch.Frame = new CGRect(View.Bounds.Right - SWITCH_OFFSET_RIGHT, 
-			                                 View.Bounds.Top + 216, 
+			                                 View.Bounds.Top + GARNISH_OFFSET_TOP, 
 			                                 51,
 			                                 31);
 			GarnishSwitch.On = false;
@@ -160,7 +166,7 @@ namespace BarBot.iOS.View.Detail
 			//GarnishLabel.Layer.BorderColor = Color.BarBotBlue.CGColor;
 
 			GarnishLabel.Frame = new CGRect(View.Frame.Right - LABEL_OFFSET_RIGHT, 
-			                                View.Bounds.Top + 215, 
+			                                View.Bounds.Top + GARNISH_OFFSET_TOP - 1, 
 			                                GarnishLabel.IntrinsicContentSize.Width,
 			                                SWITCH_TEXT_SIZE);
 
@@ -178,6 +184,8 @@ namespace BarBot.iOS.View.Detail
 			IngredientTableView.ShowsVerticalScrollIndicator = true;
 			IngredientTableView.AllowsSelection = false;
 			IngredientTableView.Bounces = true;
+
+			IngredientTableView.SeparatorColor = Color.NavBarGray;
 
 			IngredientTableView.RegisterClassForCellReuse(typeof(IngredientTableViewCell), IngredientTableViewCell.CellID);
 			source = new IngredientTableDataSource();
@@ -225,7 +233,7 @@ namespace BarBot.iOS.View.Detail
 			Title = ViewModel.Recipe.Name.ToUpper();
 			// TODO: Pass image instead of getting from ws server again
 			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
-			IngredientTableView.ReloadData();
+			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 		}
 	}
 }
