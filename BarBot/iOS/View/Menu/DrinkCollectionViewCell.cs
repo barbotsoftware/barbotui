@@ -16,6 +16,7 @@ namespace BarBot.iOS.View.Menu
 		public UIImageView HexagonImageView;
 
 		string _recipeId;
+		byte[] _imageContents;
 		CGPoint point;
 		CGSize size;
 
@@ -43,7 +44,7 @@ namespace BarBot.iOS.View.Menu
 			HexagonImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			HexagonImageView.Center = ContentView.Center;
 
-			var tapGesture = new UITapGestureRecognizer(() => ViewModel.ShowDrinkDetailsCommand(_recipeId));
+			var tapGesture = new UITapGestureRecognizer(() => ViewModel.ShowDrinkDetailsCommand(_recipeId, _imageContents));
 			HexagonImageView.AddGestureRecognizer(tapGesture);
 
 			ContentView.AddSubview(HexagonImageView);
@@ -82,7 +83,8 @@ namespace BarBot.iOS.View.Menu
 		{
 			_recipeId = element.RecipeId;
 			NameLabel.Text = element.Name;
-			DrinkImageView.Image = await AsyncUtil.LoadImage(element.Img);
+			_imageContents = await AsyncUtil.LoadImage(element.Img);
+			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(_imageContents));
 		}
 	}
 }

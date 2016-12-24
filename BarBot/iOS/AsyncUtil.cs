@@ -1,6 +1,4 @@
-﻿using Foundation;
-using UIKit;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Net.Http;
 
 namespace BarBot.iOS
@@ -11,15 +9,15 @@ namespace BarBot.iOS
 		{
 		}
 
-		public static async Task<UIImage> LoadImage(string imageUrl)
+		public static async Task<byte[]> LoadImage(string imageUrl)
 		{
 			var httpClient = new HttpClient();
 
 			// await! control returns to the caller and the task continues to run on another thread
 			var contents = await httpClient.GetByteArrayAsync(imageUrl);
 
-			// load from bytes
-			return UIImage.LoadFromData(NSData.FromArray(contents));
+			// return byte[]
+			return contents;
 		}
 	}
 }

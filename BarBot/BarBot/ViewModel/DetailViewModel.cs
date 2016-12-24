@@ -10,6 +10,7 @@ namespace BarBot.Core.ViewModel
 		private string _recipeId;
 		private Recipe _recipe;
 		private List<Ingredient> _ingredients;
+		private byte[] _imageContents;
 
 		public DetailViewModel()
 		{
@@ -17,7 +18,17 @@ namespace BarBot.Core.ViewModel
 			{
 				RecipeId = recipeId;
 			});
+			MessengerInstance.Register<byte[]>(this, imageContents =>
+			{
+				ImageContents = imageContents;
+			});
 			_ingredients = new List<Ingredient>();
+		}
+
+		public string Title
+		{
+			get { return _title; }
+			set { Set(ref _title, value); }
 		}
 
 		public string RecipeId
@@ -42,10 +53,10 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _ingredients, value); }
 		}
 
-		public string Title
+		public byte[] ImageContents
 		{
-			get { return _title; }
-			set { Set(ref _title, value); }
+			get { return _imageContents; }
+			set { Set(ref _imageContents, value); }
 		}
 
 		public void Clear()

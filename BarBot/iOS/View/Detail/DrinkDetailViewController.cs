@@ -106,6 +106,7 @@ namespace BarBot.iOS.View.Detail
 			DrinkImageView = new UIImageView();
 			DrinkImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			DrinkImageView.Frame = new CGRect(imgPoint, size);
+			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
 
 			UIElements.Add(HexagonImageView);
 			UIElements.Add(DrinkImageView);
@@ -242,11 +243,9 @@ namespace BarBot.iOS.View.Detail
 			Reload();
 		}
 
-		async void Reload()
+		void Reload()
 		{
 			Title = ViewModel.Recipe.Name.ToUpper();
-			// TODO: Pass image instead of getting from ws server again
-			DrinkImageView.Image = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 		}
 
