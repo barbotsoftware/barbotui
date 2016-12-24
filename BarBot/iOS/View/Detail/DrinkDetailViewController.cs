@@ -11,6 +11,10 @@ namespace BarBot.iOS.View.Detail
 {
 	public class DrinkDetailViewController : UIViewController
 	{
+		private const int SWITCH_OFFSET_RIGHT = 66;
+		private const int SWITCH_TEXT_SIZE = 30;
+		private const int LABEL_OFFSET_RIGHT = 177;
+
 		// Keep track of bindings to avoid premature garbage collection
 		private readonly List<Binding> bindings = new List<Binding>();
 
@@ -101,7 +105,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			var IceSwitch = new UISwitch();
 			IceSwitch.OnTintColor = Color.BarBotBlue;
-			IceSwitch.Frame = new CGRect(View.Bounds.Right - 66, View.Bounds.Top + 170, 51, 31);
+			IceSwitch.Frame = new CGRect(View.Bounds.Right - SWITCH_OFFSET_RIGHT, View.Bounds.Top + 170, 51, 31);
 			IceSwitch.On = true;
 			UIElements.Add(IceSwitch);
 		}
@@ -112,15 +116,19 @@ namespace BarBot.iOS.View.Detail
 			{
 				TextColor = UIColor.White,
 				TextAlignment = UITextAlignment.Center,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 36f)
+				Font = UIFont.FromName("Microsoft-Yi-Baiti", (nfloat)SWITCH_TEXT_SIZE)
 			};
 
 			IceLabel.Text = "ICE";
 
+			// Uncomment Border for positioning
 			//IceLabel.Layer.BorderWidth = new nfloat(0.9);
 			//IceLabel.Layer.BorderColor = Color.BarBotBlue.CGColor;
 
-			IceLabel.Frame = new CGRect(View.Frame.Right - 127, View.Bounds.Top + 165, 51, 36);
+			IceLabel.Frame = new CGRect(View.Frame.Right - LABEL_OFFSET_RIGHT, 
+			                            View.Bounds.Top + 169,
+			                            IceLabel.IntrinsicContentSize.Width,
+			                            SWITCH_TEXT_SIZE);
 			UIElements.Add(IceLabel);
 		}
 
@@ -128,7 +136,10 @@ namespace BarBot.iOS.View.Detail
 		{
 			var GarnishSwitch = new UISwitch();
 			GarnishSwitch.OnTintColor = Color.BarBotBlue;
-			GarnishSwitch.Frame = new CGRect(View.Bounds.Right - 66, View.Bounds.Top + 216, 51, 31);
+			GarnishSwitch.Frame = new CGRect(View.Bounds.Right - SWITCH_OFFSET_RIGHT, 
+			                                 View.Bounds.Top + 216, 
+			                                 51,
+			                                 31);
 			GarnishSwitch.On = false;
 			UIElements.Add(GarnishSwitch);
 		}
@@ -139,15 +150,19 @@ namespace BarBot.iOS.View.Detail
 			{
 				TextColor = UIColor.White,
 				TextAlignment = UITextAlignment.Center,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 36f)
+				Font = UIFont.FromName("Microsoft-Yi-Baiti", (nfloat)SWITCH_TEXT_SIZE)
 			};
 
 			GarnishLabel.Text = "GARNISH";
 
+			// Uncomment Border for positioning
 			//GarnishLabel.Layer.BorderWidth = new nfloat(0.9);
 			//GarnishLabel.Layer.BorderColor = Color.BarBotBlue.CGColor;
 
-			GarnishLabel.Frame = new CGRect(View.Frame.Right - 207, View.Bounds.Top + 211, 131, 36);
+			GarnishLabel.Frame = new CGRect(View.Frame.Right - LABEL_OFFSET_RIGHT, 
+			                                View.Bounds.Top + 215, 
+			                                GarnishLabel.IntrinsicContentSize.Width,
+			                                SWITCH_TEXT_SIZE);
 
 			UIElements.Add(GarnishLabel);
 		}
