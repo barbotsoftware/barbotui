@@ -103,6 +103,7 @@
     <Compile Include="Database\BarbotConfig.cs" />
     <Compile Include="Database\BarbotContext.cs" />
     <Compile Include="Database\CupDispenser.cs" />
+    <Compile Include="Database\DrinkOrder.cs" />
     <Compile Include="Database\FlowSensor.cs" />
     <Compile Include="Database\GarnishDispenser.cs" />
     <Compile Include="Database\IceHopper.cs" />
@@ -137,6 +138,10 @@
     <Compile Include="Migrations\20161214071505_CreateDevices.cs" />
     <Compile Include="Migrations\20161214071505_CreateDevices.designer.cs">
       <DependentUpon>20161214071505_CreateDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20161224224421_AddDrinkOrders.cs" />
+    <Compile Include="Migrations\20161224224421_AddDrinkOrders.designer.cs">
+      <DependentUpon>20161224224421_AddDrinkOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -201,9 +206,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2">
-      <Name>SQLite for Universal Windows Platform</Name>
-    </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.14393.0">
       <Name>Windows Desktop Extensions for the UWP %28WindowsDesktop, Version=10.0.14393.0%29</Name>
     </SDKReference>

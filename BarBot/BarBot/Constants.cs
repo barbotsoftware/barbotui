@@ -11,10 +11,13 @@ namespace BarBot.Core
 	public class Constants
 	{
         #region Websocket
+        public const string CommandType = "command";
+        public const string EventType = "event";
 
         public const string GetRecipesForBarbot = "get_recipes_for_barbot";
         public const string GetRecipeDetails = "get_recipe_details";
         public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
+        public const string DrinkOrderedEvent = "barbot.drink_ordered_event";
 
 		public const string EndpointURL = "ws://10.0.0.3:8000";
 		public const string BarBotId = "barbot_805d2a";

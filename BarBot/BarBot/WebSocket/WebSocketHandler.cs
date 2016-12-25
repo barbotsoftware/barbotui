@@ -30,8 +30,9 @@ namespace BarBot.Core.WebSocket
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
         public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
+        public event WebSocketEvents.DrinkOrderedEventHandler DrinkOrderedEvent = delegate { };
 
-#endregion
+        #endregion
 
         public WebSocketHandler()
         {
@@ -95,7 +96,20 @@ namespace BarBot.Core.WebSocket
         {
             Message message = new Message(obj);
 
-            switch(message.Command)
+            switch(message.Type)
+            {
+                case Constants.CommandType:
+                    handleCommand(message);
+                    break;
+                case Constants.EventType:
+                    handleEvent(message);
+                    break;
+            }
+        }
+
+        public void handleCommand(Message message)
+        {
+            switch (message.Command)
             {
                 case Constants.GetRecipesForBarbot:
                     List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(message.Data["recipes"].ToString());
@@ -104,6 +118,17 @@ namespace BarBot.Core.WebSocket
                 case Constants.GetRecipeDetails:
                     Recipe recipe = new Recipe(message.Data["recipe"].ToString());
                     GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
+                    break;
+            }
+        }
+
+        public void handleEvent(Message message)
+        {
+            switch (message.Command)
+            {
+                case Constants.DrinkOrderedEvent:
+                    DrinkOrder drinkOrder = new DrinkOrder(message.Data["drink_order"].ToString());
+                    DrinkOrderedEvent(this, new WebSocketEvents.DrinkOrderedEventArgs(drinkOrder));
                     break;
             }
         }

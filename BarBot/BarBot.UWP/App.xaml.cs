@@ -126,6 +126,26 @@ namespace BarBot.UWP
             {
                 Task.Delay(10);
             }
+
+            webSocket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+        }
+
+        private void WebSocket_DrinkOrderedEvent(object sender, WebSocketEvents.DrinkOrderedEventArgs args)
+        {
+            // Create a new DrinkOrder database model from the incoming websocket model
+            DrinkOrder drinkOrder = new DrinkOrder();
+            drinkOrder.drinkOrderUID = args.DrinkOrder.Id;
+            drinkOrder.recipeId = args.DrinkOrder.RecipeId;
+            drinkOrder.recipeName = args.DrinkOrder.RecipeName;
+            drinkOrder.timestamp = args.DrinkOrder.Timestamp;
+            drinkOrder.userId = args.DrinkOrder.UserId;
+            drinkOrder.userName = args.DrinkOrder.UserName;
+            drinkOrder.ice = args.DrinkOrder.Ice;
+            drinkOrder.garnish = args.DrinkOrder.Garnish;
+
+            // Save it to the database
+            barbotDB.DrinkOrders.Add(drinkOrder);
+            barbotDB.SaveChanges();
         }
 
         public async void openWebSocket(string endpoint)

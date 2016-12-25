@@ -28,6 +28,8 @@ namespace BarBot.UWP.Database
 
         public DbSet<CupDispenser> CupDispensers { get; set; }
 
+        public DbSet<DrinkOrder> DrinkOrders { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=barbot.db");
