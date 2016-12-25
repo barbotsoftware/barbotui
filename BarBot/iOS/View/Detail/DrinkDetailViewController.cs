@@ -109,7 +109,7 @@ namespace BarBot.iOS.View.Detail
 			NavBar.Frame = new CGRect(0, 0, View.Bounds.Width, 64);
 			SharedStyles.NavBarStyle(NavBar);
 
-			var topItem = new UINavigationItem("Custom Drink");
+			var topItem = new UINavigationItem();
 			var CloseButton = new UIBarButtonItem(UIBarButtonSystemItem.Stop);
 			CloseButton.Clicked += (sender, args) =>
 			{

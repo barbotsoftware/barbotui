@@ -2,6 +2,7 @@
 using UIKit;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
+using BarBot.iOS.Util;
 
 namespace BarBot.iOS.View.Detail
 {
@@ -11,7 +12,7 @@ namespace BarBot.iOS.View.Detail
 
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
-		AppDelegate Delegate;
+		readonly AppDelegate Delegate;
 
 		public IngredientTableDataSource()
 		{
@@ -42,8 +43,8 @@ namespace BarBot.iOS.View.Detail
 			{
 				row = Rows[indexPath.Row];
 			}
-			
-			cell.StyleCell();		// TODO: move to cell constructor
+
+			SharedStyles.StyleCell(cell);
 			cell.UpdateRow(row);
 
 			return cell;

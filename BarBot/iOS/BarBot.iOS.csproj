@@ -158,6 +158,8 @@
     <Compile Include="Util\AsyncUtil.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
     <Compile Include="Util\SharedStyles.cs" />
+    <Compile Include="View\Menu\DrinkSearchResultsViewController.cs" />
+    <Compile Include="View\Menu\DrinkSearchController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

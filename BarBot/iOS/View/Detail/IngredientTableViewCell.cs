@@ -14,13 +14,6 @@ namespace BarBot.iOS.View.Detail
 		{
 		}
 
-		public void StyleCell()
-		{
-			BackgroundColor = Color.BackgroundGray;
-			TextLabel.TextColor = UIColor.White;
-			TextLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
-		}
-
 		public void UpdateRow(Ingredient element)
 		{
 			TextLabel.Text = element.Quantity + " oz " + element.Name;

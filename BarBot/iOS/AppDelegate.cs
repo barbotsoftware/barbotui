@@ -10,7 +10,6 @@ using BarBot.Core.ViewModel;
 
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
-using BarBot.iOS.Util;
 using BarBot.iOS.Util.WebSocket;
 
 namespace BarBot.iOS

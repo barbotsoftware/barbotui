@@ -1,4 +1,5 @@
 ﻿using UIKit;
+using CoreAnimation;
 using CoreGraphics;
 
 namespace BarBot.iOS.Util
@@ -22,6 +23,14 @@ namespace BarBot.iOS.Util
 			NavBorder.BackgroundColor = Color.BarBotBlue;
 			NavBorder.Opaque = true;
 			NavBar.AddSubview(NavBorder);
+		}
+
+		// Style TableViewCell
+		public static void StyleCell(UITableViewCell Cell)
+		{
+			Cell.BackgroundColor = Color.BackgroundGray;
+			Cell.TextLabel.TextColor = UIColor.White;
+			Cell.TextLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
 		}
 	}
 }

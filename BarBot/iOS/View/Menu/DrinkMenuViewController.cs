@@ -9,6 +9,7 @@ using BarBot.iOS.Util;
 using BarBot.iOS.Util.WebSocket;
 
 using GalaSoft.MvvmLight.Helpers;
+using System;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -18,6 +19,8 @@ namespace BarBot.iOS.View.Menu
 		private readonly List<Binding> bindings = new List<Binding>();
 
 		private MenuViewModel ViewModel => Application.Locator.Menu;
+
+		UISearchController searchController;
 
 		public UIBarButtonItem SearchButton
 		{
@@ -37,7 +40,7 @@ namespace BarBot.iOS.View.Menu
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.Title;
-			InitSearchButton();
+			InitSearchController();
 			SharedStyles.NavBarStyle(NavigationController.NavigationBar);
 			NavigationItem.BackBarButtonItem = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, null);
 
@@ -86,15 +89,26 @@ namespace BarBot.iOS.View.Menu
 			CollectionView.BackgroundColor = Color.BackgroundGray;
 		}
 
-		// Initialize Search Button
-		void InitSearchButton()
+		// Initialize Search Button and Controller
+		void InitSearchController()
 		{
 			SearchButton = new UIBarButtonItem(UIBarButtonSystemItem.Search);
-			this.NavigationItem.SetRightBarButtonItem(SearchButton, false);
+			NavigationItem.SetRightBarButtonItem(SearchButton, false);
 
-			SearchButton.Clicked += (sender, e) => { };
+			// Init Search ResultsController
+			var searchResultsController = new DrinkSearchResultsViewController();
 
-			//SearchButton.SetCommand("Clicked", ViewModel.SearchCommand);
+			//add the search controller
+			searchController = new DrinkSearchController(searchResultsController);
+
+			//Ensure the searchResultsController is presented in the current View Controller 
+			DefinesPresentationContext = true;
+
+			SearchButton.Clicked += (sender, e) => {
+				//Set the search bar in the navigation bar
+				NavigationItem.TitleView = searchController.SearchBar;
+				NavigationItem.SetRightBarButtonItem(null, true);
+			};
 		}
 
 		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
