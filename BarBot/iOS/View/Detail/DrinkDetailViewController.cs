@@ -237,6 +237,27 @@ namespace BarBot.iOS.View.Detail
 			UIElements.Add(OrderButton);
 		}
 
+		// Creates and shows a AlertView prompt that:
+    	// 1. Thanks the user
+    	// 2. Allows the user to tap to return to the menu
+		public void ShowAlert()
+		{
+			// Create Alert
+			var successAlertController = UIAlertController.Create("Thank you for ordering!",
+			                                                      "Please approach the machine",
+			                                                      UIAlertControllerStyle.Alert);
+
+			//  Add Action
+			successAlertController.AddAction(UIAlertAction.Create("Return to menu", UIAlertActionStyle.Default, action => 
+			{
+				var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+				nav.GoBack();
+			}));
+
+			// Present Alert
+			PresentViewController(successAlertController, true, null);
+		}
+
 		// WebSocket Handling
 
 		private async void Socket_GetRecipeDetailsEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -261,8 +282,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-				nav.GoBack();
+				ShowAlert();
 			}));
 
 			// Detach Event Handler
