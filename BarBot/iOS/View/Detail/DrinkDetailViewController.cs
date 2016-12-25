@@ -77,7 +77,7 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewWillAppear(bool animated)
 		{
 			// Get Recipe Details
-			WebSocketUtil.GetRecipeDetails(Socket_GetRecipeDetailsEvent, ViewModel.RecipeId);
+			WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
 		}
 
 		public override void ViewWillDisappear(bool animated)
@@ -231,7 +231,7 @@ namespace BarBot.iOS.View.Detail
 
 			OrderButton.TouchUpInside += (sender, e) =>
 			{
-				WebSocketUtil.OrderDrink(Socket_OrderDrinkEvent, ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				WebSocketUtil.OrderDrink(ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
 			};
 
 			UIElements.Add(OrderButton);
@@ -244,9 +244,11 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipe = args.Recipe;
-				System.Diagnostics.Debug.WriteLine(args.Recipe.RecipeId);
 				Reload();
 			}));
+
+			// Detach Event Handler
+			WebSocketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailsEvent;
 		}
 
 		void Reload()
@@ -261,8 +263,10 @@ namespace BarBot.iOS.View.Detail
 			{
 				var nav = ServiceLocator.Current.GetInstance<INavigationService>();
 				nav.GoBack();
-				System.Diagnostics.Debug.WriteLine(args.DrinkOrderId);
 			}));
+
+			// Detach Event Handler
+			WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
 		}
 	}
 }

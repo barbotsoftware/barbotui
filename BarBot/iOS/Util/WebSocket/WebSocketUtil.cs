@@ -65,7 +65,7 @@ namespace BarBot.iOS.Util.WebSocket
 			}
 		}
 
-		public void GetRecipeDetails(WebSocketEvents.GetRecipeDetailsEventHandler handler, string recipeId)
+		public void GetRecipeDetails(string recipeId)
 		{
 			if (Socket.IsOpen)
 			{
@@ -78,7 +78,7 @@ namespace BarBot.iOS.Util.WebSocket
 			}
 		}
 
-		public void OrderDrink(WebSocketEvents.OrderDrinkEventHandler handler, string recipeId, bool ice, bool garnish)
+		public void OrderDrink(string recipeId, bool ice, bool garnish)
 		{
 			if (Socket.IsOpen)
 			{

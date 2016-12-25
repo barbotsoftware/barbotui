@@ -125,6 +125,9 @@ namespace BarBot.iOS.View.Menu
 				}
 				CollectionView.ReloadData();
 			}));
+
+			// Detach Event Handlerr
+			WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
 		}
 
 		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
@@ -133,6 +136,9 @@ namespace BarBot.iOS.View.Menu
 			{
 				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
 			}));
+
+			// Detach Event Handler
+			WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
 		}
 	}
 }
