@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http;
 
-namespace BarBot.iOS
+namespace BarBot.iOS.Util
 {
 	public class AsyncUtil
 	{

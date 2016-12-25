@@ -4,9 +4,13 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using CoreGraphics;
+using GalaSoft.MvvmLight.Views;
+using GalaSoft.MvvmLight.Helpers;
+using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
-using GalaSoft.MvvmLight.Helpers;
+using BarBot.iOS.Util;
+using BarBot.iOS.Util.WebSocket;
 
 namespace BarBot.iOS.View.Detail
 {
@@ -67,6 +71,7 @@ namespace BarBot.iOS.View.Detail
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
+			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent);
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -239,8 +244,9 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipe = args.Recipe;
+				System.Diagnostics.Debug.WriteLine(args.Recipe.RecipeId);
+				Reload();
 			}));
-			Reload();
 		}
 
 		void Reload()
@@ -253,6 +259,9 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
+				var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+				nav.GoBack();
+				System.Diagnostics.Debug.WriteLine(args.DrinkOrderId);
 			}));
 		}
 	}

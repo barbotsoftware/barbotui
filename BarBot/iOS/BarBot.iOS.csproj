@@ -130,6 +130,8 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
+    <Folder Include="Util\" />
+    <Folder Include="Util\WebSocket\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -142,18 +144,18 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Color.cs" />
     <Compile Include="View\Menu\DrinkMenuViewController.cs" />
     <Compile Include="View\Menu\HexagonLayout.cs" />
     <Compile Include="View\Menu\MenuSource.cs" />
     <Compile Include="View\Menu\DrinkCollectionViewCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
-    <Compile Include="IosWebSocketHandler.cs" />
     <Compile Include="View\Hexagon.cs" />
-    <Compile Include="WebSocketUtil.cs" />
     <Compile Include="View\Detail\IngredientTableDataSource.cs" />
     <Compile Include="View\Detail\IngredientTableViewCell.cs" />
-    <Compile Include="AsyncUtil.cs" />
+    <Compile Include="Util\WebSocket\WebSocketUtil.cs" />
+    <Compile Include="Util\WebSocket\IosWebSocketHandler.cs" />
+    <Compile Include="Util\Color.cs" />
+    <Compile Include="Util\AsyncUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

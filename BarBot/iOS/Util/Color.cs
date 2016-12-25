@@ -1,6 +1,6 @@
 ﻿using UIKit;
 
-namespace BarBot.iOS
+namespace BarBot.iOS.Util
 {
 	struct Color
 	{

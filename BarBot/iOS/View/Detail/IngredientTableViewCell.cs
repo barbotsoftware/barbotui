@@ -2,6 +2,7 @@
 using UIKit;
 using Foundation;
 using BarBot.Core.Model;
+using BarBot.iOS.Util;
 
 namespace BarBot.iOS.View.Detail
 {

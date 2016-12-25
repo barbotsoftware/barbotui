@@ -25,8 +25,8 @@ namespace BarBot.Core.WebSocket
         #region Events
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
-        public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
 		public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
+		public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
 		public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
 
 		#endregion

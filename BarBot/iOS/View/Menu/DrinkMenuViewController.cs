@@ -5,6 +5,8 @@ using CoreGraphics;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
+using BarBot.iOS.Util;
+using BarBot.iOS.Util.WebSocket;
 using GalaSoft.MvvmLight.Helpers;
 
 namespace BarBot.iOS.View.Menu
@@ -49,7 +51,8 @@ namespace BarBot.iOS.View.Menu
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.OpenWebSocket(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+			WebSocketUtil.OpenWebSocket();
 
 			// if new user
 			//ShowAlert();

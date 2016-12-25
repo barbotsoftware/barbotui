@@ -3,7 +3,7 @@
 using BarBot.Core;
 using BarBot.Core.WebSocket;
 
-namespace BarBot.iOS
+namespace BarBot.iOS.Util.WebSocket
 {
 	public class WebSocketUtil
 	{
@@ -14,19 +14,32 @@ namespace BarBot.iOS
 			Socket = new IosWebSocketHandler();
 		}
 
-		public async void OpenWebSocket(WebSocketEvents.GetRecipesEventHandler recipesHandler,
-		                                WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+		public async void OpenWebSocket()
 		{
 			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.UserId);
 
 			if (success)
 			{
-				GetRecipes(recipesHandler);
-				GetIngredients(ingredientsHandler);
+				GetRecipes();
+				GetIngredients();
 			}
 		}
 
-		public void GetRecipes(WebSocketEvents.GetRecipesEventHandler handler)
+		public void AddMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+										 WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+		{
+			Socket.GetRecipesEvent += recipesHandler;
+			Socket.GetIngredientsEvent += ingredientsHandler;
+		}
+
+		public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
+									 WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler)
+		{
+			Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
+			Socket.OrderDrinkEvent += orderDrinkHandler;
+		}
+
+		public void GetRecipes()
 		{
 			if (Socket.IsOpen)
 			{
@@ -35,7 +48,18 @@ namespace BarBot.iOS
 
 				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
-				Socket.GetRecipesEvent += handler;
+				Socket.sendMessage(message);
+			}
+		}
+
+		public void GetIngredients()
+		{
+			if (Socket.IsOpen)
+			{
+				var data = new Dictionary<string, object>();
+				data.Add("barbot_id", Constants.BarBotId);
+
+				var message = new Message(Constants.Command, Constants.GetIngredientsForBarbot, data);
 
 				Socket.sendMessage(message);
 			}
@@ -49,23 +73,6 @@ namespace BarBot.iOS
 				data.Add("recipe_id", recipeId);
 
 				var message = new Message(Constants.Command, Constants.GetRecipeDetails, data);
-
-				Socket.GetRecipeDetailsEvent += handler;
-
-				Socket.sendMessage(message);
-			}
-		}
-
-		public void GetIngredients(WebSocketEvents.GetIngredientsEventHandler handler)
-		{
-			if (Socket.IsOpen)
-			{
-				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", Constants.BarBotId);
-
-				var message = new Message(Constants.Command, Constants.GetIngredientsForBarbot, data);
-
-				Socket.GetIngredientsEvent += handler;
 
 				Socket.sendMessage(message);
 			}
@@ -82,8 +89,6 @@ namespace BarBot.iOS
 				data.Add("garnish", garnish ? 1 : 0);
 
 				var message = new Message(Constants.Command, Constants.OrderDrink, data);
-
-				Socket.OrderDrinkEvent += handler;
 
 				Socket.sendMessage(message);
 			}
