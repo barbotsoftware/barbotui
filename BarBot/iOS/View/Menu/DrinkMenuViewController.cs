@@ -7,6 +7,7 @@ using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
 using BarBot.iOS.Util;
 using BarBot.iOS.Util.WebSocket;
+
 using GalaSoft.MvvmLight.Helpers;
 
 namespace BarBot.iOS.View.Menu
@@ -37,7 +38,7 @@ namespace BarBot.iOS.View.Menu
 			base.ViewDidLoad();
 			Title = ViewModel.Title;
 			InitSearchButton();
-			NavBarStyle(NavigationController.NavigationBar);
+			SharedStyles.NavBarStyle(NavigationController.NavigationBar);
 			NavigationItem.BackBarButtonItem = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, null);
 
 			source = new MenuSource();
@@ -74,25 +75,6 @@ namespace BarBot.iOS.View.Menu
 
 			// Present Alert
 			PresentViewController(nameInputAlertController, true, null);
-		}
-
-		// Style Navigation Bar
-		void NavBarStyle(UINavigationBar NavBar)
-		{
-			NavBar.TintColor = UIColor.White;
-			NavBar.BarTintColor = Color.NavBarGray;
-			NavBar.TitleTextAttributes = new UIStringAttributes
-			{
-				ForegroundColor = UIColor.White,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
-			};
-			var NavBorder = new UIView(new CGRect(0,
-												  NavBar.Frame.Size.Height - 1,
-												  NavBar.Frame.Size.Width,
-												  4));
-			NavBorder.BackgroundColor = Color.BarBotBlue;
-			NavBorder.Opaque = true;
-			NavBar.AddSubview(NavBorder);
 		}
 
 		// Initialize and Style Collection View

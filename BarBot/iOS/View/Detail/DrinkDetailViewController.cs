@@ -33,8 +33,12 @@ namespace BarBot.iOS.View.Detail
 		// ViewModel
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
+		// Navigation Service
+		INavigationServiceExtension nav;
+
 		// UI Elements
 		List<UIView> UIElements;
+		UINavigationBar NavBar;
 		UIImageView DrinkImageView;
 		UITableView IngredientTableView;
 		UISwitch IceSwitch;
@@ -55,10 +59,13 @@ namespace BarBot.iOS.View.Detail
 		{
 			base.ViewDidLoad();
 
+			nav = ServiceLocator.Current.GetInstance<INavigationServiceExtension>();
+
 			View.BackgroundColor = Color.BackgroundGray;
 
 			UIElements = new List<UIView>();
 
+			ConfigureNavBar();
 			ConfigureHexagon();
 			ConfigureIceSwitch();
 			ConfigureIceButton();
@@ -94,6 +101,23 @@ namespace BarBot.iOS.View.Detail
 			{
 				View.AddSubview(view);
 			}
+		}
+
+		void ConfigureNavBar()
+		{
+			NavBar = new UINavigationBar();
+			NavBar.Frame = new CGRect(0, 0, View.Bounds.Width, 64);
+			SharedStyles.NavBarStyle(NavBar);
+
+			var topItem = new UINavigationItem("Custom Drink");
+			var CloseButton = new UIBarButtonItem(UIBarButtonSystemItem.Stop);
+			CloseButton.Clicked += (sender, args) =>
+			{
+				nav.CloseModal();
+			};
+			topItem.SetLeftBarButtonItem(CloseButton, false);
+			NavBar.PushNavigationItem(topItem, false);
+			UIElements.Add(NavBar);
 		}
 
 		void ConfigureHexagon()
@@ -250,8 +274,7 @@ namespace BarBot.iOS.View.Detail
 			//  Add Action
 			successAlertController.AddAction(UIAlertAction.Create("Return to menu", UIAlertActionStyle.Default, action => 
 			{
-				var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-				nav.GoBack();
+				nav.CloseModal();
 			}));
 
 			// Present Alert
@@ -274,7 +297,7 @@ namespace BarBot.iOS.View.Detail
 
 		void Reload()
 		{
-			Title = ViewModel.Recipe.Name.ToUpper();
+			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 		}
 

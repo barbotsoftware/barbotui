@@ -44,6 +44,8 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Model\IngredientList.cs" />
     <Compile Include="Model\RecipeList.cs" />
+    <Compile Include="ViewModel\INavigationServiceExtension.cs" />
+    <Compile Include="ViewModel\NavigationServiceExtension.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

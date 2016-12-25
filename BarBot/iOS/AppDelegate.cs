@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using Foundation;
+﻿using Foundation;
 using UIKit;
 
 using GalaSoft.MvvmLight.Ioc;
@@ -11,6 +10,7 @@ using BarBot.Core.ViewModel;
 
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
+using BarBot.iOS.Util;
 using BarBot.iOS.Util.WebSocket;
 
 namespace BarBot.iOS
@@ -47,8 +47,9 @@ namespace BarBot.iOS
 			DispatcherHelper.Initialize(application);
 
 			// Initialize and register the Navigation Service
-			var nav = new NavigationService();
+			var nav = new Util.NavigationServiceExtension();
 			SimpleIoc.Default.Register<INavigationService>(() => nav);
+			SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
 			nav.Initialize(navController);
 			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));
 

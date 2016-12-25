@@ -156,6 +156,8 @@
     <Compile Include="Util\WebSocket\IosWebSocketHandler.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\AsyncUtil.cs" />
+    <Compile Include="Util\NavigationServiceExtension.cs" />
+    <Compile Include="Util\SharedStyles.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

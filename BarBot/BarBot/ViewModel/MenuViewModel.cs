@@ -1,21 +1,19 @@
 ﻿using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Views;
 
 using System.Collections.Generic;
 
 using BarBot.Core.Model;
 
-
 namespace BarBot.Core.ViewModel
 {
 	public class MenuViewModel : ViewModelBase
 	{
-		private readonly INavigationService _navigationService;
+		private readonly INavigationServiceExtension _navigationService;
 		private string _title;
 		private List<Recipe> _recipes;
 		private List<Ingredient> _ingredients;
 
-		public MenuViewModel(INavigationService navigationService)
+		public MenuViewModel(INavigationServiceExtension navigationService)
 		{
 			_navigationService = navigationService;
 			_recipes = new List<Recipe>();
@@ -45,7 +43,7 @@ namespace BarBot.Core.ViewModel
 		{
 			MessengerInstance.Send(obj);
 			MessengerInstance.Send(imageContents);
-			_navigationService.NavigateTo(ViewModelLocator.DrinkDetailKey);
+			_navigationService.OpenModal(ViewModelLocator.DrinkDetailKey);
 		}
 	}
 }
