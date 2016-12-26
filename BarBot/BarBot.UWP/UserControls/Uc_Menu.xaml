@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="1080"
+    d:DesignWidth="1920">
 
     <Grid Height="1080" Width="1920">
         <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
@@ -18,7 +18,24 @@
         <Canvas Name="recipeTileCanvas" Height="970" Width="1640" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="140,100,140,10">
 
         </Canvas>
-        <Image x:Name="BackButton" Stretch="None" HorizontalAlignment="Left" Height="323" Margin="45,303,0,0" VerticalAlignment="Top" Width="186" Source="ms-appx:///Assets/BackButton.png"/>
+
+
+        <Button x:Name="BackButton" Click="Previous_Page"  HorizontalAlignment="Left" Height="323" Margin="45,303,0,0" VerticalAlignment="Top" Width="186">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="BackButtonImg" Stretch="None" Source="ms-appx:///Assets/BackButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--<Image x:Name="BackButton" Stretch="None" Source="ms-appx:///Assets/BackButton.png"/>-->
+        
+        <Button x:Name="NextButton" Click="Next_Page" HorizontalAlignment="Right" Height="323" Margin="0,303,45,0" VerticalAlignment="Top" Width="186">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="NextButtonImg" Stretch="None" Source="ms-appx:///Assets/NextButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
 
 
     </Grid>

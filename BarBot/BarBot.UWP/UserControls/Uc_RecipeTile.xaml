@@ -6,18 +6,34 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignWidth="306"
+    d:DesignWidth="390"
     d:DesignHeight="360">
 
     <Canvas>
-        <Grid Canvas.Top="150" Canvas.Left="40" Width="260" Background="#33000000" Canvas.ZIndex="99">
-            <TextBlock Text="{Binding Path=Recipe.Name}" FontFamily="Microsoft Yi Baiti" FontSize="40" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+        <!--<Button x:Name="buttonWrapper" Click="Drink_Detail" Width="390"></Button>-->
+        <Grid x:Name="recipeNameGrid" Canvas.Top="150" Canvas.Left="35" Width="320" Background="#33000000" Canvas.ZIndex="99">
+            <Grid.Resources>
+                <local:ToUpperConverter x:Name="ToUpperConverter" />
+            </Grid.Resources>
+            <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Drink_Detail" HorizontalAlignment="Center">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <TextBlock Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" FontFamily="Microsoft Yi Baiti" FontSize="40" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
         </Grid>
-        <Path x:Name="hexagon" x:FieldModifier="public" Stroke="#FF222222" StrokeThickness="8" Width="390"
-                  Loaded="hexagon_Loaded">
-            <Path.Fill>
-                <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>
-            </Path.Fill>
-        </Path>
+        <Button x:Name="buttonWrapper" x:FieldModifier="public" Click="Drink_Detail" Width="390">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Path x:Name="hexagon" x:FieldModifier="public" Stroke="#FF222222" StrokeThickness="8" Width="390" Loaded="hexagon_Loaded">
+                        <Path.Fill>
+                            <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>
+                        </Path.Fill>
+                    </Path>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
     </Canvas>
 </UserControl>
