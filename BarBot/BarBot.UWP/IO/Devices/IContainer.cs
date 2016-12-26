@@ -8,7 +8,6 @@ namespace BarBot.UWP.IO.Devices
 {
     public interface IContainer
     {
-        IPump Pump { get; set; }
-        IFlowSensor FlowSensor { get; set; }
+
     }
 }

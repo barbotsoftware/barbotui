@@ -67,6 +67,32 @@ namespace BarBot.UWP.Migrations
                     b.ToTable("CupDispensers");
                 });
 
+            modelBuilder.Entity("BarBot.UWP.Database.DrinkOrder", b =>
+                {
+                    b.Property<int>("drinkOrderId")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("drinkOrderUID");
+
+                    b.Property<bool>("garnish");
+
+                    b.Property<bool>("ice");
+
+                    b.Property<string>("recipeId");
+
+                    b.Property<string>("recipeName");
+
+                    b.Property<string>("timestamp");
+
+                    b.Property<string>("userId");
+
+                    b.Property<string>("userName");
+
+                    b.HasKey("drinkOrderId");
+
+                    b.ToTable("DrinkOrders");
+                });
+
             modelBuilder.Entity("BarBot.UWP.Database.FlowSensor", b =>
                 {
                     b.Property<int>("flowSensorId")

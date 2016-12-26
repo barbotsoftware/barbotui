@@ -12,13 +12,13 @@ namespace BarBot.UWP.IO.Devices
     /// </summary>
     public class IOPort : IIOPort
     {
-        public IOPort(GpioPin pin, GpioPinDriveMode mode)
+        public GpioPin GpioPin;
+
+        public IOPort(GpioPin pin, GpioPinDriveMode mode = GpioPinDriveMode.Output)
         {
             GpioPin = pin;
             pin.SetDriveMode(mode);
         }
-
-        GpioPin GpioPin { get; set; }
 
         public void write(GpioPinValue val)
         {

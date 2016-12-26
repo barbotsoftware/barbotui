@@ -20,6 +20,8 @@ using BarBot.UWP.Bluetooth;
 using BarBot.Core;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
+using BarBot.UWP.IO;
+using System.Diagnostics;
 
 namespace BarBot.UWP
 {
@@ -29,13 +31,19 @@ namespace BarBot.UWP
     sealed partial class App : Application
     {
         #region Global app properties
-        public WebSocketHandler webSocket { get; }
 
-        public BarbotContext barbotDB { get; }
+        public WebSocketHandler webSocket { get; set; }
 
-        public BLEPublisher blePublisher { get; }
+        public BarbotContext barbotDB { get; set; }
 
-        public string barbotID { get; }
+        public BLEPublisher blePublisher { get; set; }
+
+        public BarbotIOController barbotIOController { get; set; }
+
+        public string barbotID { get; set; }
+
+        public Constants.BarbotStatus Status { get; set; }
+
         #endregion
 
         /// <summary>
@@ -48,16 +56,30 @@ namespace BarBot.UWP
             this.RequiresPointerMode = ApplicationRequiresPointerMode.WhenRequested;
             this.Suspending += OnSuspending;
 
+            init();
+
+            // Wait for initialization to finish
+            while(!Status.Equals(Constants.BarbotStatus.READY))
+            {
+                Task.Delay(10);
+            }
+        }
+
+        public void init()
+        {
+            Status = Constants.BarbotStatus.STARTING;
+
             // Initialize database connection
             barbotDB = new BarbotContext();
 
             // Migrate pending migrations
             barbotDB.Database.Migrate();
 
-            // Get database configuration
+            // Default config values to fall back on
             string endpoint = Constants.EndpointURL;
             barbotID = Constants.BarBotId;
 
+            // Get database configuration
             try
             {
                 List<BarbotConfig> config = barbotDB.BarbotConfigs.ToList();
@@ -70,21 +92,60 @@ namespace BarBot.UWP
             }
             catch (Exception e)
             {
-                Console.WriteLine("Failed to open websocket connection.");
+                Debug.WriteLine(string.Format("Failed to retrieve barbot configuration settings: {0}.", e.Message));
             }
 
             // Initialize bluetooth publisher
             blePublisher = new BLEPublisher(barbotID);
+
+            // Initialize IO Controller
+            try
+            {
+                barbotIOController = new BarbotIOController(barbotDB.getContainers(),
+                    barbotDB.getIceHopper(),
+                    barbotDB.getGarnishDispenser(),
+                    barbotDB.getCupDispenser());
+
+                // Wait for IO controller to initialize
+                while (!barbotIOController.Initialized)
+                {
+                    Task.Delay(10);
+                }
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
+            }
 
             // Initialize websocket connection
             webSocket = new WebSocketHandler();
             openWebSocket(endpoint);
 
             // Wait until the websocket connection is open
-            while(!webSocket.IsOpen)
+            while (!webSocket.IsOpen)
             {
                 Task.Delay(10);
             }
+
+            webSocket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+        }
+
+        private void WebSocket_DrinkOrderedEvent(object sender, WebSocketEvents.DrinkOrderedEventArgs args)
+        {
+            // Create a new DrinkOrder database model from the incoming websocket model
+            DrinkOrder drinkOrder = new DrinkOrder();
+            drinkOrder.drinkOrderUID = args.DrinkOrder.Id;
+            drinkOrder.recipeId = args.DrinkOrder.RecipeId;
+            drinkOrder.recipeName = args.DrinkOrder.RecipeName;
+            drinkOrder.timestamp = args.DrinkOrder.Timestamp;
+            drinkOrder.userId = args.DrinkOrder.UserId;
+            drinkOrder.userName = args.DrinkOrder.UserName;
+            drinkOrder.ice = args.DrinkOrder.Ice;
+            drinkOrder.garnish = args.DrinkOrder.Garnish;
+
+            // Save it to the database
+            barbotDB.DrinkOrders.Add(drinkOrder);
+            barbotDB.SaveChanges();
         }
 
         public async void openWebSocket(string endpoint)

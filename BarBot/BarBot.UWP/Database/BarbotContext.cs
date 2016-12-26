@@ -28,9 +28,31 @@ namespace BarBot.UWP.Database
 
         public DbSet<CupDispenser> CupDispensers { get; set; }
 
+        public DbSet<DrinkOrder> DrinkOrders { get; set; }
+
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             optionsBuilder.UseSqlite("Filename=barbot.db");
+        }
+
+        public List<Container> getContainers()
+        {
+            return Containers.Include(x => x.pump.ioPort).Include(x => x.flowSensor.ioPort).ToList();
+        }
+
+        public IceHopper getIceHopper()
+        {
+            return IceHoppers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+        }
+
+        public GarnishDispenser getGarnishDispenser()
+        {
+            return GarnishDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+        }
+
+        public CupDispenser getCupDispenser()
+        {
+            return CupDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
         }
     }
 }

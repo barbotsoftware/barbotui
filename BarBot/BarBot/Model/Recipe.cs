@@ -7,23 +7,24 @@
  */
 
 using System.ComponentModel;
+using System.Collections.Generic;
 
 namespace BarBot.Core.Model
 {
 	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{
-        private string _id;
+		private string _recipeId;
         private string _name;
         private string _img;
-        private Step[] _steps;
+        private List<Ingredient> _ingredients;
 
-		public string Id
+		public string RecipeId
         {
-            get { return _id; }
+            get { return _recipeId; }
             set
             {
-                _id = value;
-                OnPropertyChanged("Id");
+                _recipeId = value;
+                OnPropertyChanged("RecipeId");
             }
         }
 
@@ -46,12 +47,12 @@ namespace BarBot.Core.Model
                 OnPropertyChanged("Img");
             }
         }
-		public Step[] Steps
+		public List<Ingredient> Ingredients
         {
-            get { return _steps; }
+            get { return _ingredients; }
             set
             {
-                _steps = value;
+                _ingredients = value;
                 OnPropertyChanged("Steps");
             }
         }
@@ -60,21 +61,24 @@ namespace BarBot.Core.Model
 		{
 		}
 
-		public Recipe(string id, string name, string img, Step[] steps)
+		public Recipe(string id, string name, string img, Ingredient[] ingredients)
 		{
-			Id = id;
+			RecipeId = id;
 			Name = name;
 			Img = img;
-			Steps = steps;
+			foreach (Ingredient i in ingredients)
+			{
+				_ingredients.Add(i);
+			}
 		}
 
 		public Recipe(string json)
 		{
 			var r = (Recipe)parseJSON(json, typeof(Recipe));
-			Id = r.Id;
+			RecipeId = r.RecipeId;
 			Name = r.Name;
 			Img = r.Img;
-			Steps = r.Steps;
+			Ingredients = r.Ingredients;
 
 			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}

@@ -12,14 +12,14 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class Pump : IPump
     {
-        public Pump(IOPort ioPort)
+        public IIOPort IOPort;
+
+        public IFlowSensor FlowSensor;
+
+        public Pump(IIOPort ioPort)
         {
             IOPort = ioPort;
         }
-
-        public IIOPort IOPort { get; set; }
-
-        public IFlowSensor FlowSensor { get; set; }
 
         /// <summary>
         /// Opens (writes HIGH) to the given port

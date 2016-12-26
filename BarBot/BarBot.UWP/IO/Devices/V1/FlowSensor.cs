@@ -17,8 +17,8 @@ namespace BarBot.UWP.IO.Devices.V1
             CalibrationFactor = calibrationFactor;
         }
 
-        public IIOPort IoPort { get; set; }
-        public IPump Pump { get; set; }
+        public IOPort IoPort;
+        public Pump Pump;
         public int CalibrationFactor { get; set; }
     }
 }

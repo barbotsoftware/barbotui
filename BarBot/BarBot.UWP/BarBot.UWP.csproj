@@ -103,6 +103,7 @@
     <Compile Include="Database\BarbotConfig.cs" />
     <Compile Include="Database\BarbotContext.cs" />
     <Compile Include="Database\CupDispenser.cs" />
+    <Compile Include="Database\DrinkOrder.cs" />
     <Compile Include="Database\FlowSensor.cs" />
     <Compile Include="Database\GarnishDispenser.cs" />
     <Compile Include="Database\IceHopper.cs" />
@@ -126,6 +127,7 @@
     <Compile Include="IO\Devices\IPump.cs" />
     <Compile Include="IO\Devices\IFlowSensor.cs" />
     <Compile Include="IO\Devices\V1\Pump.cs" />
+    <Compile Include="IO\MCP23017.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -136,6 +138,10 @@
     <Compile Include="Migrations\20161214071505_CreateDevices.cs" />
     <Compile Include="Migrations\20161214071505_CreateDevices.designer.cs">
       <DependentUpon>20161214071505_CreateDevices.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\20161224224421_AddDrinkOrders.cs" />
+    <Compile Include="Migrations\20161224224421_AddDrinkOrders.designer.cs">
+      <DependentUpon>20161224224421_AddDrinkOrders.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

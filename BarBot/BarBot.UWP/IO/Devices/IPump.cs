@@ -8,8 +8,6 @@ namespace BarBot.UWP.IO.Devices
 {
     public interface IPump
     {
-        IIOPort IOPort { get; set; }
-        IFlowSensor FlowSensor { get; set; }
         void StartPump();
         void StopPump();
     }
