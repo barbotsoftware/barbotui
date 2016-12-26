@@ -2,21 +2,26 @@
 using System.Collections.Generic;
 using Foundation;
 using UIKit;
-using GalaSoft.MvvmLight.Views;
-using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.Model;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu
 {
+	// TODO: Change to ObservableCollectionViewSource
 	public class MenuSource : UICollectionViewSource
 	{
-		public List<Recipe> Rows { get; private set; }
-		//DrinkMenuViewController Controller;
-
-		public MenuSource(DrinkMenuViewController c)
+		private MenuViewModel ViewModel
 		{
-			Rows = new List<Recipe>();
-			//Controller = c;
+			get
+			{
+				return Application.Locator.Menu;
+			}
+		}
+		public List<Recipe> Rows { get; private set; }
+
+		public MenuSource()
+		{
+			Rows = ViewModel.Recipes;
 		}
 
 		public override nint NumberOfSections(UICollectionView collectionView)
@@ -51,13 +56,14 @@ namespace BarBot.iOS.View.Menu
 
 			//Recipe row = Rows[indexPath.Row];
 
-			var nav = ServiceLocator.Current.GetInstance<INavigationService>();
-			nav.NavigateTo(AppDelegate.DrinkDetailKey);
+			//ViewModel.NavigateCommand;
+			//var nav = ServiceLocator.Current.GetInstance<INavigationService>();
+			//nav.NavigateTo(ViewModelLocator.DrinkDetailKey);
 		}
 
 		public override UICollectionViewCell GetCell(UICollectionView collectionView, NSIndexPath indexPath)
 		{
-			var cell = (RecipeCollectionViewCell)collectionView.DequeueReusableCell(RecipeCollectionViewCell.CellID, indexPath);
+			var cell = (DrinkCollectionViewCell)collectionView.DequeueReusableCell(DrinkCollectionViewCell.CellID, indexPath);
 
 			Recipe row = Rows[indexPath.Row];
 

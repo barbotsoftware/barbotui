@@ -15,7 +15,7 @@ namespace BarBot.Core.Model
 {
 	public abstract class JsonModelObject : INotifyPropertyChanged
 	{
-		JsonSerializerSettings JsonSettings { get; set; }
+		protected JsonSerializerSettings JsonSettings { get; set; }
 
 		/*
 		 * Default Constructor. Initialize JsonSerializerSettings
