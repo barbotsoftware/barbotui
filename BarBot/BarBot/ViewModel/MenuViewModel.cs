@@ -12,12 +12,16 @@ namespace BarBot.Core.ViewModel
 		private string _title;
 		private List<Recipe> _recipes;
 		private List<Ingredient> _ingredients;
+		private bool _shouldDisplaySearch = false;
 
 		public MenuViewModel(INavigationServiceExtension navigationService)
 		{
 			_navigationService = navigationService;
 			_recipes = new List<Recipe>();
-
+			MessengerInstance.Register<bool>(this, shouldDisplaySearch =>
+			{
+				_shouldDisplaySearch = shouldDisplaySearch;
+			});
 			Title = "DRINK MENU";
 		}
 
@@ -37,6 +41,12 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _ingredients; }
 			set { Set(ref _ingredients, value); }
+		}
+
+		public bool ShouldDisplaySearch
+		{
+			get { return _shouldDisplaySearch; }
+			set { Set(ref _shouldDisplaySearch, value); }
 		}
 
 		public void ShowDrinkDetailsCommand(string obj, byte[] imageContents)

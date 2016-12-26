@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using Foundation;
 using UIKit;
 using CoreGraphics;
-using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Helpers;
 using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.ViewModel;
@@ -33,9 +32,6 @@ namespace BarBot.iOS.View.Detail
 		// ViewModel
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
-		// Navigation Service
-		INavigationServiceExtension nav;
-
 		// UI Elements
 		List<UIView> UIElements;
 		UINavigationBar NavBar;
@@ -58,8 +54,6 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-
-			nav = ServiceLocator.Current.GetInstance<INavigationServiceExtension>();
 
 			View.BackgroundColor = Color.BackgroundGray;
 
@@ -113,7 +107,7 @@ namespace BarBot.iOS.View.Detail
 			var CloseButton = new UIBarButtonItem(UIBarButtonSystemItem.Stop);
 			CloseButton.Clicked += (sender, args) =>
 			{
-				nav.CloseModal();
+				ViewModel.ShowDrinkMenuCommand(true);
 			};
 			topItem.SetLeftBarButtonItem(CloseButton, false);
 			NavBar.PushNavigationItem(topItem, false);
@@ -274,7 +268,7 @@ namespace BarBot.iOS.View.Detail
 			//  Add Action
 			successAlertController.AddAction(UIAlertAction.Create("Return to menu", UIAlertActionStyle.Default, action => 
 			{
-				nav.CloseModal();
+				ViewModel.ShowDrinkMenuCommand(false);
 			}));
 
 			// Present Alert

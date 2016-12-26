@@ -6,14 +6,15 @@ namespace BarBot.Core.ViewModel
 {
 	public class DetailViewModel : ViewModelBase
 	{
-		private string _title;
+		private readonly INavigationServiceExtension _navigationService;
 		private string _recipeId;
 		private Recipe _recipe;
 		private List<Ingredient> _ingredients;
 		private byte[] _imageContents;
 
-		public DetailViewModel()
+		public DetailViewModel(INavigationServiceExtension navigationService)
 		{
+			_navigationService = navigationService;
 			MessengerInstance.Register<string>(this, recipeId => 
 			{
 				RecipeId = recipeId;
@@ -23,12 +24,6 @@ namespace BarBot.Core.ViewModel
 				ImageContents = imageContents;
 			});
 			_ingredients = new List<Ingredient>();
-		}
-
-		public string Title
-		{
-			get { return _title; }
-			set { Set(ref _title, value); }
 		}
 
 		public string RecipeId
@@ -62,6 +57,12 @@ namespace BarBot.Core.ViewModel
 		public void Clear()
 		{
 			Ingredients.Clear();
+		}
+
+		public void ShowDrinkMenuCommand(bool shouldDisplaySearch)
+		{
+			MessengerInstance.Send(shouldDisplaySearch);
+			_navigationService.CloseModal();
 		}
 	}
 }

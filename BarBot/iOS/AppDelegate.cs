@@ -50,6 +50,7 @@ namespace BarBot.iOS
 			SimpleIoc.Default.Register<INavigationService>(() => nav);
 			SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
 			nav.Initialize(navController);
+			nav.Configure(ViewModelLocator.DrinkMenuKey, typeof(DrinkMenuViewController));
 			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));
 
 			return true;

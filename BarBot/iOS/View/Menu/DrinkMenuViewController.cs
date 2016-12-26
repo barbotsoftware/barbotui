@@ -1,12 +1,12 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
-using CoreGraphics;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
 using BarBot.iOS.Util;
 using BarBot.iOS.Util.WebSocket;
+using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;
 using System;
@@ -62,6 +62,14 @@ namespace BarBot.iOS.View.Menu
 			//ShowAlert();
 		}
 
+		public override void ViewWillAppear(bool animated)
+		{
+			if (!ViewModel.ShouldDisplaySearch)
+			{
+				DismissSearchController();
+			}
+		}
+
 		// Show Name Text Prompt
 		public void ShowAlert()
 		{
@@ -96,10 +104,13 @@ namespace BarBot.iOS.View.Menu
 			NavigationItem.SetRightBarButtonItem(SearchButton, false);
 
 			// Init Search ResultsController
-			var searchResultsController = new DrinkSearchResultsViewController();
+			var searchResultsController = new DrinkSearchResultsViewController(ViewModel.Recipes);
 
 			//add the search controller
-			searchController = new DrinkSearchController(searchResultsController);
+			searchController = new DrinkSearchController(searchResultsController)
+			{
+				Delegate = new SearchControllerDelegate(DismissSearchController)
+			};
 
 			//Ensure the searchResultsController is presented in the current View Controller 
 			DefinesPresentationContext = true;
@@ -110,10 +121,20 @@ namespace BarBot.iOS.View.Menu
 
 			searchController.SearchBar.CancelButtonClicked += (sender, e) =>
 			{
-				searchController.HideSearchBar(NavigationItem);
-				NavigationItem.SetRightBarButtonItem(SearchButton, true);
-				Title = ViewModel.Title;
+				DismissSearchController();
 			};
+		}
+
+		public void DismissSearchController()
+		{
+			if (searchController.Active)
+			{
+				searchController.SearchResultsController.DismissViewController(true, null);
+			}
+			searchController.HideSearchBar(NavigationItem);
+			searchController.SearchBar.Text = "";
+			NavigationItem.SetRightBarButtonItem(SearchButton, true);
+			Title = ViewModel.Title;
 		}
 
 		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -141,5 +162,20 @@ namespace BarBot.iOS.View.Menu
 			// Detach Event Handler
 			WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
 		}
+
+		public class SearchControllerDelegate : UISearchControllerDelegate
+		{
+			Action dismissSearchController;
+
+			public SearchControllerDelegate(Action dismissSearchController)
+			{
+				this.dismissSearchController = dismissSearchController;
+			}
+
+			public override void WillDismissSearchController(UISearchController searchController)
+			{
+				dismissSearchController();
+			}
+		}	
 	}
 }

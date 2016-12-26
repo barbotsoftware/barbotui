@@ -1,14 +1,16 @@
 ﻿using System;
 using Foundation;
 using UIKit;
-using CoreGraphics;
 
-namespace BarBot.iOS.View.Menu
+namespace BarBot.iOS.View.Menu.Search
 {
 	public class DrinkSearchController : UISearchController
 	{
+		DrinkSearchResultsViewController resultsController;
+
 		public DrinkSearchController(UIViewController searchResultsController) : base(searchResultsController)
 		{
+			resultsController = (DrinkSearchResultsViewController)searchResultsController;
 			Configure();
 		}
 
@@ -16,7 +18,7 @@ namespace BarBot.iOS.View.Menu
 		{
 			//Creates a search controller updater
 			var searchUpdater = new DrinkSearchResultsUpdater();
-			//searchUpdater.UpdateSearchResults += SearchResultsController.Search;
+			searchUpdater.UpdateSearchResults += resultsController.PerformSearch;
 			SearchResultsUpdater = searchUpdater;
 
 			//format the search bar
@@ -42,8 +44,6 @@ namespace BarBot.iOS.View.Menu
 					}
 				}
 			}
-
-			DimsBackgroundDuringPresentation = true;
 
 			//the search bar is contained in the navigation bar, so it should be visible
 			HidesNavigationBarDuringPresentation = false;

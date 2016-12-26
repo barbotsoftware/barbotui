@@ -132,6 +132,7 @@
     <Folder Include="View\Detail\" />
     <Folder Include="Util\" />
     <Folder Include="Util\WebSocket\" />
+    <Folder Include="View\Menu\Search\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -158,8 +159,9 @@
     <Compile Include="Util\AsyncUtil.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
     <Compile Include="Util\SharedStyles.cs" />
-    <Compile Include="View\Menu\DrinkSearchResultsViewController.cs" />
-    <Compile Include="View\Menu\DrinkSearchController.cs" />
+    <Compile Include="View\Menu\Search\DrinkSearchController.cs" />
+    <Compile Include="View\Menu\Search\DrinkSearchResultsViewController.cs" />
+    <Compile Include="View\Menu\Search\SearchResultCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
