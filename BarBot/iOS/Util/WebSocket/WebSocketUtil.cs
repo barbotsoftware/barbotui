@@ -25,6 +25,16 @@ namespace BarBot.iOS.Util.WebSocket
 			}
 		}
 
+		public async void CloseWebSocket()
+		{
+			bool success = await Socket.CloseConnection();
+
+			if (success)
+			{
+				System.Diagnostics.Debug.WriteLine("websocket closed");
+			}
+		}
+
 		public void AddMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
 										 WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
 		{
