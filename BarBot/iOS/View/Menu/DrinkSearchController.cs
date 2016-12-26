@@ -1,5 +1,8 @@
 ﻿using System;
+using Foundation;
 using UIKit;
+using CoreGraphics;
+
 namespace BarBot.iOS.View.Menu
 {
 	public class DrinkSearchController : UISearchController
@@ -11,8 +14,6 @@ namespace BarBot.iOS.View.Menu
 
 		public void Configure()
 		{
-			
-
 			//Creates a search controller updater
 			var searchUpdater = new DrinkSearchResultsUpdater();
 			//searchUpdater.UpdateSearchResults += SearchResultsController.Search;
@@ -21,11 +22,44 @@ namespace BarBot.iOS.View.Menu
 			//format the search bar
 			SearchBar.SizeToFit();
 			SearchBar.SearchBarStyle = UISearchBarStyle.Minimal;
+			SearchBar.KeyboardAppearance = UIKeyboardAppearance.Dark;
 			SearchBar.Placeholder = "Search";
 			SearchBar.ShowsCancelButton = true;
 
+			foreach (UIView subView in SearchBar.Subviews)
+			{
+				foreach (UIView subsubView in subView.Subviews)
+				{
+					if (subsubView is UITextField)
+					{
+						var textField = subsubView as UITextField;
+						textField.AttributedPlaceholder = new NSAttributedString("Search", 
+						                                                         new UIStringAttributes { 
+																					ForegroundColor = UIColor.White, 
+																					Font = UIFont.FromName("Microsoft-Yi-Baiti", 13f)
+																				});
+						textField.TextColor = UIColor.White;
+					}
+				}
+			}
+
+			DimsBackgroundDuringPresentation = true;
+
 			//the search bar is contained in the navigation bar, so it should be visible
 			HidesNavigationBarDuringPresentation = false;
+		}
+
+		public void ShowSearchBar(UINavigationItem NavigationItem)
+		{
+			NavigationItem.TitleView = SearchBar;
+			NavigationItem.SetRightBarButtonItem(null, true);
+			SearchBar.BecomeFirstResponder();
+		}
+
+		public void HideSearchBar(UINavigationItem NavigationItem)
+		{
+			SearchBar.ResignFirstResponder();
+			NavigationItem.TitleView = null;
 		}
 
 		public class DrinkSearchResultsUpdater : UISearchResultsUpdating
@@ -34,7 +68,7 @@ namespace BarBot.iOS.View.Menu
 
 			public override void UpdateSearchResultsForSearchController(UISearchController searchController)
 			{
-				this.UpdateSearchResults(searchController.SearchBar.Text);
+				UpdateSearchResults(searchController.SearchBar.Text);
 			}
 		}
 	}

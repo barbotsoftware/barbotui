@@ -20,7 +20,7 @@ namespace BarBot.iOS.View.Menu
 
 		private MenuViewModel ViewModel => Application.Locator.Menu;
 
-		UISearchController searchController;
+		DrinkSearchController searchController;
 
 		public UIBarButtonItem SearchButton
 		{
@@ -105,9 +105,14 @@ namespace BarBot.iOS.View.Menu
 			DefinesPresentationContext = true;
 
 			SearchButton.Clicked += (sender, e) => {
-				//Set the search bar in the navigation bar
-				NavigationItem.TitleView = searchController.SearchBar;
-				NavigationItem.SetRightBarButtonItem(null, true);
+				searchController.ShowSearchBar(NavigationItem);
+			};
+
+			searchController.SearchBar.CancelButtonClicked += (sender, e) =>
+			{
+				searchController.HideSearchBar(NavigationItem);
+				NavigationItem.SetRightBarButtonItem(SearchButton, true);
+				Title = ViewModel.Title;
 			};
 		}
 
