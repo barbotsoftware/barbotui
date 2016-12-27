@@ -10,44 +10,44 @@ namespace BarBot.Core
 {
 	public static class Constants
 	{
-        #region Websocket
-        public const string Command = "command";
-        public const string Event = "event";
-				public const string Response = "response";
-        public const int Timeout = 10000;
+		#region Websocket
+		public const string Command = "command";
+		public const string Event = "event";
+		public const string Response = "response";
+		public const int Timeout = 10000;
 
-        public const string GetRecipesForBarbot = "get_recipes_for_barbot";
-        public const string GetRecipeDetails = "get_recipe_details";
-        public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
-				public const string OrderDrink = "order_drink";
-        public const string DrinkOrderedEvent = "barbot.drink_ordered_event";
+		public const string GetRecipesForBarbot = "get_recipes_for_barbot";
+		public const string GetRecipeDetails = "get_recipe_details";
+		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
+		public const string OrderDrink = "order_drink";
+		public const string DrinkOrderedEvent = "barbot.drink_ordered_event";
 
-				// BiloNet
-				//public const string EndpointURL = "ws://192.168.0.19:8000";
+		// BiloNet
+		//public const string IPAddress = "192.168.0.19";
 
-				// Anchor
-				//public const string EndpointURL = "ws://192.168.1.36:8000";
+		// Anchor
+		//public const string IPAddress = "192.168.1.36";
 
-				// 2TurntUp
-				//public const string EndpointURL = "ws://10.0.0.3:8000";
+		// 2TurntUp
+		//public const string IPAddress = "10.0.0.3";
 
-				// Horstmann
-				public const string EndpointURL = "ws://192.168.1.234:8000";
+		// Horstmann
+		public const string IPAddress = "192.168.1.234";
 
-				public const string BarBotId = "barbot_805d2a";
+		public const string PortNumber = "8000";
 
-				public const string UserId = "user_348604";
+		public const string BarBotId = "barbot_805d2a";
 
-        #endregion
+		#endregion
 
-        // UI - Hexagon
-        public const int HexagonWidth = 390;
+		// UI - Hexagon
+		public const int HexagonWidth = 390;
 
-        public enum BarbotStatus
-        {
-            STARTING,
-            READY,
-            BUSY
-        }
-    }
+		public enum BarbotStatus
+		{
+			STARTING,
+			READY,
+			BUSY
+		}
+	}
 }

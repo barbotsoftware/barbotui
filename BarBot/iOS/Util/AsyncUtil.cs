@@ -1,5 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http;
+using BarBot.Core;
 
 namespace BarBot.iOS.Util
 {
@@ -14,7 +15,7 @@ namespace BarBot.iOS.Util
 			var httpClient = new HttpClient();
 
 			// await! control returns to the caller and the task continues to run on another thread
-			var contents = await httpClient.GetByteArrayAsync(imageUrl);
+			var contents = await httpClient.GetByteArrayAsync("http://" + Constants.IPAddress + "/" + imageUrl);
 
 			// return byte[]
 			return contents;

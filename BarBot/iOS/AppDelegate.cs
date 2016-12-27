@@ -21,9 +21,17 @@ namespace BarBot.iOS
 		public override UIWindow Window { get; set; }
 		public WebSocketUtil WebSocketUtil { get; set; }
 		public IngredientList IngredientsInBarBot { get; set; }
+		public User User { get; set; }
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
+			User = new User();
+
+			// Get Shared User Defaults
+			var plist = NSUserDefaults.StandardUserDefaults;
+
+			User.Uid = plist.StringForKey("UserId");
+
 			// Initialize Ingredient List
 			IngredientsInBarBot = new IngredientList();
 
