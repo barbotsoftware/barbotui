@@ -11,9 +11,9 @@ namespace BarBot.Core.WebSocket
 			Socket = socket;
 		}
 
-		public async void OpenWebSocket(string userId)
+		public async void OpenWebSocket(string endpoint, string userId)
 		{
-			bool success = await Socket.OpenConnection("ws://" + Constants.IPAddress + ":" + Constants.PortNumber + "?id=" + userId);
+			bool success = await Socket.OpenConnection(endpoint + "?id=" + userId);
 
 			if (success)
 			{

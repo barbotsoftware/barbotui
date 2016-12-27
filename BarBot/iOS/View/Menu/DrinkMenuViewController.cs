@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
@@ -8,7 +9,6 @@ using BarBot.iOS.Util;
 using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;
-using System;
 using Foundation;
 
 namespace BarBot.iOS.View.Menu
@@ -78,7 +78,8 @@ namespace BarBot.iOS.View.Menu
 		{
 			WebSocketUtil = Delegate.WebSocketUtil;
 			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
-			WebSocketUtil.OpenWebSocket(Delegate.User.Uid);
+			string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
+			WebSocketUtil.OpenWebSocket(endpoint, Delegate.User.Uid);
 		}
 
 		// Show Name Text Prompt

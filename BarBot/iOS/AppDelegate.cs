@@ -5,6 +5,7 @@ using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Threading;
 
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
@@ -89,7 +90,8 @@ namespace BarBot.iOS
 			// Here you can undo many of the changes made on entering the background.
 			if (!WebSocketUtil.Socket.IsOpen)
 			{
-				WebSocketUtil.OpenWebSocket(User.Uid);
+				string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
+				WebSocketUtil.OpenWebSocket(endpoint, User.Uid);
 			}
 		}
 

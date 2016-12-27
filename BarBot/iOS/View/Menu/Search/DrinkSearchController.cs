@@ -28,6 +28,7 @@ namespace BarBot.iOS.View.Menu.Search
 			SearchBar.Placeholder = "Search";
 			SearchBar.ShowsCancelButton = true;
 
+			// Configure SearchBar TextField
 			foreach (UIView subView in SearchBar.Subviews)
 			{
 				foreach (UIView subsubView in subView.Subviews)
@@ -41,6 +42,7 @@ namespace BarBot.iOS.View.Menu.Search
 																					Font = UIFont.FromName("Microsoft-Yi-Baiti", 13f)
 																				});
 						textField.TextColor = UIColor.White;
+						textField.AutocapitalizationType = UITextAutocapitalizationType.None;
 					}
 				}
 			}
