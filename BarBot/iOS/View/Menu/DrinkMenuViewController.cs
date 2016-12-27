@@ -180,11 +180,11 @@ namespace BarBot.iOS.View.Menu
 			if (searchController.Active)
 			{
 				searchController.SearchResultsController.DismissViewController(true, null);
+				NavigationItem.TitleView = null;
+				searchController.SearchBar.Text = "";
+				NavigationItem.SetRightBarButtonItem(SearchButton, true);
+				Title = ViewModel.Title;
 			}
-			searchController.HideSearchBar(NavigationItem);
-			searchController.SearchBar.Text = "";
-			NavigationItem.SetRightBarButtonItem(SearchButton, true);
-			Title = ViewModel.Title;
 		}
 
 		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -211,21 +211,6 @@ namespace BarBot.iOS.View.Menu
 
 			// Detach Event Handler
 			WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
-		}
-
-		public class SearchControllerDelegate : UISearchControllerDelegate
-		{
-			Action dismissSearchController;
-
-			public SearchControllerDelegate(Action dismissSearchController)
-			{
-				this.dismissSearchController = dismissSearchController;
-			}
-
-			public override void WillDismissSearchController(UISearchController searchController)
-			{
-				dismissSearchController();
-			}
 		}
 
 		public class TextFieldDelegate : UITextFieldDelegate

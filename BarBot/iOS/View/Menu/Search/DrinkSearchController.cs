@@ -56,12 +56,6 @@ namespace BarBot.iOS.View.Menu.Search
 			SearchBar.BecomeFirstResponder();
 		}
 
-		public void HideSearchBar(UINavigationItem NavigationItem)
-		{
-			SearchBar.ResignFirstResponder();
-			NavigationItem.TitleView = null;
-		}
-
 		public class DrinkSearchResultsUpdater : UISearchResultsUpdating
 		{
 			public event Action<string> UpdateSearchResults = delegate { };

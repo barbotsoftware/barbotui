@@ -49,10 +49,13 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _shouldDisplaySearch, value); }
 		}
 
-		public void ShowDrinkDetailsCommand(string obj, byte[] imageContents)
+		public void ShowDrinkDetailsCommand(string recipeId, byte[] imageContents)
 		{
-			MessengerInstance.Send(obj);
-			MessengerInstance.Send(imageContents);
+			MessengerInstance.Send(recipeId);
+			if (imageContents != null)
+			{
+				MessengerInstance.Send(imageContents);
+			}
 			_navigationService.OpenModal(ViewModelLocator.DrinkDetailKey);
 		}
 	}

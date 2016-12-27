@@ -114,7 +114,7 @@ namespace BarBot.iOS.View.Detail
 			UIElements.Add(NavBar);
 		}
 
-		void ConfigureHexagon()
+	 	void ConfigureHexagon()
 		{
 			nfloat factor = 174.0f / 200.0f;
 			var point = new CGPoint(View.Center.X - (View.Bounds.Width / 4), View.Frame.Y + 84);
@@ -129,8 +129,10 @@ namespace BarBot.iOS.View.Detail
 			DrinkImageView = new UIImageView();
 			DrinkImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
 			DrinkImageView.Frame = new CGRect(imgPoint, size);
-			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
-
+			if (ViewModel.ImageContents != null)
+			{
+				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+			}
 			UIElements.Add(HexagonImageView);
 			UIElements.Add(DrinkImageView);
 		}
@@ -289,10 +291,12 @@ namespace BarBot.iOS.View.Detail
 			WebSocketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailsEvent;
 		}
 
-		void Reload()
+		async void Reload()
 		{
 			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
+			ViewModel.ImageContents = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
+			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
 		}
 
 		private async void Socket_OrderDrinkEvent(object sender, WebSocketEvents.OrderDrinkEventArgs args)

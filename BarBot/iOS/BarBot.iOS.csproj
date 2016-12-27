@@ -163,6 +163,7 @@
     <Compile Include="View\Menu\Search\DrinkSearchResultsViewController.cs" />
     <Compile Include="View\Menu\Search\SearchResultCell.cs" />
     <Compile Include="Util\RestService.cs" />
+    <Compile Include="View\Menu\Search\SearchControllerDelegate.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

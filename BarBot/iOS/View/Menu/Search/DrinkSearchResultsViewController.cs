@@ -29,6 +29,11 @@ namespace BarBot.iOS.View.Menu.Search
 			TableView.RegisterClassForCellReuse(typeof(SearchResultCell), SearchResultCell.CellID);
 		}
 
+		public override void ViewDidAppear(bool animated)
+		{
+			TableView.ReloadData();
+		}
+
 		public override nint RowsInSection(UITableView tableView, nint section)
 		{
 			return SearchResults.Count;
