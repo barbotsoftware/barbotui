@@ -12,12 +12,9 @@ namespace BarBot.iOS.View.Detail
 
 		private DetailViewModel ViewModel => Application.Locator.Detail;
 
-		readonly AppDelegate Delegate;
-
 		public IngredientTableDataSource()
 		{
 			Rows = ViewModel.Ingredients;
-			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 		}
 
 		public override System.nint RowsInSection(UITableView tableView, System.nint section)
@@ -32,17 +29,7 @@ namespace BarBot.iOS.View.Detail
 
 			Ingredient row;
 
-			if (Delegate.IngredientsInBarBot.Ingredients.Count > 0)
-			{
-				row = Rows[indexPath.Row];
-
-				// Get Ingredient Name from persistent list of Ingredients
-				row.Name = Delegate.IngredientsInBarBot.GetIngredientName(row);
-			}
-			else
-			{
-				row = Rows[indexPath.Row];
-			}
+			row = Rows[indexPath.Row];
 
 			SharedStyles.StyleCell(cell);
 			cell.UpdateRow(row);

@@ -10,6 +10,7 @@ using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;
 using System;
+using Foundation;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -54,12 +55,16 @@ namespace BarBot.iOS.View.Menu
 			InitCollectionView();
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
-			WebSocketUtil.OpenWebSocket();
 
 			// if new user
-			//ShowAlert();
+			if (Delegate.User.Uid == null)
+			{
+				ShowAlert();
+			}
+			else
+			{
+				InitWebSocketUtil();
+			}
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -70,19 +75,63 @@ namespace BarBot.iOS.View.Menu
 			}
 		}
 
+		void InitWebSocketUtil()
+		{
+			WebSocketUtil = Delegate.WebSocketUtil;
+			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+			WebSocketUtil.OpenWebSocket(Delegate.User.Uid);
+		}
+
 		// Show Name Text Prompt
 		public void ShowAlert()
 		{
 			// Create Alert
-			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
+			var nameInputAlertController = UIAlertController.Create("Please enter your name", null, UIAlertControllerStyle.Alert);
 
-			//Add Text Input
+			UITextField field = null;
+
+			// Add Text Input
 			nameInputAlertController.AddTextField(textField =>
 			{
+				field = textField;
+				field.AutocorrectionType = UITextAutocorrectionType.No;
+				field.KeyboardType = UIKeyboardType.Default;
+				field.KeyboardAppearance = UIKeyboardAppearance.Dark;
+				field.ReturnKeyType = UIReturnKeyType.Done;
+				field.Text = textField.Text;
+				field.Delegate = new TextFieldDelegate();
 			});
 
 			//  Add Actionn
-			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, null));
+			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
+			{
+				// Get Shared User Defaults
+				var plist = NSUserDefaults.StandardUserDefaults;
+
+				var rest = new RestService();
+				var user = await rest.SaveUserNameAsync(field.Text);
+
+				if (user != null)
+				{
+					// Save value
+					plist.SetString(user.Uid, "UserId");
+
+					// Set to Delegate
+					Delegate.User = user;
+
+					// Sync changes to database
+					plist.Synchronize();
+
+					InitWebSocketUtil();
+				}
+				else
+				{
+					PresentViewController(nameInputAlertController, true, () =>
+					{
+						nameInputAlertController.Title = "That name is taken";
+					});
+				}
+			}));
 
 			// Present Alert
 			PresentViewController(nameInputAlertController, true, null);
@@ -115,7 +164,8 @@ namespace BarBot.iOS.View.Menu
 			//Ensure the searchResultsController is presented in the current View Controller 
 			DefinesPresentationContext = true;
 
-			SearchButton.Clicked += (sender, e) => {
+			SearchButton.Clicked += (sender, e) =>
+			{
 				searchController.ShowSearchBar(NavigationItem);
 			};
 
@@ -176,6 +226,15 @@ namespace BarBot.iOS.View.Menu
 			{
 				dismissSearchController();
 			}
-		}	
+		}
+
+		public class TextFieldDelegate : UITextFieldDelegate
+		{
+			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
+			{
+				string resultText = textField.Text.Substring(0, (int)range.Location) + replacementString + textField.Text.Substring((int)(range.Location + range.Length));
+				return resultText.Length <= 32;
+			}
+		}
 	}
 }

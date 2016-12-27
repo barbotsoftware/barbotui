@@ -14,9 +14,9 @@ namespace BarBot.iOS.Util.WebSocket
 			Socket = new IosWebSocketHandler();
 		}
 
-		public async void OpenWebSocket()
+		public async void OpenWebSocket(string userId)
 		{
-			bool success = await Socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.UserId);
+			bool success = await Socket.OpenConnection("ws://" + Constants.IPAddress + ":" + Constants.PortNumber + "?id=" + userId);
 
 			if (success)
 			{
@@ -31,7 +31,6 @@ namespace BarBot.iOS.Util.WebSocket
 
 			if (success)
 			{
-				System.Diagnostics.Debug.WriteLine("websocket closed");
 			}
 		}
 

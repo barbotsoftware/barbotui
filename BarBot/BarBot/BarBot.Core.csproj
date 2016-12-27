@@ -49,6 +49,7 @@
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\DrinkOrder.cs" />
     <Compile Include="Model\IODevice.cs" />
+    <Compile Include="Model\User.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

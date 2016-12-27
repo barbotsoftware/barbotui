@@ -47,6 +47,7 @@ namespace BarBot.Core.Model
                 OnPropertyChanged("Img");
             }
         }
+
 		public List<Ingredient> Ingredients
         {
             get { return _ingredients; }
@@ -79,8 +80,6 @@ namespace BarBot.Core.Model
 			Name = r.Name;
 			Img = r.Img;
 			Ingredients = r.Ingredients;
-
-			// To-do: query available ingredients to match IngredientId, add to Ingredients array
 		}
     }
 }
