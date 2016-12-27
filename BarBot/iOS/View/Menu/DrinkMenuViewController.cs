@@ -78,8 +78,7 @@ namespace BarBot.iOS.View.Menu
 		{
 			WebSocketUtil = Delegate.WebSocketUtil;
 			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
-			string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
-			WebSocketUtil.OpenWebSocket(endpoint, Delegate.User.Uid);
+			WebSocketUtil.OpenWebSocket(Delegate.User.Uid, true);
 		}
 
 		// Show Name Text Prompt

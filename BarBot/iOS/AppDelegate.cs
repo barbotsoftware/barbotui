@@ -39,6 +39,7 @@ namespace BarBot.iOS
 
 			// Initialize WebsocketHandler
 			WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
+			WebSocketUtil.EndPoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -90,8 +91,7 @@ namespace BarBot.iOS
 			// Here you can undo many of the changes made on entering the background.
 			if (!WebSocketUtil.Socket.IsOpen)
 			{
-				string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
-				WebSocketUtil.OpenWebSocket(endpoint, User.Uid);
+				WebSocketUtil.OpenWebSocket(User.Uid, true);
 			}
 		}
 
