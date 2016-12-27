@@ -5,20 +5,31 @@ namespace BarBot.Core.WebSocket
 	public class WebSocketUtil
 	{
 		public WebSocketHandler Socket { get; set; }
+        public string EndPoint { get; set; }
+        public string BarBotId { get; set; }
 
 		public WebSocketUtil(WebSocketHandler socket)
 		{
 			Socket = socket;
 		}
 
-		public async void OpenWebSocket(string endpoint, string userId)
+		public async void OpenWebSocket(string userId, bool isMobile)
 		{
-			bool success = await Socket.OpenConnection(endpoint + "?id=" + userId);
+			bool success = await Socket.OpenConnection(EndPoint + "?id=" + userId);
 
+            // Make calls in OpenWebSocket if mobile
 			if (success)
 			{
-				GetRecipes();
-				GetIngredients();
+                if (isMobile)
+                {
+                    BarBotId = Constants.BarBotId;
+                    GetRecipes();
+                    GetIngredients();
+                }
+				else
+                {
+                    BarBotId = userId;
+                }
 			}
 		}
 
@@ -50,7 +61,7 @@ namespace BarBot.Core.WebSocket
 			if (Socket.IsOpen)
 			{
 				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", Constants.BarBotId);
+				data.Add("barbot_id", BarBotId);
 
 				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 
@@ -63,7 +74,7 @@ namespace BarBot.Core.WebSocket
 			if (Socket.IsOpen)
 			{
 				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", Constants.BarBotId);
+				data.Add("barbot_id", BarBotId);
 
 				var message = new Message(Constants.Command, Constants.GetIngredientsForBarbot, data);
 

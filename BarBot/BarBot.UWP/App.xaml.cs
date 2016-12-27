@@ -33,7 +33,9 @@ namespace BarBot.UWP
     {
         #region Global app properties
 
-        public WebSocketHandler webSocket { get; set; }
+        public WebSocketUtil webSocketUtil { get; set; }
+
+
 
         public BarbotContext barbotDB { get; set; }
 
@@ -77,7 +79,7 @@ namespace BarBot.UWP
             barbotDB.Database.Migrate();
 
             // Default config values to fall back on
-            string endpoint = Constants.EndpointURL;
+            string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
             barbotID = Constants.BarBotId;
 
             // Get database configuration
@@ -119,16 +121,19 @@ namespace BarBot.UWP
             }
 
             // Initialize websocket connection
-            webSocket = new UWPWebsocketHandler();
-            openWebSocket(endpoint);
+            webSocketUtil = new WebSocketUtil(new UWPWebsocketHandler());
+            webSocketUtil.EndPoint = endpoint;
+
+            // Opening websocket, with barbID, false bool for isMobile
+            webSocketUtil.OpenWebSocket("barbot_" + barbotID, false);
 
             // Wait until the websocket connection is open
-            while (!webSocket.IsOpen)
+            while (!webSocketUtil.Socket.IsOpen)
             {
                 Task.Delay(10);
             }
 
-            webSocket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+            webSocketUtil.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
             Status = Constants.BarbotStatus.READY;
         }
@@ -149,11 +154,6 @@ namespace BarBot.UWP
             // Save it to the database
             barbotDB.DrinkOrders.Add(drinkOrder);
             barbotDB.SaveChanges();
-        }
-
-        public async void openWebSocket(string endpoint)
-        {
-            await webSocket.OpenConnection(String.Format("{0}?id=barbot_{1}", endpoint, barbotID));
         }
 
         /// <summary>

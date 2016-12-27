@@ -24,15 +24,12 @@ namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_Menu : UserControl
     {
-        private WebSocketHandler socket;
-
-        private string barbotID;
+        private WebSocketUtil socketUtil;
 
         // Public in case i wanna access it elsewhere
         private int margin = 40;
         private int hexPadding = 20;
         private List<List<Recipe>> AllRecipes = new List<List<Recipe>>();
-        private object PageTracker;
         private int Page = 0;
 
         public Uc_Menu()
@@ -40,33 +37,22 @@ namespace BarBot.UWP.UserControls
             this.InitializeComponent();
 
             App app = Application.Current as App;
-
-            socket = app.webSocket;
-            barbotID = app.barbotID;
+            socketUtil = app.webSocketUtil;
 
             init();
         }
 
         public void init()
         {
-            if (socket.IsOpen)
-            {
-                Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", String.Format("barbot_{0}", barbotID));
-
-                Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
-
-                socket.GetRecipesEvent += Socket_GetRecipesEvent;
-
-                socket.sendMessage(message);
-            }
+            // Attach event handler and then call GetRecipes
+            socketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, null);
+            socketUtil.GetRecipes();
 
             // Set back and next button sizes
             // Back Button
             double BackButtonSizeRatio = BackButton.Height / BackButton.Width;
             BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
             BackButton.Width = BackButton.Height / BackButtonSizeRatio;
-            //BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2))) - (hexPadding / 2);
             // Left, Top
             BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2), recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2), 0, 0);
 
@@ -74,7 +60,6 @@ namespace BarBot.UWP.UserControls
             double NextButtonSizeRatio = NextButton.Height / NextButton.Width;
             NextButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
             NextButton.Width = NextButton.Height / NextButtonSizeRatio;
-            //NextButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2))) - (hexPadding / 2);
             // Left, Top
             NextButton.Margin = new Thickness(0, recipeTileCanvas.Margin.Top + margin + (NextButton.Height / 2) + (hexPadding / 2), recipeTileCanvas.Margin.Left - (hexPadding / 2) - (NextButton.Width / 2), 0);
         }
@@ -98,7 +83,7 @@ namespace BarBot.UWP.UserControls
                 displayPage(Page);
             });
 
-            socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+            socketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
         private void displayPage(int page)
@@ -175,18 +160,6 @@ namespace BarBot.UWP.UserControls
             }
 
             return new Point(left, top + margin);
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            Dictionary<String, Object> data = new Dictionary<String, Object>();
-            data.Add("barbot_id", Constants.BarBotId);
-
-            Message message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
-
-            socket.GetRecipesEvent += Socket_GetRecipesEvent;
-
-            socket.sendMessage(message);
         }
 
         private void Next_Page(object sender, RoutedEventArgs e)
