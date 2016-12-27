@@ -1,80 +1,140 @@
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
-using CoreGraphics;
-using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
+using BarBot.Core.ViewModel;
+using BarBot.iOS.Util;
+using BarBot.iOS.Util.WebSocket;
+using BarBot.iOS.View.Menu.Search;
+
+using GalaSoft.MvvmLight.Helpers;
+using System;
 
 namespace BarBot.iOS.View.Menu
 {
-    public class DrinkMenuViewController : UICollectionViewController
-    {
-		WebSocketHandler socket;
+	public class DrinkMenuViewController : UICollectionViewController
+	{
+		// Keep track of bindings to avoid premature garbage collection
+		private readonly List<Binding> bindings = new List<Binding>();
+
+		private MenuViewModel ViewModel => Application.Locator.Menu;
+
+		DrinkSearchController searchController;
+
+		public UIBarButtonItem SearchButton
+		{
+			get;
+			private set;
+		}
+
+		AppDelegate Delegate;
+		WebSocketUtil WebSocketUtil;
 		MenuSource source;
 
-        public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
-        {
-        }
+		public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
+		{
+		}
 
 		public override void ViewDidLoad()
 		{
 			base.ViewDidLoad();
-			Title = "DRINK MENU";
-			NavBarStyle(NavigationController.NavigationBar);
-			NavigationItem.BackBarButtonItem = new UIBarButtonItem("Back", UIBarButtonItemStyle.Plain, null);
+			Title = ViewModel.Title;
+			InitSearchController();
+			SharedStyles.NavBarStyle(NavigationController.NavigationBar);
+			NavigationItem.BackBarButtonItem = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, null);
 
-			source = new MenuSource(this);
+			source = new MenuSource();
 
-			CollectionView.RegisterClassForCell(typeof(RecipeCollectionViewCell), RecipeCollectionViewCell.CellID);
+			bindings.Add(
+				this.SetBinding(
+					() => ViewModel.Recipes,
+					() => source.Rows));
+
+			InitCollectionView();
+
+			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			WebSocketUtil = Delegate.WebSocketUtil;
+			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+			WebSocketUtil.OpenWebSocket();
+
+			// if new user
+			//ShowAlert();
+		}
+
+		public override void ViewWillAppear(bool animated)
+		{
+			if (!ViewModel.ShouldDisplaySearch)
+			{
+				DismissSearchController();
+			}
+		}
+
+		// Show Name Text Prompt
+		public void ShowAlert()
+		{
+			// Create Alert
+			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
+
+			//Add Text Input
+			nameInputAlertController.AddTextField(textField =>
+			{
+			});
+
+			//  Add Actionn
+			nameInputAlertController.AddAction(UIAlertAction.Create("Submit", UIAlertActionStyle.Default, null));
+
+			// Present Alert
+			PresentViewController(nameInputAlertController, true, null);
+		}
+
+		// Initialize and Style Collection View
+		void InitCollectionView()
+		{
+			CollectionView.RegisterClassForCell(typeof(DrinkCollectionViewCell), DrinkCollectionViewCell.CellID);
 			CollectionView.ShowsHorizontalScrollIndicator = false;
 			CollectionView.Source = source;
-
-			connectWebSocket();
+			CollectionView.BackgroundColor = Color.BackgroundGray;
 		}
 
-		public override void DidReceiveMemoryWarning()
+		// Initialize Search Button and Controller
+		void InitSearchController()
 		{
-			base.DidReceiveMemoryWarning();
-			// Release any cached data, images, etc that aren't in use.
-		}
+			SearchButton = new UIBarButtonItem(UIBarButtonSystemItem.Search);
+			NavigationItem.SetRightBarButtonItem(SearchButton, false);
 
-		void NavBarStyle(UINavigationBar NavBar)
-		{
-			NavBar.TintColor = UIColor.White;
-			NavBar.BarTintColor = Color.BackgroundGray;
-			NavBar.TitleTextAttributes = new UIStringAttributes
+			// Init Search ResultsController
+			var searchResultsController = new DrinkSearchResultsViewController(ViewModel.Recipes);
+
+			//add the search controller
+			searchController = new DrinkSearchController(searchResultsController)
 			{
-				ForegroundColor = UIColor.White,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
+				Delegate = new SearchControllerDelegate(DismissSearchController)
 			};
-			var NavBorder = new UIView(new CGRect(0,
-												  NavBar.Frame.Size.Height - 1,
-												  NavBar.Frame.Size.Width,
-												  4));
-			NavBorder.BackgroundColor = Color.BarBotBlue;
-			NavBorder.Opaque = true;
-			NavBar.AddSubview(NavBorder);
+
+			//Ensure the searchResultsController is presented in the current View Controller 
+			DefinesPresentationContext = true;
+
+			SearchButton.Clicked += (sender, e) => {
+				searchController.ShowSearchBar(NavigationItem);
+			};
+
+			searchController.SearchBar.CancelButtonClicked += (sender, e) =>
+			{
+				DismissSearchController();
+			};
 		}
 
-		public async void connectWebSocket()
+		public void DismissSearchController()
 		{
-			socket = new WebSocketHandler();
-
-			bool success = await socket.OpenConnection(Constants.EndpointURL + "?id=" + Constants.BarBotId);
-
-			if (success)
+			if (searchController.Active)
 			{
-				var data = new Dictionary<string, object>();
-				data.Add("barbot_id", Constants.BarBotId);
-
-				var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
-
-				socket.GetRecipesEvent += Socket_GetRecipesEvent;
-
-				socket.sendMessage(message);
+				searchController.SearchResultsController.DismissViewController(true, null);
 			}
+			searchController.HideSearchBar(NavigationItem);
+			searchController.SearchBar.Text = "";
+			NavigationItem.SetRightBarButtonItem(SearchButton, true);
+			Title = ViewModel.Title;
 		}
 
 		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -83,10 +143,39 @@ namespace BarBot.iOS.View.Menu
 			{
 				foreach (Recipe r in args.Recipes)
 				{
-					source.Rows.Add(r);
+					ViewModel.Recipes.Add(r);
 				}
 				CollectionView.ReloadData();
 			}));
+
+			// Detach Event Handlerr
+			WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
 		}
-    }
+
+		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
+		{
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
+			}));
+
+			// Detach Event Handler
+			WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
+		}
+
+		public class SearchControllerDelegate : UISearchControllerDelegate
+		{
+			Action dismissSearchController;
+
+			public SearchControllerDelegate(Action dismissSearchController)
+			{
+				this.dismissSearchController = dismissSearchController;
+			}
+
+			public override void WillDismissSearchController(UISearchController searchController)
+			{
+				dismissSearchController();
+			}
+		}	
+	}
 }

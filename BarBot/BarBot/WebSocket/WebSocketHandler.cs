@@ -1,14 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Websockets.Universal;
-#if __IOS__
-using Websockets.Ios;
-#endif
 using BarBot.Core.Model;
-using Newtonsoft.Json;
 
 namespace BarBot.Core.WebSocket
 {
@@ -29,23 +21,15 @@ namespace BarBot.Core.WebSocket
         #region Events
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
-        public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
         public event WebSocketEvents.DrinkOrderedEventHandler DrinkOrderedEvent = delegate { };
+        public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
+        public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
+        public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
 
         #endregion
 
-        public WebSocketHandler()
+        public void Init()
         {
-#if __IOS__
-			Websockets.Ios.WebsocketConnection.Link();
-#else
-#if __ANDROID__
-			Websockets.Droid.WebsocketConnection.Link();
-#else
-			Websockets.Universal.WebsocketConnection.Link();
-#endif
-#endif
-
             connection = Websockets.WebSocketFactory.Create();
             connection.OnMessage += Connection_OnMessage;
             connection.OnOpened += Connection_OnOpened;
@@ -55,7 +39,7 @@ namespace BarBot.Core.WebSocket
         {
             connection.Open(url);
 
-            while(!connection.IsOpen && !failed)
+            while (!connection.IsOpen && !failed)
             {
                 await Task.Delay(10);
             }
@@ -81,7 +65,7 @@ namespace BarBot.Core.WebSocket
 
         public void sendMessage(Message message)
         {
-            if(connection.IsOpen)
+            if (connection.IsOpen)
             {
                 connection.Send(message.toJSON());
             }
@@ -89,35 +73,47 @@ namespace BarBot.Core.WebSocket
 
         private void Connection_OnOpened()
         {
-            
+
         }
 
         private void Connection_OnMessage(string obj)
         {
             Message message = new Message(obj);
 
-            switch(message.Type)
+            switch (message.Type)
             {
-                case Constants.CommandType:
-                    handleCommand(message);
-                    break;
-                case Constants.EventType:
+                case Constants.Event:
                     handleEvent(message);
+                    break;
+                case Constants.Response:
+                    handleResponse(message);
                     break;
             }
         }
 
-        public void handleCommand(Message message)
+        /// <summary>
+        /// Handles responses n shit. 
+        /// </summary>
+        /// <param name="message"></param>
+        public void handleResponse (Message message)
         {
             switch (message.Command)
             {
                 case Constants.GetRecipesForBarbot:
-                    List<Recipe> recipes = JsonConvert.DeserializeObject<List<Recipe>>(message.Data["recipes"].ToString());
-                    GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(recipes));
+                    var RecipeList = new RecipeList(message.Data["recipes"].ToString());
+                    GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(RecipeList.Recipes));
                     break;
                 case Constants.GetRecipeDetails:
                     Recipe recipe = new Recipe(message.Data["recipe"].ToString());
                     GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
+                    break;
+                case Constants.GetIngredientsForBarbot:
+                    var IngredientList = new IngredientList(message.Data["ingredients"].ToString());
+                    GetIngredientsEvent(this, new WebSocketEvents.GetIngredientsEventArgs(IngredientList.Ingredients));
+                    break;
+                case Constants.OrderDrink:
+                    string DrinkOrderId = message.Data["drink_order_id"].ToString();
+                    OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrderId));
                     break;
             }
         }

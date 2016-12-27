@@ -29,6 +29,8 @@ namespace BarBot.UWP.UserControls
         private PathFigure figure;
         private double HexagonWidth = Constants.HexagonWidth;
 
+        public Windows.UI.Xaml.Shapes.Path hexagon;
+
         public Uc_RecipeTile()
         {
             this.InitializeComponent();
@@ -53,10 +55,12 @@ namespace BarBot.UWP.UserControls
 
         private void hexagon_Loaded(object sender, RoutedEventArgs e)
         {
-            Windows.UI.Xaml.Shapes.Path hexagon = sender as Windows.UI.Xaml.Shapes.Path;
+            hexagon = sender as Windows.UI.Xaml.Shapes.Path;
             hexagon.Width = Constants.HexagonWidth;
             hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width/2, 2) - Math.Pow(hexagon.Width / 4, 2));
             CreateDataPath(hexagon.Width, hexagon.Height);
+            buttonWrapper.Width = hexagon.Width;
+            buttonWrapper.Height = hexagon.Height;
         }
 
         private void CreateDataPath(double width, double height)
@@ -99,8 +103,6 @@ namespace BarBot.UWP.UserControls
         private void AddPoint(double x, double y)
         {
             LineSegment segment = new LineSegment();
-            //segment.Point = new Point(x + 0.5 * hexagon.StrokeThickness,
-            //y - 0.5 * hexagon.StrokeThickness);
             segment.Point = new Point(x, y);
             figure.Segments.Add(segment);
         }
@@ -110,6 +112,12 @@ namespace BarBot.UWP.UserControls
         protected void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        private void Drink_Detail(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine("Drink Detail!");
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_DrinkDetail(Recipe);
         }
     }
 }

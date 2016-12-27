@@ -29,8 +29,11 @@ namespace BarBot.UWP.UserControls
         private string barbotID;
 
         // Public in case i wanna access it elsewhere
-        public int margin = 20;
-        public int hexPadding = 20;
+        private int margin = 20;
+        private int hexPadding = 20;
+        private List<List<Recipe>> AllRecipes = new List<List<Recipe>>();
+        private object PageTracker;
+        private int Page = 0;
 
         public Uc_Menu()
         {
@@ -45,8 +48,8 @@ namespace BarBot.UWP.UserControls
         }
 
         public void init()
-        { 
-            if(socket.IsOpen)
+        {
+            if (socket.IsOpen)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
                 data.Add("barbot_id", String.Format("barbot_{0}", barbotID));
@@ -58,13 +61,22 @@ namespace BarBot.UWP.UserControls
                 socket.sendMessage(message);
             }
 
-            // Set image size
+            // Set back and next button sizes
+            // Back Button
             double BackButtonSizeRatio = BackButton.Height / BackButton.Width;
             BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
             BackButton.Width = BackButton.Height / BackButtonSizeRatio;
             //BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2))) - (hexPadding / 2);
             // Left, Top
             BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2), recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2), 0, 0);
+
+            // Next Button
+            double NextButtonSizeRatio = NextButton.Height / NextButton.Width;
+            NextButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
+            NextButton.Width = NextButton.Height / NextButtonSizeRatio;
+            //NextButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2))) - (hexPadding / 2);
+            // Left, Top
+            NextButton.Margin = new Thickness(0, recipeTileCanvas.Margin.Top + margin + (NextButton.Height / 2) + (hexPadding / 2), recipeTileCanvas.Margin.Left - (hexPadding / 2) - (NextButton.Width / 2), 0);
         }
 
         private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -72,24 +84,58 @@ namespace BarBot.UWP.UserControls
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                recipeTileCanvas.Children.Clear();
-
-                for(int i = 0; i < 10; i++)
+                List<Recipe> page = new List<Recipe>();
+                // Populate AllRecipes
+                for (var i = 0; i < args.Recipes.Count; i++)
                 {
-                    if(args.Recipes.ElementAt(i) != null)
+                    page.Add(args.Recipes[i]);
+                    if((i != 0 && i % 10 == 9)|| i == args.Recipes.Count - 1)
+                    {
+                        AllRecipes.Add(page);
+                        page = new List<Recipe>();
+                    }
+                }
+                displayPage(Page);
+            });
+        }
+
+        private void displayPage(int page)
+        {
+            // Hide BackButton if it's the first page
+            if (page == 0)
+            {
+                BackButton.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BackButton.Visibility = Visibility.Visible;
+            }
+
+            if(page == AllRecipes.Count-1)
+            {
+                NextButton.Visibility = Visibility.Collapsed;
+            } else
+            {
+                NextButton.Visibility = Visibility.Visible;
+            }
+            
+
+            if (page < AllRecipes.Count)
+            {
+                recipeTileCanvas.Children.Clear();
+                for (int i = 0; i < AllRecipes[page].Count; i++)
+                {
+                    if (AllRecipes[page][i] != null)
                     {
                         Uc_RecipeTile tile = new Uc_RecipeTile();
-                        tile.Recipe = args.Recipes.ElementAt(i);
-                        Point pos = getPoint(i, (int)tile.hexagon.Width);
-                        //Console.WriteLine("Tile: " + tile.Recipe.Name);
-                        //Console.WriteLine("Position: " + pos.X + ", " + pos.Y);
-
+                        tile.Recipe = AllRecipes[page][i];
+                        Point pos = getPoint(i, Constants.HexagonWidth);
                         Canvas.SetLeft(tile, pos.X);
                         Canvas.SetTop(tile, pos.Y);
                         recipeTileCanvas.Children.Add(tile);
                     }
                 }
-            });
+            }
         }
 
         private Point getPoint(int i, int width)
@@ -114,15 +160,15 @@ namespace BarBot.UWP.UserControls
                 left = r * (width + (width / 2) + (hexPadding * 2));
             }
             // Top right (Diagonally down and right from top left)
-            else if(pos == 2)
+            else if (pos == 2)
             {
-                top = height/2 + hexPadding/2;
+                top = height / 2 + hexPadding / 2;
                 left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
             }
             // Bottom right (Diagonally down and right from bottom left)
-            else if(pos == 3)
+            else if (pos == 3)
             {
-                top = height + hexPadding + height/2 + hexPadding/2;
+                top = height + hexPadding + height / 2 + hexPadding / 2;
                 left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
             }
 
@@ -139,6 +185,19 @@ namespace BarBot.UWP.UserControls
             socket.GetRecipesEvent += Socket_GetRecipesEvent;
 
             socket.sendMessage(message);
+        }
+
+        private void Next_Page(object sender, RoutedEventArgs e)
+        {
+            Page++;
+            displayPage(Page);
+            // XAML: Fix Button to work with this shit
+        }
+
+        private void Previous_Page(object sender, RoutedEventArgs e)
+        {
+            Page--;
+            displayPage(Page);
         }
     }
 }
