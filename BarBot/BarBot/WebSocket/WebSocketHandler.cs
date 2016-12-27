@@ -22,11 +22,11 @@ namespace BarBot.Core.WebSocket
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
         public event WebSocketEvents.DrinkOrderedEventHandler DrinkOrderedEvent = delegate { };
-    		public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
-    		public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
-    		public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
+        public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
+        public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
+        public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
 
-		    #endregion
+        #endregion
 
         public void Init()
         {
@@ -39,7 +39,7 @@ namespace BarBot.Core.WebSocket
         {
             connection.Open(url);
 
-            while(!connection.IsOpen && !failed)
+            while (!connection.IsOpen && !failed)
             {
                 await Task.Delay(10);
             }
@@ -65,7 +65,7 @@ namespace BarBot.Core.WebSocket
 
         public void sendMessage(Message message)
         {
-            if(connection.IsOpen)
+            if (connection.IsOpen)
             {
                 connection.Send(message.toJSON());
             }
@@ -80,37 +80,41 @@ namespace BarBot.Core.WebSocket
         {
             Message message = new Message(obj);
 
-            switch(message.Type)
+            switch (message.Type)
             {
-                case Constants.Command:
-                    handleCommand(message);
-                    break;
                 case Constants.Event:
                     handleEvent(message);
+                    break;
+                case Constants.Response:
+                    handleResponse(message);
                     break;
             }
         }
 
-        public void handleCommand(Message message)
+        /// <summary>
+        /// Handles responses n shit. 
+        /// </summary>
+        /// <param name="message"></param>
+        public void handleResponse (Message message)
         {
             switch (message.Command)
             {
                 case Constants.GetRecipesForBarbot:
-					          var RecipeList = new RecipeList(message.Data["recipes"].ToString());
-					          GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(RecipeList.Recipes));
+                    var RecipeList = new RecipeList(message.Data["recipes"].ToString());
+                    GetRecipesEvent(this, new WebSocketEvents.GetRecipesEventArgs(RecipeList.Recipes));
                     break;
                 case Constants.GetRecipeDetails:
                     Recipe recipe = new Recipe(message.Data["recipe"].ToString());
                     GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
                     break;
-        				case Constants.GetIngredientsForBarbot:
-        					  var IngredientList = new IngredientList(message.Data["ingredients"].ToString());
-        					  GetIngredientsEvent(this, new WebSocketEvents.GetIngredientsEventArgs(IngredientList.Ingredients));
-        					  break;
-        				case Constants.OrderDrink:
-        					string DrinkOrderId = message.Data["drink_order_id"].ToString();
-        					OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrderId));
-        					break;
+                case Constants.GetIngredientsForBarbot:
+                    var IngredientList = new IngredientList(message.Data["ingredients"].ToString());
+                    GetIngredientsEvent(this, new WebSocketEvents.GetIngredientsEventArgs(IngredientList.Ingredients));
+                    break;
+                case Constants.OrderDrink:
+                    string DrinkOrderId = message.Data["drink_order_id"].ToString();
+                    OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrderId));
+                    break;
             }
         }
 

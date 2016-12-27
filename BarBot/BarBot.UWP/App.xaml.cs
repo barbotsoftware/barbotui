@@ -22,6 +22,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using BarBot.UWP.IO;
 using System.Diagnostics;
+using BarBot.UWP.Websocket;
 
 namespace BarBot.UWP
 {
@@ -118,7 +119,7 @@ namespace BarBot.UWP
             }
 
             // Initialize websocket connection
-            webSocket = new WebSocketHandler();
+            webSocket = new UWPWebsocketHandler();
             openWebSocket(endpoint);
 
             // Wait until the websocket connection is open
@@ -128,6 +129,8 @@ namespace BarBot.UWP
             }
 
             webSocket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+
+            Status = Constants.BarbotStatus.READY;
         }
 
         private void WebSocket_DrinkOrderedEvent(object sender, WebSocketEvents.DrinkOrderedEventArgs args)
