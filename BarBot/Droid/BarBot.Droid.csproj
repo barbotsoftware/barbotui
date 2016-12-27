@@ -67,6 +67,7 @@
     <Compile Include="App.cs" />
     <Compile Include="View\Detail\DrinkDetailActivity.cs" />
     <Compile Include="View\Menu\DrinkMenuActivity.cs" />
+    <Compile Include="WebSocket\DroidWebSocketHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -88,6 +89,8 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
+    <Folder Include="Util\" />
+    <Folder Include="WebSocket\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">

@@ -5,11 +5,9 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Helpers;
-using Microsoft.Practices.ServiceLocation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
-using BarBot.iOS.Util.WebSocket;
 
 namespace BarBot.iOS.View.Detail
 {

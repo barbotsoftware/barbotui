@@ -5,7 +5,6 @@ using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
 using BarBot.iOS.Util;
-using BarBot.iOS.Util.WebSocket;
 using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;

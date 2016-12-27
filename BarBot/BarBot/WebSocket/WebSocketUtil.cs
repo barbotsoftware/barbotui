@@ -1,17 +1,14 @@
 ﻿using System.Collections.Generic;
 
-using BarBot.Core;
-using BarBot.Core.WebSocket;
-
-namespace BarBot.iOS.Util.WebSocket
+namespace BarBot.Core.WebSocket
 {
 	public class WebSocketUtil
 	{
 		public WebSocketHandler Socket { get; set; }
 
-		public WebSocketUtil()
+		public WebSocketUtil(WebSocketHandler socket)
 		{
-			Socket = new IosWebSocketHandler();
+			Socket = socket;
 		}
 
 		public async void OpenWebSocket(string userId)

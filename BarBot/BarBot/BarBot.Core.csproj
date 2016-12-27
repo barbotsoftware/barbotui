@@ -50,6 +50,7 @@
     <Compile Include="Model\DrinkOrder.cs" />
     <Compile Include="Model\IODevice.cs" />
     <Compile Include="Model\User.cs" />
+    <Compile Include="WebSocket\WebSocketUtil.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

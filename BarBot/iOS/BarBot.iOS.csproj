@@ -131,8 +131,8 @@
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
     <Folder Include="Util\" />
-    <Folder Include="Util\WebSocket\" />
     <Folder Include="View\Menu\Search\" />
+    <Folder Include="WebSocket\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -153,8 +153,6 @@
     <Compile Include="View\Hexagon.cs" />
     <Compile Include="View\Detail\IngredientTableDataSource.cs" />
     <Compile Include="View\Detail\IngredientTableViewCell.cs" />
-    <Compile Include="Util\WebSocket\WebSocketUtil.cs" />
-    <Compile Include="Util\WebSocket\IosWebSocketHandler.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\AsyncUtil.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
@@ -164,6 +162,7 @@
     <Compile Include="View\Menu\Search\SearchResultCell.cs" />
     <Compile Include="Util\RestService.cs" />
     <Compile Include="View\Menu\Search\SearchControllerDelegate.cs" />
+    <Compile Include="WebSocket\IosWebSocketHandler.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

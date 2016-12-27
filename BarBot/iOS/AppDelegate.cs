@@ -7,10 +7,11 @@ using GalaSoft.MvvmLight.Threading;
 
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
+using BarBot.Core.WebSocket;
 
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
-using BarBot.iOS.Util.WebSocket;
+using BarBot.iOS.WebSocket;
 
 namespace BarBot.iOS
 {
@@ -36,7 +37,7 @@ namespace BarBot.iOS
 			IngredientsInBarBot = new IngredientList();
 
 			// Initialize WebsocketHandler
-			WebSocketUtil = new WebSocketUtil();
+			WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
