@@ -29,6 +29,7 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\DrinkOrder.cs" />
     <Compile Include="WebSocket\Message.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -70,7 +71,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
+    <None Include="packages.config">
+      <SubType>Designer</SubType>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

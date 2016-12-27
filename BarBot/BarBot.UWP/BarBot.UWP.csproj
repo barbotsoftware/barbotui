@@ -128,6 +128,7 @@
     <Compile Include="IO\Devices\IFlowSensor.cs" />
     <Compile Include="IO\Devices\V1\Pump.cs" />
     <Compile Include="IO\MCP23017.cs" />
+    <Compile Include="IO\L298NDriver.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -147,6 +148,9 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserControls\Uc_Menu.xaml.cs">
       <DependentUpon>Uc_Menu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Uc_OrderQueue.xaml.cs">
+      <DependentUpon>Uc_OrderQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_PartyMode.xaml.cs">
       <DependentUpon>Uc_PartyMode.xaml</DependentUpon>
@@ -190,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Uc_OrderQueue.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Uc_PartyMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -206,6 +214,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2">
+      <Name>SQLite for Universal Windows Platform</Name>
+    </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.14393.0">
       <Name>Windows Desktop Extensions for the UWP %28WindowsDesktop, Version=10.0.14393.0%29</Name>
     </SDKReference>

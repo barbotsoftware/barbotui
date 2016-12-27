@@ -139,7 +139,6 @@ namespace BarBot.UWP.IO
                 pinPumpMapping.Add(pin, container.Pump);
 
                 pin.SetDriveMode(GpioPinDriveMode.Input);
-                pin.DebounceTimeout = TimeSpan.FromMilliseconds(1);
                 pin.ValueChanged += Input_ValueChanged;
 
                 container.Pump.StartPump();
