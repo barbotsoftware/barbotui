@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Core;
 using BarBot.Core.Model;
@@ -37,7 +38,7 @@ namespace BarBot.UWP.UserControls
             this.DataContext = this;
             Recipe = SelectedRecipe;
 
-            //init();
+            init();
         }
 
         public void init()
@@ -45,11 +46,11 @@ namespace BarBot.UWP.UserControls
             if (socket.IsOpen)
             {
                 Dictionary<String, Object> data = new Dictionary<String, Object>();
-                data.Add("barbot_id", String.Format("barbot_{0}", barbotID));
+                data.Add("recipe_id", _recipe.RecipeId);
 
                 Message message = new Message(Constants.Command, Constants.GetRecipeDetails, data);
 
-                //socket.GetRecipesEvent += Socket_GetRecipeDetailEvent;
+                socket.GetRecipeDetailsEvent += Socket_GetRecipeDetailEvent;
 
                 socket.sendMessage(message);
             }
@@ -81,13 +82,41 @@ namespace BarBot.UWP.UserControls
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_Menu();
         }
 
-        private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
+        private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                
+                Recipe.Ingredients = args.Recipe.Ingredients;
             });
+
+            socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailEvent;
         }
+
+        //private static WriteableBitmap CropImage(WriteableBitmap source,
+        //                                                 int xOffset, int yOffset,
+        //                                                 int width, int height)
+        //{
+        //    // Get the width of the source image
+        //    var sourceWidth = source.PixelWidth;
+
+        //    // Get the resultant image as WriteableBitmap with specified size
+        //    var result = new WriteableBitmap(width, height);
+
+        //    // Create the array of bytes
+        //    for (var x = 0; x <= height - 1; x++)
+        //    {
+        //        var sourceIndex = xOffset + (yOffset + x) * sourceWidth;
+        //        var destinationIndex = x * width;
+
+        //        Array.Copy(source.PixelBuffer, sourceIndex, result.PixelBuffer, destinationIndex, width);
+        //    }
+        //    return result;
+        //}
+
+        //private static Array getBitmapPixels()
+        //{
+
+        //}
     }
 }

@@ -29,7 +29,7 @@ namespace BarBot.UWP.UserControls
         private string barbotID;
 
         // Public in case i wanna access it elsewhere
-        private int margin = 20;
+        private int margin = 40;
         private int hexPadding = 20;
         private List<List<Recipe>> AllRecipes = new List<List<Recipe>>();
         private object PageTracker;
@@ -97,6 +97,8 @@ namespace BarBot.UWP.UserControls
                 }
                 displayPage(Page);
             });
+
+            socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
         private void displayPage(int page)

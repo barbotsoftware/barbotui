@@ -11,10 +11,18 @@
 
     <Canvas>
         <!--<Button x:Name="buttonWrapper" Click="Drink_Detail" Width="390"></Button>-->
+        <Button x:Name="imageButton" Click="Drink_Detail" Canvas.Top="0" Canvas.ZIndex="75">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image Stretch="Uniform" Margin="0,0,0,10"  Source="{Binding Path=Recipe.Img}" Width="390" Canvas.ZIndex="75"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
         <Grid x:Name="recipeNameGrid" Canvas.Top="150" Canvas.Left="35" Width="320" Background="#33000000" Canvas.ZIndex="99">
             <Grid.Resources>
                 <local:ToUpperConverter x:Name="ToUpperConverter" />
             </Grid.Resources>
+            
             <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Drink_Detail" HorizontalAlignment="Center">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
@@ -23,13 +31,13 @@
                 </Button.Template>
             </Button>
         </Grid>
-        <Button x:Name="buttonWrapper" x:FieldModifier="public" Click="Drink_Detail" Width="390">
+        <Button x:Name="buttonWrapper" x:FieldModifier="public" Click="Drink_Detail" Width="390" Background="Black" Canvas.ZIndex="50">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Path x:Name="hexagon" x:FieldModifier="public" Stroke="#FF222222" StrokeThickness="8" Width="390" Loaded="hexagon_Loaded">
-                        <Path.Fill>
-                            <ImageBrush Stretch="Fill" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>
-                        </Path.Fill>
+                    <Path x:Name="hexagon" x:FieldModifier="public" Stroke="#FF222222" StrokeThickness="8" Width="390" Loaded="hexagon_Loaded" Fill="Black">
+                        <!--<Path.Fill>
+                            <ImageBrush Stretch="Uniform" ImageSource="{Binding Path=Recipe.Img}" Opacity="0.8"/>
+                        </Path.Fill>-->
                     </Path>
                 </ControlTemplate>
             </Button.Template>

@@ -60,7 +60,12 @@ namespace BarBot.UWP.UserControls
             hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width/2, 2) - Math.Pow(hexagon.Width / 4, 2));
             CreateDataPath(hexagon.Width, hexagon.Height);
             buttonWrapper.Width = hexagon.Width;
-            buttonWrapper.Height = hexagon.Height;
+            //recipeImage.Height = hexagon.Height - 10;
+
+            imageButton.Height = hexagon.Height-10;
+            imageButton.Width = hexagon.Width;
+            //buttonWrapper.Height = hexagon.Height - 10;
+            //buttonWrapper.Margin = new Thickness(0, 0, 0, 20);
         }
 
         private void CreateDataPath(double width, double height)
@@ -116,7 +121,6 @@ namespace BarBot.UWP.UserControls
 
         private void Drink_Detail(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine("Drink Detail!");
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_DrinkDetail(Recipe);
         }
     }
