@@ -31,7 +31,6 @@ namespace BarBot.iOS.Util.WebSocket
 
 			if (success)
 			{
-				System.Diagnostics.Debug.WriteLine("websocket closed");
 			}
 		}
 

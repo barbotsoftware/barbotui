@@ -86,7 +86,7 @@ namespace BarBot.iOS.View.Menu
 		public void ShowAlert()
 		{
 			// Create Alert
-			var nameInputAlertController = UIAlertController.Create("Enter your name", null, UIAlertControllerStyle.Alert);
+			var nameInputAlertController = UIAlertController.Create("Please enter your name", null, UIAlertControllerStyle.Alert);
 
 			UITextField field = null;
 
@@ -99,6 +99,7 @@ namespace BarBot.iOS.View.Menu
 				field.KeyboardAppearance = UIKeyboardAppearance.Dark;
 				field.ReturnKeyType = UIReturnKeyType.Done;
 				field.Text = textField.Text;
+				field.Delegate = new TextFieldDelegate();
 			});
 
 			//  Add Actionn
@@ -127,7 +128,7 @@ namespace BarBot.iOS.View.Menu
 				{
 					PresentViewController(nameInputAlertController, true, () =>
 					{
-						nameInputAlertController.Title = "Name taken. Please enter a new one:";
+						nameInputAlertController.Title = "That name is taken";
 					});
 				}
 			}));
@@ -224,6 +225,15 @@ namespace BarBot.iOS.View.Menu
 			public override void WillDismissSearchController(UISearchController searchController)
 			{
 				dismissSearchController();
+			}
+		}
+
+		public class TextFieldDelegate : UITextFieldDelegate
+		{
+			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
+			{
+				string resultText = textField.Text.Substring(0, (int)range.Location) + replacementString + textField.Text.Substring((int)(range.Location + range.Length));
+				return resultText.Length <= 32;
 			}
 		}
 	}

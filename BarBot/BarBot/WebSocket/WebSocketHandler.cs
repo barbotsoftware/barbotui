@@ -33,39 +33,36 @@ namespace BarBot.Core.WebSocket
             connection = Websockets.WebSocketFactory.Create();
             connection.OnMessage += Connection_OnMessage;
             connection.OnOpened += Connection_OnOpened;
+			connection.OnClosed += Connection_OnClosed;
         }
 
         public async Task<bool> OpenConnection(String url)
         {
             connection.Open(url);
 
-            while (!connection.IsOpen && !failed)
+            while (!isOpen && !failed)
             {
                 await Task.Delay(10);
             }
 
-            isOpen = true;
-
-            return connection.IsOpen;
+            return isOpen;
         }
 
         public async Task<bool> CloseConnection()
         {
             connection.Close();
 
-            while (connection.IsOpen)
+            while (isOpen)
             {
                 await Task.Delay(10);
             }
-
-            isOpen = false;
 
             return true;
         }
 
         public void sendMessage(Message message)
         {
-            if (connection.IsOpen)
+            if (isOpen)
             {
                 connection.Send(message.toJSON());
             }
@@ -73,8 +70,13 @@ namespace BarBot.Core.WebSocket
 
         private void Connection_OnOpened()
         {
-
+			isOpen = true;
         }
+
+		private void Connection_OnClosed()
+		{
+			isOpen = false;
+		}
 
         private void Connection_OnMessage(string obj)
         {
