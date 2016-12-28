@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
+using CoreGraphics;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
@@ -27,6 +28,8 @@ namespace BarBot.iOS.View.Menu
 			private set;
 		}
 
+		UIButton CustomButton;
+
 		AppDelegate Delegate;
 		WebSocketUtil WebSocketUtil;
 		MenuSource source;
@@ -50,6 +53,7 @@ namespace BarBot.iOS.View.Menu
 					() => ViewModel.Recipes,
 					() => source.Rows));
 
+			ConfigureCustomButton();
 			InitCollectionView();
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
@@ -78,6 +82,9 @@ namespace BarBot.iOS.View.Menu
 			WebSocketUtil = Delegate.WebSocketUtil;
 			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 			WebSocketUtil.OpenWebSocket(Delegate.User.Uid, true);
+
+			// show custom button
+			CustomButton.Hidden = false;
 		}
 
 		// Show Name Text Prompt
@@ -133,6 +140,25 @@ namespace BarBot.iOS.View.Menu
 
 			// Present Alert
 			PresentViewController(nameInputAlertController, true, null);
+		}
+
+		void ConfigureCustomButton()
+		{
+			CustomButton = UIButton.FromType(UIButtonType.Custom);
+
+			CustomButton.SetBackgroundImage(UIImage.FromFile("Images/CustomTile.png"), UIControlState.Normal);
+			CustomButton.Frame = new CGRect((CollectionView.Bounds.Width / 2) - 21, 20, 199, 83);
+			CustomButton.SetTitle("Custom", UIControlState.Normal);
+			SharedStyles.StyleButtonText(CustomButton, 26);
+
+			CustomButton.TouchUpInside+= (sender, e) =>
+			{
+				ViewModel.ShowDrinkDetailsCommand(null, null);
+			};
+
+			// hide button initially
+			CustomButton.Hidden = true;
+			CollectionView.AddSubview(CustomButton);
 		}
 
 		// Initialize and Style Collection View

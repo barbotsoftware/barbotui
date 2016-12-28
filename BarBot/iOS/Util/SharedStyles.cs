@@ -32,5 +32,11 @@ namespace BarBot.iOS.Util
 			Cell.TextLabel.TextColor = UIColor.White;
 			Cell.TextLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
 		}
+
+		public static void StyleButtonText(UIButton Button, int textSize)
+		{
+			Button.SetTitleColor(UIColor.White, UIControlState.Normal);
+			Button.TitleLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", textSize);
+		}
 	}
 }

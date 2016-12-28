@@ -237,8 +237,7 @@ namespace BarBot.iOS.View.Detail
 			                               View.Bounds.Width - (ORDER_LEFT_OFFSET * 2),
 			                               60);
 			OrderButton.SetTitle("ORDER DRINK", UIControlState.Normal);
-			OrderButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-			OrderButton.TitleLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", TEXT_SIZE);
+			SharedStyles.StyleButtonText(OrderButton, TEXT_SIZE);
 			OrderButton.BackgroundColor = Color.BarBotBlue;
 			OrderButton.Layer.CornerRadius = new nfloat(2.0);
 			OrderButton.Layer.BorderWidth = new nfloat(0.9);
