@@ -75,7 +75,7 @@ namespace BarBot.UWP.IO
                     flowSensor.Pump = pump;
 
                     // Create the new container
-                    Containers.Add(new Container(flowSensor, pump));
+                    Containers.Add(new Container(flowSensor, pump, c.ingredientId));
                 }
             }
 
@@ -85,13 +85,13 @@ namespace BarBot.UWP.IO
 
         public async void initI2C()
         {
-            /*await mcp1.Init();
+            await mcp1.Init();
 
             Debug.WriteLine("Initialized MCP23017 1");
 
             await mcp2.Init();
 
-            Debug.WriteLine("Initialized MCP23017 2");*/
+            Debug.WriteLine("Initialized MCP23017 2");
 
             Initialized = true;
         }
@@ -118,7 +118,7 @@ namespace BarBot.UWP.IO
             }
         }
 
-        public void PourDrink(Dictionary<IContainer, int> ingredients, bool ice = false, bool garnish = false, bool cup = false)
+        public void PourDrink(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = false)
         {
             if(cup)
             {
@@ -133,7 +133,7 @@ namespace BarBot.UWP.IO
             for(int i = 0; i < ingredients.Count; i++)
             {
                 Container container = ingredients.ElementAt(i).Key as Container;
-                int amount = ingredients.ElementAt(i).Value;
+                double amount = ingredients.ElementAt(i).Value;
 
                 PourIngredient(container, amount);
             }
@@ -144,12 +144,12 @@ namespace BarBot.UWP.IO
             }
         }
 
-        public void PourIngredient(Container container, int amount)
+        public void PourIngredient(Container container, double amount)
         {
             GpioPin pin = container.FlowSensor.IoPort.GpioPin;
 
             sensorTicks.Add(pin, 0);
-            maxTicks.Add(pin, container.FlowSensor.CalibrationFactor * amount);
+            maxTicks.Add(pin, container.FlowSensor.CalibrationFactor * Convert.ToInt32(amount));
             pinPumpMapping.Add(pin, container.Pump);
 
             pin.SetDriveMode(GpioPinDriveMode.Input);

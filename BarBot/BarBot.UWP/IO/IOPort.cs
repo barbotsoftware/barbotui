@@ -17,6 +17,7 @@ namespace BarBot.UWP.IO.Devices
         public IOPort(GpioPin pin, GpioPinDriveMode mode = GpioPinDriveMode.Output)
         {
             GpioPin = pin;
+            pin.Write(GpioPinValue.Low);
             pin.SetDriveMode(mode);
         }
 
