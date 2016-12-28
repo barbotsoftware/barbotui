@@ -15,9 +15,18 @@ namespace BarBot.Core.ViewModel
 		public DetailViewModel(INavigationServiceExtension navigationService)
 		{
 			_navigationService = navigationService;
-			MessengerInstance.Register<string>(this, recipeId => 
+			MessengerInstance.Register<string>(this, passedString =>
 			{
-				RecipeId = recipeId;
+				if (passedString.StartsWith("recipe_", System.StringComparison.CurrentCulture))
+				{
+					RecipeId = passedString;
+				}
+				else
+				{
+					// Custom Recipe
+					Recipe = new Recipe();
+					Recipe.Name = passedString;
+				}
 			});
 			MessengerInstance.Register<byte[]>(this, imageContents =>
 			{

@@ -49,9 +49,10 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _shouldDisplaySearch, value); }
 		}
 
-		public void ShowDrinkDetailsCommand(string recipeId, byte[] imageContents)
+		public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)
 		{
-			MessengerInstance.Send(recipeId);
+			// recipeIdentifier = name for Custom, recipeId otherwise
+			MessengerInstance.Send(recipeIdentifier);
 			if (imageContents != null)
 			{
 				MessengerInstance.Send(imageContents);
