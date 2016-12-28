@@ -33,16 +33,18 @@ namespace BarBot.iOS.View.Detail
 
 		// UI Elements
 		List<UIView> UIElements;
+		UIBarButtonItem edit, done;
 		UINavigationBar NavBar;
 		UIImageView DrinkImageView;
 		UITableView IngredientTableView;
 		UISwitch IceSwitch;
 		UISwitch GarnishSwitch;
+		UIButton OrderButton;
 
 		// Data Properties
 		AppDelegate Delegate;
 		WebSocketUtil WebSocketUtil;
-		IngredientTableDataSource source;
+		IngredientTableSource source;
 
 		public DrinkDetailViewController()
 		{
@@ -81,6 +83,7 @@ namespace BarBot.iOS.View.Detail
 			{
 				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
+				OrderButton.Enabled = false;
 			}
 			else
 			{
@@ -117,6 +120,24 @@ namespace BarBot.iOS.View.Detail
 				ViewModel.ShowDrinkMenuCommand(true);
 			};
 			topItem.SetLeftBarButtonItem(CloseButton, false);
+
+			done = new UIBarButtonItem(UIBarButtonSystemItem.Done, (s, e) =>
+			{
+				IngredientTableView.SetEditing(false, true);
+				topItem.RightBarButtonItem = edit;
+			});
+
+			edit = new UIBarButtonItem(UIBarButtonSystemItem.Edit, (s, e) =>
+			{
+				if (IngredientTableView.Editing)
+					IngredientTableView.SetEditing(false, true); // if we've half-swiped a row
+
+				IngredientTableView.SetEditing(true, true);
+				topItem.RightBarButtonItem = done;	
+			});
+
+			topItem.RightBarButtonItem = edit;
+
 			NavBar.PushNavigationItem(topItem, false);
 			UIElements.Add(NavBar);
 		}
@@ -214,21 +235,14 @@ namespace BarBot.iOS.View.Detail
 
 		void ConfigureIngredientTable()
 		{
-			IngredientTableView = new UITableView();
-			IngredientTableView.BackgroundColor = Color.BackgroundGray;
+			IngredientTableView = new IngredientTableView();
 			IngredientTableView.Frame = new CGRect(0, View.Bounds.Top + 270, View.Frame.Width, 250);
 
-			IngredientTableView.RowHeight = 45;
-			IngredientTableView.ScrollEnabled = true;
-			IngredientTableView.ShowsVerticalScrollIndicator = true;
-			IngredientTableView.AllowsSelection = false;
-			IngredientTableView.Bounces = true;
-
-			IngredientTableView.SeparatorColor = Color.NavBarGray;
-
 			IngredientTableView.RegisterClassForCellReuse(typeof(IngredientTableViewCell), IngredientTableViewCell.CellID);
-			source = new IngredientTableDataSource();
-			IngredientTableView.DataSource = source;
+
+			source = new IngredientTableSource();
+			IngredientTableView.Source = source;
+			IngredientTableView.Delegate = new IngredientTableViewDelegate();
 
 			bindings.Add(
 				this.SetBinding(
@@ -240,7 +254,7 @@ namespace BarBot.iOS.View.Detail
 
 		void ConfigureOrderButton()
 		{
-			UIButton OrderButton = UIButton.FromType(UIButtonType.System);
+			OrderButton = UIButton.FromType(UIButtonType.System);
 			OrderButton.Frame = new CGRect(ORDER_LEFT_OFFSET,
 			                               View.Bounds.Bottom - 80,
 			                               View.Bounds.Width - (ORDER_LEFT_OFFSET * 2),

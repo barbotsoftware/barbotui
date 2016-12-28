@@ -151,7 +151,7 @@
     <Compile Include="View\Menu\DrinkCollectionViewCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
     <Compile Include="View\Hexagon.cs" />
-    <Compile Include="View\Detail\IngredientTableDataSource.cs" />
+    <Compile Include="View\Detail\IngredientTableSource.cs" />
     <Compile Include="View\Detail\IngredientTableViewCell.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\AsyncUtil.cs" />
@@ -163,6 +163,9 @@
     <Compile Include="Util\RestService.cs" />
     <Compile Include="View\Menu\Search\SearchControllerDelegate.cs" />
     <Compile Include="WebSocket\IosWebSocketHandler.cs" />
+    <Compile Include="View\Detail\IngredientTableViewDelegate.cs" />
+    <Compile Include="View\Detail\AddIngredientPickerCell.cs" />
+    <Compile Include="View\Detail\IngredientTableView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

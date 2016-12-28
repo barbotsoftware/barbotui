@@ -185,7 +185,7 @@ namespace BarBot.iOS.View.Menu
 
 			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) =>
 			{
-				ViewModel.ShowDrinkDetailsCommand(field.Text, null);	
+				ViewModel.ShowDrinkDetailsCommand(field.Text, null);
 			});
 
 			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (obj) =>
@@ -199,15 +199,6 @@ namespace BarBot.iOS.View.Menu
 			ActionToEnable = ok;
 			ok.Enabled = false;
 			PresentViewController(alertController, true, null);
-
-			//// OK button
-			//let ok: UIAlertAction = UIAlertAction.init(title: "OK", style: .Default, handler: { (action: UIAlertAction) in
-			//    let field = alert.textFields!.first!
-			//    let customDrink: Drink = Drink.init(name: field.text!)
-			//    self.drinkList.insert(customDrink, atIndex: 0)
-			//    let newIndexPath: NSIndexPath = NSIndexPath(forRow:0, inSection:0)
-			//    self.tableView.insertRowsAtIndexPaths([newIndexPath], withRowAnimation: .Top)
-			//}
 		}
 
 		// UITextField
