@@ -20,7 +20,7 @@ namespace BarBot.Core
 		public const string GetRecipeDetails = "get_recipe_details";
 		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
 		public const string OrderDrink = "order_drink";
-		public const string DrinkOrderedEvent = "barbot.drink_ordered_event";
+		public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
 		// BiloNet
 		//public const string IPAddress = "192.168.0.19";

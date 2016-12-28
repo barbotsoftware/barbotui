@@ -31,11 +31,9 @@ namespace BarBot.UWP
     /// </summary>
     sealed partial class App : Application
     {
-        #region Global app properties
+        #region Global App Properties
 
         public WebSocketUtil webSocketUtil { get; set; }
-
-
 
         public BarbotContext barbotDB { get; set; }
 
@@ -46,6 +44,29 @@ namespace BarBot.UWP
         public string barbotID { get; set; }
 
         public Constants.BarbotStatus Status { get; set; }
+
+        #endregion
+
+        #region Global App Events
+
+        public event DrinkOrderAddedHandler DrinkOrderAdded = delegate { };
+
+        public delegate void DrinkOrderAddedHandler(object sender, DrinkOrderAddedEventArgs args);
+
+        public class DrinkOrderAddedEventArgs : EventArgs
+        {
+            private DrinkOrder drinkOrder;
+
+            public DrinkOrderAddedEventArgs(DrinkOrder drinkOrder)
+            {
+                this.drinkOrder = drinkOrder;
+            }
+
+            public DrinkOrder DrinkOrder
+            {
+                get { return drinkOrder; }
+            }
+        }
 
         #endregion
 
@@ -154,6 +175,9 @@ namespace BarBot.UWP
             // Save it to the database
             barbotDB.DrinkOrders.Add(drinkOrder);
             barbotDB.SaveChanges();
+
+            // Fire event
+            DrinkOrderAdded(this, new DrinkOrderAddedEventArgs(drinkOrder));
         }
 
         /// <summary>
