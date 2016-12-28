@@ -150,6 +150,9 @@
     <Compile Include="UserControls\Uc_DrinkDetail.xaml.cs">
       <DependentUpon>Uc_DrinkDetail.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Uc_IngredientElement.xaml.cs">
+      <DependentUpon>Uc_IngredientElement.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Uc_Menu.xaml.cs">
       <DependentUpon>Uc_Menu.xaml</DependentUpon>
     </Compile>
@@ -173,6 +176,7 @@
   <ItemGroup>
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\back_arrow.png" />
+    <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
@@ -200,6 +204,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserControls\Uc_IngredientElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Uc_Menu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -224,8 +232,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
-      <Name>SQLite for Universal Windows Platform</Name>
+    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2">
+      <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.15.2%29</Name>
     </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.14393.0">
       <Name>Windows Desktop Extensions for the UWP %28WindowsDesktop, Version=10.0.14393.0%29</Name>

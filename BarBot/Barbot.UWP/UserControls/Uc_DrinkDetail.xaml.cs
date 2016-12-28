@@ -26,6 +26,7 @@ namespace BarBot.UWP.UserControls
     {
         private Recipe _recipe;
         private WebSocketUtil socketUtil;
+        private List<Uc_IngredientElement> ingredientElementList;
 
         public Uc_DrinkDetail(Recipe SelectedRecipe)
         {
@@ -78,9 +79,31 @@ namespace BarBot.UWP.UserControls
             () =>
             {
                 Recipe.Ingredients = args.Recipe.Ingredients;
+                DisplayIngredients();
             });
 
             socketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailEvent;
+        }
+
+        private void DisplayIngredients()
+        {
+            ingredientList.Children.Clear();
+            ingredientElementList = new List<Uc_IngredientElement>();
+
+            for(var i = 0; i < Recipe.Ingredients.Count; i++)
+            {
+                if(Recipe.Ingredients[i] != null)
+                {
+                    Uc_IngredientElement ingredientElement = new Uc_IngredientElement(Recipe.Ingredients[i]);
+                    ingredientElementList.Add(ingredientElement);
+                    ingredientList.Children.Add(ingredientElement);
+                }
+            }
+        }
+
+        private void Pour_Drink(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(ingredientElementList);
         }
     }
 }

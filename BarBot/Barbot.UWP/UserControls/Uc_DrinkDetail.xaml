@@ -13,9 +13,11 @@
         <Grid.Resources>
             <local:ToUpperConverter x:Name="ToUpperConverter" />
         </Grid.Resources>
+
         <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
             <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
         </Border>
+
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="50" Click="Back_To_Menu" Margin="0,30,0,0" Background="{x:Null}" ExitDisplayModeOnAccessKeyInvoked="False" UseSystemFocusVisuals="False" AllowFocusOnInteraction="False">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -25,6 +27,16 @@
         </Button>
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Canvas.Left="50" Height="67" TextWrapping="Wrap" Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Top" Width="942" FontFamily="Microsoft Yi Baiti" FontSize="72" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,10,0,0"/>
 
-        <Image x:Name="RecipeImage" Width="390" Height="330" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="53,157,1477,593" />
+        <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png" Margin="70,125,1383,550" />
+        <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
+
+
+
+        <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF004B99" Content="POUR DRINK" Background="#FF004B99" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="48"/>
+        <StackPanel x:Name="ingredientList" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
+            <!--<ListBox Height="50" Margin="10" Background="#FF222222" BorderBrush="{x:Null}" AllowFocusOnInteraction="False">
+                <TextBox Text="Blarg" ></TextBox>
+            </ListBox>-->
+        </StackPanel>
     </Grid>
 </UserControl>
