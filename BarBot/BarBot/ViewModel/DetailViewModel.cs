@@ -24,8 +24,10 @@ namespace BarBot.Core.ViewModel
 				else
 				{
 					// Custom Recipe
-					Recipe = new Recipe();
-					Recipe.Name = passedString;
+					Recipe = new Recipe("custom_recipe", 
+					                    passedString,
+					                    null,
+					                    new List<Ingredient>());
 				}
 			});
 			MessengerInstance.Register<byte[]>(this, imageContents =>

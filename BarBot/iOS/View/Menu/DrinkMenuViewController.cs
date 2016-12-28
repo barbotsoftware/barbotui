@@ -103,8 +103,8 @@ namespace BarBot.iOS.View.Menu
 			nameInputAlertController.AddTextField(textField =>
 			{
 				field = textField;
-				ConfigureKeyboard(field, "Your Name");
 				field.Text = textField.Text;
+				ConfigureKeyboard(field, "Your Name");
 			});
 
 			//  Add Actionn
@@ -185,8 +185,7 @@ namespace BarBot.iOS.View.Menu
 
 			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) =>
 			{
-				//ViewModel.ShowDrinkDetailsCommand(null, null)
-				System.Diagnostics.Debug.WriteLine(field.Text);	
+				ViewModel.ShowDrinkDetailsCommand(field.Text, null);	
 			});
 
 			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (obj) =>
@@ -217,6 +216,7 @@ namespace BarBot.iOS.View.Menu
 		{
 			field.Placeholder = placeholder;
 			field.AutocorrectionType = UITextAutocorrectionType.No;
+			field.AutocapitalizationType = UITextAutocapitalizationType.Words;
 			field.EnablesReturnKeyAutomatically = true;
 			field.KeyboardType = UIKeyboardType.Default;
 			field.KeyboardAppearance = UIKeyboardAppearance.Dark;

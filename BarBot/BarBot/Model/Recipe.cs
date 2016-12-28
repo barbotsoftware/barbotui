@@ -62,15 +62,12 @@ namespace BarBot.Core.Model
 		{
 		}
 
-		public Recipe(string id, string name, string img, Ingredient[] ingredients)
+		public Recipe(string id, string name, string img, List<Ingredient> ingredients)
 		{
 			RecipeId = id;
 			Name = name;
 			Img = img;
-			foreach (Ingredient i in ingredients)
-			{
-				_ingredients.Add(i);
-			}
+			Ingredients = ingredients;
 		}
 
 		public Recipe(string json)
