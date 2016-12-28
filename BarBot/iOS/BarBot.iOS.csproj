@@ -168,6 +168,7 @@
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
     <BundleResource Include="Images\HexagonTile.png" />
     <BundleResource Include="Images\CustomTile.png" />
+    <BundleResource Include="Images\custom_recipe.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">

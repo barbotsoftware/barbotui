@@ -5,6 +5,7 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Helpers;
+using BarBot.Core;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
@@ -76,7 +77,15 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewWillAppear(bool animated)
 		{
 			// Get Recipe Details
-			WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
+				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
+			}
+			else
+			{
+				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			}
 		}
 
 		public override void ViewWillDisappear(bool animated)

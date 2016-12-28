@@ -24,10 +24,11 @@ namespace BarBot.Core.ViewModel
 				else
 				{
 					// Custom Recipe
-					Recipe = new Recipe("custom_recipe", 
+					Recipe = new Recipe(Constants.CustomRecipeId, 
 					                    passedString,
 					                    null,
 					                    new List<Ingredient>());
+					RecipeId = Constants.CustomRecipeId;
 				}
 			});
 			MessengerInstance.Register<byte[]>(this, imageContents =>
@@ -67,6 +68,8 @@ namespace BarBot.Core.ViewModel
 
 		public void Clear()
 		{
+			RecipeId = null;
+			ImageContents = null;
 			Ingredients.Clear();
 		}
 
