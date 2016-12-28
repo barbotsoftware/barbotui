@@ -51,7 +51,7 @@ namespace BarBot.UWP.UserControls
             {
                 ingredientVolume.SelectedIndex = 0;
             }
-            ingredientName.Text = Ingredient.Name;
+            ingredientName.Text = Ingredient.Name.ToUpper();
         }
 
         public Ingredient Ingredient

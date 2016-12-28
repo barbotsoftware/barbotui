@@ -1,0 +1,16 @@
+﻿<UserControl
+    x:Class="BarBot.UWP.UserControls.Uc_AddIngredientButton"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Width="auto"
+    Height="100">
+
+    <Grid Background="#FF222222" Margin="5">
+        <Image Width="81" Source="ms-appx:///Assets/plus_icon.png" Margin="71,18,0,14" HorizontalAlignment="Left"/>
+        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="266,-7,-20,5" Text="ADD INGREDIENT" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False"/>
+    </Grid>
+</UserControl>

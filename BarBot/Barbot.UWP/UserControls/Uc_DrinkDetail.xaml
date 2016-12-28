@@ -18,10 +18,10 @@
             <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
         </Border>
 
-        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="50" Width="50" Click="Back_To_Menu" Margin="0,30,0,0" Background="{x:Null}" ExitDisplayModeOnAccessKeyInvoked="False" UseSystemFocusVisuals="False" AllowFocusOnInteraction="False">
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="79" Width="84" Click="Back_To_Menu" Margin="0,10,0,0" Background="{x:Null}" ExitDisplayModeOnAccessKeyInvoked="False" UseSystemFocusVisuals="False" AllowFocusOnInteraction="False">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Source="ms-appx:///Assets/back_arrow.png"/>
+                    <Image Width="84" Height="70" Source="ms-appx:///Assets/back_arrow.png" Margin="0,0,17,0"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
@@ -30,9 +30,7 @@
         <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png" Margin="70,125,1383,550" />
         <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
 
-
-
-        <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF004B99" Content="POUR DRINK" Background="#FF004B99" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="48"/>
+        <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF004B99" Content="POUR DRINK" Background="#FF004B99" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="64"/>
         <StackPanel x:Name="ingredientList" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
             <!--<ListBox Height="50" Margin="10" Background="#FF222222" BorderBrush="{x:Null}" AllowFocusOnInteraction="False">
                 <TextBox Text="Blarg" ></TextBox>

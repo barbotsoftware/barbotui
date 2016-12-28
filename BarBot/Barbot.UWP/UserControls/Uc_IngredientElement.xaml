@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    Height="120"
+    Height="100"
     Width="auto">
 
     <Grid Background="#FF222222" Margin="5" VerticalAlignment="Bottom">
-        <ComboBox x:Name="ingredientVolume" SelectionChanged="Volume_Changed"  FontSize="72" Width="165" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Margin="0,1,0,0"/>
-        <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="160,0,0,3" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
-        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="254,0,-8,-2" Text="Name" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="100" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"></TextBox>
+        <ComboBox x:Name="ingredientVolume" SelectionChanged="Volume_Changed"  FontSize="65" Width="135" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"/>
+        <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="126,0,0,1" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
+        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="266,-7,-20,5" Text="Name" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>

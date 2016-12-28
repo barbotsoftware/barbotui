@@ -150,11 +150,17 @@
       <DependentUpon>TestClient.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ToUpperConverter.cs" />
+    <Compile Include="UserControls\Uc_AddIngredientButton.xaml.cs">
+      <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Uc_DrinkDetail.xaml.cs">
       <DependentUpon>Uc_DrinkDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_IngredientElement.xaml.cs">
       <DependentUpon>Uc_IngredientElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Uc_IngredientPicker.xaml.cs">
+      <DependentUpon>Uc_IngredientPicker.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_Menu.xaml.cs">
       <DependentUpon>Uc_Menu.xaml</DependentUpon>
@@ -183,6 +189,7 @@
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
+    <Content Include="Assets\Plus_Icon.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml">
       <SubType>Designer</SubType>
@@ -207,11 +214,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserControls\Uc_AddIngredientButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Uc_DrinkDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserControls\Uc_IngredientElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Uc_IngredientPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -239,7 +254,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-      <SDKReference Include="SQLite.UWP.2015, Version=3.15.2" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
+    <SDKReference Include="SQLite.UWP.2015, Version=3.15.2" Condition="'$(Configuration)|$(Platform)' == 'Debug|ARM'">
       <Name>SQLite for Universal Windows Platform %28SQLite.UWP.2015, Version=3.15.2%29</Name>
     </SDKReference>
     <SDKReference Include="WindowsDesktop, Version=10.0.14393.0">
