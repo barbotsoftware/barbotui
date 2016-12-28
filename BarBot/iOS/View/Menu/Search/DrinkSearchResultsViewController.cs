@@ -27,6 +27,12 @@ namespace BarBot.iOS.View.Menu.Search
 			TableView.BackgroundColor = Color.BackgroundGray;
 			TableView.SeparatorColor = Color.NavBarGray;
 			TableView.RegisterClassForCellReuse(typeof(SearchResultCell), SearchResultCell.CellID);
+
+			if (UIDevice.CurrentDevice.CheckSystemVersion(10, 0))
+			{
+				AutomaticallyAdjustsScrollViewInsets = false;
+				TableView.ContentInset = new UIEdgeInsets(64, 0, 44, 0);
+			}
 		}
 
 		public override void ViewDidAppear(bool animated)

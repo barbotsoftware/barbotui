@@ -9,7 +9,29 @@
     d:DesignHeight="300"
     d:DesignWidth="400">
 
-    <Grid>
+    <Grid Margin="0,0,0,10">
+        <GridView x:Name="gridView" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" ItemsSource="{x:Bind DrinkOrders}" IsItemClickEnabled="True">
+            <GridView.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <ItemsWrapGrid Orientation="Horizontal"></ItemsWrapGrid>
+                </ItemsPanelTemplate>
+            </GridView.ItemsPanel>
+            <GridView.ItemTemplate>
+                <DataTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                            <ColumnDefinition Width="100"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0" Text="{Binding recipeName}" Foreground="White"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding userName}" Foreground="White"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="{Binding timestamp}" Foreground="White"></TextBlock>
+                    </Grid>
+                </DataTemplate>
+            </GridView.ItemTemplate>
+        </GridView>
 
     </Grid>
 </UserControl>

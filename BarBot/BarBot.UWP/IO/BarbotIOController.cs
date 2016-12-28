@@ -60,20 +60,23 @@ namespace BarBot.UWP.IO
             Containers = new List<Container>();
             foreach(Database.Container c in containers)
             {
-                // Create IO Port for the pump
-                IIOPort pumpPort = createIOPort(c.pump.ioPort);
+                if (c.flowSensor != null && c.pump != null)
+                {
+                    // Create IO Port for the pump
+                    IIOPort pumpPort = createIOPort(c.pump.ioPort);
 
-                // Create IO port for the sensor. Sensors will always be on the main GPIO board (for now)
-                IOPort sensorPort = createIOPort(c.flowSensor.ioPort, GpioPinDriveMode.InputPullDown) as IOPort;
+                    // Create IO port for the sensor. Sensors will always be on the main GPIO board (for now)
+                    IOPort sensorPort = createIOPort(c.flowSensor.ioPort, GpioPinDriveMode.InputPullDown) as IOPort;
 
-                // Create the flow sensor and pump
-                FlowSensor flowSensor = new FlowSensor(sensorPort, c.flowSensor.calibrationFactor);
-                Pump pump = new Pump(pumpPort);
-                pump.FlowSensor = flowSensor;
-                flowSensor.Pump = pump;
+                    // Create the flow sensor and pump
+                    FlowSensor flowSensor = new FlowSensor(sensorPort, c.flowSensor.calibrationFactor);
+                    Pump pump = new Pump(pumpPort);
+                    pump.FlowSensor = flowSensor;
+                    flowSensor.Pump = pump;
 
-                // Create the new container
-                Containers.Add(new Container(flowSensor, pump));
+                    // Create the new container
+                    Containers.Add(new Container(flowSensor, pump));
+                }
             }
 
             // Initialize I2C Controllers
@@ -82,13 +85,13 @@ namespace BarBot.UWP.IO
 
         public async void initI2C()
         {
-            await mcp1.Init();
+            /*await mcp1.Init();
 
             Debug.WriteLine("Initialized MCP23017 1");
 
             await mcp2.Init();
 
-            Debug.WriteLine("Initialized MCP23017 2");
+            Debug.WriteLine("Initialized MCP23017 2");*/
 
             Initialized = true;
         }
@@ -132,22 +135,27 @@ namespace BarBot.UWP.IO
                 Container container = ingredients.ElementAt(i).Key as Container;
                 int amount = ingredients.ElementAt(i).Value;
 
-                GpioPin pin = container.FlowSensor.IoPort.GpioPin;
-
-                sensorTicks.Add(pin, 0);
-                maxTicks.Add(pin, container.FlowSensor.CalibrationFactor * amount);
-                pinPumpMapping.Add(pin, container.Pump);
-
-                pin.SetDriveMode(GpioPinDriveMode.Input);
-                pin.ValueChanged += Input_ValueChanged;
-
-                container.Pump.StartPump();
+                PourIngredient(container, amount);
             }
 
             if(garnish)
             {
                 AddGarnish();
             }
+        }
+
+        public void PourIngredient(Container container, int amount)
+        {
+            GpioPin pin = container.FlowSensor.IoPort.GpioPin;
+
+            sensorTicks.Add(pin, 0);
+            maxTicks.Add(pin, container.FlowSensor.CalibrationFactor * amount);
+            pinPumpMapping.Add(pin, container.Pump);
+
+            pin.SetDriveMode(GpioPinDriveMode.Input);
+            pin.ValueChanged += Input_ValueChanged;
+
+            container.Pump.StartPump();
         }
 
         public void AddIce()

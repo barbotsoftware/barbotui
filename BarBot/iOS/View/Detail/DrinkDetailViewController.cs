@@ -5,6 +5,7 @@ using Foundation;
 using UIKit;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Helpers;
+using BarBot.Core;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
@@ -76,7 +77,15 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewWillAppear(bool animated)
 		{
 			// Get Recipe Details
-			WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
+				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
+			}
+			else
+			{
+				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			}
 		}
 
 		public override void ViewWillDisappear(bool animated)
@@ -237,8 +246,7 @@ namespace BarBot.iOS.View.Detail
 			                               View.Bounds.Width - (ORDER_LEFT_OFFSET * 2),
 			                               60);
 			OrderButton.SetTitle("ORDER DRINK", UIControlState.Normal);
-			OrderButton.SetTitleColor(UIColor.White, UIControlState.Normal);
-			OrderButton.TitleLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", TEXT_SIZE);
+			SharedStyles.StyleButtonText(OrderButton, TEXT_SIZE);
 			OrderButton.BackgroundColor = Color.BarBotBlue;
 			OrderButton.Layer.CornerRadius = new nfloat(2.0);
 			OrderButton.Layer.BorderWidth = new nfloat(0.9);

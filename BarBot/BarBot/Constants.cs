@@ -20,7 +20,7 @@ namespace BarBot.Core
 		public const string GetRecipeDetails = "get_recipe_details";
 		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
 		public const string OrderDrink = "order_drink";
-		public const string DrinkOrderedEvent = "barbot.drink_ordered_event";
+		public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
 		// BiloNet
 		//public const string IPAddress = "192.168.0.19";
@@ -32,11 +32,16 @@ namespace BarBot.Core
 		//public const string IPAddress = "10.0.0.3";
 
 		// Horstmann
-		public const string IPAddress = "192.168.1.234";
+		//public const string IPAddress = "192.168.1.234";
+
+		// TruffleButter
+		public const string IPAddress = "192.168.1.80";
 
 		public const string PortNumber = "8000";
 
 		public const string BarBotId = "barbot_805d2a";
+
+		public const string CustomRecipeId = "recipe_custom";
 
 		#endregion
 
