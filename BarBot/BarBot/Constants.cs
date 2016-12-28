@@ -32,11 +32,16 @@ namespace BarBot.Core
 		//public const string IPAddress = "10.0.0.3";
 
 		// Horstmann
-		public const string IPAddress = "192.168.1.234";
+		//public const string IPAddress = "192.168.1.234";
+
+		// TruffleButter
+		public const string IPAddress = "192.168.1.80";
 
 		public const string PortNumber = "8000";
 
 		public const string BarBotId = "barbot_805d2a";
+
+		public const string CustomRecipeId = "recipe_custom";
 
 		#endregion
 
