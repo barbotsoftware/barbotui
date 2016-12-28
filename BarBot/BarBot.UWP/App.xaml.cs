@@ -43,6 +43,8 @@ namespace BarBot.UWP
 
         public string barbotID { get; set; }
 
+        public string webserverUrl { get; set; }
+
         public Constants.BarbotStatus Status { get; set; }
 
         #endregion
@@ -110,8 +112,9 @@ namespace BarBot.UWP
 
                 if (config.Count > 0)
                 {
-                    endpoint = config.ElementAt(0).apiEndpoint;
                     barbotID = config.ElementAt(0).barbotId;
+                    webserverUrl = config.ElementAt(0).apiEndpoint;
+                    endpoint = "ws://" + webserverUrl + ":" + Constants.PortNumber;
                 }
             }
             catch (Exception e)

@@ -29,6 +29,8 @@ namespace BarBot.UWP.UserControls
         private PathFigure figure;
         private double HexagonWidth = Constants.HexagonWidth;
 
+        private string webserverUrl;
+
         public Windows.UI.Xaml.Shapes.Path hexagon;
 
         public Uc_RecipeTile()
@@ -37,6 +39,8 @@ namespace BarBot.UWP.UserControls
 
             Recipe = new Recipe();
             this.DataContext = this;
+
+            webserverUrl = (Application.Current as App).webserverUrl;
         }
 
         public Recipe Recipe
@@ -48,6 +52,7 @@ namespace BarBot.UWP.UserControls
 
             set
             {
+                value.Img = "http://" + webserverUrl + "/" + value.Img;
                 recipe = value;
                 OnPropertyChanged("Recipe");
             }
