@@ -19,7 +19,8 @@ namespace BarBot.UWP.IO
         public IIOPort portC;
         public IIOPort portD;
 
-        private const int STEPS_PER_REVOLUTION = 60;
+        private int STEPS_PER_REVOLUTION = 60;
+        private int SLEEP_TIME = 10; 
 
         public L298NDriver(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4)
         {
@@ -36,22 +37,22 @@ namespace BarBot.UWP.IO
                 portA.write(GpioPinValue.Low);
                 portB.write(GpioPinValue.High);
 
-                Task.Delay(1);
+                Task.Delay(SLEEP_TIME).Wait();
 
                 portD.write(GpioPinValue.Low);
                 portC.write(GpioPinValue.High);
 
-                Task.Delay(1);
+                Task.Delay(SLEEP_TIME).Wait();
 
                 portB.write(GpioPinValue.Low);
                 portA.write(GpioPinValue.High);
 
-                Task.Delay(1);
+                Task.Delay(SLEEP_TIME).Wait();
 
                 portC.write(GpioPinValue.Low);
                 portD.write(GpioPinValue.High);
 
-                Task.Delay(1);
+                Task.Delay(SLEEP_TIME).Wait();
             }
 
             portA.write(GpioPinValue.Low);
