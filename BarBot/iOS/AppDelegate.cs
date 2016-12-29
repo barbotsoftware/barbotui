@@ -31,16 +31,16 @@ namespace BarBot.iOS
 		public List<Ingredient> IngredientsInBarBot { get; set; }
 		public User User { get; set; }
 
-		private string _ipAddress;
-		public string IPAddress 
+		private string _hostName;
+		public string HostName 
 		{ 
-			get { return _ipAddress; } 
+			get { return _hostName; } 
 			set 
 			{ 
-				_ipAddress = value;
+				_hostName = value;
 				WebSocketUtil.EndPoint = "ws://" + value + ":" + Constants.PortNumber;
-				AsyncUtil.IPAddress = value;
-			} 
+				AsyncUtil.HostName = "http://" + value;
+			}
 		}
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
@@ -64,13 +64,13 @@ namespace BarBot.iOS
 			AsyncUtil = new AsyncUtil();
 
 			// Check for stored IP Address
-			if (UserDefaults.StringForKey("IPAddress") != null)
+			if (UserDefaults.StringForKey("HostName") != null)
 			{
-				IPAddress = UserDefaults.StringForKey("IPAddress");
+				HostName = UserDefaults.StringForKey("HostName");
 			}
 			else
 			{
-				IPAddress = Constants.IPAddress;
+				HostName = Constants.HostName;
 			}
 
 			// create a new window instance based on the screen size

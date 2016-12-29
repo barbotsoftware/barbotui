@@ -6,7 +6,7 @@ namespace BarBot.iOS.Util
 {
 	public class AsyncUtil
 	{
-		public string IPAddress { get; set; }
+		public string HostName { get; set; }
 
 		public AsyncUtil()
 		{
@@ -17,7 +17,7 @@ namespace BarBot.iOS.Util
 			var httpClient = new HttpClient();
 
 			// await! control returns to the caller and the task continues to run on another thread
-			var contents = await httpClient.GetByteArrayAsync("http://" + IPAddress + "/" + imageUrl);
+			var contents = await httpClient.GetByteArrayAsync(HostName + "/" + imageUrl);
 
 			// return byte[]
 			return contents;

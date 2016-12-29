@@ -24,6 +24,8 @@ namespace BarBot.Core
 
 		public const string IPAddress = "192.168.1.196";
 
+		public const string HostName = "tom-PC";
+
 		public const string PortNumber = "8000";
 
 		public const string BarBotId = "barbot_b9e327";

@@ -8,36 +8,43 @@ namespace BarBot.iOS.Util
 	public class RestService
 	{
 		HttpClient client;
-		string EndPoint { get; set; }
+		string HostName { get; set; }
 
-		public RestService(string endpoint)
+		public RestService(string hostName)
 		{
 			client = new HttpClient();
 			client.MaxResponseContentBufferSize = 256000;
-			EndPoint = endpoint;
+			HostName = hostName;
 		}
 
 		public async Task<User> SaveUserNameAsync(string name)
 		{
-			var uri = new Uri("http://" + EndPoint + "/barbotweb/public/register?name=" + name);
-
-			var content = new StringContent("");
-
-			HttpResponseMessage response = await client.PostAsync(uri, content);
-
-			if (response.IsSuccessStatusCode)
+			try
 			{
-				var responseContent = await response.Content.ReadAsStringAsync();
-				if (responseContent.Contains("The name has already been taken"))
+				var uri = new Uri("http://" + HostName + "/barbotweb/public/register?name=" + name);
+
+				var content = new StringContent("");
+
+				HttpResponseMessage response = await client.PostAsync(uri, content);
+
+				if (response.IsSuccessStatusCode)
 				{
-					return null;
-				}
-				else {
-					var u = new User(responseContent);
-					return u;
+					var responseContent = await response.Content.ReadAsStringAsync();
+					if (responseContent.Contains("The name has already been taken"))
+					{
+						return new User("", "", "name_taken");
+					}
+					else {
+						var u = new User(responseContent);
+						return u;
+					}
 				}
 			}
-			return null;
+			catch (Exception e)
+			{
+				System.Diagnostics.Debug.WriteLine(e.ToString());
+			}
+			return new User("", "", "exception");
 		}
 	}
 }

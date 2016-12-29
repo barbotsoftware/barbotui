@@ -1,4 +1,3 @@
-using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
@@ -12,7 +11,6 @@ using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;
 using Foundation;
-using System;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -126,38 +124,38 @@ namespace BarBot.iOS.View.Menu
 			var y = (View.Frame.Height - height) / 2 - 64;
 
 			ReconnectButton.Frame = new CGRect(x, y, width, height);
-			///ReconnectButton.Center = View.Center;
 
 			ReconnectButton.TouchUpInside += (sender, e) =>
 			{
-				ShowIPAddressAlert();
+				ShowHostNameAlert();
 			};
 			CollectionView.Add(ReconnectButton);
 		}
 
-		// IP ADDRESS PROMPT
-		void ShowIPAddressAlert()
+		// HOST NAME PROMPT
+		void ShowHostNameAlert()
 		{
-			var ipAddressAlertController = UIAlertController.Create("Please enter an IP Address", null, UIAlertControllerStyle.Alert);
+			var hostNameAlertController = UIAlertController.Create("Please enter a host name", null, UIAlertControllerStyle.Alert);
 
 			UITextField field = null;
 
-			ipAddressAlertController.AddTextField(textField =>
+			hostNameAlertController.AddTextField(textField =>
 			{
 				field = textField;
 				field.Text = textField.Text;
-				ConfigureKeyboard(field, "IP Address", UIKeyboardType.DecimalPad);
+				ConfigureKeyboard(field, "Host Name", UIKeyboardType.Default);
 			});
 
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, (obj) => 
 			{
-				if (ValidateIPv4(field.Text))
+				// ping host name
+				if (field.Text != null)
 				{
 					// Save IP Address to User Defaults
-    				Delegate.UserDefaults.SetString(field.Text, "IPAddress");
+    				Delegate.UserDefaults.SetString(field.Text, "HostName");
 
 					// Store EndPoint in Delegate
-					Delegate.IPAddress = field.Text;
+					Delegate.HostName = field.Text;
 
 					// Store in DB
 					Delegate.UserDefaults.Synchronize();
@@ -173,41 +171,22 @@ namespace BarBot.iOS.View.Menu
 				}
 				else
 				{
-					PresentViewController(ipAddressAlertController, true, () =>
+					PresentViewController(hostNameAlertController, true, () =>
 					{
-						ipAddressAlertController.Title = "Please enter a valid IP Address";
+						hostNameAlertController.Title = "Please enter a valid Host Name";
 					});
 				}
 			});
 
 			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
 
-			ipAddressAlertController.AddAction(submit);
-			ipAddressAlertController.AddAction(cancel);
+			hostNameAlertController.AddAction(submit);
+			hostNameAlertController.AddAction(cancel);
 			ActionToEnable = submit;
 			submit.Enabled = false;
 
 			// Present Alert
-			PresentViewController(ipAddressAlertController, true, null);
-		}
-
-		// Validates an IP Address string
-		public bool ValidateIPv4(string ipString)
-		{
-			if (string.IsNullOrWhiteSpace(ipString))
-			{
-				return false;
-			}
-
-			string[] splitValues = ipString.Split('.');
-			if (splitValues.Length != 4)
-			{
-				return false;
-			}
-
-			byte tempForParsing;
-
-			return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+			PresentViewController(hostNameAlertController, true, null);
 		}
 
 		// USERNAME REGISTRATION
@@ -231,10 +210,21 @@ namespace BarBot.iOS.View.Menu
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
-				var rest = new RestService(Delegate.IPAddress);
+				var rest = new RestService(Delegate.HostName);
 				var user = await rest.SaveUserNameAsync(field.Text);
 
-				if (user != null)
+				if (user.Uid.Equals("name_taken"))
+				{
+					PresentViewController(nameInputAlertController, true, () =>
+					{
+						nameInputAlertController.Title = "That name is taken";
+					});
+				}
+				else if (user.Uid.Equals("exception"))
+				{
+					DismissViewController(true, null);
+				}
+				else
 				{
 					// Save value
 					Delegate.UserDefaults.SetString(user.Uid, "UserId");
@@ -246,13 +236,6 @@ namespace BarBot.iOS.View.Menu
 					Delegate.UserDefaults.Synchronize();
 
 					ConnectWebSocket();
-				}
-				else
-				{
-					PresentViewController(nameInputAlertController, true, () =>
-					{
-						nameInputAlertController.Title = "That name is taken";
-					});
 				}
 			});
 

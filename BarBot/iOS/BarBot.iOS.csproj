@@ -175,6 +175,7 @@
     <Compile Include="View\Detail\IngredientTable\IngredientTableViewCell.cs" />
     <Compile Include="View\Detail\IngredientTable\IngredientTableViewDelegate.cs" />
     <Compile Include="View\Detail\IngredientTable\Picker\AddIngredientPickerCell.cs" />
+    <Compile Include="Util\NetworkUtil.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
