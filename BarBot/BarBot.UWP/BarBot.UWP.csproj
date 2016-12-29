@@ -185,6 +185,7 @@
   <ItemGroup>
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\back_arrow.png" />
+    <BundleResource Include="Assets\custom_recipe.png" />
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />

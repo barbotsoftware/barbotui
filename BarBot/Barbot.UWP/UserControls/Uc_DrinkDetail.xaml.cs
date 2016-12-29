@@ -29,6 +29,7 @@ namespace BarBot.UWP.UserControls
         private List<Uc_IngredientElement> ingredientElementList;
         private List<Ingredient> AvailableIngredientList;
         Uc_AddIngredientButton addIngredientBtn;
+        Uc_IngredientPicker ingredientPicker;
 
         public Uc_DrinkDetail(Recipe SelectedRecipe)
         {
@@ -44,9 +45,16 @@ namespace BarBot.UWP.UserControls
 
         public void init()
         {
+            if(Recipe.Name != "Custom Recipe")
+            {
+
             // Attach event handler and then call GetRecipeDetails
             socketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null);
             socketUtil.GetRecipeDetails(Recipe.RecipeId);
+            } else
+            {
+                DisplayIngredients();
+            }
             
             socketUtil.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
             socketUtil.GetIngredients();
@@ -96,11 +104,12 @@ namespace BarBot.UWP.UserControls
             ingredientElementList = new List<Uc_IngredientElement>();
 
 
-            for (var i = 0; i < Recipe.Ingredients.Count; i++)
+            for (int i = 0; i < Recipe.Ingredients.Count; i++)
             {
                 if (Recipe.Ingredients[i] != null)
                 {
-                    Uc_IngredientElement ingredientElement = new Uc_IngredientElement(Recipe.Ingredients[i]);
+                    var ingredientElement = new Uc_IngredientElement(Recipe.Ingredients[i]);
+                    ingredientElement.removeIngredientButton.Click += IngredientElement_RemoveIngredient;
                     ingredientElementList.Add(ingredientElement);
                     ingredientList.Children.Add(ingredientElement);
                 }
@@ -110,7 +119,16 @@ namespace BarBot.UWP.UserControls
             addIngredientBtn.PointerReleased += AddIngredientBtn_PointerReleased;
             ingredientList.Children.Add(addIngredientBtn);
         }
-        
+
+        private void IngredientElement_RemoveIngredient(object sender, RoutedEventArgs e)
+        {
+            var senderButton = (Button)sender;
+            var ingredientElement = (Uc_IngredientElement)senderButton.DataContext;
+            Recipe.Ingredients.RemoveAll(i => i.Name == ingredientElement._ingredient.Name);
+
+            DisplayIngredients();
+        }
+
         private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
@@ -136,13 +154,40 @@ namespace BarBot.UWP.UserControls
             }
 
             // Add the new ingredient control
-            Uc_IngredientPicker ingredientPicker = new Uc_IngredientPicker(AvailableIngredientList);
+
+            List<Ingredient> nonRepeatedIngredients = new List<Ingredient>();
+            for(var i = 0; i < AvailableIngredientList.Count; i++)
+            {
+                bool ingredientFound = false;
+                for(var j = 0; j < Recipe.Ingredients.Count; j++)
+                {
+                    if(Recipe.Ingredients[j].Name == AvailableIngredientList[i].Name)
+                    {
+                        ingredientFound = true;
+                        break;
+                    }
+                }
+                if(!ingredientFound){
+                    nonRepeatedIngredients.Add(AvailableIngredientList[i]);
+                }
+            }
+            ingredientPicker = new Uc_IngredientPicker(nonRepeatedIngredients);
             ingredientList.Children.Add(ingredientPicker);
+
+            ingredientPicker.addIngredientButton.Click += AddIngredientButton_Click;
+        }
+
+        private void AddIngredientButton_Click(object sender, RoutedEventArgs e)
+        {
+            Console.WriteLine(ingredientPicker.selectedIngredient);
+            Recipe.Ingredients.Add(ingredientPicker.selectedIngredient);
+            DisplayIngredients();
         }
 
         private void Pour_Drink(object sender, RoutedEventArgs e)
         {
-            Console.WriteLine(ingredientElementList);
+            // Can snag ingredients from ingredientList.Children
+            Console.WriteLine(ingredientList);
         }
     }
 }

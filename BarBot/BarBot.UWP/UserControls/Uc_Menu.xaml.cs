@@ -70,11 +70,20 @@ namespace BarBot.UWP.UserControls
             () =>
             {
                 List<Recipe> page = new List<Recipe>();
+
+                // Add custom ingredient
+                var customRecipe = new Recipe();
+                customRecipe.Name = "Custom Recipe";
+                customRecipe.Ingredients = new List<Ingredient>();
+                customRecipe.Img = "ms-appx:///Assets/custom_recipe.png";
+                page.Add(customRecipe);
+
                 // Populate AllRecipes
                 for (var i = 0; i < args.Recipes.Count; i++)
                 {
                     page.Add(args.Recipes[i]);
-                    if((i != 0 && i % 10 == 9)|| i == args.Recipes.Count - 1)
+                    if(page.Count == 10 || i == args.Recipes.Count - 1)
+                    //if((i != 0 && i % 10 == 9)|| i == args.Recipes.Count - 1)
                     {
                         AllRecipes.Add(page);
                         page = new List<Recipe>();

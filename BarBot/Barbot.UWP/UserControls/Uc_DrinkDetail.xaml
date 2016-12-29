@@ -31,10 +31,9 @@
         <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
 
         <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF004B99" Content="POUR DRINK" Background="#FF004B99" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="64"/>
-        <StackPanel x:Name="ingredientList" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
-            <!--<ListBox Height="50" Margin="10" Background="#FF222222" BorderBrush="{x:Null}" AllowFocusOnInteraction="False">
-                <TextBox Text="Blarg" ></TextBox>
-            </ListBox>-->
-        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
+            <StackPanel x:Name="ingredientList"/>
+
+        </ScrollViewer>
     </Grid>
 </UserControl>
