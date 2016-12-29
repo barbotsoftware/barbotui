@@ -70,7 +70,7 @@ namespace BarBot.iOS
 			}
 			else
 			{
-				IPAddress = "192.168.1.196";
+				IPAddress = Constants.IPAddress;
 			}
 
 			// create a new window instance based on the screen size

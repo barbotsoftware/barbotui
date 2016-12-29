@@ -12,6 +12,7 @@ using BarBot.iOS.View.Menu.Search;
 
 using GalaSoft.MvvmLight.Helpers;
 using Foundation;
+using System;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -109,7 +110,7 @@ namespace BarBot.iOS.View.Menu
 
 			refreshButton.Clicked += (sender, e) =>
 			{
-				ConnectWebSocket();	
+				ConnectWebSocket();
 			};
 		}
 
@@ -117,10 +118,15 @@ namespace BarBot.iOS.View.Menu
 		{
 			ReconnectButton = new UIButton();
 			ReconnectButton.SetTitle("RECONNECT", UIControlState.Normal);
-			var textSize = 36;
-			SharedStyles.StyleButtonText(ReconnectButton, textSize);
-			ReconnectButton.Frame = new CGRect(View.Frame.Width / 2, View.Frame.Height / 2, ReconnectButton.IntrinsicContentSize.Width, textSize);
-			ReconnectButton.Center = View.Center;
+			var height = 36;
+			SharedStyles.StyleButtonText(ReconnectButton, height);
+
+			var width = ReconnectButton.IntrinsicContentSize.Width;
+			var x = (View.Frame.Width - width) / 2;
+			var y = (View.Frame.Height - height) / 2 - 64;
+
+			ReconnectButton.Frame = new CGRect(x, y, width, height);
+			///ReconnectButton.Center = View.Center;
 
 			ReconnectButton.TouchUpInside += (sender, e) =>
 			{

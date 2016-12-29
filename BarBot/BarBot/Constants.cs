@@ -22,6 +22,8 @@ namespace BarBot.Core
 		public const string OrderDrink = "order_drink";
 		public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
+		public const string IPAddress = "192.168.1.196";
+
 		public const string PortNumber = "8000";
 
 		public const string BarBotId = "barbot_b9e327";
