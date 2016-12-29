@@ -15,7 +15,20 @@
         </Border>
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="ORDER QUEUE" VerticalAlignment="Top" Width="495" FontFamily="Microsoft Yi Baiti" FontSize="72" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="0,10,0,0"/>
 
-        <GridView x:Name="gridView" ItemsSource="{x:Bind DrinkOrders}" IsItemClickEnabled="True" Height="970" Width="1920" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,10">
+        <Grid Width="1880" Margin="0,110,0,0" VerticalAlignment="Top" Height="40" BorderThickness="0,0,0,2" BorderBrush="#FFAEAEAE">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <TextBlock Grid.Column="0" Text="USER" Foreground="White" FontSize="32"></TextBlock>
+            <TextBlock Grid.Column="1" Text="RECIPE" Foreground="White" FontSize="32"></TextBlock>
+            <TextBlock Grid.Column="2" Text="ORDERED AT" Foreground="White" FontSize="32"></TextBlock>
+        </Grid>
+        
+        <GridView x:Name="gridView" ItemsSource="{x:Bind DrinkOrders}" Height="820" Width="1880" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,180,0,0">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
                     <ItemsWrapGrid Orientation="Vertical"></ItemsWrapGrid>
@@ -23,20 +36,21 @@
             </GridView.ItemsPanel>
             <GridView.ItemTemplate>
                 <DataTemplate>
-                    <Grid Width="1920">
+                    <Grid Width="1880">
                         <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                             <ColumnDefinition Width="*"></ColumnDefinition>
                         </Grid.ColumnDefinitions>
 
-                        <TextBlock Grid.Column="0" Text="{Binding recipeName}" Foreground="White"></TextBlock>
-                        <TextBlock Grid.Column="1" Text="{Binding userName}" Foreground="White"></TextBlock>
-                        <TextBlock Grid.Column="2" Text="{Binding timestamp}" Foreground="White"></TextBlock>
+                        <TextBlock Grid.Column="0" Text="{Binding UserName}" Foreground="White" FontSize="36"></TextBlock>
+                        <TextBlock Grid.Column="1" Text="{Binding Recipe.Name}" Foreground="White" FontSize="36"></TextBlock>
+                        <TextBlock Grid.Column="2" Text="{Binding Timestamp}" Foreground="White" FontSize="36"></TextBlock>
+                        <Button Grid.Column="3" Content="Pour Drink" FontSize="36" BorderBrush="#FF898989" Foreground="White" Tag="{Binding Recipe}" Click="PourButton_Click" FocusVisualPrimaryBrush="White"></Button>
                     </Grid>
                 </DataTemplate>
             </GridView.ItemTemplate>
         </GridView>
-
     </Grid>
 </UserControl>

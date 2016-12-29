@@ -12,7 +12,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using BarBot.UWP.Database;
+using BarBot.Core.Model;
 using System.Collections.ObjectModel;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -35,11 +35,6 @@ namespace BarBot.UWP.UserControls
 
             DrinkOrders = new ObservableCollection<DrinkOrder>();
 
-            foreach(DrinkOrder drinkOrder in app.barbotDB.DrinkOrders.ToList())
-            {
-                DrinkOrders.Add(drinkOrder);
-            }
-
             app.DrinkOrderAdded += App_DrinkOrderAdded;
         }
 
@@ -50,6 +45,15 @@ namespace BarBot.UWP.UserControls
             {
                 DrinkOrders.Add(args.DrinkOrder);
             });
+        }
+
+        private void PourButton_Click(object sender, RoutedEventArgs e)
+        {
+            Recipe recipe = (sender as Button).Tag as Recipe;
+
+            Dictionary<IO.Devices.IContainer, double> ingredients =  Utils.Helpers.GetContainersFromRecipe(recipe, app.barbotIOController.Containers);
+
+            //app.barbotIOController.PourDrink(ingredients);
         }
     }
 }

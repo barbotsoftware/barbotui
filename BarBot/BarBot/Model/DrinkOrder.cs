@@ -12,8 +12,7 @@ namespace BarBot.Core.Model
         private string _id;
         private string _userId;
         private string _userName;
-        private string _recipeId;
-        private string _recipeName;
+        private Recipe _recipe;
         private bool _ice;
         private bool _garnish;
         private string _timestamp;
@@ -48,23 +47,13 @@ namespace BarBot.Core.Model
             }
         }
 
-        public string RecipeId
+        public Recipe Recipe
         {
-            get { return _recipeId; }
+            get { return _recipe; }
             set
             {
-                _recipeId = value;
-                OnPropertyChanged("RecipeId");
-            }
-        }
-
-        public string RecipeName
-        {
-            get { return _recipeName; }
-            set
-            {
-                _recipeName = value;
-                OnPropertyChanged("RecipeName");
+                _recipe = value;
+                OnPropertyChanged("Recipe");
             }
         }
 
@@ -106,8 +95,7 @@ namespace BarBot.Core.Model
             Id = d.Id;
             UserId = d.UserId;
             UserName = d.UserName;
-            RecipeName = d.RecipeName;
-            RecipeId = d.RecipeId;
+            Recipe = d.Recipe;
             Ice = d.Ice;
             Garnish = d.Garnish;
             Timestamp = d.Timestamp;

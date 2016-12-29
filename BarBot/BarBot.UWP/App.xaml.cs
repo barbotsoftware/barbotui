@@ -47,6 +47,8 @@ namespace BarBot.UWP
 
         public Constants.BarbotStatus Status { get; set; }
 
+        public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
+
         #endregion
 
         #region Global App Events
@@ -57,14 +59,14 @@ namespace BarBot.UWP
 
         public class DrinkOrderAddedEventArgs : EventArgs
         {
-            private DrinkOrder drinkOrder;
+            private Core.Model.DrinkOrder drinkOrder;
 
-            public DrinkOrderAddedEventArgs(DrinkOrder drinkOrder)
+            public DrinkOrderAddedEventArgs(Core.Model.DrinkOrder drinkOrder)
             {
                 this.drinkOrder = drinkOrder;
             }
 
-            public DrinkOrder DrinkOrder
+            public Core.Model.DrinkOrder DrinkOrder
             {
                 get { return drinkOrder; }
             }
@@ -157,6 +159,7 @@ namespace BarBot.UWP
                 Task.Delay(10);
             }
 
+            DrinkOrders = new List<Core.Model.DrinkOrder>();
             webSocketUtil.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
             Status = Constants.BarbotStatus.READY;
@@ -165,22 +168,10 @@ namespace BarBot.UWP
         private void WebSocket_DrinkOrderedEvent(object sender, WebSocketEvents.DrinkOrderedEventArgs args)
         {
             // Create a new DrinkOrder database model from the incoming websocket model
-            DrinkOrder drinkOrder = new DrinkOrder();
-            drinkOrder.drinkOrderUID = args.DrinkOrder.Id;
-            drinkOrder.recipeId = args.DrinkOrder.RecipeId;
-            drinkOrder.recipeName = args.DrinkOrder.RecipeName;
-            drinkOrder.timestamp = args.DrinkOrder.Timestamp;
-            drinkOrder.userId = args.DrinkOrder.UserId;
-            drinkOrder.userName = args.DrinkOrder.UserName;
-            drinkOrder.ice = args.DrinkOrder.Ice;
-            drinkOrder.garnish = args.DrinkOrder.Garnish;
-
-            // Save it to the database
-            barbotDB.DrinkOrders.Add(drinkOrder);
-            barbotDB.SaveChanges();
+            DrinkOrders.Add(args.DrinkOrder);
 
             // Fire event
-            DrinkOrderAdded(this, new DrinkOrderAddedEventArgs(drinkOrder));
+            DrinkOrderAdded(this, new DrinkOrderAddedEventArgs(args.DrinkOrder));
         }
 
         /// <summary>
