@@ -29,10 +29,7 @@ namespace BarBot.iOS
 		{
 			User = new User();
 
-			// Get Shared User Defaults
-			var plist = NSUserDefaults.StandardUserDefaults;
-
-			User.Uid = plist.StringForKey("UserId");
+			User.Uid = NSUserDefaults.StandardUserDefaults.StringForKey("UserId");
 
 			// Initialize Ingredient List
 			IngredientsInBarBot = new IngredientList();
@@ -83,6 +80,7 @@ namespace BarBot.iOS
 			{
 				WebSocketUtil.CloseWebSocket();
 			}
+			NSUserDefaults.StandardUserDefaults.Synchronize();
 		}
 
 		public override void WillEnterForeground(UIApplication application)
@@ -108,6 +106,7 @@ namespace BarBot.iOS
 			{
 				WebSocketUtil.CloseWebSocket();
 			}
+			NSUserDefaults.StandardUserDefaults.Synchronize();
 		}
 	}
 }

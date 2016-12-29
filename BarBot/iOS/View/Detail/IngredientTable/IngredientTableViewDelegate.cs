@@ -1,7 +1,7 @@
 ﻿using UIKit;
 using Foundation;
 
-namespace BarBot.iOS.View.Detail
+namespace BarBot.iOS.View.Detail.IngredientTable
 {
 	public class IngredientTableViewDelegate : UITableViewDelegate
 	{
@@ -26,7 +26,8 @@ namespace BarBot.iOS.View.Detail
 			
 				//ingredientTableView.hideExistingPicker()
 			} 
-			else {
+			else 
+			{
 				//var newPickerIndexPath = CalculateIndexPathForNewPicker(indexPath);
 				//	if self.addIngredientPickerIsShown() {
 				//			self.hideExistingPicker()
@@ -51,11 +52,8 @@ namespace BarBot.iOS.View.Detail
 		public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			var lastIndexPath = NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0) - 1, 0);
-			var ingredientTableView = tableView as IngredientTableView;
 
-			if (ingredientTableView.AddIngredientPickerIsShown()
-			    && (ingredientTableView.AddIngredientPickerIndexPath.Row == indexPath.Row ||
-			        ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row))
+			if (IndexPathIsIngredientPicker(tableView, indexPath))
 			{
 				return UITableViewCellEditingStyle.None;
 			}
@@ -71,10 +69,7 @@ namespace BarBot.iOS.View.Detail
 
 		public override bool ShouldIndentWhileEditing(UITableView tableView, NSIndexPath indexPath)
 		{
-			var ingredientTableView = tableView as IngredientTableView;
-			if (ingredientTableView.AddIngredientPickerIsShown() && 
-			    (ingredientTableView.AddIngredientPickerIndexPath.Row == indexPath.Row || 
-			     ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row)) 
+			if (IndexPathIsIngredientPicker(tableView, indexPath)) 
 			{
 				return false;
 			}
@@ -82,6 +77,15 @@ namespace BarBot.iOS.View.Detail
 			{
 				return true;
 			}
+		}
+
+		bool IndexPathIsIngredientPicker(UITableView tableView, NSIndexPath indexPath)
+		{
+			var ingredientTableView = tableView as IngredientTableView;
+
+			return ingredientTableView.AddIngredientPickerIsShown() &&
+				(ingredientTableView.AddIngredientPickerIndexPath.Row == indexPath.Row ||
+				 ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row);
 		}
 	}
 }

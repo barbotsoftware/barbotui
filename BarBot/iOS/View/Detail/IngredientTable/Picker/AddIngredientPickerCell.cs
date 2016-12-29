@@ -1,7 +1,7 @@
 ﻿using Foundation;
 using UIKit;
 
-namespace BarBot.iOS.View.Detail
+namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 {
 	public class AddIngredientPickerCell : UITableViewCell
 	{

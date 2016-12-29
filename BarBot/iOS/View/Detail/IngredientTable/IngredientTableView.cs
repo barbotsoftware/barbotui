@@ -4,7 +4,7 @@ using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.iOS.Util;
 
-namespace BarBot.iOS.View.Detail
+namespace BarBot.iOS.View.Detail.IngredientTable
 {
 	public class IngredientTableView : UITableView
 	{

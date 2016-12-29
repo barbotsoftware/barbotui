@@ -9,6 +9,7 @@ using BarBot.Core;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
+using BarBot.iOS.View.Detail.IngredientTable;
 
 namespace BarBot.iOS.View.Detail
 {
@@ -125,6 +126,10 @@ namespace BarBot.iOS.View.Detail
 			{
 				IngredientTableView.SetEditing(false, true);
 				topItem.RightBarButtonItem = edit;
+				if (ViewModel.Ingredients.Count > 0)
+				{
+					OrderButton.Enabled = true;
+				}
 			});
 
 			edit = new UIBarButtonItem(UIBarButtonSystemItem.Edit, (s, e) =>
@@ -133,7 +138,8 @@ namespace BarBot.iOS.View.Detail
 					IngredientTableView.SetEditing(false, true); // if we've half-swiped a row
 
 				IngredientTableView.SetEditing(true, true);
-				topItem.RightBarButtonItem = done;	
+				topItem.RightBarButtonItem = done;
+				OrderButton.Enabled = false;
 			});
 
 			topItem.RightBarButtonItem = edit;

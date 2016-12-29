@@ -4,8 +4,9 @@ using Foundation;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.iOS.Util;
+using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
-namespace BarBot.iOS.View.Detail
+namespace BarBot.iOS.View.Detail.IngredientTable
 {
 	public class IngredientTableSource : UITableViewSource
 	{
@@ -72,7 +73,14 @@ namespace BarBot.iOS.View.Detail
 
 		public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 		{
-			base.CommitEditingStyle(tableView, editingStyle, indexPath);
+			if (editingStyle == UITableViewCellEditingStyle.Delete) {
+				// Delete the row from the data source
+
+				ViewModel.Ingredients.RemoveAt(indexPath.Row);
+
+				tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Top);
+				tableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Fade);
+			}
 		}
 
 		public override bool CanEditRow(UITableView tableView, NSIndexPath indexPath)

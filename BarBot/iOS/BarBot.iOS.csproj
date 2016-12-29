@@ -38,7 +38,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchUseSGen>true</MtouchUseSGen>
     <MtouchUseRefCounting>true</MtouchUseRefCounting>
     <MtouchFloat32>true</MtouchFloat32>
@@ -48,6 +48,7 @@
     <MtouchHttpClientHandler>HttpClientHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
+    <CodesignProvision>d29b9474-0428-4ffc-9fa9-3cc2694c876e</CodesignProvision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <Optimize>true</Optimize>
@@ -122,6 +123,12 @@
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\58x58.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\87x87.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\80x80.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\120x120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\120iphoneapp.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\180iphoneapp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -133,6 +140,8 @@
     <Folder Include="Util\" />
     <Folder Include="View\Menu\Search\" />
     <Folder Include="WebSocket\" />
+    <Folder Include="View\Detail\IngredientTable\" />
+    <Folder Include="View\Detail\IngredientTable\Picker\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -151,8 +160,6 @@
     <Compile Include="View\Menu\DrinkCollectionViewCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
     <Compile Include="View\Hexagon.cs" />
-    <Compile Include="View\Detail\IngredientTableSource.cs" />
-    <Compile Include="View\Detail\IngredientTableViewCell.cs" />
     <Compile Include="Util\Color.cs" />
     <Compile Include="Util\AsyncUtil.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
@@ -163,9 +170,11 @@
     <Compile Include="Util\RestService.cs" />
     <Compile Include="View\Menu\Search\SearchControllerDelegate.cs" />
     <Compile Include="WebSocket\IosWebSocketHandler.cs" />
-    <Compile Include="View\Detail\IngredientTableViewDelegate.cs" />
-    <Compile Include="View\Detail\AddIngredientPickerCell.cs" />
-    <Compile Include="View\Detail\IngredientTableView.cs" />
+    <Compile Include="View\Detail\IngredientTable\IngredientTableSource.cs" />
+    <Compile Include="View\Detail\IngredientTable\IngredientTableView.cs" />
+    <Compile Include="View\Detail\IngredientTable\IngredientTableViewCell.cs" />
+    <Compile Include="View\Detail\IngredientTable\IngredientTableViewDelegate.cs" />
+    <Compile Include="View\Detail\IngredientTable\Picker\AddIngredientPickerCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
