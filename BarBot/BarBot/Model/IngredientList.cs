@@ -32,15 +32,5 @@ namespace BarBot.Core.Model
 			}
 			return "";
 		}
-
-		//public List<Ingredient> GetIngredientsForIngredientIds(List<Ingredient> list)
-		//{
-		//	var newList = new List<Ingredient>();
-		//	foreach (Ingredient i in list)
-		//	{
-		//		newList.Add(GetIngredient(i.IngredientId));
-		//	}
-		//	return newList;
-		//}
 	}
 }

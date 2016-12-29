@@ -1,7 +1,9 @@
+using System.Linq;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 using CoreGraphics;
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
@@ -29,6 +31,7 @@ namespace BarBot.iOS.View.Menu
 		}
 
 		UIAlertAction ActionToEnable;
+		UIButton ReconnectButton;
 		UIButton CustomButton;
 
 		AppDelegate Delegate;
@@ -43,9 +46,15 @@ namespace BarBot.iOS.View.Menu
 		{
 			base.ViewDidLoad();
 			Title = ViewModel.Title;
+
+			// Init Search Controller
 			InitSearchController();
+
+			// Init Refresh Button
+			InitRefreshButton();
+
+			// Style Nav Bar
 			SharedStyles.NavBarStyle(NavigationController.NavigationBar);
-			NavigationItem.BackBarButtonItem = new UIBarButtonItem("", UIBarButtonItemStyle.Plain, null);
 
 			source = new MenuSource();
 
@@ -54,7 +63,10 @@ namespace BarBot.iOS.View.Menu
 					() => ViewModel.Recipes,
 					() => source.Rows));
 
+			ConfigureReconnectButton();
 			ConfigureCustomButton();
+
+			// Init Collection View
 			InitCollectionView();
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
@@ -66,7 +78,7 @@ namespace BarBot.iOS.View.Menu
 			}
 			else
 			{
-				InitWebSocketUtil();
+				ConnectWebSocket();
 			}
 		}
 
@@ -89,10 +101,113 @@ namespace BarBot.iOS.View.Menu
 			CollectionView.BackgroundColor = Color.BackgroundGray;
 		}
 
+		// REFRESH BUTTON
+		void InitRefreshButton()
+		{
+			var refreshButton = new UIBarButtonItem(UIBarButtonSystemItem.Refresh);
+			NavigationItem.SetLeftBarButtonItem(refreshButton, false);
+
+			refreshButton.Clicked += (sender, e) =>
+			{
+				ConnectWebSocket();	
+			};
+		}
+
+		void ConfigureReconnectButton()
+		{
+			ReconnectButton = new UIButton();
+			ReconnectButton.SetTitle("RECONNECT", UIControlState.Normal);
+			var textSize = 36;
+			SharedStyles.StyleButtonText(ReconnectButton, textSize);
+			ReconnectButton.Frame = new CGRect(View.Frame.Width / 2, View.Frame.Height / 2, ReconnectButton.IntrinsicContentSize.Width, textSize);
+			ReconnectButton.Center = View.Center;
+
+			ReconnectButton.TouchUpInside += (sender, e) =>
+			{
+				ShowIPAddressAlert();
+			};
+			CollectionView.Add(ReconnectButton);
+		}
+
+		// IP ADDRESS PROMPT
+		void ShowIPAddressAlert()
+		{
+			var ipAddressAlertController = UIAlertController.Create("Please enter an IP Address", null, UIAlertControllerStyle.Alert);
+
+			UITextField field = null;
+
+			ipAddressAlertController.AddTextField(textField =>
+			{
+				field = textField;
+				field.Text = textField.Text;
+				ConfigureKeyboard(field, "IP Address", UIKeyboardType.DecimalPad);
+			});
+
+			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, (obj) => 
+			{
+				if (ValidateIPv4(field.Text))
+				{
+					// Save IP Address to User Defaults
+    				Delegate.UserDefaults.SetString(field.Text, "IPAddress");
+
+					// Store EndPoint in Delegate
+					Delegate.IPAddress = field.Text;
+
+					// Store in DB
+					Delegate.UserDefaults.Synchronize();
+				
+ 					if (Delegate.User.Uid == null)
+					{
+						ShowUserNameAlert();
+					}
+					else
+					{
+						ConnectWebSocket();
+					}	
+				}
+				else
+				{
+					PresentViewController(ipAddressAlertController, true, () =>
+					{
+						ipAddressAlertController.Title = "Please enter a valid IP Address";
+					});
+				}
+			});
+
+			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, null);
+
+			ipAddressAlertController.AddAction(submit);
+			ipAddressAlertController.AddAction(cancel);
+			ActionToEnable = submit;
+			submit.Enabled = false;
+
+			// Present Alert
+			PresentViewController(ipAddressAlertController, true, null);
+		}
+
+		// Validates an IP Address string
+		public bool ValidateIPv4(string ipString)
+		{
+			if (string.IsNullOrWhiteSpace(ipString))
+			{
+				return false;
+			}
+
+			string[] splitValues = ipString.Split('.');
+			if (splitValues.Length != 4)
+			{
+				return false;
+			}
+
+			byte tempForParsing;
+
+			return splitValues.All(r => byte.TryParse(r, out tempForParsing));
+		}
+
 		// USERNAME REGISTRATION
 
 		// Show Name Text Prompt
-		public void ShowUserNameAlert()
+		void ShowUserNameAlert()
 		{
 			// Create Alert
 			var nameInputAlertController = UIAlertController.Create("Please enter your name", null, UIAlertControllerStyle.Alert);
@@ -104,30 +219,27 @@ namespace BarBot.iOS.View.Menu
 			{
 				field = textField;
 				field.Text = textField.Text;
-				ConfigureKeyboard(field, "Your Name");
+				ConfigureKeyboard(field, "Your Name", UIKeyboardType.Default);
 			});
 
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
-				// Get Shared User Defaults
-				var plist = NSUserDefaults.StandardUserDefaults;
-
-				var rest = new RestService();
+				var rest = new RestService(Delegate.IPAddress);
 				var user = await rest.SaveUserNameAsync(field.Text);
 
 				if (user != null)
 				{
 					// Save value
-					plist.SetString(user.Uid, "UserId");
+					Delegate.UserDefaults.SetString(user.Uid, "UserId");
 
 					// Set to Delegate
 					Delegate.User = user;
 
 					// Sync changes to database
-					plist.Synchronize();
+					Delegate.UserDefaults.Synchronize();
 
-					InitWebSocketUtil();
+					ConnectWebSocket();
 				}
 				else
 				{
@@ -180,7 +292,7 @@ namespace BarBot.iOS.View.Menu
 			{
 				field = textField;
 				field.Text = textField.Text;
-				ConfigureKeyboard(field, "Drink Name");
+				ConfigureKeyboard(field, "Drink Name", UIKeyboardType.Default);
 			});
 
 			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) =>
@@ -203,13 +315,13 @@ namespace BarBot.iOS.View.Menu
 
 		// UITextField
 
-		void ConfigureKeyboard(UITextField field, string placeholder)
+		void ConfigureKeyboard(UITextField field, string placeholder, UIKeyboardType keyboardType)
 		{
 			field.Placeholder = placeholder;
 			field.AutocorrectionType = UITextAutocorrectionType.No;
 			field.AutocapitalizationType = UITextAutocapitalizationType.Words;
 			field.EnablesReturnKeyAutomatically = true;
-			field.KeyboardType = UIKeyboardType.Default;
+			field.KeyboardType = keyboardType;
 			field.KeyboardAppearance = UIKeyboardAppearance.Dark;
 			field.ReturnKeyType = UIReturnKeyType.Default;
 			field.Delegate = new TextFieldDelegate();
@@ -276,14 +388,29 @@ namespace BarBot.iOS.View.Menu
 
 		// WEBSOCKET
 
-		void InitWebSocketUtil()
+		void ConnectWebSocket()
 		{
+			// Get WebSocketUtil from AppDelegate
 			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
-			WebSocketUtil.OpenWebSocket(Delegate.User.Uid, true);
 
-			// show custom button
-			CustomButton.Hidden = false;
+			if (WebSocketUtil != null)
+			{
+				// Close WebSocket if Reconnecting
+				if (WebSocketUtil.Socket.IsOpen)
+				{
+					WebSocketUtil.CloseWebSocket();
+					ViewModel.Recipes.Clear();
+					CollectionView.ReloadData();
+					ReconnectButton.Hidden = false;
+					CustomButton.Hidden = true;
+				}
+
+				// Add Event Handlers
+				WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+
+				// Open WebSocket
+				WebSocketUtil.OpenWebSocket(Delegate.User.Uid, true);
+			}
 		}
 
 		// EVENT HANDLERS
@@ -292,10 +419,19 @@ namespace BarBot.iOS.View.Menu
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
+				ViewModel.Recipes.Clear();
 				foreach (Recipe r in args.Recipes)
 				{
 					ViewModel.Recipes.Add(r);
 				}
+
+				// Hide Reconnect Button
+				ReconnectButton.Hidden = true;
+
+				// Show Custom Button
+				CustomButton.Hidden = false;
+
+				// Reload Collection View
 				CollectionView.ReloadData();
 			}));
 
@@ -307,7 +443,8 @@ namespace BarBot.iOS.View.Menu
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				Delegate.IngredientsInBarBot.Ingredients = args.Ingredients;
+				Delegate.IngredientsInBarBot.Clear();
+				Delegate.IngredientsInBarBot = args.Ingredients;
 			}));
 
 			// Detach Event Handler

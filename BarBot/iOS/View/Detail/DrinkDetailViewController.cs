@@ -321,7 +321,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
-			ViewModel.ImageContents = await AsyncUtil.LoadImage(ViewModel.Recipe.Img);
+			ViewModel.ImageContents = await Delegate.AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
 		}
 

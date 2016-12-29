@@ -21,7 +21,8 @@ namespace BarBot.iOS.View.Menu.Search
 		{
 			RecipeId = element.RecipeId;
 			TextLabel.Text = element.Name;
-			ImageContents = await AsyncUtil.LoadImage(element.Img);
+			var appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			ImageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
 		}
 	}
 }

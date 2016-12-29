@@ -1,6 +1,8 @@
 ﻿using Foundation;
 using UIKit;
 
+using System.Collections.Generic;
+
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Threading;
@@ -10,6 +12,7 @@ using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
+using BarBot.iOS.Util;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
 using BarBot.iOS.WebSocket;
@@ -21,22 +24,54 @@ namespace BarBot.iOS
 	{
 		// class-level declarations
 		public override UIWindow Window { get; set; }
+		public NSUserDefaults UserDefaults { get; set; }
+
 		public WebSocketUtil WebSocketUtil { get; set; }
-		public IngredientList IngredientsInBarBot { get; set; }
+		public AsyncUtil AsyncUtil { get; set; }
+		public List<Ingredient> IngredientsInBarBot { get; set; }
 		public User User { get; set; }
+
+		private string _ipAddress;
+		public string IPAddress 
+		{ 
+			get { return _ipAddress; } 
+			set 
+			{ 
+				_ipAddress = value;
+				WebSocketUtil.EndPoint = "ws://" + value + ":" + Constants.PortNumber;
+				AsyncUtil.IPAddress = value;
+			} 
+		}
 
 		public override bool FinishedLaunching(UIApplication application, NSDictionary launchOptions)
 		{
-			User = new User();
+			UserDefaults = NSUserDefaults.StandardUserDefaults;
 
-			User.Uid = NSUserDefaults.StandardUserDefaults.StringForKey("UserId");
+			User = new User();
+			// Check for stored UserID
+			if (UserDefaults.StringForKey("UserId") != null)
+			{
+				User.Uid = UserDefaults.StringForKey("UserId");
+			}
 
 			// Initialize Ingredient List
-			IngredientsInBarBot = new IngredientList();
+			IngredientsInBarBot = new List<Ingredient>();
 
 			// Initialize WebsocketHandler
 			WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
-			WebSocketUtil.EndPoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
+
+			// Initialize AsyncUtil
+			AsyncUtil = new AsyncUtil();
+
+			// Check for stored IP Address
+			if (UserDefaults.StringForKey("IPAddress") != null)
+			{
+				IPAddress = UserDefaults.StringForKey("IPAddress");
+			}
+			else
+			{
+				IPAddress = "192.168.1.196";
+			}
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -80,7 +115,7 @@ namespace BarBot.iOS
 			{
 				WebSocketUtil.CloseWebSocket();
 			}
-			NSUserDefaults.StandardUserDefaults.Synchronize();
+			UserDefaults.Synchronize();
 		}
 
 		public override void WillEnterForeground(UIApplication application)
@@ -106,7 +141,7 @@ namespace BarBot.iOS
 			{
 				WebSocketUtil.CloseWebSocket();
 			}
-			NSUserDefaults.StandardUserDefaults.Synchronize();
+			UserDefaults.Synchronize();
 		}
 	}
 }

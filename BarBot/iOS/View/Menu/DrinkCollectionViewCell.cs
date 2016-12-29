@@ -84,7 +84,8 @@ namespace BarBot.iOS.View.Menu
 		{
 			_recipeId = element.RecipeId;
 			NameLabel.Text = element.Name;
-			_imageContents = await AsyncUtil.LoadImage(element.Img);
+			var appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
+			_imageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
 			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(_imageContents));
 		}
 	}
