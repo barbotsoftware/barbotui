@@ -13,5 +13,6 @@
         <StackPanel Name="ContainersPanel" HorizontalAlignment="Left" Height="252" Margin="0,38,0,0" VerticalAlignment="Top" Width="228"/>
         <Button x:Name="button" Content="Run Ice Hopper" HorizontalAlignment="Left" Margin="233,38,0,0" VerticalAlignment="Top" Width="157" Click="button_Click" Foreground="White" Background="#33000000" BorderBrush="White"/>
         <Button x:Name="button1" Content="Run Cup Dispenser" HorizontalAlignment="Left" Margin="233,75,0,0" VerticalAlignment="Top" Width="157" Height="29" Click="button1_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
+        <Button x:Name="ReadSensorButton" Content="Read Sensor" HorizontalAlignment="Left" Margin="233,105,0,0" VerticalAlignment="Top" Width="157" Height="29" Click="ReadSensorButton_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
     </Grid>
 </UserControl>

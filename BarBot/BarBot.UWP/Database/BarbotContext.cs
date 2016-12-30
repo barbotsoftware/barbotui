@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel;
 
 namespace BarBot.UWP.Database
 {
     /// <summary>
     /// Barbot sqlite database configuration
     /// </summary>
-    public class BarbotContext : DbContext
+    public class BarbotContext : DbContext, INotifyPropertyChanged
     {
         public DbSet<BarbotConfig> BarbotConfigs { get; set; }
 
@@ -53,6 +54,18 @@ namespace BarBot.UWP.Database
         public CupDispenser getCupDispenser()
         {
             return CupDispensers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+        }
+
+        public List<Pump> getPumps()
+        {
+            return Pumps.Include(x => x.ioPort).ToList();
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }

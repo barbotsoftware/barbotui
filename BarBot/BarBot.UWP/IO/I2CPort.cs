@@ -18,6 +18,8 @@ namespace BarBot.UWP.IO.Devices
 
         public I2CPort() { }
 
+        public string Name { get; set; }
+
         public I2CPort(MCP23017 mcp, int address)
         {
             Pin = (MCP23017.Pin) address; 

@@ -10,5 +10,7 @@ namespace BarBot.UWP.IO.Devices
     public interface IIOPort
     {
         void write(GpioPinValue val);
+
+        string Name { get; set; }
     }
 }

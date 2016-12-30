@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using BarBot.UWP.Database;
 using BarBot.UWP.IO;
 using Windows.Devices.Gpio;
+using System.Diagnostics;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,6 +29,11 @@ namespace BarBot.UWP.TestClient
         public BarbotIOController ioController;
 
         private List<IO.Devices.V1.Container> containers;
+
+        //HX711 weightSensor;
+
+        private int CALIBRATION_FACTOR = 0;
+        private int MAX_WEIGHT = 100;
 
         public TestClient()
         {
@@ -59,13 +66,22 @@ namespace BarBot.UWP.TestClient
                 ContainersPanel.Children.Add(btn);
                 i++;
             }
+
+            //GpioPin dt = ioController.gpio.OpenPin(6);
+            //GpioPin clk = ioController.gpio.OpenPin(13);
+            //weightSensor = new HX711(clk, dt);
+            //weightSensor.PowerOn();
+
+            //calibrate();
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             IO.Devices.V1.Container c = (IO.Devices.V1.Container)((Button)sender).Tag;
+            Dictionary<IO.Devices.IContainer, double> recipe = new Dictionary<IO.Devices.IContainer, double>();
+            recipe.Add(c, 1);
 
-            ioController.PourIngredient(c, 1);
+            ioController.PourDrink(recipe);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -76,6 +92,28 @@ namespace BarBot.UWP.TestClient
         private void button1_Click(object sender, RoutedEventArgs e)
         {
             ioController.DispenseCup();
+        }
+
+        private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
+        {
+            /*for (int i = 0; i < 60; i++)
+            {
+                int reading = weightSensor.Read();
+                int grams = Math.Min(MAX_WEIGHT, Math.Abs((CALIBRATION_FACTOR - reading) / 1000));
+                Debug.WriteLine("Grams: " + grams);
+                Task.Delay(1000).Wait();
+            }*/
+        }
+
+        private void calibrate()
+        {
+            /*CALIBRATION_FACTOR = weightSensor.Read();
+            for(int i = 0; i < 10; i++)
+            {
+                CALIBRATION_FACTOR = (CALIBRATION_FACTOR + weightSensor.Read()) / 2;
+            }
+
+            Debug.WriteLine("Calibration factor set to " + CALIBRATION_FACTOR / 1000 + " grams.");*/
         }
     }
 }
