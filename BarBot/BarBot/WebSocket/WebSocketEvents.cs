@@ -61,39 +61,56 @@ namespace BarBot.Core.WebSocket
             }
         }
 
-    		public delegate void GetIngredientsEventHandler(object sender, GetIngredientsEventArgs args);
+		public delegate void GetIngredientsEventHandler(object sender, GetIngredientsEventArgs args);
 
-    		public class GetIngredientsEventArgs : EventArgs
-    		{
-    			private List<Ingredient> ingredients;
+		public class GetIngredientsEventArgs : EventArgs
+		{
+			private List<Ingredient> ingredients;
 
-    			public GetIngredientsEventArgs(List<Ingredient> ingredients)
-    			{
-    				this.ingredients = ingredients;
-    			}
+			public GetIngredientsEventArgs(List<Ingredient> ingredients)
+			{
+				this.ingredients = ingredients;
+			}
 
-    			public List<Ingredient> Ingredients
-    			{
-    				get { return ingredients; }
-    			}
-    		}
+			public List<Ingredient> Ingredients
+			{
+				get { return ingredients; }
+			}
+		}
 
-        // Send Order Drink Command
-    		public delegate void OrderDrinkEventHandler(object sender, OrderDrinkEventArgs args);
+    	// Send Order Drink Command
+		public delegate void OrderDrinkEventHandler(object sender, OrderDrinkEventArgs args);
 
-    		public class OrderDrinkEventArgs : EventArgs
-    		{
-    			private string drinkOrderId;
+		public class OrderDrinkEventArgs : EventArgs
+		{
+			private string drinkOrderId;
 
-    			public OrderDrinkEventArgs(string drinkOrderId)
-    			{
-    				this.drinkOrderId = drinkOrderId;
-    			}
+			public OrderDrinkEventArgs(string drinkOrderId)
+			{
+				this.drinkOrderId = drinkOrderId;
+			}
 
-    			public string DrinkOrderId
-    			{
-    				get { return drinkOrderId; }
-    			}
-    		}
+			public string DrinkOrderId
+			{
+				get { return drinkOrderId; }
+			}
+		}
+
+		public delegate void CreateCustomDrinkEventHandler(object sender, CreateCustomDrinkEventArgs args);
+
+		public class CreateCustomDrinkEventArgs : EventArgs
+		{
+			private string recipeId;
+
+			public CreateCustomDrinkEventArgs(string recipeId)
+			{
+				this.recipeId = recipeId;
+			}
+
+			public string RecipeId
+			{
+				get { return recipeId; }
+			}
+		}
     }
 }

@@ -76,7 +76,7 @@ namespace BarBot.iOS.View.Detail
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent);
+			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
 			ViewModel.IngredientsInBarBot = Delegate.IngredientsInBarBot;
 		}
 
@@ -383,6 +383,16 @@ namespace BarBot.iOS.View.Detail
 
 			// Detach Event Handler
 			WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
+		}
+
+		private async void Socket_CreateCustomDrinkEvent(object sender, WebSocketEvents.CreateCustomDrinkEventArgs args)
+		{
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+				WebSocketUtil.OrderDrink(args.RecipeId, IceSwitch.On, GarnishSwitch.On);
+			}));
+			// Detach Event Handler
+			WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 		}
 	}
 }
