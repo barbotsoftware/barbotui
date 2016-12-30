@@ -6,6 +6,7 @@ using UIKit;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Helpers;
 using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
@@ -81,13 +82,14 @@ namespace BarBot.iOS.View.Detail
 
 		public override void ViewWillAppear(bool animated)
 		{
-			// Get Recipe Details
+			// Custom Recipe
 			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
 			{
 				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
 				OrderButton.Enabled = false;
 				IngredientTableView.Editing = true;
+				ViewModel.IsCustomRecipe = true;
 			}
 			else
 			{
@@ -288,16 +290,48 @@ namespace BarBot.iOS.View.Detail
 
 			OrderButton.TouchUpInside += (sender, e) =>
 			{
-				WebSocketUtil.OrderDrink(ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				if (ViewModel.IsCustomRecipe)
+				{
+					var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
+					if (recipe.GetVolume() > Constants.MaxVolume)
+					{
+						ShowVolumeAlert();
+					}
+					else
+					{
+						WebSocketUtil.CreateCustomDrink(recipe);
+					}
+				}
+				else
+				{
+					WebSocketUtil.OrderDrink(ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				}
 			};
 
 			UIElements.Add(OrderButton);
 		}
 
-		// Creates and shows a AlertView prompt that:
+		// Prompt the user to reduce Recipe volume
+		public void ShowVolumeAlert()
+		{
+			var volumeAlertController = UIAlertController.Create("Drink Too Large",
+																  "Please reduce volume to " + Constants.MaxVolume + " oz",
+																  UIAlertControllerStyle.Alert);
+
+			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, action =>
+			{
+				volumeAlertController.DismissViewController(true, null);
+			});
+
+			volumeAlertController.AddAction(ok);
+
+			PresentViewController(volumeAlertController, true, null);
+		}
+
+		// Creates and shows an AlertView prompt that:
     	// 1. Thanks the user
     	// 2. Allows the user to tap to return to the menu
-		public void ShowAlert()
+		public void ShowSucessAlert()
 		{
 			// Create Alert
 			var successAlertController = UIAlertController.Create("Thank you for ordering!",
@@ -344,7 +378,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				ShowAlert();
+				ShowSucessAlert();
 			}));
 
 			// Detach Event Handler

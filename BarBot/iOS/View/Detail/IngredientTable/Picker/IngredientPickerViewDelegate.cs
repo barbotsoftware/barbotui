@@ -61,7 +61,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 				ViewModel.Ingredients[parentCellIndexPath.Row].Name = ViewModel.IngredientsInBarBot[(int)row].Name;
 			}
 
-			//	self.recipe.custom = true
+			ViewModel.IsCustomRecipe = true;
 
 			TableView.ConfigureIngredientCell(cell, parentCellIndexPath);
 		}

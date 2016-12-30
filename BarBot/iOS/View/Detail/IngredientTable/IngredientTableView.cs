@@ -132,7 +132,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			row = ViewModel.Ingredients[indexPath.Row];
 
 			SharedStyles.StyleCell(cell);
-			cell.UpdateRow(row);
+			ConfigureDisplayStringForCell(cell, row);
 
 			return cell;
 		}
@@ -176,6 +176,18 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			cell.AddSubview(pickerView);
 
 			return cell;
+		}
+
+		void ConfigureDisplayStringForCell(UITableViewCell cell, Ingredient element)
+		{
+			if (element.IngredientId.Equals("add_ingredient"))
+			{
+				cell.TextLabel.Text = element.Name;
+			}
+			else
+			{
+				cell.TextLabel.Text = element.Quantity + " oz " + element.Name;
+			}
 		}
 	}
 }

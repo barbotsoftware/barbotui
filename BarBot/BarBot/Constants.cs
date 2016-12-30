@@ -20,6 +20,7 @@ namespace BarBot.Core
 		public const string GetRecipeDetails = "get_recipe_details";
 		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
 		public const string OrderDrink = "order_drink";
+		public const string CreateCustomDrink = "create_custom_drink";
 		public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
 		public const string IPAddress = "192.168.1.196";
