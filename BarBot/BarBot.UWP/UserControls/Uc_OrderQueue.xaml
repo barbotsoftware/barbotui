@@ -20,7 +20,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="67" TextWrapping="Wrap" Text="ORDER QUEUE" VerticalAlignment="Top" Width="495" FontFamily="Microsoft Yi Baiti" FontSize="72" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,10,0,0"/>
+        <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="95" TextWrapping="Wrap" Text="ORDER QUEUE" VerticalAlignment="Top" Width="770" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
 
         <Grid Width="1880" Margin="0,110,0,0" VerticalAlignment="Top" Height="50" BorderThickness="0,0,0,2" BorderBrush="#FFAEAEAE">
             <Grid.ColumnDefinitions>

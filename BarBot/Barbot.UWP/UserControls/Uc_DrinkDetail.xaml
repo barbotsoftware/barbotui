@@ -25,6 +25,8 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_DrinkDetailCheckBox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Textbox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Combobox.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
             <Style TargetType="ComboBoxItem">
                 <Setter Property="Foreground" Value="Blue"/>
@@ -49,7 +51,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Canvas.Left="50" Height="67" TextWrapping="Wrap" Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Top" Width="942" FontFamily="Microsoft Yi Baiti" FontSize="72" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,10,0,0"/>
+        <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Canvas.Left="50" Height="95" TextWrapping="Wrap" Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Top" Width="942" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
 
         <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png" Margin="70,125,1383,550" />
         <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
