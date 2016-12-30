@@ -55,6 +55,7 @@ namespace BarBot.iOS.View.Menu.Search
 		{
 			NavigationItem.TitleView = SearchBar;
 			NavigationItem.SetRightBarButtonItem(null, true);
+			NavigationItem.SetLeftBarButtonItem(null, true);
 			SearchBar.BecomeFirstResponder();
 		}
 

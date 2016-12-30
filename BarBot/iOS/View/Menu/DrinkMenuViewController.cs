@@ -29,6 +29,12 @@ namespace BarBot.iOS.View.Menu
 			private set;
 		}
 
+		public UIBarButtonItem RefreshButton
+		{
+			get;
+			private set;
+		}
+
 		UIAlertAction ActionToEnable;
 		UIButton ReconnectButton;
 		UIButton CustomButton;
@@ -89,24 +95,13 @@ namespace BarBot.iOS.View.Menu
 			}
 		}
 
-		// COLLECTION VIEW
-
-		// Initialize and Style Collection View
-		void InitCollectionView()
-		{
-			CollectionView.RegisterClassForCell(typeof(DrinkCollectionViewCell), DrinkCollectionViewCell.CellID);
-			CollectionView.ShowsHorizontalScrollIndicator = false;
-			CollectionView.Source = source;
-			CollectionView.BackgroundColor = Color.BackgroundGray;
-		}
-
 		// REFRESH BUTTON
 		void InitRefreshButton()
 		{
-			var refreshButton = new UIBarButtonItem(UIBarButtonSystemItem.Refresh);
-			NavigationItem.SetLeftBarButtonItem(refreshButton, false);
+			RefreshButton = new UIBarButtonItem(UIBarButtonSystemItem.Refresh);
+			NavigationItem.SetLeftBarButtonItem(RefreshButton, false);
 
-			refreshButton.Clicked += (sender, e) =>
+			RefreshButton.Clicked += (sender, e) =>
 			{
 				ConnectWebSocket();
 			};
@@ -371,8 +366,32 @@ namespace BarBot.iOS.View.Menu
 				NavigationItem.TitleView = null;
 				searchController.SearchBar.Text = "";
 				NavigationItem.SetRightBarButtonItem(SearchButton, true);
+				NavigationItem.SetLeftBarButtonItem(RefreshButton, true);
 				Title = ViewModel.Title;
 			}
+		}
+
+		// COLLECTION VIEW
+
+		// Initialize and Style Collection View
+		void InitCollectionView()
+		{
+			CollectionView.RegisterClassForCell(typeof(DrinkCollectionViewCell), DrinkCollectionViewCell.CellID);
+			CollectionView.ShowsHorizontalScrollIndicator = false;
+			CollectionView.Source = source;
+			CollectionView.BackgroundColor = Color.BackgroundGray;
+		}
+
+		void RefreshCollectionView(bool reconnectHidden, bool customHidden)
+		{
+			// Hide Reconnect Button
+			ReconnectButton.Hidden = reconnectHidden;
+
+			// Show Custom Button
+			CustomButton.Hidden = customHidden;
+
+			// Reload Collection View
+			CollectionView.ReloadData();
 		}
 
 		// WEBSOCKET
@@ -387,12 +406,11 @@ namespace BarBot.iOS.View.Menu
 				// Close WebSocket if Reconnecting
 				if (WebSocketUtil.Socket.IsOpen)
 				{
-					WebSocketUtil.CloseWebSocket();
 					ViewModel.Recipes.Clear();
-					CollectionView.ReloadData();
-					ReconnectButton.Hidden = false;
-					CustomButton.Hidden = true;
+					WebSocketUtil.CloseWebSocket();
 				}
+
+				RefreshCollectionView(false, true);
 
 				// Add Event Handlers
 				WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
@@ -409,19 +427,12 @@ namespace BarBot.iOS.View.Menu
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipes.Clear();
+				CollectionView.ReloadData();
 				foreach (Recipe r in args.Recipes)
 				{
 					ViewModel.Recipes.Add(r);
 				}
-
-				// Hide Reconnect Button
-				ReconnectButton.Hidden = true;
-
-				// Show Custom Button
-				CustomButton.Hidden = false;
-
-				// Reload Collection View
-				CollectionView.ReloadData();
+				RefreshCollectionView(true, false);
 			}));
 
 			// Detach Event Handlerr

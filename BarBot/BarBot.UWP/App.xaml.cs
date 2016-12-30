@@ -133,7 +133,8 @@ namespace BarBot.UWP
                 barbotIOController = new BarbotIOController(barbotDB.getContainers(),
                     barbotDB.getIceHopper(),
                     barbotDB.getGarnishDispenser(),
-                    barbotDB.getCupDispenser());
+                    barbotDB.getCupDispenser(),
+                    barbotDB.getPumps());
 
                 // Wait for IO controller to initialize
                 while (!barbotIOController.Initialized)

@@ -78,5 +78,15 @@ namespace BarBot.Core.Model
 			Img = r.Img;
 			Ingredients = r.Ingredients;
 		}
+
+		public double GetVolume()
+		{
+			var volume = 0.0;
+			foreach (var i in Ingredients)
+			{
+				volume += i.Quantity;
+			}
+			return volume;
+		}
     }
 }

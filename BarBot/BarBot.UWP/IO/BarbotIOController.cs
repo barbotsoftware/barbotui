@@ -21,6 +21,8 @@ namespace BarBot.UWP.IO
 
         public List<Container> Containers { get; set; }
 
+        public List<Pump> Pumps { get; set; }
+
         IceHopper IceHopper { get; set; }
 
         GarnishDispenser GarnishDispenser { get; set; }
@@ -33,13 +35,21 @@ namespace BarBot.UWP.IO
 
         Dictionary<GpioPin, Pump> pinPumpMapping = new Dictionary<GpioPin, Pump>();
 
-        GpioController gpio;
+        public GpioController gpio;
 
         MCP23017 mcp1;
 
         MCP23017 mcp2;
 
-        public BarbotIOController(List<Database.Container> containers, Database.IceHopper iceHopper, Database.GarnishDispenser garnishDispenser, Database.CupDispenser cupDispenser)
+        private const int TIMEOUT = 5;
+
+        private const int MIXER_PUMP_FLUSH_TIME = 8000;
+
+        public BarbotIOController(List<Database.Container> containers, 
+            Database.IceHopper iceHopper, 
+            Database.GarnishDispenser garnishDispenser, 
+            Database.CupDispenser cupDispenser,
+            List<Database.Pump> pumps)
         {
             // Initialize gpio controller
             gpio = GpioController.GetDefault();
@@ -57,6 +67,14 @@ namespace BarBot.UWP.IO
             // Create cup dispenser
             CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4));
 
+            Pumps = new List<Pump>();
+            foreach(Database.Pump pump in pumps)
+            {
+                Pump p = new Pump(createIOPort(pump.ioPort));
+                p.IOPort.Name = pump.ioPort.name;
+                Pumps.Add(p);
+            }
+
             Containers = new List<Container>();
             foreach(Database.Container c in containers)
             {
@@ -71,6 +89,8 @@ namespace BarBot.UWP.IO
                     // Create the flow sensor and pump
                     FlowSensor flowSensor = new FlowSensor(sensorPort, c.flowSensor.calibrationFactor);
                     Pump pump = new Pump(pumpPort);
+                    pump.IOPort.Name = c.pump.ioPort.name;
+                    flowSensor.IoPort.Name = c.flowSensor.ioPort.name;
                     pump.FlowSensor = flowSensor;
                     flowSensor.Pump = pump;
 
@@ -120,6 +140,10 @@ namespace BarBot.UWP.IO
 
         public void PourDrink(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = false)
         {
+            sensorTicks = new Dictionary<GpioPin, int>();
+            maxTicks = new Dictionary<GpioPin, int>();
+            pinPumpMapping = new Dictionary<GpioPin, Pump>();
+
             if(cup)
             {
                 DispenseCup();
@@ -137,6 +161,10 @@ namespace BarBot.UWP.IO
 
                 PourIngredient(container, amount);
             }
+
+            Timeout(TimeSpan.TicksPerSecond * TIMEOUT);
+
+            FlushMixer();
 
             if(garnish)
             {
@@ -156,6 +184,49 @@ namespace BarBot.UWP.IO
             pin.ValueChanged += Input_ValueChanged;
 
             container.Pump.StartPump();
+        }
+
+        private void Timeout(long ticks)
+        {
+            long start = DateTime.Now.Ticks;
+            while(true)
+            {
+                if(DateTime.Now.Ticks - start > ticks)
+                {
+                    StopAllPumps();
+                    return;
+                }
+            }
+        }
+
+        private void StopAllPumps()
+        {
+            for(int i = 0; i < pinPumpMapping.Count; i++) {
+                pinPumpMapping.ElementAt(i).Value.StopPump();
+                pinPumpMapping.ElementAt(i).Key.ValueChanged -= Input_ValueChanged;
+            }
+
+            pinPumpMapping = new Dictionary<GpioPin, Pump>();
+            sensorTicks = new Dictionary<GpioPin, int>();
+            maxTicks = new Dictionary<GpioPin, int>();
+        }
+
+        public void FlushMixer()
+        {
+            try
+            {
+                Pump pump = Pumps.Where(x => x.IOPort.Name.Equals("mixer pump")).First();
+
+                pump.StartPump();
+
+                Task.Delay(MIXER_PUMP_FLUSH_TIME).Wait();
+
+                pump.StopPump();
+            }
+            catch (Exception e)
+            {
+                return;
+            }
         }
 
         public void AddIce()

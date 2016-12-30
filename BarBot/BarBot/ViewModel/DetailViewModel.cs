@@ -1,5 +1,5 @@
-﻿using GalaSoft.MvvmLight;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using GalaSoft.MvvmLight;
 using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModel
@@ -11,6 +11,8 @@ namespace BarBot.Core.ViewModel
 		private Recipe _recipe;
 		private List<Ingredient> _ingredients;
 		private byte[] _imageContents;
+		private List<double> _quantities;
+		private List<Ingredient> _ingredientsInBarbot;
 
 		public DetailViewModel(INavigationServiceExtension navigationService)
 		{
@@ -35,7 +37,13 @@ namespace BarBot.Core.ViewModel
 			{
 				ImageContents = imageContents;
 			});
+
 			_ingredients = new List<Ingredient>();
+			_quantities = new List<double>();
+			for (var i = 0.5; i <= Constants.MaxVolume; i += 0.5)
+			{
+				Quantities.Add(i);
+			}
 		}
 
 		public string RecipeId
@@ -64,6 +72,18 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _imageContents; }
 			set { Set(ref _imageContents, value); }
+		}
+
+		public List<double> Quantities
+		{
+			get { return _quantities; }
+			set { Set(ref _quantities, value); }
+		}
+
+		public List<Ingredient> IngredientsInBarBot
+		{
+			get { return _ingredientsInBarbot; }
+			set { Set(ref _ingredientsInBarbot, value); }
 		}
 
 		public void Clear()
