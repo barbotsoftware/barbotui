@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UIKit;
 using Foundation;
 using BarBot.Core.Model;
@@ -19,7 +20,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			Rows = ViewModel.Ingredients;
 		}
 
-		public override System.nint RowsInSection(UITableView tableview, System.nint section)
+		public override nint RowsInSection(UITableView tableview, nint section)
 		{
 			var numberOfRows = Rows.Count;
 			var ingredientTableView = tableview as IngredientTableView;
@@ -40,36 +41,19 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			if (ingredientTableView.AddIngredientPickerIsShown() && ingredientTableView.AddIngredientPickerIndexPath.Row == indexPath.Row)
 			{
 				cell = tableView.DequeueReusableCell(AddIngredientPickerCell.CellID, indexPath);
-				cell = ConfigurePickerCell((AddIngredientPickerCell)cell, indexPath);
+				cell = ingredientTableView.ConfigurePickerCell((AddIngredientPickerCell)cell, indexPath);
 			}
 			else
 			{
 				// Configure Regular Cell
 				cell = tableView.DequeueReusableCell(IngredientTableViewCell.CellID, indexPath);
-				cell = ConfigureIngredientCell((IngredientTableViewCell)cell, indexPath);
+				cell = ingredientTableView.ConfigureIngredientCell((IngredientTableViewCell)cell, indexPath);
 			}
 
-
 			return cell;
 		}
 
-		UITableViewCell ConfigureIngredientCell(IngredientTableViewCell cell, NSIndexPath indexPath)
-		{
-			Ingredient row;
 
-			row = Rows[indexPath.Row];
-
-			SharedStyles.StyleCell(cell);
-			cell.UpdateRow(row);
-
-			return cell;
-		}
-
-		UITableViewCell ConfigurePickerCell(AddIngredientPickerCell cell, NSIndexPath indexPath)
-		{
-			SharedStyles.StyleCell(cell);
-			return cell;
-		}
 
 		public override void CommitEditingStyle(UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 		{

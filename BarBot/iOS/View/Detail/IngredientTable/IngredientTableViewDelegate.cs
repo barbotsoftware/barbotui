@@ -1,15 +1,18 @@
-﻿using UIKit;
+﻿using System;
+using UIKit;
 using Foundation;
+using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
 namespace BarBot.iOS.View.Detail.IngredientTable
 {
 	public class IngredientTableViewDelegate : UITableViewDelegate
 	{
-
+		
 		public IngredientTableViewDelegate()
 		{
 		}
 
+		// Called when a Row is Selected
 		public override void RowSelected(UITableView tableView, NSIndexPath indexPath)
 		{
 			var ingredientTableView = tableView as IngredientTableView;
@@ -20,25 +23,23 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			if (ingredientTableView.AddIngredientPickerIsShown() 
 			    && ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row) 
 			{
-				//if rowIsAddIngredientCell(indexPath.Row) {
-				//	ingredientTableView.ShowAddNewIngredientRow();
-				//}
-			
-				//ingredientTableView.hideExistingPicker()
-			} 
-			else 
+				if (ingredientTableView.RowIsAddIngredientCell(indexPath.Row)) {
+					ingredientTableView.ShowAddNewIngredientRow();
+				}
+
+				ingredientTableView.HideExistingPicker();
+			}
+			else
 			{
-				//var newPickerIndexPath = CalculateIndexPathForNewPicker(indexPath);
-				//	if self.addIngredientPickerIsShown() {
-				//			self.hideExistingPicker()
+				var newPickerIndexPath = ingredientTableView.CalculateIndexPathForNewPicker(indexPath);
+				if (ingredientTableView.AddIngredientPickerIsShown()) 
+				{
+					ingredientTableView.HideExistingPicker();
+				}
 
-				//}
+				ingredientTableView.ShowNewPickerAtIndex(newPickerIndexPath);
 
-				//self.showNewPickerAtIndex(newPickerIndexPath)
-
-
-				//ingredientTableView.AddIngredientPickerIndexPath = NSIndexPath.FromRowSection(newPickerIndexPath.row + 1, 0);
-
+				ingredientTableView.AddIngredientPickerIndexPath = NSIndexPath.FromRowSection(newPickerIndexPath.Row + 1, 0);
 			}
 
 			ingredientTableView.DeselectRow(indexPath, true);
@@ -49,6 +50,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			ingredientTableView.ScrollToRow(indexPath, UITableViewScrollPosition.Top, true);
 		}
 
+		// Called to set editing icons for each row
 		public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
 		{
 			var lastIndexPath = NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0) - 1, 0);
@@ -67,6 +69,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			}
 		}
 
+		// Called to set editing indent for each row
 		public override bool ShouldIndentWhileEditing(UITableView tableView, NSIndexPath indexPath)
 		{
 			if (IndexPathIsIngredientPicker(tableView, indexPath)) 
@@ -79,6 +82,25 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			}
 		}
 
+		// Called to set height for each row
+		public override nfloat GetHeightForRow(UITableView tableView, NSIndexPath indexPath)
+		{
+			var ingredientTableView = tableView as IngredientTableView;
+
+			var rowHeight = ingredientTableView.RowHeight;
+
+			if (ingredientTableView.AddIngredientPickerIsShown() && 
+			    ingredientTableView.AddIngredientPickerIndexPath.Row == indexPath.Row) {
+
+				// get Picker View Cell Height
+				//var pickerViewCellToCheck = tableView.DequeueReusableCell(AddIngredientPickerCell.CellID);
+				rowHeight = 216;//pickerViewCellToCheck.Frame.Height;
+			}
+
+			return rowHeight;
+		}
+
+		// Called to determine if the passed indexPath is a Picker Cell
 		bool IndexPathIsIngredientPicker(UITableView tableView, NSIndexPath indexPath)
 		{
 			var ingredientTableView = tableView as IngredientTableView;

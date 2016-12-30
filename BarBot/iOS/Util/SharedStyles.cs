@@ -6,15 +6,18 @@ namespace BarBot.iOS.Util
 {
 	public static class SharedStyles
 	{
+		static UIColor WHITE = UIColor.White;
+		static UIFont MSYIBAITI = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
+
 		// Style Navigation Bar
 		public static void NavBarStyle(UINavigationBar NavBar)
 		{
-			NavBar.TintColor = UIColor.White;
+			NavBar.TintColor = WHITE;
 			NavBar.BarTintColor = Color.NavBarGray;
 			NavBar.TitleTextAttributes = new UIStringAttributes
 			{
-				ForegroundColor = UIColor.White,
-				Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f)
+				ForegroundColor = WHITE,
+				Font = MSYIBAITI
 			};
 			var NavBorder = new UIView(new CGRect(0,
 												  NavBar.Frame.Size.Height - 1,
@@ -29,14 +32,19 @@ namespace BarBot.iOS.Util
 		public static void StyleCell(UITableViewCell Cell)
 		{
 			Cell.BackgroundColor = Color.BackgroundGray;
-			Cell.TextLabel.TextColor = UIColor.White;
-			Cell.TextLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", 26f);
+			Cell.TextLabel.TextColor = WHITE;
+			Cell.TextLabel.Font = MSYIBAITI;
 		}
 
 		public static void StyleButtonText(UIButton Button, int textSize)
 		{
-			Button.SetTitleColor(UIColor.White, UIControlState.Normal);
 			Button.TitleLabel.Font = UIFont.FromName("Microsoft-Yi-Baiti", textSize);
+			Button.SetTitleColor(WHITE, UIControlState.Normal);
+		}
+
+		public static void StylePickerView(UIPickerView Picker)
+		{
+			Picker.BackgroundColor = Color.BackgroundGray;
 		}
 	}
 }

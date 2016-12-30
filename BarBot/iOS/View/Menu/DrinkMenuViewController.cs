@@ -93,11 +93,6 @@ namespace BarBot.iOS.View.Menu
 			{
 				DismissSearchController();
 			}
-
-			if (!WebSocketUtil.Socket.IsOpen)
-			{
-				ConnectWebSocket();
-			}
 		}
 
 		// REFRESH BUTTON
@@ -411,6 +406,7 @@ namespace BarBot.iOS.View.Menu
 				// Close WebSocket if Reconnecting
 				if (WebSocketUtil.Socket.IsOpen)
 				{
+					ViewModel.Recipes.Clear();
 					WebSocketUtil.CloseWebSocket();
 				}
 
@@ -431,6 +427,7 @@ namespace BarBot.iOS.View.Menu
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ViewModel.Recipes.Clear();
+				CollectionView.ReloadData();
 				foreach (Recipe r in args.Recipes)
 				{
 					ViewModel.Recipes.Add(r);

@@ -176,6 +176,8 @@
     <Compile Include="View\Detail\IngredientTable\IngredientTableViewDelegate.cs" />
     <Compile Include="View\Detail\IngredientTable\Picker\AddIngredientPickerCell.cs" />
     <Compile Include="Util\NetworkUtil.cs" />
+    <Compile Include="View\Detail\IngredientTable\Picker\IngredientPickerViewDelegate.cs" />
+    <Compile Include="View\Detail\IngredientTable\Picker\IngredientPickerViewDataSource.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />
@@ -190,4 +192,13 @@
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

@@ -10,6 +10,7 @@ using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
 using BarBot.iOS.View.Detail.IngredientTable;
+using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
 namespace BarBot.iOS.View.Detail
 {
@@ -75,6 +76,7 @@ namespace BarBot.iOS.View.Detail
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
 			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent);
+			ViewModel.IngredientsInBarBot = Delegate.IngredientsInBarBot;
 		}
 
 		public override void ViewWillAppear(bool animated)
@@ -245,6 +247,7 @@ namespace BarBot.iOS.View.Detail
 			IngredientTableView.Frame = new CGRect(0, View.Bounds.Top + 270, View.Frame.Width, 250);
 
 			IngredientTableView.RegisterClassForCellReuse(typeof(IngredientTableViewCell), IngredientTableViewCell.CellID);
+			IngredientTableView.RegisterClassForCellReuse(typeof(AddIngredientPickerCell), AddIngredientPickerCell.CellID);
 
 			source = new IngredientTableSource();
 			IngredientTableView.Source = source;
