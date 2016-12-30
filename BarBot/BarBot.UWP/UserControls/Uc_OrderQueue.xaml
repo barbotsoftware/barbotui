@@ -35,10 +35,10 @@
             <TextBlock Grid.Column="2" Text="ORDERED AT" Foreground="White" FontSize="32"></TextBlock>
         </Grid>
         
-        <GridView x:Name="gridView" ItemsSource="{x:Bind DrinkOrders}" Height="820" Width="1880" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,180,0,0">
+        <GridView x:Name="gridView" ItemsSource="{x:Bind DrinkOrders}" Height="820" Width="1880" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,180,0,0" IsSwipeEnabled="True">
             <GridView.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <ItemsWrapGrid Orientation="Vertical"></ItemsWrapGrid>
+                    <ItemsWrapGrid Orientation="Horizontal" ScrollViewer.HorizontalScrollBarVisibility="Visible"></ItemsWrapGrid>
                 </ItemsPanelTemplate>
             </GridView.ItemsPanel>
             <GridView.ItemTemplate>

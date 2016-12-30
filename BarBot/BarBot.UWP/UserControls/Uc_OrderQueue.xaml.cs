@@ -70,8 +70,10 @@ namespace BarBot.UWP.UserControls
             await dialog.ShowAsync();
         }
 
-        private void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
+        private async void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
         {
+            await Task.Delay(1);
+
             Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, app.barbotIOController.Containers);
 
             app.barbotIOController.PourDrink(ingredients);
