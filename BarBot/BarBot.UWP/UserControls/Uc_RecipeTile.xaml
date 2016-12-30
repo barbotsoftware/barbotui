@@ -41,7 +41,7 @@
             <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Drink_Detail" HorizontalAlignment="Center" Canvas.ZIndex="90">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <TextBlock Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" Height="auto" MaxHeight="200" Width="auto" MaxWidth="360" TextWrapping="WrapWholeWords" FontFamily="Microsoft Yi Baiti" FontSize="50" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" Height="auto" MaxHeight="200" Width="auto" MaxWidth="342" TextWrapping="WrapWholeWords" FontFamily="Microsoft Yi Baiti" FontSize="50" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"></TextBlock>
                     </ControlTemplate>
                 </Button.Template>
             </Button>

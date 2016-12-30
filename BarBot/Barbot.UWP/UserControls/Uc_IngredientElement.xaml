@@ -9,6 +9,16 @@
     Height="100"
     Width="auto">
 
+    <UserControl.Resources>
+
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Combobox.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ComboBoxItem.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
     <Grid Background="#FF222222" Margin="5" VerticalAlignment="Bottom">
         <ComboBox x:Name="ingredientVolume" SelectionChanged="Volume_Changed"  FontSize="65" Width="135" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"/>
         <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="126,0,0,1" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
