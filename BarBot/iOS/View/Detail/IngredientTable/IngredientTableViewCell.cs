@@ -2,7 +2,6 @@
 using UIKit;
 using Foundation;
 using BarBot.Core.Model;
-using BarBot.iOS.Util;
 
 namespace BarBot.iOS.View.Detail.IngredientTable
 {
@@ -12,11 +11,6 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 
 		public IngredientTableViewCell(IntPtr handle) : base(handle)
 		{
-		}
-
-		public void UpdateRow(Ingredient element)
-		{
-			TextLabel.Text = element.Quantity + " oz " + element.Name;
 		}
 	}
 }

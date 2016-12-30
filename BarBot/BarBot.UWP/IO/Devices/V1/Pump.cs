@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
+using System.Diagnostics;
 
 namespace BarBot.UWP.IO.Devices.V1
 {
@@ -27,6 +28,8 @@ namespace BarBot.UWP.IO.Devices.V1
         public void StartPump()
         {
             IOPort.write(GpioPinValue.High);
+
+            Debug.WriteLine(string.Format("Started {0}", IOPort.Name));
         }
 
         /// <summary>
@@ -35,6 +38,8 @@ namespace BarBot.UWP.IO.Devices.V1
         public void StopPump()
         {
             IOPort.write(GpioPinValue.Low);
+
+            Debug.WriteLine(string.Format("Stopped {0}", IOPort.Name));
         }
     }
 }

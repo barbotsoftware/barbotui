@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using BarBot.Core.Model;
 
 namespace BarBot.Core.WebSocket
 {
@@ -50,10 +51,12 @@ namespace BarBot.Core.WebSocket
 		}
 
 		public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
-									 WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler)
+									 	   WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
+		                                   WebSocketEvents.CreateCustomDrinkEventHandler createCustomDrinkHandler)
 		{
 			Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
 			Socket.OrderDrinkEvent += orderDrinkHandler;
+			Socket.CreateCustomDrinkEvent += createCustomDrinkHandler;
 		}
 
 		public void GetRecipes()
@@ -106,6 +109,19 @@ namespace BarBot.Core.WebSocket
 				data.Add("garnish", garnish ? 1 : 0);
 
 				var message = new Message(Constants.Command, Constants.OrderDrink, data);
+
+				Socket.sendMessage(message);
+			}
+		}
+
+		public void CreateCustomDrink(Recipe recipe)
+		{
+			if (Socket.IsOpen)
+			{
+				var data = new Dictionary<string, object>();
+				data.Add("recipe", recipe);
+
+				var message = new Message(Constants.Command, Constants.CreateCustomDrink, data);
 
 				Socket.sendMessage(message);
 			}

@@ -49,7 +49,7 @@ namespace BarBot.UWP.UserControls
             {
 
                 // Attach event handler and then call GetRecipeDetails
-                socketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null);
+                socketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
                 socketUtil.GetRecipeDetails(Recipe.RecipeId);
             }
             else

@@ -6,6 +6,7 @@ using UIKit;
 using CoreGraphics;
 using GalaSoft.MvvmLight.Helpers;
 using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.iOS.Util;
@@ -75,18 +76,20 @@ namespace BarBot.iOS.View.Detail
 
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
-			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent);
+			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
 			ViewModel.IngredientsInBarBot = Delegate.IngredientsInBarBot;
 		}
 
 		public override void ViewWillAppear(bool animated)
 		{
-			// Get Recipe Details
+			// Custom Recipe
 			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
 			{
 				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
 				OrderButton.Enabled = false;
+				IngredientTableView.Editing = true;
+				ViewModel.IsCustomRecipe = true;
 			}
 			else
 			{
@@ -144,7 +147,14 @@ namespace BarBot.iOS.View.Detail
 				OrderButton.Enabled = false;
 			});
 
-			topItem.RightBarButtonItem = edit;
+			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				topItem.RightBarButtonItem = done;
+			}
+			else
+			{
+				topItem.RightBarButtonItem = edit;
+			}
 
 			NavBar.PushNavigationItem(topItem, false);
 			UIElements.Add(NavBar);
@@ -280,16 +290,48 @@ namespace BarBot.iOS.View.Detail
 
 			OrderButton.TouchUpInside += (sender, e) =>
 			{
-				WebSocketUtil.OrderDrink(ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				if (ViewModel.IsCustomRecipe)
+				{
+					var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
+					if (recipe.GetVolume() > Constants.MaxVolume)
+					{
+						ShowVolumeAlert();
+					}
+					else
+					{
+						WebSocketUtil.CreateCustomDrink(recipe);
+					}
+				}
+				else
+				{
+					WebSocketUtil.OrderDrink(ViewModel.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				}
 			};
 
 			UIElements.Add(OrderButton);
 		}
 
-		// Creates and shows a AlertView prompt that:
+		// Prompt the user to reduce Recipe volume
+		public void ShowVolumeAlert()
+		{
+			var volumeAlertController = UIAlertController.Create("Drink Too Large",
+																  "Please reduce volume to " + Constants.MaxVolume + " oz",
+																  UIAlertControllerStyle.Alert);
+
+			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, action =>
+			{
+				volumeAlertController.DismissViewController(true, null);
+			});
+
+			volumeAlertController.AddAction(ok);
+
+			PresentViewController(volumeAlertController, true, null);
+		}
+
+		// Creates and shows an AlertView prompt that:
     	// 1. Thanks the user
     	// 2. Allows the user to tap to return to the menu
-		public void ShowAlert()
+		public void ShowSucessAlert()
 		{
 			// Create Alert
 			var successAlertController = UIAlertController.Create("Thank you for ordering!",
@@ -325,18 +367,32 @@ namespace BarBot.iOS.View.Detail
 			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 			ViewModel.ImageContents = await Delegate.AsyncUtil.LoadImage(ViewModel.Recipe.Img);
-			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+
+			if (ViewModel.ImageContents != null)
+			{
+				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+			}
 		}
 
 		private async void Socket_OrderDrinkEvent(object sender, WebSocketEvents.OrderDrinkEventArgs args)
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				ShowAlert();
+				ShowSucessAlert();
 			}));
 
 			// Detach Event Handler
 			WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
+		}
+
+		private async void Socket_CreateCustomDrinkEvent(object sender, WebSocketEvents.CreateCustomDrinkEventArgs args)
+		{
+			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
+			{
+				WebSocketUtil.OrderDrink(args.RecipeId, IceSwitch.On, GarnishSwitch.On);
+			}));
+			// Detach Event Handler
+			WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 		}
 	}
 }

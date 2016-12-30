@@ -20,7 +20,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			// edit ingredient, quantity
 			ingredientTableView.BeginUpdates();
 
-			if (ingredientTableView.AddIngredientPickerIsShown() 
+			if (ingredientTableView.AddIngredientPickerIsShown()
 			    && ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row) 
 			{
 				if (ingredientTableView.RowIsAddIngredientCell(indexPath.Row)) {

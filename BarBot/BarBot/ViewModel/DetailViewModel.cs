@@ -13,6 +13,7 @@ namespace BarBot.Core.ViewModel
 		private byte[] _imageContents;
 		private List<double> _quantities;
 		private List<Ingredient> _ingredientsInBarbot;
+		private bool _isCustomRecipe;
 
 		public DetailViewModel(INavigationServiceExtension navigationService)
 		{
@@ -86,10 +87,17 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _ingredientsInBarbot, value); }
 		}
 
+		public bool IsCustomRecipe
+		{
+			get { return _isCustomRecipe; }
+			set { Set(ref _isCustomRecipe, value); }
+		}
+
 		public void Clear()
 		{
 			RecipeId = null;
 			ImageContents = null;
+			IsCustomRecipe = false;
 			Ingredients.Clear();
 		}
 

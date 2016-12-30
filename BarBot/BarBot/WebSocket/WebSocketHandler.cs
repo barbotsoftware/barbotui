@@ -25,6 +25,7 @@ namespace BarBot.Core.WebSocket
         public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
         public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
         public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
+		public event WebSocketEvents.CreateCustomDrinkEventHandler CreateCustomDrinkEvent = delegate { };
 
         #endregion
 
@@ -117,6 +118,10 @@ namespace BarBot.Core.WebSocket
                     string DrinkOrderId = message.Data["drink_order_id"].ToString();
                     OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrderId));
                     break;
+				case Constants.CreateCustomDrink:
+					string RecipeId = message.Data["recipe_id"].ToString();
+					CreateCustomDrinkEvent(this, new WebSocketEvents.CreateCustomDrinkEventArgs(RecipeId));
+					break;
             }
         }
 

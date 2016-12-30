@@ -34,7 +34,7 @@ namespace BarBot.UWP.UserControls
 
             app = Application.Current as App;
 
-            DrinkOrders = new ObservableCollection<DrinkOrder>();
+            DrinkOrders = new ObservableCollection<DrinkOrder>(app.DrinkOrders);
 
             app.DrinkOrderAdded += App_DrinkOrderAdded;
         }
@@ -52,10 +52,6 @@ namespace BarBot.UWP.UserControls
         {
             Recipe recipe = (sender as Button).Tag as Recipe;
 
-            Dictionary<IO.Devices.IContainer, double> ingredients =  Utils.Helpers.GetContainersFromRecipe(recipe, app.barbotIOController.Containers);
-
-            //app.barbotIOController.PourDrink(ingredients);
-
             var dialog = new ContentDialog()
             {
                 MaxWidth = this.ActualWidth,
@@ -65,16 +61,26 @@ namespace BarBot.UWP.UserControls
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 45
                 },
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 19, 19, 19)),
+                Background = new SolidColorBrush(Windows.UI.Colors.Black),
                 Foreground = new SolidColorBrush(Windows.UI.Colors.White),
                 BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34))
             };
 
-            dialog.ShowAsync();
+            dialog.Opened += (s, a) => Dialog_Opened(s, a, recipe);
+            await dialog.ShowAsync();
+        }
 
-            await Task.Delay(5000);
+        private void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
+        {
+            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, app.barbotIOController.Containers);
 
-            dialog.Hide();
+            app.barbotIOController.PourDrink(ingredients);
+
+            DrinkOrder drinkorder = DrinkOrders.Where(x => x.Recipe.Equals(recipe)).First();
+            DrinkOrders.Remove(drinkorder);
+            app.DrinkOrders.Remove(drinkorder);
+
+            sender.Hide();
         }
 
         private void Back_To_PartyMode(object sender, RoutedEventArgs e)
