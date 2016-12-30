@@ -88,12 +88,6 @@ namespace BarBot.UWP
             this.Suspending += OnSuspending;
 
             init();
-
-            // Wait for initialization to finish
-            //while (!Status.Equals(Constants.BarbotStatus.READY))
-            //{
-                //Task.Delay(10);
-            //}
         }
 
         public void init()
@@ -165,7 +159,6 @@ namespace BarBot.UWP
 
             webSocketUtil.Socket.GetRecipesEvent += CacheImages;
             webSocketUtil.GetRecipes();
-
         }
 
         private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -185,7 +178,10 @@ namespace BarBot.UWP
                 {
                     var imageUri = new Uri("http://" + webserverUrl + "/" + args.Recipes[i].Img);
                     var recipeImage = new BitmapImage(imageUri);
-                    _ImageCache.Add(args.Recipes[i].Name, recipeImage);
+                    if (!_ImageCache.ContainsKey(args.Recipes[i].Name))
+                    {
+                        _ImageCache.Add(args.Recipes[i].Name, recipeImage);
+                    }
                 }
 
                 // Remove event handler when done
@@ -220,6 +216,8 @@ namespace BarBot.UWP
 
             // Fire event
             DrinkOrderAdded(this, new DrinkOrderAddedEventArgs(args.DrinkOrder));
+
+            Debug.WriteLine(string.Format("Received drink order for {0} from {1}", args.DrinkOrder.Recipe.Name, args.DrinkOrder.UserName));
         }
 
         /// <summary>

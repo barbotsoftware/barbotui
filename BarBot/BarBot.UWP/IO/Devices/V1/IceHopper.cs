@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Diagnostics;
 
 namespace BarBot.UWP.IO.Devices.V1
 {
@@ -22,7 +23,11 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public void AddIce()
         {
+            Debug.WriteLine(string.Format("Running ice hopper"));
+
             stepperDriver.run(1);
+
+            stepperDriver.runBackwards(1);
         }
     }
 }

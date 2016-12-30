@@ -154,6 +154,7 @@ namespace BarBot.UWP.IO
                 AddIce();
             }
 
+            // Start pouring each ingredient
             for(int i = 0; i < ingredients.Count; i++)
             {
                 Container container = ingredients.ElementAt(i).Key as Container;
@@ -162,8 +163,10 @@ namespace BarBot.UWP.IO
                 PourIngredient(container, amount);
             }
 
+            // Wait for pumps to finish, but stop them if they run too long
             Timeout(TimeSpan.TicksPerSecond * TIMEOUT);
 
+            // Run the flush pump
             FlushMixer();
 
             if(garnish)
@@ -181,18 +184,22 @@ namespace BarBot.UWP.IO
             pinPumpMapping.Add(pin, container.Pump);
 
             pin.SetDriveMode(GpioPinDriveMode.Input);
+            pin.DebounceTimeout = TimeSpan.FromMilliseconds(1);
             pin.ValueChanged += Input_ValueChanged;
 
             container.Pump.StartPump();
+
+            Debug.WriteLine(string.Format("Started flow sensor {0} on pin {1}", container.FlowSensor.IoPort.Name, pin.PinNumber));
         }
 
         private void Timeout(long ticks)
         {
             long start = DateTime.Now.Ticks;
-            while(true)
+            while(true && sensorTicks.Count > 0)
             {
                 if(DateTime.Now.Ticks - start > ticks)
                 {
+                    Debug.WriteLine(string.Format("Some pumps timed out after {0} seconds", TIMEOUT));
                     StopAllPumps();
                     return;
                 }
@@ -204,6 +211,8 @@ namespace BarBot.UWP.IO
             for(int i = 0; i < pinPumpMapping.Count; i++) {
                 pinPumpMapping.ElementAt(i).Value.StopPump();
                 pinPumpMapping.ElementAt(i).Key.ValueChanged -= Input_ValueChanged;
+
+                Debug.WriteLine(string.Format("{0} was still running.", pinPumpMapping.ElementAt(i).Value.IOPort.Name));
             }
 
             pinPumpMapping = new Dictionary<GpioPin, Pump>();

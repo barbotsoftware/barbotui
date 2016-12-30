@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
+using System.Diagnostics;
 
 namespace BarBot.UWP.IO.Devices.V1
 {
@@ -23,6 +24,8 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public void DispenseCup()
         {
+            Debug.WriteLine(string.Format("Running cup dispenser"));
+
             stepperDriver.run(1);
         }
     }
