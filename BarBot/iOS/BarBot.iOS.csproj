@@ -184,6 +184,7 @@
     <BundleResource Include="Images\HexagonTile.png" />
     <BundleResource Include="Images\CustomTile.png" />
     <BundleResource Include="Images\custom_recipe.png" />
+    <BundleResource Include="Images\HexagonTileGradient.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">

@@ -55,7 +55,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 			{
 				ViewModel.Ingredients[parentCellIndexPath.Row].Quantity = ViewModel.Quantities[(int)row];
 			}
-			else if(component == 1)
+			else if (component == 1)
 			{
 				ViewModel.Ingredients[parentCellIndexPath.Row].IngredientId = ViewModel.IngredientsInBarBot[(int)row].IngredientId;
 				ViewModel.Ingredients[parentCellIndexPath.Row].Name = ViewModel.IngredientsInBarBot[(int)row].Name;

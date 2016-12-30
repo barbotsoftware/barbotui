@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Net.Http;
-using BarBot.Core;
+using System;
 
 namespace BarBot.iOS.Util
 {
@@ -16,11 +16,19 @@ namespace BarBot.iOS.Util
 		{
 			var httpClient = new HttpClient();
 
-			// await! control returns to the caller and the task continues to run on another thread
-			var contents = await httpClient.GetByteArrayAsync(HostName + "/" + imageUrl);
+			try
+			{
+				// await! control returns to the caller and the task continues to run on another thread
+				var contents = await httpClient.GetByteArrayAsync(HostName + "/" + imageUrl);
 
-			// return byte[]
-			return contents;
+				// return byte[]
+				return contents;
+			}
+			catch (HttpRequestException e)
+			{
+				System.Diagnostics.Debug.WriteLine(e.ToString());
+			}
+			return null;
 		}
 	}
 }

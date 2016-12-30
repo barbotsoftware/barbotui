@@ -24,7 +24,7 @@ namespace BarBot.Core
 
 		public const string IPAddress = "192.168.1.196";
 
-		public const string HostName = "naveens-macbook-pro.local";//"penispop";
+		public const string HostName = "barbotweb";
 
 		public const string PortNumber = "8000";
 

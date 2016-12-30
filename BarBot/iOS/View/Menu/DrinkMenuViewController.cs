@@ -250,7 +250,7 @@ namespace BarBot.iOS.View.Menu
 
 			CustomButton.SetBackgroundImage(UIImage.FromFile("Images/CustomTile.png"), UIControlState.Normal);
 			CustomButton.Frame = new CGRect((CollectionView.Bounds.Width / 2) - 21, 20, 199, 83);
-			CustomButton.SetTitle("Custom", UIControlState.Normal);
+			CustomButton.SetTitle("CUSTOM", UIControlState.Normal);
 			SharedStyles.StyleButtonText(CustomButton, 26);
 
 			CustomButton.TouchUpInside+= (sender, e) =>

@@ -1,4 +1,5 @@
-﻿using UIKit;
+﻿using System.Linq;
+using UIKit;
 using Foundation;
 using CoreGraphics;
 using BarBot.Core.Model;
@@ -43,7 +44,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 				if (AddIngredientPickerIsShown())
 				{
 					BeginUpdates();
-					HideAddNewIngredientRow();
+					HideExistingPicker();
 					EndUpdates();
 				}
 				HideAddNewIngredientRow();
@@ -69,12 +70,12 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			NSIndexPath[] indexPaths = { NSIndexPath.FromRowSection(indexPath.Row + 1, 0) };
 
 			InsertRows(indexPaths, UITableViewRowAnimation.Middle);
-	        
+
 			if (RowIsAddIngredientCell(indexPath.Row))
 			{
-				// initialize some Step fields: transition from new ingredient to added ingredient
+				// initialize some fields: transition from new ingredient to added ingredient
 				ViewModel.Ingredients[indexPath.Row].IngredientId = ViewModel.IngredientsInBarBot[0].IngredientId;
-
+				ViewModel.Ingredients[indexPath.Row].Name = ViewModel.IngredientsInBarBot[0].Name;
 				ViewModel.Ingredients[indexPath.Row].Quantity = 0.5;
 
 				var cell = CellAt(indexPath);
@@ -85,8 +86,8 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		// Hides Ingredient Picker
 		public void HideExistingPicker()
 		{
-			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(AddIngredientPickerIndexPath.Row, 0) }, 
-			           UITableViewRowAnimation.Middle);
+			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(AddIngredientPickerIndexPath.Row, 0) },
+					   UITableViewRowAnimation.Middle);
 			AddIngredientPickerIndexPath = null;
 		}
 
@@ -95,32 +96,33 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		{
 			ViewModel.Ingredients.Add(new Ingredient("add_ingredient", "Add Ingredient", 0.0));
 
-			InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ViewModel.Ingredients.Count - 1, 0)}, UITableViewRowAnimation.Fade);
-    	}
+			InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ViewModel.Ingredients.Count - 1, 0) }, UITableViewRowAnimation.Fade);
+		}
 
 		// Hides 'Add Ingredient' cell from UITableView and removes from Steps array
 		public void HideAddNewIngredientRow()
 		{
-			ViewModel.Ingredients.RemoveAt(ViewModel.Ingredients.Count - 1);
+			var ingredientNumber = ViewModel.Ingredients.Count;
+			ViewModel.Ingredients.RemoveAt(ingredientNumber - 1);
 
-			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ViewModel.Ingredients.Count, 0) }, UITableViewRowAnimation.Fade);
-    	}
+			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ingredientNumber - 1, 0) }, UITableViewRowAnimation.Fade);
+		}
 
 		// Calculate Index for Add Ingredient Picker
-		public NSIndexPath CalculateIndexPathForNewPicker(NSIndexPath indexPath) 
+		public NSIndexPath CalculateIndexPathForNewPicker(NSIndexPath indexPath)
 		{
 			NSIndexPath newIndexPath;
-			if (AddIngredientPickerIsShown() && AddIngredientPickerIndexPath.Row < indexPath.Row) 
+			if (AddIngredientPickerIsShown() && AddIngredientPickerIndexPath.Row < indexPath.Row)
 			{
-            	newIndexPath = NSIndexPath.FromRowSection(indexPath.Row - 1, 0);
-			} 
-			else 
+				newIndexPath = NSIndexPath.FromRowSection(indexPath.Row - 1, 0);
+			}
+			else
 			{
-            	newIndexPath = NSIndexPath.FromRowSection(indexPath.Row, 0);
+				newIndexPath = NSIndexPath.FromRowSection(indexPath.Row, 0);
 			}
 
 			return newIndexPath;
-    	}
+		}
 
 		// Configure Ingredient Cell
 		public UITableViewCell ConfigureIngredientCell(IngredientTableViewCell cell, NSIndexPath indexPath)
@@ -155,6 +157,19 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			else
 			{
 				pickerView.Select(0, 0, true);
+			}
+
+			if (ingredient.Name != null)
+			{
+				var fetchedIngredient = ViewModel.IngredientsInBarBot.FirstOrDefault(i => i.Name.Equals(ingredient.Name));
+
+				var indexOfIngredient = ViewModel.IngredientsInBarBot.IndexOf(fetchedIngredient);
+
+				pickerView.Select(indexOfIngredient, 1, true);
+			}
+			else
+			{
+				pickerView.Select(0, 1, true);
 			}
 
 			SharedStyles.StylePickerView(pickerView);

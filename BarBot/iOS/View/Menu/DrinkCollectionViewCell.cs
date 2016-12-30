@@ -4,7 +4,6 @@ using UIKit;
 using CoreGraphics;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
-using BarBot.iOS.Util;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -15,6 +14,7 @@ namespace BarBot.iOS.View.Menu
 		public UILabel NameLabel;
 		public UIImageView DrinkImageView;
 		public UIImageView HexagonImageView;
+		public UIImageView HexagonGradientImageView;
 
 		string _recipeId;
 		byte[] _imageContents;
@@ -33,6 +33,7 @@ namespace BarBot.iOS.View.Menu
 
 			ConfigureBackgroundView();
 			ConfigureDrinkImage();
+			ConfigureGradientView();
 			ConfigureNameLabel();
 		}
 
@@ -62,6 +63,21 @@ namespace BarBot.iOS.View.Menu
 			ContentView.AddSubview(DrinkImageView);
 		}
 
+		void ConfigureGradientView()
+		{
+			HexagonGradientImageView = new Hexagon("Images/HexagonTileGradient.png",
+												   point,
+												   size);
+			HexagonGradientImageView.UserInteractionEnabled = true;
+			HexagonGradientImageView.ContentMode = UIViewContentMode.ScaleAspectFit;
+			HexagonGradientImageView.Center = ContentView.Center;
+
+			var tapGesture = new UITapGestureRecognizer(() => ViewModel.ShowDrinkDetailsCommand(_recipeId, _imageContents));
+			HexagonGradientImageView.AddGestureRecognizer(tapGesture);
+
+			ContentView.AddSubview(HexagonGradientImageView);
+		}
+
 		void ConfigureNameLabel()
 		{
 			NameLabel = new UILabel
@@ -86,7 +102,10 @@ namespace BarBot.iOS.View.Menu
 			NameLabel.Text = element.Name;
 			var appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			_imageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
-			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(_imageContents));
+			if (_imageContents != null)
+			{
+				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(_imageContents));
+			}
 		}
 	}
 }

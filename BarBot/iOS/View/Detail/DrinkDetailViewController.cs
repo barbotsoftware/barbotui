@@ -87,6 +87,7 @@ namespace BarBot.iOS.View.Detail
 				NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 				DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
 				OrderButton.Enabled = false;
+				IngredientTableView.Editing = true;
 			}
 			else
 			{
@@ -144,7 +145,14 @@ namespace BarBot.iOS.View.Detail
 				OrderButton.Enabled = false;
 			});
 
-			topItem.RightBarButtonItem = edit;
+			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				topItem.RightBarButtonItem = done;
+			}
+			else
+			{
+				topItem.RightBarButtonItem = edit;
+			}
 
 			NavBar.PushNavigationItem(topItem, false);
 			UIElements.Add(NavBar);
@@ -325,7 +333,11 @@ namespace BarBot.iOS.View.Detail
 			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 			ViewModel.ImageContents = await Delegate.AsyncUtil.LoadImage(ViewModel.Recipe.Img);
-			DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+
+			if (ViewModel.ImageContents != null)
+			{
+				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+			}
 		}
 
 		private async void Socket_OrderDrinkEvent(object sender, WebSocketEvents.OrderDrinkEventArgs args)
