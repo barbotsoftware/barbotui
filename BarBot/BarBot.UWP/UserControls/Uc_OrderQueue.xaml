@@ -9,6 +9,15 @@
     d:DesignHeight="1080"
     d:DesignWidth="1920">
 
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+    
     <Grid>
          <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
             <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
