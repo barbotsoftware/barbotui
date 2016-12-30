@@ -16,15 +16,17 @@
 
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Combobox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ComboBoxItem.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid Background="#FF004B99" Margin="5">
-        <ComboBox x:Name="volumeSelector" SelectionChanged="Volume_Changed"  FontSize="65" Width="135" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"/>
-        <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="126,0,0,1" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
-        <ComboBox x:Name="ingredientSelector" SelectionChanged="Ingredient_Changed" FontSize="86" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="266,0,0,0" FontFamily="Microsoft Yi Baiti" Padding="12,0,0,10"/>
-        <Button x:Name="addIngredientButton" x:FieldModifier="public" Content="Add" Margin="0,10, 75,8" HorizontalAlignment="Right" Width="125" Height="72" Foreground="White" Background="#FF222222" FontFamily="Microsoft Yi Baiti" FontSize="48" VerticalContentAlignment="Top" FocusVisualPrimaryBrush="#FF222222" BorderThickness="0"></Button>
+        <ComboBox x:Name="volumeSelector" SelectionChanged="Volume_Changed"  FontSize="60" Width="155" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"/>
+        <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="146,0,0,1" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
+        <ComboBox x:Name="ingredientSelector" SelectionChanged="Ingredient_Changed" FontSize="86" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalContentAlignment="Right" VerticalContentAlignment="Top" Margin="286,0,0,0" FontFamily="Microsoft Yi Baiti" Padding="12,0,0,10"/>
+        <Button x:Name="addIngredientButton" x:FieldModifier="public" Content="Add" Margin="0,10, 75,8" HorizontalAlignment="Right" Width="125" Height="72" Foreground="White" Background="#FF222222" FontFamily="Microsoft Yi Baiti" FontSize="48" VerticalContentAlignment="Top" FocusVisualPrimaryBrush="#FF323232" BorderThickness="0"></Button>
         <Button x:Name="cancelAddIngredientButton" x:FieldModifier="public" Margin="0,10, 10,8" HorizontalAlignment="Right" Width="100" Height="72" Foreground="White" Background="#FF222222">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
