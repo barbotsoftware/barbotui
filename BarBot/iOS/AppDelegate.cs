@@ -122,10 +122,10 @@ namespace BarBot.iOS
 		{
 			// Called as part of the transiton from background to active state.
 			// Here you can undo many of the changes made on entering the background.
-			if (!WebSocketUtil.Socket.IsOpen)
-			{
-				WebSocketUtil.OpenWebSocket(User.Uid, true);
-			}
+			//if (!WebSocketUtil.Socket.IsOpen)
+			//{
+			//	WebSocketUtil.OpenWebSocket(User.Uid, true);
+			//}
 		}
 
 		public override void OnActivated(UIApplication application)
