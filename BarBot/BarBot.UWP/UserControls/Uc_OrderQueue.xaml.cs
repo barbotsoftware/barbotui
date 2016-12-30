@@ -76,5 +76,10 @@ namespace BarBot.UWP.UserControls
 
             dialog.Hide();
         }
+
+        private void Back_To_PartyMode(object sender, RoutedEventArgs e)
+        {
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+        }
     }
 }

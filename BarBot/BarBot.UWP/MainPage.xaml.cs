@@ -28,7 +28,8 @@ namespace BarBot.UWP
         {
             this.InitializeComponent();
 
-            ContentFrame.Content = new Uc_Menu();
+            //ContentFrame.Content = new Uc_Menu();
+            ContentFrame.Content = new Uc_PartyMode();
         }
     }
 }

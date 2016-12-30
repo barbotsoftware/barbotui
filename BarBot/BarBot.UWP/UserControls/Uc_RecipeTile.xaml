@@ -9,28 +9,43 @@
     d:DesignWidth="390"
     d:DesignHeight="360">
 
+    <UserControl.Resources>
+        <local:ToUpperConverter x:Name="ToUpperConverter" />
+    </UserControl.Resources>
+
     <Canvas>
         <!--<Button x:Name="buttonWrapper" Click="Drink_Detail" Width="390"></Button>-->
         <Button x:Name="imageButton" Click="Drink_Detail" Canvas.Top="0" Canvas.ZIndex="75">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Stretch="Uniform" Margin="0,0,0,10"  Source="{Binding Path=Recipe.Img}" Width="390" Canvas.ZIndex="75"/>
+                    <Image x:Name="recipeImage" Stretch="Uniform" Margin="0,0,0,10" Width="390" Canvas.ZIndex="75">
+                        <Image.Source>
+                            <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+                        </Image.Source>
+                    </Image>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Grid x:Name="recipeNameGrid" Canvas.Top="150" Canvas.Left="35" Width="320" Background="#33000000" Canvas.ZIndex="99">
-            <Grid.Resources>
+        <Button x:Name="hexGradient" Click="Drink_Detail" Canvas.Top="0" Canvas.ZIndex="79">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image Stretch="Uniform"  Source="ms-appx:///Assets/HexagonTileGradient.png" Width="370" Canvas.ZIndex="80"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <!--<Grid x:Name="recipeNameGrid" Canvas.Top="0" Canvas.Left="0" Width="320" Background="Transparent" Canvas.ZIndex="50" HorizontalAlignment="Center" VerticalAlignment="Center">-->
+            <!--<Grid.Resources>
                 <local:ToUpperConverter x:Name="ToUpperConverter" />
-            </Grid.Resources>
+            </Grid.Resources>-->
             
-            <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Drink_Detail" HorizontalAlignment="Center">
+            <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Drink_Detail" HorizontalAlignment="Center" Canvas.ZIndex="90">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <TextBlock Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" FontFamily="Microsoft Yi Baiti" FontSize="40" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
+                        <TextBlock Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" Height="auto" MaxHeight="200" Width="auto" MaxWidth="360" TextWrapping="WrapWholeWords" FontFamily="Microsoft Yi Baiti" FontSize="50" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center"></TextBlock>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
-        </Grid>
+        <!--</Grid>-->
         <Button x:Name="buttonWrapper" x:FieldModifier="public" Click="Drink_Detail" Width="390" Background="Black" Canvas.ZIndex="50">
             <Button.Template>
                 <ControlTemplate TargetType="Button">

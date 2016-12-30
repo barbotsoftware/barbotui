@@ -7,17 +7,20 @@ using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Database;
 using BarBot.UWP.Bluetooth;
 using BarBot.Core;
+using BarBot.Core.Model;
 using Microsoft.EntityFrameworkCore;
 using System.Threading.Tasks;
 using BarBot.UWP.IO;
@@ -37,8 +40,6 @@ namespace BarBot.UWP
 
         public BarbotContext barbotDB { get; set; }
 
-        public BLEPublisher blePublisher { get; set; }
-
         public BarbotIOController barbotIOController { get; set; }
 
         public string barbotID { get; set; }
@@ -48,6 +49,8 @@ namespace BarBot.UWP
         public Constants.BarbotStatus Status { get; set; }
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
+
+        Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
 
         #endregion
 
@@ -87,10 +90,10 @@ namespace BarBot.UWP
             init();
 
             // Wait for initialization to finish
-            while(!Status.Equals(Constants.BarbotStatus.READY))
-            {
-                Task.Delay(10);
-            }
+            //while (!Status.Equals(Constants.BarbotStatus.READY))
+            //{
+                //Task.Delay(10);
+            //}
         }
 
         public void init()
@@ -124,9 +127,6 @@ namespace BarBot.UWP
                 Debug.WriteLine(string.Format("Failed to retrieve barbot configuration settings: {0}.", e.Message));
             }
 
-            // Initialize bluetooth publisher
-            blePublisher = new BLEPublisher(barbotID);
-
             // Initialize IO Controller
             try
             {
@@ -138,7 +138,7 @@ namespace BarBot.UWP
                 // Wait for IO controller to initialize
                 while (!barbotIOController.Initialized)
                 {
-                    Task.Delay(10);
+                    Task.Delay(10).Wait();
                 }
             }
             catch (Exception e)
@@ -156,13 +156,60 @@ namespace BarBot.UWP
             // Wait until the websocket connection is open
             while (!webSocketUtil.Socket.IsOpen)
             {
-                Task.Delay(10);
+                Task.Delay(10).Wait();
             }
 
             DrinkOrders = new List<Core.Model.DrinkOrder>();
             webSocketUtil.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
-            Status = Constants.BarbotStatus.READY;
+            webSocketUtil.Socket.GetRecipesEvent += CacheImages;
+            webSocketUtil.GetRecipes();
+
+        }
+
+        private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                _ImageCache = new Dictionary<string, BitmapImage>();
+
+                // Get the custom_recipe
+                //var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
+                //var recipeImage = new BitmapImage(imageUri);
+                //_ImageCache.Add("Custom Recipe", recipeImage);
+
+                // Populate AllRecipes
+                for (var i = 0; i < args.Recipes.Count; i++)
+                {
+                    var imageUri = new Uri("http://" + webserverUrl + "/" + args.Recipes[i].Img);
+                    var recipeImage = new BitmapImage(imageUri);
+                    _ImageCache.Add(args.Recipes[i].Name, recipeImage);
+                }
+
+                // Remove event handler when done
+                webSocketUtil.Socket.GetRecipesEvent -= CacheImages;
+                Status = Constants.BarbotStatus.READY;
+            });
+        }
+
+        public BitmapImage getCachedImage(Recipe recipe)
+        {
+
+            if (_ImageCache[recipe.Name] != null)
+            {
+                return _ImageCache[recipe.Name];
+            } else
+            {
+                var imageUri = new Uri("http://" + webserverUrl + "/" + recipe.Img);
+                var image = new BitmapImage(imageUri);
+                if(image != null)
+                {
+                    _ImageCache.Add(recipe.Name, image);
+                }
+                return image;
+
+            }
         }
 
         private void WebSocket_DrinkOrderedEvent(object sender, WebSocketEvents.DrinkOrderedEventArgs args)

@@ -11,6 +11,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
 using BarBot.Core;
 using BarBot.Core.Model;
@@ -28,6 +29,17 @@ namespace BarBot.UWP.UserControls
         private double lastHeight = 0;
         private PathFigure figure;
         private double HexagonWidth = Constants.HexagonWidth;
+        App app;
+        private BitmapImage _cachedImage;
+        public BitmapImage CachedImage
+        {
+            get { return _cachedImage; }
+            set
+            {
+                _cachedImage = value;
+                OnPropertyChanged("CachedImage");
+            }
+        }
 
         private string webserverUrl;
 
@@ -36,6 +48,8 @@ namespace BarBot.UWP.UserControls
         public Uc_RecipeTile()
         {
             this.InitializeComponent();
+
+            app = Application.Current as App;
 
             Recipe = new Recipe();
             this.DataContext = this;
@@ -54,6 +68,20 @@ namespace BarBot.UWP.UserControls
             {
                 value.Img = "http://" + webserverUrl + "/" + value.Img;
                 recipe = value;
+                if (value.Name != null)
+                {
+
+                    if (value.Name.Equals("Custom Recipe"))
+                    {
+                        var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
+                        var recipeImage = new BitmapImage(imageUri);
+                        CachedImage = recipeImage;
+                    }
+                    else
+                    {
+                        CachedImage = app.getCachedImage(value);
+                    }
+                }
                 OnPropertyChanged("Recipe");
             }
         }
@@ -62,13 +90,18 @@ namespace BarBot.UWP.UserControls
         {
             hexagon = sender as Windows.UI.Xaml.Shapes.Path;
             hexagon.Width = Constants.HexagonWidth;
-            hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width/2, 2) - Math.Pow(hexagon.Width / 4, 2));
+            hexagon.Height = 2 * Math.Sqrt(Math.Pow(hexagon.Width / 2, 2) - Math.Pow(hexagon.Width / 4, 2));
             CreateDataPath(hexagon.Width, hexagon.Height);
             buttonWrapper.Width = hexagon.Width;
             //recipeImage.Height = hexagon.Height - 10;
 
-            imageButton.Height = hexagon.Height-10;
+            imageButton.Height = hexagon.Height - 10;
             imageButton.Width = hexagon.Width;
+            // Left, Top, Right, Bottom?
+            textButtonWrapper.Margin = new Thickness((hexagon.Width - textButtonWrapper.ActualWidth) / 2, (hexagon.Height - textButtonWrapper.ActualHeight) / 2, 0, 0);
+
+            //recipeNameGrid.Height = hexagon.Height;
+            //recipeNameGrid.Width = hexagon.Width;
             //buttonWrapper.Height = hexagon.Height - 10;
             //buttonWrapper.Margin = new Thickness(0, 0, 0, 20);
         }
@@ -99,11 +132,11 @@ namespace BarBot.UWP.UserControls
             //figure.Segments.Add(segment);
 
             //figure.Segments.Add(new LineSegment(new Point(0.75 * width, 0)));
-            
-            AddPoint( (0.75 * width), 0 + stroke); // Top right
-            AddPoint( width - stroke, (0.5 * height) ); // Mid Right
-            AddPoint( (0.75 * width), height - stroke); // bottom Right
-            AddPoint( (0.25 * width), height - stroke);  // Bottom Left
+
+            AddPoint((0.75 * width), 0 + stroke); // Top right
+            AddPoint(width - stroke, (0.5 * height)); // Mid Right
+            AddPoint((0.75 * width), height - stroke); // bottom Right
+            AddPoint((0.25 * width), height - stroke);  // Bottom Left
             AddPoint(0 + stroke, 0.5 * height); // Middle Left
             figure.IsClosed = true;
             geometry.Figures.Add(figure);

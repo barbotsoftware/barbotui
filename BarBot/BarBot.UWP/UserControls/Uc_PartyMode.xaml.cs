@@ -27,8 +27,6 @@ namespace BarBot.UWP.UserControls
     {
         private string barbotID;
 
-        private BLEPublisher publisher;
-
         private BarbotIOController controller;
 
         public Uc_PartyMode()
@@ -38,14 +36,6 @@ namespace BarBot.UWP.UserControls
             App app = Application.Current as App;
 
             barbotID = app.barbotID;
-            publisher = app.blePublisher;
-
-            init();
-        }
-
-        public void init()
-        {
-            publisher.Start();
         }
 
         private void Btn_DrinkMenu_Click(object sender, RoutedEventArgs e)
@@ -55,7 +45,7 @@ namespace BarBot.UWP.UserControls
 
         private void Btn_OrderQueue_Click(object sender, RoutedEventArgs e)
         {
-
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_OrderQueue();
         }
     }
 }

@@ -12,6 +12,8 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
+using Windows.Graphics.Imaging;
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
@@ -54,7 +56,7 @@ namespace BarBot.UWP.UserControls
             BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
             BackButton.Width = BackButton.Height / BackButtonSizeRatio;
             // Left, Top
-            BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2), recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2), 0, 0);
+            BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2) - 5, recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2) - 5, 0, 0);
 
             // Next Button
             double NextButtonSizeRatio = NextButton.Height / NextButton.Width;
@@ -75,7 +77,7 @@ namespace BarBot.UWP.UserControls
                 var customRecipe = new Recipe();
                 customRecipe.Name = "Custom Recipe";
                 customRecipe.Ingredients = new List<Ingredient>();
-                customRecipe.Img = "ms-appx:///Assets/custom_recipe.png";
+                customRecipe.Img = "barbotweb/public/img/recipe_images/custom_recipe.png";
                 page.Add(customRecipe);
 
                 // Populate AllRecipes
@@ -182,6 +184,11 @@ namespace BarBot.UWP.UserControls
         {
             Page--;
             displayPage(Page);
+        }
+
+        private void Back_To_PartyMode(object sender, RoutedEventArgs e)
+        {
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
         }
     }
 }

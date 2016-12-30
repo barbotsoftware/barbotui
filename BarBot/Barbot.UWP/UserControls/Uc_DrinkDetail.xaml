@@ -9,6 +9,25 @@
     d:DesignHeight="1080"
     d:DesignWidth="1920">
 
+    <UserControl.Resources>
+        <!--<Style TargetType="CheckBox">
+            <Setter Property="Foreground">
+                <Setter.Value>
+                    <Brush>
+                        
+                    </Brush>
+                </Setter.Value>
+            </Setter>
+        </Style>-->
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+
+                <ResourceDictionary Source="Rd_DrinkDetailCheckBox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
+    </UserControl.Resources>
+
     <Grid Height="1080" Width="1920">
         <Grid.Resources>
             <local:ToUpperConverter x:Name="ToUpperConverter" />
@@ -33,7 +52,17 @@
         <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF004B99" Content="POUR DRINK" Background="#FF004B99" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="64"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
             <StackPanel x:Name="ingredientList"/>
-
         </ScrollViewer>
+        <TextBox HorizontalAlignment="Left" Height="67" Margin="709,886,0,0" TextWrapping="Wrap" Text="WOULD YOU LIKE TO ADD" VerticalAlignment="Top" Width="730" BorderBrush="{x:Null}" IsHitTestVisible="False" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="64" Background="{x:Null}" VerticalContentAlignment="Top" IsReadOnly="True" AcceptsReturn="True" AllowFocusOnInteraction="False"/>
+        <CheckBox x:Name="checkBox" Style="{StaticResource ResourceKey=CustomCheckbox}" Content="ICE" HorizontalAlignment="Left" Height="69" Margin="863,1015,0,-4" VerticalAlignment="Top" Width="178" FontFamily="Microsoft Yi Baiti" FontSize="24" FocusVisualPrimaryBrush="White" RenderTransformOrigin="0.5,0.5" Padding="8,3,0,5" UseLayoutRounding="False" Foreground="White" BorderBrush="Red" FocusVisualSecondaryBrush="#99FFFFFF">
+            <CheckBox.RenderTransform>
+                <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
+            </CheckBox.RenderTransform>
+        </CheckBox>
+        <CheckBox x:Name="checkBox1" Style="{StaticResource ResourceKey=CustomCheckbox}" Content="LIME WEDGE" HorizontalAlignment="Left" Margin="1155,1014,0,-3" VerticalAlignment="Top" Height="69" Width="178" FontFamily="Microsoft Yi Baiti" FontSize="24" FocusVisualPrimaryBrush="White" RenderTransformOrigin="0.5,0.5" Padding="8,3,0,5" UseLayoutRounding="False" Foreground="White" BorderBrush="Red" FocusVisualSecondaryBrush="#99FFFFFF">
+            <CheckBox.RenderTransform>
+                <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
+            </CheckBox.RenderTransform>
+        </CheckBox>
     </Grid>
 </UserControl>
