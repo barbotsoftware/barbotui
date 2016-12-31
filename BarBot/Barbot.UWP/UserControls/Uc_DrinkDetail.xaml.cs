@@ -214,14 +214,18 @@ namespace BarBot.UWP.UserControls
 
             var dialog = new ContentDialog()
             {
-                MaxWidth = this.ActualWidth,
+                //MaxWidth = this.ActualWidth,
                 Content = new TextBlock()
                 {
                     Text = string.Format("Your {0} Is Pouring!", OrderRecipe.Name),
                     VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    TextWrapping = TextWrapping.WrapWholeWords,
+                    //Width = 1200,
                     FontSize = 45
                 },
-                Background = new SolidColorBrush(Windows.UI.Colors.Black),
+                Width = 1200,
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 56, 114)),
                 Foreground = new SolidColorBrush(Windows.UI.Colors.White),
                 BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34))
             };

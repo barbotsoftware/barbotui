@@ -61,7 +61,7 @@ namespace BarBot.UWP.UserControls
                     VerticalAlignment = VerticalAlignment.Center,
                     FontSize = 45
                 },
-                Background = new SolidColorBrush(Windows.UI.Colors.Black),
+                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 56, 114)),
                 Foreground = new SolidColorBrush(Windows.UI.Colors.White),
                 BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34))
             };

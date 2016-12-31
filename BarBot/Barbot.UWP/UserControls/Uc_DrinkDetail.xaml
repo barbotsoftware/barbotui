@@ -28,11 +28,7 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <Style TargetType="ComboBoxItem">
-                <Setter Property="Foreground" Value="Blue"/>
-            </Style>
         </ResourceDictionary>
-        
     </UserControl.Resources>
 
     <Grid Height="1080" Width="1920">
