@@ -199,6 +199,32 @@ namespace BarBot.UWP.UserControls
 
         private async void Pour_Drink(object sender, RoutedEventArgs e)
         {
+            if (app.barbotIOController.CupCount == 0)
+            {
+                var cupDialog = new ContentDialog()
+                {
+                    MaxWidth = ActualWidth,
+                    Content = new TextBlock()
+                    {
+                        Text = "There are no cups left! Please place a cup or reset the cup dispenser.",
+                        VerticalAlignment = VerticalAlignment.Center,
+                        HorizontalAlignment = HorizontalAlignment.Center,
+                        FontSize = 45
+                    },
+                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 56, 114)),
+                    Foreground = new SolidColorBrush(Windows.UI.Colors.White),
+                    BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
+                    IsPrimaryButtonEnabled = true,
+                    IsSecondaryButtonEnabled = true,
+                    PrimaryButtonText = "OK",
+                    SecondaryButtonText = "RESET"
+                };
+
+                cupDialog.PrimaryButtonClick += CupDialog_PrimaryButtonClick;
+                cupDialog.SecondaryButtonClick += CupDialog_SecondaryButtonClick;
+                await cupDialog.ShowAsync();
+            }
+
             // Can snag ingredients from _ingredientElementList[x]._ingredient
             Console.WriteLine(_ingredientElementList);
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
@@ -244,6 +270,20 @@ namespace BarBot.UWP.UserControls
 
             sender.Hide();
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+        }
+
+        private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            app.barbotIOController.CupCount = 25;
+
+            sender.Hide();
+        }
+
+        private void CupDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            app.barbotIOController.CupCount = 1;
+
+            sender.Hide();
         }
     }
 }
