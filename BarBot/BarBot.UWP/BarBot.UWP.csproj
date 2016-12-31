@@ -144,6 +144,10 @@
     <Compile Include="Migrations\20161224224421_AddDrinkOrders.designer.cs">
       <DependentUpon>20161224224421_AddDrinkOrders.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\20161231022337_add_second_stepper.cs" />
+    <Compile Include="Migrations\20161231022337_add_second_stepper.designer.cs">
+      <DependentUpon>20161231022337_add_second_stepper.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TestClient\TestClient.xaml.cs">

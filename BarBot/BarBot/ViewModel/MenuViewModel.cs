@@ -13,11 +13,13 @@ namespace BarBot.Core.ViewModel
 		private List<Recipe> _recipes;
 		private List<Ingredient> _ingredients;
 		private bool _shouldDisplaySearch = false;
+		private Dictionary<string, byte[]> _imageCache;
 
 		public MenuViewModel(INavigationServiceExtension navigationService)
 		{
 			_navigationService = navigationService;
 			_recipes = new List<Recipe>();
+			_imageCache = new Dictionary<string, byte[]>();
 			MessengerInstance.Register<bool>(this, shouldDisplaySearch =>
 			{
 				_shouldDisplaySearch = shouldDisplaySearch;
@@ -47,6 +49,12 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _shouldDisplaySearch; }
 			set { Set(ref _shouldDisplaySearch, value); }
+		}
+
+		public Dictionary<string, byte[]> ImageCache
+		{
+			get { return _imageCache; }
+			set { Set(ref _imageCache, value); }
 		}
 
 		public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)

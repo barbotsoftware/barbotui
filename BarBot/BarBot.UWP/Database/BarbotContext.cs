@@ -43,7 +43,9 @@ namespace BarBot.UWP.Database
 
         public IceHopper getIceHopper()
         {
-            return IceHoppers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).ToList().ElementAt(0);
+            return IceHoppers.Include(x => x.stepper1).Include(x => x.stepper2).Include(x => x.stepper3).Include(x => x.stepper4).
+                Include(x => x.stepper5).Include(x => x.stepper6).Include(x => x.stepper7).Include(x => x.stepper8).
+                Include(x => x.reedSwitch).ToList().ElementAt(0);
         }
 
         public GarnishDispenser getGarnishDispenser()

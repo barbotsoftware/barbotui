@@ -35,6 +35,10 @@ namespace BarBot.UWP.TestClient
         private int CALIBRATION_FACTOR = 0;
         private int MAX_WEIGHT = 100;
 
+        private bool isOpen = false;
+
+        GpioPin pin;
+
         public TestClient()
         {
             this.InitializeComponent();
@@ -75,6 +79,11 @@ namespace BarBot.UWP.TestClient
             //calibrate();
         }
 
+        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
+        {
+            isOpen = args.Edge.Equals(GpioPinEdge.RisingEdge);
+        }
+
         private void Btn_Click(object sender, RoutedEventArgs e)
         {
             IO.Devices.V1.Container c = (IO.Devices.V1.Container)((Button)sender).Tag;
@@ -96,13 +105,7 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            /*for (int i = 0; i < 60; i++)
-            {
-                int reading = weightSensor.Read();
-                int grams = Math.Min(MAX_WEIGHT, Math.Abs((CALIBRATION_FACTOR - reading) / 1000));
-                Debug.WriteLine("Grams: " + grams);
-                Task.Delay(1000).Wait();
-            }*/
+            ioController.AddIce();
         }
 
         private void calibrate()

@@ -2,12 +2,13 @@
 using UIKit;
 using Foundation;
 using BarBot.Core.Model;
-using BarBot.iOS.Util;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.iOS.View.Menu.Search
 {
 	public class SearchResultCell : UITableViewCell
 	{
+		MenuViewModel ViewModel => Application.Locator.Menu;
 		public static NSString CellID = new NSString("SearchResultCell");
 
 		public string RecipeId { get; set; }
@@ -22,7 +23,18 @@ namespace BarBot.iOS.View.Menu.Search
 			RecipeId = element.RecipeId;
 			TextLabel.Text = element.Name;
 			var appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			ImageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
+
+			if (!ViewModel.ImageCache.ContainsKey(element.Name))
+			{
+				// Load new Image
+				ImageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
+				ViewModel.ImageCache.Add(element.Name, ImageContents);
+			}
+			else
+			{
+				// find in Image Cache
+				ImageContents = ViewModel.ImageCache[element.Name];
+			}
 		}
 	}
 }
