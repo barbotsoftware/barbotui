@@ -49,6 +49,9 @@ namespace BarBot.iOS.View.Detail
 		WebSocketUtil WebSocketUtil;
 		IngredientTableSource source;
 
+		// hax
+		bool CreateCustomCalled = false;
+
 		public DrinkDetailViewController()
 		{
 		}
@@ -90,6 +93,7 @@ namespace BarBot.iOS.View.Detail
 				OrderButton.Enabled = false;
 				IngredientTableView.Editing = true;
 				ViewModel.IsCustomRecipe = true;
+				CreateCustomCalled = false;
 			}
 			else
 			{
@@ -395,10 +399,15 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				WebSocketUtil.OrderDrink(args.RecipeId, IceSwitch.On, GarnishSwitch.On);
+				// Flag to catch multiple calls
+				if (!CreateCustomCalled)
+				{
+					WebSocketUtil.OrderDrink(args.RecipeId, IceSwitch.On, GarnishSwitch.On);
 
-				// Detach Event Handler
-				WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
+					// Detach Event Handler
+					WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
+					CreateCustomCalled = true;
+				}
 			}));
 		}
 	}
