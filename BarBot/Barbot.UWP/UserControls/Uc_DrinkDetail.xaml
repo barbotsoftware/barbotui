@@ -52,6 +52,11 @@
         <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png" Margin="70,125,1383,550" />
         <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
 
+        <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="58,582,0,0" TextWrapping="Wrap" Text="Total Volume: " VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFEFE" FontFamily="Microsoft Yi Baiti" FontSize="64" IsReadOnly="True" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None" BorderBrush="{x:Null}"/>
+        <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="5" Margin="34,656,0,0" Stroke="Black" VerticalAlignment="Top" Width="556"/>
+        <TextBox x:Name="TotalVolumeDisplay" Text="{Binding Path=TotalVolume}"  HorizontalAlignment="Left" Height="190" Margin="34,645,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="261" Foreground="White" FontSize="130" Background="{x:Null}" HorizontalContentAlignment="Right" ManipulationMode="None" IsDoubleTapEnabled="False" IsRightTapEnabled="False" IsHoldingEnabled="False" IsTapEnabled="False" IsReadOnly="True" BorderBrush="{x:Null}"/>
+        <TextBox HorizontalAlignment="Left" Margin="273,711,0,0" TextWrapping="Wrap" Text="/12 Oz" Height="100" VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFEFE" FontSize="64" IsReadOnly="True" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None" BorderBrush="{x:Null}"/>
+
         <Button x:Name="pourDrinkButton" Click="Pour_Drink"  HorizontalAlignment="Center" Margin="1478,909,35,35" Height="136" Width="407" FocusVisualPrimaryBrush="#FF0067D2" Content="POUR DRINK" Background="#FF003872" FontFamily="Microsoft Yi Baiti" Foreground="White" FontSize="64" BorderThickness="0" FocusVisualSecondaryBrush="#FDFFFFFF"/>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalAlignment="Left" Height="736" Margin="595,125,0,0" VerticalAlignment="Top" Width="1290">
             <StackPanel x:Name="ingredientList"/>
@@ -67,5 +72,8 @@
                 <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
             </CheckBox.RenderTransform>
         </CheckBox>
+
+
+
     </Grid>
 </UserControl>

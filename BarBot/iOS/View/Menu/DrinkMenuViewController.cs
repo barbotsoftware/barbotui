@@ -390,6 +390,9 @@ namespace BarBot.iOS.View.Menu
 			// Show Custom Button
 			CustomButton.Hidden = customHidden;
 
+			// Scroll Collection View to Top
+			CollectionView.SetContentOffset(new CGPoint(-CollectionView.ContentOffset.X, -84), false);
+
 			// Reload Collection View
 			CollectionView.ReloadData();
 		}
@@ -433,10 +436,10 @@ namespace BarBot.iOS.View.Menu
 					ViewModel.Recipes.Add(r);
 				}
 				RefreshCollectionView(true, false);
-			}));
 
-			// Detach Event Handlerr
-			WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+				// Detach Event Handlerr
+				WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+			}));
 		}
 
 		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
@@ -445,10 +448,10 @@ namespace BarBot.iOS.View.Menu
 			{
 				Delegate.IngredientsInBarBot.Clear();
 				Delegate.IngredientsInBarBot = args.Ingredients;
-			}));
 
-			// Detach Event Handler
-			WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
+				// Detach Event Handler
+				WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
+			}));
 		}
 	}
 }

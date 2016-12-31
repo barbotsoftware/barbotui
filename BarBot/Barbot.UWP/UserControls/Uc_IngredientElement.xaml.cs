@@ -22,36 +22,74 @@ namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_IngredientElement : UserControl, INotifyPropertyChanged
     {
-        double maxVolume = 12.0;
+        private double _volumeAvailable;
+        public bool VolumeChangeInProgress = false;
         public Ingredient _ingredient;
-        public Uc_IngredientElement(Ingredient ingredient)
+        public Uc_IngredientElement(Ingredient ingredient, double volumeAvailable)
         {
             this.InitializeComponent();
 
             this.DataContext = this;
             Ingredient = ingredient;
+            VolumeAvailable = volumeAvailable;
             init();
         }
 
         public void init()
         {
             // Populate combobox w/ shit
-            for (var i = 0.5; i <= maxVolume; i += 0.5)
+            PopulateVolumeSelector();
+            ingredientName.Text = Ingredient.Name.ToUpper();
+        }
+
+        private void PopulateVolumeSelector()
+        {
+            VolumeChangeInProgress = true;
+            ingredientVolume.Items.Clear();
+
+
+            if (Ingredient.Quantity >= 0.5)
             {
-                ingredientVolume.Items.Add(i);
+                for (var i = 0.5; i <= VolumeAvailable + Ingredient.Quantity; i += 0.5)
+                {
+                    ingredientVolume.Items.Add(i);
+                }
+            }
+            else
+            {
+                ingredientVolume.Items.Add((double)0);
+                ingredientVolume.SelectedIndex = 0;
+
+                for (double i = 0; i <= VolumeAvailable + Ingredient.Quantity; i += 0.5)
+                {
+                    ingredientVolume.Items.Add(i);
+                }
             }
 
-            if (ingredientVolume.Items.IndexOf(Math.Truncate(Ingredient.Quantity)) > -1)
-            {
-                ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Math.Truncate(Ingredient.Quantity));
-            } else if(ingredientVolume.Items.IndexOf(Ingredient.Quantity) > -1)
+            if (ingredientVolume.Items.IndexOf(Ingredient.Quantity) > -1)
             {
                 ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Ingredient.Quantity);
-            } else
+            }
+            else
             {
                 ingredientVolume.SelectedIndex = 0;
             }
-            ingredientName.Text = Ingredient.Name.ToUpper();
+
+            VolumeChangeInProgress = false;
+        }
+
+        public double VolumeAvailable
+        {
+            get
+            {
+                return _volumeAvailable;
+            }
+            set
+            {
+                _volumeAvailable = value;
+                OnPropertyChanged("VolumeAvailable");
+                PopulateVolumeSelector();
+            }
         }
 
         public Ingredient Ingredient
@@ -77,7 +115,10 @@ namespace BarBot.UWP.UserControls
 
         private void Volume_Changed(object sender, SelectionChangedEventArgs e)
         {
-            Ingredient.Quantity = (double)ingredientVolume.Items[ingredientVolume.SelectedIndex];
+            if (ingredientVolume.SelectedIndex >= 0)
+            {
+                Ingredient.Quantity = (double)ingredientVolume.Items[ingredientVolume.SelectedIndex];
+            }
         }
     }
 }

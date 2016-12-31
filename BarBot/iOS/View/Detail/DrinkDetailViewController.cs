@@ -356,21 +356,27 @@ namespace BarBot.iOS.View.Detail
 			{
 				ViewModel.Recipe = args.Recipe;
 				Reload();
-			}));
 
-			// Detach Event Handler
-			WebSocketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailsEvent;
+				// Detach Event Handler
+				WebSocketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailsEvent;
+			}));
 		}
 
 		async void Reload()
 		{
 			NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 			IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
-			ViewModel.ImageContents = await Delegate.AsyncUtil.LoadImage(ViewModel.Recipe.Img);
 
-			if (ViewModel.ImageContents != null)
+			if (ViewModel.ImageContents == null)
 			{
-				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+				// load new Image
+				ViewModel.ImageContents = await Delegate.AsyncUtil.LoadImage(ViewModel.Recipe.Img);
+
+				// Don't set on HTTP 404
+				if (ViewModel.ImageContents == null)
+				{
+					DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+				}
 			}
 		}
 
@@ -379,10 +385,10 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				ShowSucessAlert();
-			}));
 
-			// Detach Event Handler
-			WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
+				// Detach Event Handler
+				WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
+			}));
 		}
 
 		private async void Socket_CreateCustomDrinkEvent(object sender, WebSocketEvents.CreateCustomDrinkEventArgs args)
@@ -390,9 +396,10 @@ namespace BarBot.iOS.View.Detail
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
 				WebSocketUtil.OrderDrink(args.RecipeId, IceSwitch.On, GarnishSwitch.On);
+
+				// Detach Event Handler
+				WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 			}));
-			// Detach Event Handler
-			WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 		}
 	}
 }
