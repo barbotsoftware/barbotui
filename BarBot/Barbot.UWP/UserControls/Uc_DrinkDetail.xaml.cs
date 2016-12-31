@@ -17,6 +17,8 @@ using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using System.ComponentModel;
+using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -28,12 +30,14 @@ namespace BarBot.UWP.UserControls
         private WebSocketUtil socketUtil;
         private List<Uc_IngredientElement> _ingredientElementList;
         private List<Ingredient> AvailableIngredientList;
+        private Recipe OrderRecipe;
+        App app;
         Uc_AddIngredientButton addIngredientBtn;
         Uc_IngredientPicker ingredientPicker;
 
         public Uc_DrinkDetail(Recipe SelectedRecipe)
         {
-            App app = Application.Current as App;
+            app = Application.Current as App;
             socketUtil = app.webSocketUtil;
 
             this.InitializeComponent();
@@ -193,10 +197,49 @@ namespace BarBot.UWP.UserControls
             DisplayIngredients();
         }
 
-        private void Pour_Drink(object sender, RoutedEventArgs e)
+        private async void Pour_Drink(object sender, RoutedEventArgs e)
         {
             // Can snag ingredients from _ingredientElementList[x]._ingredient
             Console.WriteLine(_ingredientElementList);
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+            
+            OrderRecipe = new Recipe();
+            OrderRecipe.Name = Recipe.Name;
+            OrderRecipe.Ingredients = new List<Ingredient>();
+
+            for (int i = 0; i < _ingredientElementList.Count; i++)
+            {
+                OrderRecipe.Ingredients.Add(_ingredientElementList[i]._ingredient);
+            }
+
+            var dialog = new ContentDialog()
+            {
+                MaxWidth = this.ActualWidth,
+                Content = new TextBlock()
+                {
+                    Text = string.Format("Your {0} Is Pouring!", OrderRecipe.Name),
+                    VerticalAlignment = VerticalAlignment.Center,
+                    FontSize = 45
+                },
+                Background = new SolidColorBrush(Windows.UI.Colors.Black),
+                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
+                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34))
+            };
+
+            dialog.Opened += (s, a) => Dialog_Opened(s, a, OrderRecipe);
+            await dialog.ShowAsync();
+        }
+
+        private async void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
+        {
+            await Task.Delay(1);
+
+            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(OrderRecipe, app.barbotIOController.Containers);
+
+            app.barbotIOController.PourDrink(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
+
+            sender.Hide();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
         }
     }
 }
