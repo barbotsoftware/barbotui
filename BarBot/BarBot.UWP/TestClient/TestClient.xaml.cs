@@ -68,6 +68,7 @@ namespace BarBot.UWP.TestClient
                 btn.Tag = c;
                 btn.Click += Btn_Click;
                 ContainersPanel.Children.Add(btn);
+                btn.FontSize = 35;
                 i++;
             }
 
@@ -105,7 +106,7 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            ioController.AddIce();
+            ioController.AddGarnish();
         }
 
         private void calibrate()
