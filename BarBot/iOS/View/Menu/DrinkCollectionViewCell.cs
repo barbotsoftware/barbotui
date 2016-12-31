@@ -101,7 +101,19 @@ namespace BarBot.iOS.View.Menu
 			_recipeId = element.RecipeId;
 			NameLabel.Text = element.Name;
 			var appDelegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
-			_imageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
+
+			if (!ViewModel.ImageCache.ContainsKey(element.Name))
+			{
+				// Load new Image
+				_imageContents = await appDelegate.AsyncUtil.LoadImage(element.Img);
+				ViewModel.ImageCache.Add(element.Name, _imageContents);
+			}
+			else
+			{
+				// find in Image Cache
+				_imageContents = ViewModel.ImageCache[element.Name];
+			}
+
 			if (_imageContents != null)
 			{
 				DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(_imageContents));
