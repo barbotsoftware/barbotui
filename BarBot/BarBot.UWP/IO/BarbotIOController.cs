@@ -59,7 +59,9 @@ namespace BarBot.UWP.IO
             mcp2 = new MCP23017(2);
 
             // Create ice hopper
-            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4));
+            GpioPin reedSwitch = gpio.OpenPin(6);
+            IOPort reedSwitchIOPort = new IOPort(reedSwitch, GpioPinDriveMode.InputPullDown);
+            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), reedSwitchIOPort);
 
             // Create garnish dispenser
             GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4));
