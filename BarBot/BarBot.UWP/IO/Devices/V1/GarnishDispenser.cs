@@ -26,7 +26,7 @@ namespace BarBot.UWP.IO.Devices.V1
         {
             Debug.WriteLine(string.Format("Running garnish dispenser"));
 
-            stepperDriver.run(1);
+            stepperDriver.runBackwards(1);
         }
     }
 }

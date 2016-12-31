@@ -19,7 +19,7 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4)
         {
-            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4);
+            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
         }
 
         public void DispenseCup()
@@ -27,6 +27,12 @@ namespace BarBot.UWP.IO.Devices.V1
             Debug.WriteLine(string.Format("Running cup dispenser"));
 
             stepperDriver.run(1);
+
+            /*stepperDriver.SleepTime = 3;
+
+            stepperDriver.runBackwards(0.125);
+
+            stepperDriver.run(0.125);*/
         }
     }
 }

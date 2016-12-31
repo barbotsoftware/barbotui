@@ -46,12 +46,26 @@ namespace BarBot.UWP.IO.Devices.V1
         {
             Debug.WriteLine(string.Format("Running ice hopper"));
 
+            bool forward = true;
             while (!ReedSwitchIsOpen)
             {
-                stepperDriver.run(1);
+                if (forward)
+                {
+                    stepperDriver.run(1);
+                }
+                else
+                {
+                    stepperDriver.runBackwards(1);
+                }
 
-                stepperDriver.runBackwards(1);
+                forward = !forward;
             }
+
+            stepperDriver2.SleepTime = 7;
+
+            stepperDriver2.run(0.25);
+
+            stepperDriver2.runBackwards(0.25);
 
             Debug.WriteLine("Finished adding ice");
         }

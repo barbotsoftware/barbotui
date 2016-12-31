@@ -20,18 +20,20 @@ namespace BarBot.UWP.IO
         public IIOPort portC;
         public IIOPort portD;
 
-        private int STEPS_PER_REVOLUTION = 60;
-        private int SLEEP_TIME = 10; 
+        private int STEPS_PER_REVOLUTION = 50;
+        public int SleepTime { get; set; } 
 
-        public L298NDriver(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4)
+        public L298NDriver(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, int sleepTime = 15)
         {
             portA = stepper1;
             portB = stepper2;
             portC = stepper3;
             portD = stepper4;
+
+            SleepTime = sleepTime;
         }
 
-        public void run(int revolutions)
+        public void run(double revolutions)
         {
             Debug.WriteLine(string.Format("Running stepper for {0} revolutions", revolutions));
 
@@ -40,22 +42,22 @@ namespace BarBot.UWP.IO
                 portA.write(GpioPinValue.Low);
                 portB.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
 
                 portD.write(GpioPinValue.Low);
                 portC.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
 
                 portB.write(GpioPinValue.Low);
                 portA.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
 
                 portC.write(GpioPinValue.Low);
                 portD.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
             }
 
             portA.write(GpioPinValue.Low);
@@ -66,31 +68,31 @@ namespace BarBot.UWP.IO
             Debug.WriteLine(string.Format("Finished running stepper"));
         }
 
-        public void runBackwards(int revolutions)
+        public void runBackwards(double revolutions)
         {
             Debug.WriteLine(string.Format("Running stepper for backwards {0} revolutions", revolutions));
 
             for (int i = 0; i < revolutions * STEPS_PER_REVOLUTION; i++)
             {
-                portA.write(GpioPinValue.Low);
-                portB.write(GpioPinValue.High);
-
-                Task.Delay(SLEEP_TIME).Wait();
-
                 portC.write(GpioPinValue.Low);
                 portD.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
 
                 portB.write(GpioPinValue.Low);
                 portA.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
 
                 portD.write(GpioPinValue.Low);
                 portC.write(GpioPinValue.High);
 
-                Task.Delay(SLEEP_TIME).Wait();
+                Task.Delay(SleepTime).Wait();
+
+                portA.write(GpioPinValue.Low);
+                portB.write(GpioPinValue.High);
+
+                Task.Delay(SleepTime).Wait();
             }
 
             portA.write(GpioPinValue.Low);

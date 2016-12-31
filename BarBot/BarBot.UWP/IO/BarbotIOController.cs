@@ -23,27 +23,31 @@ namespace BarBot.UWP.IO
 
         public List<Pump> Pumps { get; set; }
 
-        IceHopper IceHopper { get; set; }
+        public IceHopper IceHopper { get; set; }
 
-        GarnishDispenser GarnishDispenser { get; set; }
+        public GarnishDispenser GarnishDispenser { get; set; }
 
-        CupDispenser CupDispenser { get; set; }
-
-        Dictionary<GpioPin, int> sensorTicks = new Dictionary<GpioPin, int>();
-
-        Dictionary<GpioPin, int> maxTicks = new Dictionary<GpioPin, int>();
-
-        Dictionary<GpioPin, Pump> pinPumpMapping = new Dictionary<GpioPin, Pump>();
+        public CupDispenser CupDispenser { get; set; }
 
         public GpioController gpio;
 
-        MCP23017 mcp1;
+        public int CupCount = 0;
 
-        MCP23017 mcp2;
+        private Dictionary<GpioPin, int> sensorTicks = new Dictionary<GpioPin, int>();
+
+        private Dictionary<GpioPin, int> maxTicks = new Dictionary<GpioPin, int>();
+
+        private Dictionary<GpioPin, Pump> pinPumpMapping = new Dictionary<GpioPin, Pump>();
+
+        private MCP23017 mcp1;
+
+        private MCP23017 mcp2;
 
         private const int TIMEOUT = 5;
 
         private const int MIXER_PUMP_FLUSH_TIME = 8000;
+
+        private IOPort ledPort;
 
         public BarbotIOController(List<Database.Container> containers, 
             Database.IceHopper iceHopper, 
@@ -103,6 +107,10 @@ namespace BarBot.UWP.IO
                 }
             }
 
+            // Initialize LED
+            GpioPin ioPort = gpio.OpenPin(21);
+            ledPort = new IOPort(ioPort);
+
             // Initialize I2C Controllers
             initI2C();
         }
@@ -142,8 +150,12 @@ namespace BarBot.UWP.IO
             }
         }
 
-        public void PourDrink(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = false)
+        public void PourDrink(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = true)
         {
+            // Turn on LED
+            LEDOn();
+
+            // Reset any sensor tracking
             sensorTicks = new Dictionary<GpioPin, int>();
             maxTicks = new Dictionary<GpioPin, int>();
             pinPumpMapping = new Dictionary<GpioPin, Pump>();
@@ -151,6 +163,8 @@ namespace BarBot.UWP.IO
             if(cup)
             {
                 DispenseCup();
+
+                CupCount--;
             }
 
             if(ice)
@@ -177,6 +191,9 @@ namespace BarBot.UWP.IO
             {
                 AddGarnish();
             }
+
+            // Turn LED off
+            LEDOff();
         }
 
         public void PourIngredient(Container container, double amount)
@@ -255,6 +272,16 @@ namespace BarBot.UWP.IO
         public void DispenseCup()
         {
             CupDispenser.DispenseCup();
+        }
+
+        public void LEDOn()
+        {
+            ledPort.write(GpioPinValue.High);
+        }
+
+        public void LEDOff()
+        {
+            ledPort.write(GpioPinValue.High);
         }
 
         private IIOPort createIOPort(Database.IOPort IOPort, GpioPinDriveMode driveMode = GpioPinDriveMode.Output)
