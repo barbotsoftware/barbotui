@@ -59,6 +59,9 @@
     <Reference Include="WebSockets.PCL">
       <HintPath>..\packages\Websockets.Pcl.1.1.9\lib\MonoAndroid\WebSockets.PCL.dll</HintPath>
     </Reference>
+    <Reference Include="Calligraphy">
+      <HintPath>..\packages\CallygraphyXamarin.2.2.0\lib\MonoAndroid\Calligraphy.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="MainActivity.cs" />
@@ -84,6 +87,8 @@
     <AndroidResource Include="Resources\mipmap-xxhdpi\Icon.png" />
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\DrinkMenu.axml" />
+    <AndroidResource Include="Resources\values\colors.xml" />
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -91,12 +96,17 @@
     <Folder Include="View\Detail\" />
     <Folder Include="Util\" />
     <Folder Include="WebSocket\" />
+    <Folder Include="Resources\values-v21\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
       <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
       <Name>BarBot.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Fonts\" />
+    <AndroidAsset Include="Assets\Fonts\Microsoft-Yi-Baiti.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
 </Project>
