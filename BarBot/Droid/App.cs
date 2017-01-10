@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight.Views;
 using BarBot.Core.ViewModel;
 using BarBot.Droid.View.Detail;
 using BarBot.Droid.View.Menu;
+using BarBot.Droid.Util;
 
 namespace BarBot.Droid
 {
@@ -17,12 +18,18 @@ namespace BarBot.Droid
 			{
 				if (locator == null)
 				{
+					// MVVMLight's DispatcherHelper for cross-thread handling.
 					DispatcherHelper.Initialize();
 
-					var nav = new NavigationService();
+					// Initialize NavigationService
+					var nav = new Util.NavigationServiceExtension();
+					nav.Initialize();
 
+					// Register NavigationService interfaces
 					SimpleIoc.Default.Register<INavigationService>(() => nav);
+					SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
 
+					// Configure PageKeys
 					nav.Configure(
 					  ViewModelLocator.DrinkMenuKey,
 					  typeof(DrinkMenuActivity));

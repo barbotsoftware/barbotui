@@ -1,7 +1,11 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
 	<style name="BarBotTheme" parent="android:Theme.Material">
-		<item name="android:statusBarColor">@color/navbar_gray</item>	
+		<item name="android:statusBarColor">@color/navbar_gray</item>
+
+		<!-- remove default ActionBar -->
+		<item name="android:windowNoTitle">true</item>
+    	<item name="android:windowActionBar">false</item>
 		<item name="android:colorPrimary">@color/navbar_gray</item>
 		<item name="android:textColorPrimary">@color/text_white</item>
 		<item name="android:windowBackground">@color/background_gray</item>
