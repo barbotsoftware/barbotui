@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UIKit;
 using CoreGraphics;
-using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
+using BarBot.iOS.Style;
 using BarBot.iOS.Util;
 using BarBot.iOS.View.Menu.Search;
 
@@ -46,6 +46,11 @@ namespace BarBot.iOS.View.Menu
 		public DrinkMenuViewController(UICollectionViewLayout layout) : base(layout)
 		{
 		}
+
+		//public override void LoadView()
+		//{
+		//	View = new DrinkMenuView();
+		//}
 
 		public override void ViewDidLoad()
 		{
@@ -205,8 +210,7 @@ namespace BarBot.iOS.View.Menu
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
-				var rest = new RestService(Delegate.HostName);
-				var user = await rest.SaveUserNameAsync(field.Text);
+				var user = await Delegate.RESTService.SaveUserNameAsync(field.Text);
 
 				if (user.Uid.Equals("name_taken"))
 				{
@@ -425,7 +429,7 @@ namespace BarBot.iOS.View.Menu
 
 		// EVENT HANDLERS
 
-		private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
+		async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
@@ -442,7 +446,7 @@ namespace BarBot.iOS.View.Menu
 			}));
 		}
 
-		private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
+		async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{

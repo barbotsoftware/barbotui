@@ -1,7 +1,6 @@
 ﻿using System;
 using UIKit;
 using Foundation;
-using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
 namespace BarBot.iOS.View.Detail.IngredientTable
 {
@@ -72,14 +71,11 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		// Called to set editing indent for each row
 		public override bool ShouldIndentWhileEditing(UITableView tableView, NSIndexPath indexPath)
 		{
-			if (IndexPathIsIngredientPicker(tableView, indexPath)) 
+			if (IndexPathIsIngredientPicker(tableView, indexPath))
 			{
 				return false;
 			}
-			else
-			{
-				return true;
-			}
+			return true;
 		}
 
 		// Called to set height for each row

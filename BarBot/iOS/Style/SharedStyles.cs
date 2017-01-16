@@ -1,8 +1,7 @@
 ﻿using UIKit;
-using CoreAnimation;
 using CoreGraphics;
 
-namespace BarBot.iOS.Util
+namespace BarBot.iOS.Style
 {
 	public static class SharedStyles
 	{

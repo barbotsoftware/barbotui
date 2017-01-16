@@ -27,19 +27,18 @@ namespace BarBot.iOS
 		public NSUserDefaults UserDefaults { get; set; }
 
 		public WebSocketUtil WebSocketUtil { get; set; }
-		public AsyncUtil AsyncUtil { get; set; }
+		public RESTService RESTService { get; set; }
 		public List<Ingredient> IngredientsInBarBot { get; set; }
 		public User User { get; set; }
 
 		private string _hostName;
-		public string HostName 
+		public string HostName
 		{ 
-			get { return _hostName; } 
+			get { return _hostName; }
 			set 
 			{ 
 				_hostName = value;
 				WebSocketUtil.EndPoint = "ws://" + value + ":" + Constants.PortNumber;
-				AsyncUtil.HostName = "http://" + value;
 			}
 		}
 
@@ -60,9 +59,6 @@ namespace BarBot.iOS
 			// Initialize WebsocketHandler
 			WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
 
-			// Initialize AsyncUtil
-			AsyncUtil = new AsyncUtil();
-
 			// Check for stored IP Address
 			if (UserDefaults.StringForKey("HostName") != null)
 			{
@@ -72,6 +68,9 @@ namespace BarBot.iOS
 			{
 				HostName = Constants.HostName;
 			}
+
+			// Initialize RESTService
+			RESTService = new RESTService(HostName);
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);

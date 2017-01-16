@@ -119,6 +119,9 @@
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\xamarin.ios10\GalaSoft.MvvmLight.Platform.dll</HintPath>
     </Reference>
     <Reference Include="System.Net.Http" />
+    <Reference Include="ModernHttpClient">
+      <HintPath>..\packages\modernhttpclient.2.4.2\lib\Xamarin.iOS10\ModernHttpClient.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
@@ -142,6 +145,7 @@
     <Folder Include="WebSocket\" />
     <Folder Include="View\Detail\IngredientTable\" />
     <Folder Include="View\Detail\IngredientTable\Picker\" />
+    <Folder Include="Style\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -160,14 +164,11 @@
     <Compile Include="View\Menu\DrinkCollectionViewCell.cs" />
     <Compile Include="View\Detail\DrinkDetailViewController.cs" />
     <Compile Include="View\Hexagon.cs" />
-    <Compile Include="Util\Color.cs" />
-    <Compile Include="Util\AsyncUtil.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
-    <Compile Include="Util\SharedStyles.cs" />
     <Compile Include="View\Menu\Search\DrinkSearchController.cs" />
     <Compile Include="View\Menu\Search\DrinkSearchResultsViewController.cs" />
     <Compile Include="View\Menu\Search\SearchResultCell.cs" />
-    <Compile Include="Util\RestService.cs" />
+    <Compile Include="Util\RESTService.cs" />
     <Compile Include="View\Menu\Search\SearchControllerDelegate.cs" />
     <Compile Include="WebSocket\IosWebSocketHandler.cs" />
     <Compile Include="View\Detail\IngredientTable\IngredientTableSource.cs" />
@@ -175,9 +176,12 @@
     <Compile Include="View\Detail\IngredientTable\IngredientTableViewCell.cs" />
     <Compile Include="View\Detail\IngredientTable\IngredientTableViewDelegate.cs" />
     <Compile Include="View\Detail\IngredientTable\Picker\AddIngredientPickerCell.cs" />
-    <Compile Include="Util\NetworkUtil.cs" />
     <Compile Include="View\Detail\IngredientTable\Picker\IngredientPickerViewDelegate.cs" />
     <Compile Include="View\Detail\IngredientTable\Picker\IngredientPickerViewDataSource.cs" />
+    <Compile Include="View\Menu\DrinkMenuView.cs" />
+    <Compile Include="View\Detail\DrinkDetailView.cs" />
+    <Compile Include="Style\Color.cs" />
+    <Compile Include="Style\SharedStyles.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

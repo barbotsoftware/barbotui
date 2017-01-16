@@ -1,7 +1,6 @@
 ﻿using System;
 using UIKit;
 using Foundation;
-using BarBot.Core.Model;
 
 namespace BarBot.iOS.View.Detail.IngredientTable
 {

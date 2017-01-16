@@ -1,10 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
+using System.Collections.Generic;
+
 using UIKit;
+
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
-using BarBot.iOS.Util;
-using System;
-using System.Linq;
+using BarBot.iOS.Style;
 
 namespace BarBot.iOS.View.Menu.Search
 {

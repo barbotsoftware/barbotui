@@ -6,14 +6,14 @@ using ModernHttpClient;
 
 using BarBot.Core.Model;
 
-namespace BarBot.iOS.Util
+namespace BarBot.Droid.Util
 {
 	public class RESTService
 	{
 		HttpClient client;
 		string HostName { get; set; }
 
-		public RESTService(string hostName) 
+		public RESTService(string hostName)
 		{
 			client = new HttpClient(new NativeMessageHandler());
 			client.MaxResponseContentBufferSize = 256000;
@@ -54,7 +54,7 @@ namespace BarBot.iOS.Util
 					{
 						return new User("", "", "name_taken");
 					}
-					else 
+					else
 					{
 						var u = new User(responseContent);
 						return u;
@@ -68,4 +68,5 @@ namespace BarBot.iOS.Util
 			return new User("", "", "exception");
 		}
 	}
+
 }

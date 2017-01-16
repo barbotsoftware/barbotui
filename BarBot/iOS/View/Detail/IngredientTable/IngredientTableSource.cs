@@ -4,7 +4,6 @@ using UIKit;
 using Foundation;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
-using BarBot.iOS.Util;
 using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
 namespace BarBot.iOS.View.Detail.IngredientTable
