@@ -24,7 +24,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 			}
 			else
 			{
-				title = ViewModel.IngredientsInBarBot[(int)row].Name;
+				title = ViewModel.AvailableIngredients[(int)row].Name;
 			}
 
 			var attributedString = new NSAttributedString(title, new UIStringAttributes()
@@ -57,8 +57,8 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 			}
 			else if (component == 1)
 			{
-				ViewModel.Ingredients[parentCellIndexPath.Row].IngredientId = ViewModel.IngredientsInBarBot[(int)row].IngredientId;
-				ViewModel.Ingredients[parentCellIndexPath.Row].Name = ViewModel.IngredientsInBarBot[(int)row].Name;
+				ViewModel.Ingredients[parentCellIndexPath.Row].IngredientId = ViewModel.AvailableIngredients[(int)row].IngredientId;
+				ViewModel.Ingredients[parentCellIndexPath.Row].Name = ViewModel.AvailableIngredients[(int)row].Name;
 			}
 
 			ViewModel.IsCustomRecipe = true;

@@ -11,7 +11,6 @@ namespace BarBot.Core.ViewModel
 		private readonly INavigationServiceExtension _navigationService;
 		private string _title;
 		private List<Recipe> _recipes;
-		private List<Ingredient> _ingredients;
 		private bool _shouldDisplaySearch = false;
 		private Dictionary<string, byte[]> _imageCache;
 
@@ -37,12 +36,6 @@ namespace BarBot.Core.ViewModel
 		{
 			get { return _recipes; }
 			set { Set(ref _recipes, value); }
-		}
-
-		public List<Ingredient> Ingredients
-		{
-			get { return _ingredients; }
-			set { Set(ref _ingredients, value); }
 		}
 
 		public bool ShouldDisplaySearch

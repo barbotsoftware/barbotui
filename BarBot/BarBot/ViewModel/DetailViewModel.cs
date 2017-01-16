@@ -1,5 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System.Linq;
+using System.Collections.Generic;
+
 using GalaSoft.MvvmLight;
+
 using BarBot.Core.Model;
 
 namespace BarBot.Core.ViewModel
@@ -9,10 +12,11 @@ namespace BarBot.Core.ViewModel
 		private readonly INavigationServiceExtension _navigationService;
 		private string _recipeId;
 		private Recipe _recipe;
-		private List<Ingredient> _ingredients;
 		private byte[] _imageContents;
 		private List<double> _quantities;
-		private List<Ingredient> _ingredientsInBarbot;
+		private List<Ingredient> _ingredients;
+		private List<Ingredient> _availableIngredients;
+		private List<Ingredient> _ingredientsInBarBot;
 		private bool _isCustomRecipe;
 
 		public DetailViewModel(INavigationServiceExtension navigationService)
@@ -81,10 +85,16 @@ namespace BarBot.Core.ViewModel
 			set { Set(ref _quantities, value); }
 		}
 
+		public List<Ingredient> AvailableIngredients
+		{
+			get { return _availableIngredients; }
+			set { Set(ref _availableIngredients, value); }
+		}
+
 		public List<Ingredient> IngredientsInBarBot
 		{
-			get { return _ingredientsInBarbot; }
-			set { Set(ref _ingredientsInBarbot, value); }
+			get { return _ingredientsInBarBot; }
+			set { Set(ref _ingredientsInBarBot, value); }
 		}
 
 		public bool IsCustomRecipe
@@ -99,6 +109,19 @@ namespace BarBot.Core.ViewModel
 			ImageContents = null;
 			IsCustomRecipe = false;
 			Ingredients.Clear();
+			AvailableIngredients.Clear();
+		}
+
+		// Sets AvailableIngredients equal to Ingredients in BarBot - Ingredients in Recipe
+		public void RefreshAvailableIngredients()
+		{
+			AvailableIngredients = IngredientsInBarBot.ToList();
+
+			// Remove Ingredients already in Recipe
+			foreach (Ingredient recipeIngredient in Ingredients)
+			{
+				AvailableIngredients.RemoveAll(availableIngredient => availableIngredient.Name.Equals(recipeIngredient.Name));
+			}
 		}
 
 		public void ShowDrinkMenuCommand(bool shouldDisplaySearch)

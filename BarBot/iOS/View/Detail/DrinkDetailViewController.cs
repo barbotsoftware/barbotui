@@ -57,6 +57,9 @@ namespace BarBot.iOS.View.Detail
 			// Custom Recipe
 			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
 			{
+				// Set Available Ingredients
+				ViewModel.RefreshAvailableIngredients();
+
 				(View as DrinkDetailView).NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
 				(View as DrinkDetailView).DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
 				(View as DrinkDetailView).OrderButton.Enabled = false;
@@ -108,6 +111,9 @@ namespace BarBot.iOS.View.Detail
 					(View as DrinkDetailView).DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
 				}
 			}
+
+			// Set Available Ingredients
+			ViewModel.RefreshAvailableIngredients();
 		}
 
 		// OrderDrink

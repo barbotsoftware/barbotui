@@ -22,7 +22,10 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			if (ingredientTableView.AddIngredientPickerIsShown()
 			    && ingredientTableView.AddIngredientPickerIndexPath.Row - 1 == indexPath.Row) 
 			{
-				if (ingredientTableView.RowIsAddIngredientCell(indexPath.Row)) {
+				// Ingredient Picker is shown
+
+				if (ingredientTableView.RowIsAddIngredientCell(indexPath.Row) &&
+				   	ingredientTableView.Editing) {
 					ingredientTableView.ShowAddNewIngredientRow();
 				}
 
@@ -30,6 +33,8 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			}
 			else
 			{
+				// Ingredient Picker is hidden
+
 				var newPickerIndexPath = ingredientTableView.CalculateIndexPathForNewPicker(indexPath);
 				if (ingredientTableView.AddIngredientPickerIsShown()) 
 				{
@@ -58,7 +63,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			{
 				return UITableViewCellEditingStyle.None;
 			}
-			else if (indexPath.Row == lastIndexPath.Row) 
+			else if ((tableView as IngredientTableView).RowIsAddIngredientCell(indexPath.Row)) 
 			{
 				return UITableViewCellEditingStyle.Insert;
 			}

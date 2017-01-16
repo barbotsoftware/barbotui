@@ -27,7 +27,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 			}
 			else
 			{
-				return ViewModel.IngredientsInBarBot.Count;
+				return ViewModel.AvailableIngredients.Count;
 			}
 		}
 	}

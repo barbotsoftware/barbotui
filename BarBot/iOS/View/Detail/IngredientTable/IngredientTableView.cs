@@ -1,9 +1,12 @@
 ﻿using System.Linq;
+
 using UIKit;
 using Foundation;
 using CoreGraphics;
+
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
+
 using BarBot.iOS.Style;
 using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
@@ -14,6 +17,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		DetailViewModel ViewModel => Application.Locator.Detail;
 
 		public NSIndexPath AddIngredientPickerIndexPath { get; set; }
+		public bool AddIngredientRowIsShown;
 
 		public IngredientTableView()
 		{
@@ -26,7 +30,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			RowHeight = 45;
 			ScrollEnabled = true;
 			ShowsVerticalScrollIndicator = true;
-			AllowsSelection = false;
+			AllowsSelection = true;
 			AllowsSelectionDuringEditing = true;
 			Bounces = true;
 			SeparatorColor = Color.NavBarGray;
@@ -61,7 +65,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		// returns if the passed row is an Add Ingredient Cell
 		public bool RowIsAddIngredientCell(int row)
 		{
-			return row == ViewModel.Ingredients.Count - 1;
+			return row == ViewModel.Ingredients.Count - 1 && ViewModel.AvailableIngredients.Count > 0;
 		}
 
 		// Show new Ingredient Picker
@@ -71,16 +75,16 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 
 			InsertRows(indexPaths, UITableViewRowAnimation.Middle);
 
-			if (RowIsAddIngredientCell(indexPath.Row))
+			if (RowIsAddIngredientCell(indexPath.Row) && Editing)
 			{
 				// initialize some fields: transition from new ingredient to added ingredient
-				ViewModel.Ingredients[indexPath.Row].IngredientId = ViewModel.IngredientsInBarBot[0].IngredientId;
-				ViewModel.Ingredients[indexPath.Row].Name = ViewModel.IngredientsInBarBot[0].Name;
+				ViewModel.Ingredients[indexPath.Row].IngredientId = ViewModel.AvailableIngredients[0].IngredientId;
+				ViewModel.Ingredients[indexPath.Row].Name = ViewModel.AvailableIngredients[0].Name;
 				ViewModel.Ingredients[indexPath.Row].Quantity = 0.5;
-
-				var cell = CellAt(indexPath);
-				ConfigureIngredientCell((IngredientTableViewCell)cell, indexPath);
 			}
+
+			var cell = CellAt(indexPath);
+			ConfigureIngredientCell((IngredientTableViewCell)cell, indexPath);
 		}
 
 		// Hides Ingredient Picker
@@ -89,23 +93,38 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(AddIngredientPickerIndexPath.Row, 0) },
 					   UITableViewRowAnimation.Middle);
 			AddIngredientPickerIndexPath = null;
+
+			// Set Available Ingredients
+			ViewModel.RefreshAvailableIngredients();
 		}
 
 		// Adds a 'Add Ingredient' cell to UITableView and Ingredients array
 		public void ShowAddNewIngredientRow()
 		{
-			ViewModel.Ingredients.Add(new Ingredient("add_ingredient", "Add Ingredient", 0.0));
+			if (ViewModel.AvailableIngredients.Count > 1)
+			{
+				ViewModel.Ingredients.Add(new Ingredient("add_ingredient", "Add Ingredient", 0.0));
+				InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ViewModel.Ingredients.Count - 1, 0) }, UITableViewRowAnimation.Fade);
 
-			InsertRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ViewModel.Ingredients.Count - 1, 0) }, UITableViewRowAnimation.Fade);
+				// set bool flag to true
+				AddIngredientRowIsShown = true;
+			}
 		}
 
-		// Hides 'Add Ingredient' cell from UITableView and removes from Steps array
+		// Hides 'Add Ingredient' cell from UITableView and removes from Ingredients array
 		public void HideAddNewIngredientRow()
 		{
-			var ingredientNumber = ViewModel.Ingredients.Count;
-			ViewModel.Ingredients.RemoveAt(ingredientNumber - 1);
+			if (AddIngredientRowIsShown)
+			{
+				var ingredientNumber = ViewModel.Ingredients.Count;
 
-			DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ingredientNumber - 1, 0) }, UITableViewRowAnimation.Fade);
+				ViewModel.Ingredients.RemoveAt(ingredientNumber - 1);
+
+				DeleteRows(new NSIndexPath[] { NSIndexPath.FromRowSection(ingredientNumber - 1, 0) }, UITableViewRowAnimation.Fade);
+
+				// set bool flag to false
+				AddIngredientRowIsShown = false;
+			}
 		}
 
 		// Calculate Index for Add Ingredient Picker
@@ -149,28 +168,20 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 
 			var quantity = ingredient.Quantity;
 
-			// select default quantity (volume) value for new picker view
-			if (double.IsNaN(quantity))
+			// select quantity (volume) value
+			pickerView.Select(ViewModel.Quantities.IndexOf(quantity), 0, true);
+
+			// Check if Ingredient is not used in Recipe
+			var fetchedIngredient = ViewModel.AvailableIngredients.FirstOrDefault(i => i.Name.Equals(ingredient.Name));
+
+			if (fetchedIngredient == null)
 			{
-				pickerView.Select(ViewModel.Quantities.IndexOf(quantity), 0, true);
-			}
-			else
-			{
-				pickerView.Select(0, 0, true);
+				// Add Ingredient already in Recipe to Picker
+				ViewModel.AvailableIngredients.Insert(0, ingredient);
 			}
 
-			if (ingredient.Name != null)
-			{
-				var fetchedIngredient = ViewModel.IngredientsInBarBot.FirstOrDefault(i => i.Name.Equals(ingredient.Name));
-
-				var indexOfIngredient = ViewModel.IngredientsInBarBot.IndexOf(fetchedIngredient);
-
-				pickerView.Select(indexOfIngredient, 1, true);
-			}
-			else
-			{
-				pickerView.Select(0, 1, true);
-			}
+			// Select first row
+			pickerView.Select(0, 1, true);
 
 			SharedStyles.StylePickerView(pickerView);
 			cell.AddSubview(pickerView);
