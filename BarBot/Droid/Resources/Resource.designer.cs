@@ -26,6 +26,7 @@ namespace BarBot.Droid
 		
 		public static void UpdateIdValues()
 		{
+			global::ModernHttpClient.Resource.String.library_name = global::BarBot.Droid.Resource.String.library_name;
 		}
 		
 		public partial class Attribute
@@ -47,17 +48,17 @@ namespace BarBot.Droid
 		public partial class Color
 		{
 			
-			// aapt resource value: 0x7f060001
-			public const int background_gray = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int background_gray = 2131165185;
 			
-			// aapt resource value: 0x7f060000
-			public const int barbot_blue = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int barbot_blue = 2131165184;
 			
-			// aapt resource value: 0x7f060002
-			public const int navbar_gray = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int navbar_gray = 2131165186;
 			
-			// aapt resource value: 0x7f060003
-			public const int text_white = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int text_white = 2131165187;
 			
 			static Color()
 			{
@@ -88,14 +89,17 @@ namespace BarBot.Droid
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f050000
-			public const int calligraphy_tag_id = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int calligraphy_tag_id = 2131099648;
 			
-			// aapt resource value: 0x7f050002
-			public const int menu_search = 2131034114;
+			// aapt resource value: 0x7f060003
+			public const int menu_search = 2131099651;
 			
-			// aapt resource value: 0x7f050001
-			public const int toolbar = 2131034113;
+			// aapt resource value: 0x7f060001
+			public const int toolbar = 2131099649;
+			
+			// aapt resource value: 0x7f060002
+			public const int toolbar_title = 2131099650;
 			
 			static Id()
 			{
@@ -114,10 +118,7 @@ namespace BarBot.Droid
 			public const int DrinkMenu = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int Main = 2130968577;
-			
-			// aapt resource value: 0x7f040002
-			public const int toolbar = 2130968578;
+			public const int toolbar = 2130968577;
 			
 			static Layout()
 			{
@@ -164,11 +165,11 @@ namespace BarBot.Droid
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f070001
-			public const int app_name = 2131165185;
+			// aapt resource value: 0x7f050001
+			public const int app_name = 2131034113;
 			
-			// aapt resource value: 0x7f070000
-			public const int hello = 2131165184;
+			// aapt resource value: 0x7f050000
+			public const int library_name = 2131034112;
 			
 			static String()
 			{
@@ -186,8 +187,11 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f080000
 			public const int BarBotTheme = 2131230720;
 			
+			// aapt resource value: 0x7f080002
+			public const int OrderButton = 2131230722;
+			
 			// aapt resource value: 0x7f080001
-			public const int OrderButton = 2131230721;
+			public const int TitleTextView = 2131230721;
 			
 			static Style()
 			{

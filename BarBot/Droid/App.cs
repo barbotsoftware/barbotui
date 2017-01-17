@@ -2,6 +2,7 @@
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 
+using BarBot.Core;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
@@ -17,7 +18,6 @@ namespace BarBot.Droid
 		private static ViewModelLocator locator;
 		private static WebSocketUtil webSocketUtil;
 		private static RESTService restService;
-		private static string hostName;
 
 		public static ViewModelLocator Locator
 		{
@@ -71,13 +71,19 @@ namespace BarBot.Droid
 			{
 				if (restService == null)
 				{
-					restService = new RESTService(hostName);
+					restService = new RESTService(HostName);
 				}
 
 				return restService;
 			}
 		}
 
-		public static string HostName { get; set; }
+		public static string HostName 
+		{ 
+			get 
+			{
+				return Constants.HostName;
+			} 
+		}
 	}
 }

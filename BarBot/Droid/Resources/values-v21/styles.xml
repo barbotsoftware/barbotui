@@ -11,6 +11,10 @@
 		<item name="android:windowBackground">@color/background_gray</item>
   	</style>
 
+	<style name="TitleTextView" parent="android:Widget.TextView">
+		<item name="android:textSize">26sp</item>
+	</style>
+
 	<style name="OrderButton" parent="android:Widget.Button">
     	
     </style>

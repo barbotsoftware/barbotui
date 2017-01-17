@@ -30,8 +30,11 @@ namespace BarBot.Droid.View.Menu
 
 			// Activate Toolbar
 			var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+			var mTitle = (TextView)toolbar.FindViewById(Resource.Id.toolbar_title);
+			mTitle.Text = ViewModel.Title;
 			SetActionBar(toolbar);
-			ActionBar.Title = ViewModel.Title;
+
+			ActionBar.Title = "";
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
