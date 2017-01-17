@@ -26,6 +26,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 
 				if (ingredientTableView.RowIsAddIngredientCell(indexPath.Row) &&
 				   	ingredientTableView.Editing) {
+					ingredientTableView.addIngredientRowIsShown = false;
 					ingredientTableView.ShowAddNewIngredientRow();
 				}
 
@@ -57,8 +58,6 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 		// Called to set editing icons for each row
 		public override UITableViewCellEditingStyle EditingStyleForRow(UITableView tableView, NSIndexPath indexPath)
 		{
-			var lastIndexPath = NSIndexPath.FromRowSection(tableView.NumberOfRowsInSection(0) - 1, 0);
-
 			if (IndexPathIsIngredientPicker(tableView, indexPath))
 			{
 				return UITableViewCellEditingStyle.None;

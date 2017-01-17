@@ -62,11 +62,15 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 				// Remove Ingredient from Recipe
 				ViewModel.Ingredients.RemoveAt(indexPath.Row);
 
-				tableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Top);
-				tableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Fade);
+				var ingredientTableView = tableView as IngredientTableView;
+
+				ingredientTableView.DeleteRows(new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 
 				// Set Available Ingredients
 				ViewModel.RefreshAvailableIngredients();
+
+				// Show Add Ingredient Row
+				ingredientTableView.ShowAddNewIngredientRow();
 			}
 		}
 
