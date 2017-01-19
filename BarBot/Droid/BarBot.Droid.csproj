@@ -104,6 +104,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\search.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\search.png" />
     <AndroidResource Include="Resources\menu\top_menus.xml" />
+    <AndroidResource Include="Resources\drawable\border_bottom.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -113,12 +114,16 @@
     <Folder Include="WebSocket\" />
     <Folder Include="Resources\values-v21\" />
     <Folder Include="Resources\menu\" />
+    <Folder Include="Resources\drawable\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
       <Project>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</Project>
       <Name>BarBot.Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidAsset Include="Assets\Fonts\Microsoft-Yi-Baiti.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>

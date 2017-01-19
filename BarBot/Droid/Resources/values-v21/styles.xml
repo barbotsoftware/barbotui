@@ -7,12 +7,15 @@
 		<item name="android:windowNoTitle">true</item>
     	<item name="android:windowActionBar">false</item>
 		<item name="android:colorPrimary">@color/navbar_gray</item>
-		<item name="android:textColorPrimary">@color/text_white</item>
 		<item name="android:windowBackground">@color/background_gray</item>
   	</style>
 
 	<style name="TitleTextView" parent="android:Widget.TextView">
+		<item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
 		<item name="android:textSize">26sp</item>
+		<item name="android:textColor">@color/text_white</item>
 	</style>
 
 	<style name="OrderButton" parent="android:Widget.Button">

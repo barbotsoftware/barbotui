@@ -4,14 +4,10 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/actionBarSize"
-    android:background="?android:attr/colorPrimary"
-    android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+    android:background="@drawable/border_bottom"
 
+    android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar">
     <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
         android:id="@+id/toolbar_title" 
 		style="@style/TitleTextView"/>
-	
 </Toolbar>
