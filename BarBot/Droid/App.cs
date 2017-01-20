@@ -1,8 +1,11 @@
-﻿using GalaSoft.MvvmLight.Ioc;
+﻿using System.Collections.Generic;
+
+using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
 
 using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
@@ -18,6 +21,8 @@ namespace BarBot.Droid
 		private static ViewModelLocator locator;
 		private static WebSocketUtil webSocketUtil;
 		private static RESTService restService;
+		private static List<Ingredient> ingredientsInBarBot;
+		private static User user;
 
 		public static ViewModelLocator Locator
 		{
@@ -59,6 +64,7 @@ namespace BarBot.Droid
 				if (webSocketUtil == null)
 				{
 					webSocketUtil = new WebSocketUtil(new DroidWebSocketHandler());
+					webSocketUtil.EndPoint = "ws://" + HostName + ":" + Constants.PortNumber;
 				}
 
 				return webSocketUtil;
@@ -75,6 +81,38 @@ namespace BarBot.Droid
 				}
 
 				return restService;
+			}
+		}
+
+		public static List<Ingredient> IngredientsInBarBot
+		{
+			get
+			{
+				if (ingredientsInBarBot == null)
+				{
+					ingredientsInBarBot = new List<Ingredient>();
+				}
+
+				return ingredientsInBarBot;
+			}
+
+			set
+			{
+				ingredientsInBarBot = value;
+			}
+		}
+
+		public static User User
+		{
+			get
+			{
+				if (user == null)
+				{
+					user = new User();
+					user.Uid = "user_3f2bb9";
+				}
+
+				return user;
 			}
 		}
 
