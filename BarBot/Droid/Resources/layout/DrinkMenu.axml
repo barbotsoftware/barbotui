@@ -5,17 +5,18 @@
 	android:gravity="bottom"
   	android:orientation="vertical"
   	android:id="@+id/container">
-    <!--<include
-        android:id="@+id/toolbar"
-        layout="@layout/toolbar" />-->
     <GridView xmlns:android="http://schemas.android.com/apk/res/android" 
 	    android:id="@+id/gridview"
 	    android:layout_width="fill_parent" 
 	    android:layout_height="fill_parent"
-	    android:columnWidth="90dp"
-	    android:numColumns="auto_fit"
+	    android:numColumns="2"
 	    android:verticalSpacing="10dp"
 	    android:horizontalSpacing="10dp"
-	    android:stretchMode="columnWidth"
-	    android:gravity="center" />
+	    android:gravity="center"
+		android:paddingTop="20dp"
+		android:paddingBottom="20dp"
+		android:clipToPadding="false"
+		android:scrollbarStyle="outsideOverlay"
+    	android:verticalScrollbarPosition="right"
+    	android:scrollbars="vertical" />
 </LinearLayout>

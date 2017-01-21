@@ -36,9 +36,11 @@ namespace BarBot.Droid.View.Menu
 			if (convertView == null)
 			{  // if it's not recycled, initialize some attributes
 				imageView = new ImageView(context);
-				imageView.LayoutParameters = new GridView.LayoutParams(85, 85);
-				imageView.SetScaleType(ImageView.ScaleType.CenterCrop);
-				imageView.SetPadding(8, 8, 8, 8);
+				//imageView.LayoutParameters = new GridView.LayoutParams(150, 150);
+				imageView.SetMaxHeight(200);
+				imageView.SetMaxWidth(200);
+				imageView.SetAdjustViewBounds(true);
+				imageView.SetScaleType(ImageView.ScaleType.FitEnd);
 			}
 			else {
 				imageView = (ImageView)convertView;

@@ -39,7 +39,7 @@ namespace BarBot.Droid.View.Menu
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkMenu);
 
-			ConfigureToolbar();
+			ConfigureActionBar();
 			ConfigureGridView();
 			ConnectWebSocket();
 		}
@@ -60,16 +60,23 @@ namespace BarBot.Droid.View.Menu
 
 		// Configure UI
 
-		void ConfigureToolbar()
+		void ConfigureActionBar()
 		{
-			// Activate Custom Toolbar
-			//var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+			//Customize the ActionBar
 
-			//var mTitle = (TextView)toolbar.FindViewById(Resource.Id.toolbar_title);
-			//mTitle.Text = ViewModel.Title;
-
-			//SetActionBar(toolbar);
-			ActionBar.Title = ViewModel.Title;
+			ActionBar abar = ActionBar;
+			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.actionbar, null);
+			ActionBar.LayoutParams p = new ActionBar.LayoutParams(
+					ViewGroup.LayoutParams.WrapContent,
+					ViewGroup.LayoutParams.MatchParent,
+					GravityFlags.Center);
+			TextView textviewTitle = (TextView)viewActionBar.FindViewById(Resource.Id.actionbar_textview);
+			textviewTitle.Text = ViewModel.Title;
+			abar.SetCustomView(viewActionBar, p);
+			abar.SetDisplayShowCustomEnabled(true);
+			abar.SetDisplayShowTitleEnabled(false);
+			//abar.SetDisplayHomeAsUpEnabled(true);
+			//abar.SetHomeButtonEnabled(true);
 		}
 
 		void ConfigureGridView()

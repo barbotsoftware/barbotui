@@ -100,17 +100,19 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\DrinkMenu.axml" />
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\layout\toolbar.axml" />
     <AndroidResource Include="Resources\drawable-xxhdpi\search.png" />
     <AndroidResource Include="Resources\drawable-mdpi\search.png" />
     <AndroidResource Include="Resources\drawable-hdpi\search.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\search.png" />
     <AndroidResource Include="Resources\menu\top_menus.xml" />
-    <AndroidResource Include="Resources\drawable\border_bottom.axml" />
     <AndroidResource Include="Resources\drawable\CustomTile.png" />
     <AndroidResource Include="Resources\drawable\HexagonTile.png" />
     <AndroidResource Include="Resources\drawable\HexagonTileGradient.png" />
     <AndroidResource Include="Resources\values\styles.xml" />
+    <AndroidResource Include="Resources\values\dimens.xml" />
+    <AndroidResource Include="Resources\drawable\actionbar_icon_placeholder_compat.xml" />
+    <AndroidResource Include="Resources\drawable\actionbar_shadow.xml" />
+    <AndroidResource Include="Resources\layout\actionbar.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />

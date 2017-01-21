@@ -1,22 +1,27 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
-<resources>
-	<style name="BarBotTheme" parent="android:Theme.Holo.Light">
+<resources>	
+	<style name="BarBotTheme" parent="android:Theme.Holo.Light.DarkActionBar">
         <item name="android:windowBackground">@color/background_gray</item>
         <item name="android:windowTranslucentStatus">true</item>
         <item name="android:windowTranslucentNavigation">true</item>
         <item name="android:fitsSystemWindows">true</item>
 
-		<!-- remove default ActionBar -->
-		<!--<item name="android:windowNoTitle">true</item>
-    	<item name="android:windowActionBar">false</item>-->
+		<item name="android:actionBarStyle">@style/BarBotTheme_ActionBar</item>
+		<item name="android:actionBarSize">@dimen/action_bar_height</item>
+		<item name="android:windowContentOverlay">@drawable/actionbar_shadow</item>
     </style>
 
-	<style name="TitleTextView" parent="android:Widget.TextView">
-		<item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_gravity">center</item>
-		<item name="android:textSize">26sp</item>
-		<item name="android:textColor">@color/text_white</item>
+	<!-- ActionBar -->
+	<style name="BarBotTheme_ActionBar" parent="android:Widget.Holo.ActionBar.Solid">
+		<item name="android:background">@color/actionbar_gray</item>
+		<item name="android:icon">@drawable/actionbar_icon_placeholder_compat</item>
+		<item name="android:titleTextStyle">@style/BarBotTheme_ActionBar_Title</item>
+	</style>
+
+	<!-- ActionBar Title -->
+	<style name="BarBotTheme_ActionBar_Title" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
+		<item name="android:textColor">@android:color/white</item>
+		<item name="android:textSize">20sp</item>
 	</style>
 
 	<style name="OrderButton" parent="android:Widget.Button">

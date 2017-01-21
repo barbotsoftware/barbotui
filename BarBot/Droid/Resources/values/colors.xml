@@ -2,6 +2,6 @@
 <resources>
     <color name="barbot_blue">#004B99</color>
     <color name="background_gray">#0C0C0C</color>
-    <color name="navbar_gray">#333333</color>
+    <color name="actionbar_gray">#333333</color>
 	<color name="text_white">#FFFFFF</color>
 </resources>
