@@ -63,13 +63,13 @@ namespace BarBot.Droid.View.Menu
 		void ConfigureToolbar()
 		{
 			// Activate Custom Toolbar
-			var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
+			//var toolbar = FindViewById<Toolbar>(Resource.Id.toolbar);
 
-			var mTitle = (TextView)toolbar.FindViewById(Resource.Id.toolbar_title);
-			mTitle.Text = ViewModel.Title;
+			//var mTitle = (TextView)toolbar.FindViewById(Resource.Id.toolbar_title);
+			//mTitle.Text = ViewModel.Title;
 
-			SetActionBar(toolbar);
-			ActionBar.Title = "";
+			//SetActionBar(toolbar);
+			ActionBar.Title = ViewModel.Title;
 		}
 
 		void ConfigureGridView()

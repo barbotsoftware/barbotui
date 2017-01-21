@@ -104,14 +104,14 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f060000
 			public const int calligraphy_tag_id = 2131099648;
 			
-			// aapt resource value: 0x7f060002
-			public const int gridview = 2131099650;
+			// aapt resource value: 0x7f060001
+			public const int gridview = 2131099649;
 			
 			// aapt resource value: 0x7f060004
 			public const int menu_search = 2131099652;
 			
-			// aapt resource value: 0x7f060001
-			public const int toolbar = 2131099649;
+			// aapt resource value: 0x7f060002
+			public const int toolbar = 2131099650;
 			
 			// aapt resource value: 0x7f060003
 			public const int toolbar_title = 2131099651;

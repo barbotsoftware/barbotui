@@ -1,14 +1,15 @@
 ﻿<?xml version="1.0" encoding="UTF-8" ?>
 <resources>
-	<style name="BarBotTheme" parent="android:Theme.Material">
-		<item name="android:statusBarColor">@color/navbar_gray</item>
+	<style name="BarBotTheme" parent="android:Theme.Holo.Light">
+        <item name="android:windowBackground">@color/background_gray</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:fitsSystemWindows">true</item>
 
 		<!-- remove default ActionBar -->
-		<item name="android:windowNoTitle">true</item>
-    	<item name="android:windowActionBar">false</item>
-		<item name="android:colorPrimary">@color/navbar_gray</item>
-		<item name="android:windowBackground">@color/background_gray</item>
-  	</style>
+		<!--<item name="android:windowNoTitle">true</item>
+    	<item name="android:windowActionBar">false</item>-->
+    </style>
 
 	<style name="TitleTextView" parent="android:Widget.TextView">
 		<item name="android:layout_width">wrap_content</item>

@@ -120,7 +120,7 @@ namespace BarBot.Droid
 		{ 
 			get 
 			{
-				return Constants.HostName;
+				return Constants.IPAddress;
 			} 
 		}
 	}

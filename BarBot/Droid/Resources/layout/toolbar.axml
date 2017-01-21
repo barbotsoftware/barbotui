@@ -4,9 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minHeight="?android:attr/actionBarSize"
-    android:background="@drawable/border_bottom"
-
-    android:theme="@android:style/ThemeOverlay.Material.Dark.ActionBar">
+    android:background="@drawable/border_bottom" >
     <TextView
         android:id="@+id/toolbar_title" 
 		style="@style/TitleTextView"/>
