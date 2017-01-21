@@ -29,7 +29,7 @@
     <ConsolePause>false</ConsolePause>
     <AndroidLinkMode>None</AndroidLinkMode>
 <EmbedAssembliesIntoApk>true</EmbedAssembliesIntoApk>
-<AndroidSupportedAbis>x86</AndroidSupportedAbis>
+<AndroidSupportedAbis>x86;armeabi-v7a;armeabi</AndroidSupportedAbis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <Optimize>true</Optimize>
@@ -81,6 +81,7 @@
     <Compile Include="WebSocket\DroidWebSocketHandler.cs" />
     <Compile Include="Util\NavigationServiceExtension.cs" />
     <Compile Include="Util\RESTService.cs" />
+    <Compile Include="View\Menu\ImageAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -105,6 +106,9 @@
     <AndroidResource Include="Resources\drawable-xhdpi\search.png" />
     <AndroidResource Include="Resources\menu\top_menus.xml" />
     <AndroidResource Include="Resources\drawable\border_bottom.axml" />
+    <AndroidResource Include="Resources\drawable\CustomTile.png" />
+    <AndroidResource Include="Resources\drawable\HexagonTile.png" />
+    <AndroidResource Include="Resources\drawable\HexagonTileGradient.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />

@@ -13,7 +13,7 @@ using BarBot.Core.WebSocket;
 
 namespace BarBot.Droid.View.Menu
 {
-	[Activity(Label = "DrinkMenuActivity", MainLauncher = true)]
+	[Activity(Label = "BarBot", MainLauncher = true)]
 	public class DrinkMenuActivity : ActivityBase
 	{
 		private MenuViewModel ViewModel
@@ -40,6 +40,7 @@ namespace BarBot.Droid.View.Menu
 			SetContentView(Resource.Layout.DrinkMenu);
 
 			ConfigureToolbar();
+			ConfigureGridView();
 			ConnectWebSocket();
 		}
 
@@ -57,6 +58,8 @@ namespace BarBot.Droid.View.Menu
 			return base.OnOptionsItemSelected(item);
 		}
 
+		// Configure UI
+
 		void ConfigureToolbar()
 		{
 			// Activate Custom Toolbar
@@ -67,6 +70,17 @@ namespace BarBot.Droid.View.Menu
 
 			SetActionBar(toolbar);
 			ActionBar.Title = "";
+		}
+
+		void ConfigureGridView()
+		{
+			var gridview = FindViewById<GridView>(Resource.Id.gridview);
+			gridview.Adapter = new ImageAdapter(this);
+
+			gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
+			{
+				Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+			};
 		}
 
 		// WEBSOCKET
