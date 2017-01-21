@@ -113,6 +113,11 @@
     <AndroidResource Include="Resources\drawable\actionbar_icon_placeholder_compat.xml" />
     <AndroidResource Include="Resources\drawable\actionbar_shadow.xml" />
     <AndroidResource Include="Resources\layout\actionbar.xml" />
+    <AndroidResource Include="Resources\layout\DrinkDetail.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_ab_up_compat.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_ab_up_compat.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_ab_up_compat.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_ab_up_compat.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />

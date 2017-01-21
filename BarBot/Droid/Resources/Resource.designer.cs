@@ -114,7 +114,10 @@ namespace BarBot.Droid
 			public const int HexagonTileGradient = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int search = 2130837509;
+			public const int ic_ab_up_compat = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int search = 2130837510;
 			
 			static Drawable()
 			{
@@ -136,10 +139,13 @@ namespace BarBot.Droid
 			public const int calligraphy_tag_id = 2131099648;
 			
 			// aapt resource value: 0x7f060002
-			public const int gridview = 2131099650;
+			public const int container = 2131099650;
 			
 			// aapt resource value: 0x7f060003
-			public const int menu_search = 2131099651;
+			public const int gridview = 2131099651;
+			
+			// aapt resource value: 0x7f060004
+			public const int menu_search = 2131099652;
 			
 			static Id()
 			{
@@ -158,7 +164,10 @@ namespace BarBot.Droid
 			public const int actionbar = 2130968576;
 			
 			// aapt resource value: 0x7f040001
-			public const int DrinkMenu = 2130968577;
+			public const int DrinkDetail = 2130968577;
+			
+			// aapt resource value: 0x7f040002
+			public const int DrinkMenu = 2130968578;
 			
 			static Layout()
 			{

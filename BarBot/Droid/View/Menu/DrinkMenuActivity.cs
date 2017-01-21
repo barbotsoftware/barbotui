@@ -16,21 +16,8 @@ namespace BarBot.Droid.View.Menu
 	[Activity(Label = "BarBot", MainLauncher = true)]
 	public class DrinkMenuActivity : ActivityBase
 	{
-		private MenuViewModel ViewModel
-		{
-			get
-			{
-				return App.Locator.Menu;
-			}
-		}
-
-		private WebSocketUtil WebSocketUtil
-		{
-			get
-			{
-				return App.WebSocketUtil;
-			}
-		}
+		private MenuViewModel ViewModel => App.Locator.Menu;
+		private WebSocketUtil WebSocketUtil => App.WebSocketUtil;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -75,8 +62,6 @@ namespace BarBot.Droid.View.Menu
 			abar.SetCustomView(viewActionBar, p);
 			abar.SetDisplayShowCustomEnabled(true);
 			abar.SetDisplayShowTitleEnabled(false);
-			//abar.SetDisplayHomeAsUpEnabled(true);
-			//abar.SetHomeButtonEnabled(true);
 		}
 
 		void ConfigureGridView()
@@ -86,7 +71,10 @@ namespace BarBot.Droid.View.Menu
 
 			gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 			{
-				Toast.MakeText(this, args.Position.ToString(), ToastLength.Short).Show();
+				var recipe = ViewModel.Recipes[args.Position];
+				ViewModel.ShowDrinkDetailsCommand(recipe.RecipeId,
+												  null);
+				                                  //ViewModel.ImageCache[recipe.Name]);
 			};
 		}
 
