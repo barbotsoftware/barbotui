@@ -61,7 +61,7 @@ namespace BarBot.Droid.View.Menu
 					// Sync changes to database
 					//Delegate.UserDefaults.Synchronize();
 
-					//(Activity as DrinkMenuActivity).ConnectWebSocket();
+					App.ConnectWebSocket();
 					Dismiss();
 				}
 			}

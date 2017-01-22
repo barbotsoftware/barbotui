@@ -127,5 +127,22 @@ namespace BarBot.Droid
 				return Constants.IPAddress;
 			} 
 		}
+
+		// WEBSOCKET
+		public static void ConnectWebSocket()
+		{
+			if (webSocketUtil != null)
+			{
+				// Close WebSocket if Reconnecting
+				if (WebSocketUtil.Socket.IsOpen)
+				{
+					Locator.Menu.Recipes.Clear();
+					WebSocketUtil.CloseWebSocket();
+				}
+
+				// Open WebSocket
+				WebSocketUtil.OpenWebSocket(App.User.Uid, true);
+			}
+		}
 	}
 }

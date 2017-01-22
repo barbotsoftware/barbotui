@@ -26,6 +26,9 @@ namespace BarBot.Droid.View.Menu
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkMenu);
 
+			// Add Event Handlers
+			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+
 			ShowNameDialog();
 
 			ConfigureActionBar();
@@ -99,29 +102,7 @@ namespace BarBot.Droid.View.Menu
 
 			//Add fragment
 			newFragment.Show(ft, "dialog");
-		}
 
-		// WEBSOCKET
-
-		public void ConnectWebSocket()
-		{
-			if (WebSocketUtil != null)
-			{
-				// Close WebSocket if Reconnecting
-				if (WebSocketUtil.Socket.IsOpen)
-				{
-					ViewModel.Recipes.Clear();
-					WebSocketUtil.CloseWebSocket();
-				}
-
-				//RefreshCollectionView(false, true);
-
-				// Add Event Handlers
-				WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
-
-				// Open WebSocket
-				WebSocketUtil.OpenWebSocket(App.User.Uid, true);
-			}
 		}
 
 		// EVENT HANDLERS
