@@ -104,7 +104,7 @@ namespace BarBot.Droid.View.Detail
 			if (ViewModel.ImageContents == null)
 			{
 				// load new Image
-				ViewModel.ImageContents = await App.RESTService.LoadImage(ViewModel.Recipe.Img);
+				//ViewModel.ImageContents = await App.RESTService.LoadImage(ViewModel.Recipe.Img);
 
 				// Don't set on HTTP 404
 				if (ViewModel.ImageContents == null)

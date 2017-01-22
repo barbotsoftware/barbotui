@@ -32,7 +32,6 @@ namespace BarBot.Droid.View.Menu
 			ShowNameDialog();
 
 			ConfigureActionBar();
-			ConfigureGridView();
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -71,7 +70,7 @@ namespace BarBot.Droid.View.Menu
 		void ConfigureGridView()
 		{
 			var gridview = FindViewById<GridView>(Resource.Id.gridview);
-			gridview.Adapter = new ImageAdapter(this);
+			gridview.Adapter = new GridAdapter(this);
 
 			gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 			{
@@ -117,7 +116,7 @@ namespace BarBot.Droid.View.Menu
 				{
 					ViewModel.Recipes.Add(r);
 				}
-				//RefreshCollectionView(true, false);
+				ConfigureGridView();
 
 				// Detach Event Handler
 				WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;

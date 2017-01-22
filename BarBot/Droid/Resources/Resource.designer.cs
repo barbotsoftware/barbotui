@@ -145,10 +145,19 @@ namespace BarBot.Droid
 			public const int gridview = 2131099651;
 			
 			// aapt resource value: 0x7f060005
-			public const int menu_search = 2131099653;
+			public const int hexagon_drink_image = 2131099653;
 			
 			// aapt resource value: 0x7f060004
-			public const int user_name = 2131099652;
+			public const int hexagon_tile = 2131099652;
+			
+			// aapt resource value: 0x7f060006
+			public const int hexagon_tile_gradient = 2131099654;
+			
+			// aapt resource value: 0x7f060008
+			public const int menu_search = 2131099656;
+			
+			// aapt resource value: 0x7f060007
+			public const int user_name = 2131099655;
 			
 			static Id()
 			{
@@ -173,7 +182,10 @@ namespace BarBot.Droid
 			public const int DrinkMenu = 2130968578;
 			
 			// aapt resource value: 0x7f040003
-			public const int NameDialogFragment = 2130968579;
+			public const int hexagon_item = 2130968579;
+			
+			// aapt resource value: 0x7f040004
+			public const int NameDialogFragment = 2130968580;
 			
 			static Layout()
 			{
