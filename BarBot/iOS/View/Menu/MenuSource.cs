@@ -10,13 +10,7 @@ namespace BarBot.iOS.View.Menu
 	// TODO: Change to ObservableCollectionViewSource
 	public class MenuSource : UICollectionViewSource
 	{
-		private MenuViewModel ViewModel
-		{
-			get
-			{
-				return Application.Locator.Menu;
-			}
-		}
+		private MenuViewModel ViewModel => Application.Locator.Menu;
 		public List<Recipe> Rows { get; private set; }
 
 		public MenuSource()

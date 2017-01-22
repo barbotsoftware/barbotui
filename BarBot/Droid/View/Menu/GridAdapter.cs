@@ -1,11 +1,10 @@
-﻿using System.Threading.Tasks;
-
-using Android.Content;
-using Android.Graphics;
+﻿using Android.Content;
 using Android.Views;
 using Android.Widget;
 
 using BarBot.Core.ViewModel;
+
+using Square.Picasso;
 
 namespace BarBot.Droid.View.Menu
 {
@@ -51,13 +50,22 @@ namespace BarBot.Droid.View.Menu
 
 				gridView = new Android.Views.View(context);
 
-				// get layout from mobile.xml
-				gridView = inflater.Inflate(Resource.Layout.hexagon_item, null);
+				// get layout from hexagon.xml
+				gridView = inflater.Inflate(Resource.Layout.hexagon, null);
 
-				// set image based on selected text
-				ImageView drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);
+				var hexagonImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_tile);
+				var drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);
 
-				drinkImageView.SetImageBitmap(App.RESTService.GetImageBitmapFromUrl(recipe.Img));
+				// resize drink imageview
+				drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
+
+				// load drink image
+				var url = "http://" + App.HostName + "/" + recipe.Img;
+				Picasso.With(context).Load(url).Into(drinkImageView);
+
+				// populate recipe name
+				var recipeNameTextView = (TextView)gridView.FindViewById(Resource.Id.hexagon_recipe_name);
+				recipeNameTextView.Text = recipe.Name;
 			}
 			else 
 			{
@@ -66,25 +74,5 @@ namespace BarBot.Droid.View.Menu
 
 			return gridView;
 		}
-
-		//async Task<Bitmap> GetDrinkImage(int position)
-		//{
-		//	var recipe = ViewModel.Recipes[position];
-		//	byte[] contents;
-
-		//	if (!ViewModel.ImageCache.ContainsKey(recipe.Name))
-		//	{
-		//		// Load new Image
-		//		contents = await App.RESTService.Get(recipe.Img);
-		//		ViewModel.ImageCache.Add(recipe.Name, contents);
-		//	}
-		//	else
-		//	{
-		//		// find in Image Cache
-		//		contents = ViewModel.ImageCache[recipe.Name];
-		//	}
-
-		//	return BitmapFactory.DecodeByteArray(contents, 0, contents.Length);
-		//}
 	}
 }

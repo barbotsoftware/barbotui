@@ -96,25 +96,31 @@ namespace BarBot.Droid.View.Detail
 		}
 
 		// Reload View after GetRecipeDetails
-		async void Reload()
+		void Reload()
 		{
 			TitleTextView.Text = ViewModel.Recipe.Name.ToUpper();
+			// set image based on selected text
+			//var drinkImageView = (ImageView)FindViewById(Resource.Id.hexagon_drink_image);
+
+			//string url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;
+
+			//Picasso.With(ApplicationContext).Load(url).Into(drinkImageView);
 			//(View as DrinkDetailView).IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 
-			if (ViewModel.ImageContents == null)
-			{
-				// load new Image
-				//ViewModel.ImageContents = await App.RESTService.LoadImage(ViewModel.Recipe.Img);
+			//if (ViewModel.ImageContents == null)
+			//{
+			//	// load new Image
 
-				// Don't set on HTTP 404
-				if (ViewModel.ImageContents == null)
-				{
-					//(View as DrinkDetailView).DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
-				}
-			}
+
+			//	// Don't set on HTTP 404
+			//	if (ViewModel.ImageContents == null)
+			//	{
+			//		//(View as DrinkDetailView).DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
+			//	}
+			//}
 
 			// Set Available Ingredients
-			ViewModel.RefreshAvailableIngredients();
+			//ViewModel.RefreshAvailableIngredients();
 		}
 
 		// OrderDrink
