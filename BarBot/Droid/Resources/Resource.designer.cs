@@ -144,8 +144,11 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f060003
 			public const int gridview = 2131099651;
 			
+			// aapt resource value: 0x7f060005
+			public const int menu_search = 2131099653;
+			
 			// aapt resource value: 0x7f060004
-			public const int menu_search = 2131099652;
+			public const int user_name = 2131099652;
 			
 			static Id()
 			{
@@ -168,6 +171,9 @@ namespace BarBot.Droid
 			
 			// aapt resource value: 0x7f040002
 			public const int DrinkMenu = 2130968578;
+			
+			// aapt resource value: 0x7f040003
+			public const int NameDialogFragment = 2130968579;
 			
 			static Layout()
 			{
@@ -220,8 +226,17 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f050002
 			public const int drink_menu_title = 2131034114;
 			
+			// aapt resource value: 0x7f050004
+			public const int hint_name_alert = 2131034116;
+			
 			// aapt resource value: 0x7f050000
 			public const int library_name = 2131034112;
+			
+			// aapt resource value: 0x7f050005
+			public const int submit_name_alert = 2131034117;
+			
+			// aapt resource value: 0x7f050003
+			public const int title_name_alert = 2131034115;
 			
 			static String()
 			{
@@ -246,7 +261,10 @@ namespace BarBot.Droid
 			public const int BarBotTheme_ActionBar_Title = 2131296258;
 			
 			// aapt resource value: 0x7f090003
-			public const int OrderButton = 2131296259;
+			public const int BarBotTheme_GridView = 2131296259;
+			
+			// aapt resource value: 0x7f090004
+			public const int OrderButton = 2131296260;
 			
 			static Style()
 			{

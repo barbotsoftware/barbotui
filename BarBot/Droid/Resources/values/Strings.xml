@@ -2,4 +2,7 @@
 <resources>
 	<string name="app_name">BarBot</string>
 	<string name="drink_menu_title">DRINK MENU</string>
+	<string name="title_name_alert">New User Registration</string>
+	<string name="hint_name_alert">Please enter your name</string>
+	<string name="submit_name_alert">Submit</string>
 </resources>

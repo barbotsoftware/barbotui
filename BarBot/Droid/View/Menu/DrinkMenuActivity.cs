@@ -26,9 +26,10 @@ namespace BarBot.Droid.View.Menu
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkMenu);
 
+			ShowNameDialog();
+
 			ConfigureActionBar();
 			ConfigureGridView();
-			ConnectWebSocket();
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -53,11 +54,11 @@ namespace BarBot.Droid.View.Menu
 
 			ActionBar abar = ActionBar;
 			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.actionbar, null);
-			ActionBar.LayoutParams p = new ActionBar.LayoutParams(
+			var p = new ActionBar.LayoutParams(
 					ViewGroup.LayoutParams.WrapContent,
 					ViewGroup.LayoutParams.MatchParent,
 					GravityFlags.Center);
-			TextView textviewTitle = (TextView)viewActionBar.FindViewById(Resource.Id.actionbar_textview);
+			var textviewTitle = (TextView)viewActionBar.FindViewById(Resource.Id.actionbar_textview);
 			textviewTitle.Text = ViewModel.Title;
 			abar.SetCustomView(viewActionBar, p);
 			abar.SetDisplayShowCustomEnabled(true);
@@ -78,9 +79,31 @@ namespace BarBot.Droid.View.Menu
 			};
 		}
 
+		// USERNAME REGISTRATION
+
+		// Show Name Text Alert
+		void ShowNameDialog()
+		{
+			FragmentTransaction ft = FragmentManager.BeginTransaction();
+			//Remove fragment else it will crash as it is already added to backstack
+			Fragment prev = FragmentManager.FindFragmentByTag("dialog");
+			if (prev != null)
+			{
+				ft.Remove(prev);
+			}
+
+			ft.AddToBackStack(null);
+
+			// Create and show the dialog.
+			NameDialogFragment newFragment = NameDialogFragment.NewInstance(null);
+
+			//Add fragment
+			newFragment.Show(ft, "dialog");
+		}
+
 		// WEBSOCKET
 
-		void ConnectWebSocket()
+		public void ConnectWebSocket()
 		{
 			if (WebSocketUtil != null)
 			{

@@ -109,10 +109,14 @@ namespace BarBot.Droid
 				if (user == null)
 				{
 					user = new User();
-					user.Uid = "user_3f2bb9";
+					//user.Uid = "user_3f2bb9";
 				}
 
 				return user;
+			}
+			set
+			{
+				user = value;
 			}
 		}
 

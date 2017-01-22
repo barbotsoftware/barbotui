@@ -25,6 +25,10 @@
 		<item name="android:textSize">20sp</item>
 	</style>
 
+	<style name="BarBotTheme_GridView">
+		
+	</style>
+
 	<style name="OrderButton" parent="android:Widget.Button">
     	
     </style>

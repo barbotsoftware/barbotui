@@ -84,6 +84,7 @@
     <Compile Include="Util\NavigationServiceExtension.cs" />
     <Compile Include="Util\RESTService.cs" />
     <Compile Include="View\Menu\ImageAdapter.cs" />
+    <Compile Include="View\Menu\NameDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -118,6 +119,8 @@
     <AndroidResource Include="Resources\drawable-mdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_ab_up_compat.png" />
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
+    <AndroidResource Include="Resources\layout\NameDialogFragment.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
