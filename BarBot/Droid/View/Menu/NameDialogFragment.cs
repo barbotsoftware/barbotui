@@ -24,7 +24,7 @@ namespace BarBot.Droid.View.Menu
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
 			builder.SetTitle(Resource.String.title_name_alert);
 
 			LayoutInflater inflater = Activity.LayoutInflater;

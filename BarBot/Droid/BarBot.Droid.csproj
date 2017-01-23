@@ -127,6 +127,7 @@
     <AndroidResource Include="Resources\layout\NameDialogFragment.xml" />
     <AndroidResource Include="Resources\layout\Hexagon.xml" />
     <AndroidResource Include="Resources\drawable\custom_recipe.png" />
+    <AndroidResource Include="Resources\values-v21\styles.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -136,6 +137,7 @@
     <Folder Include="WebSocket\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\values-v21\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">

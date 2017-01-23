@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<resources>
+    <style name="BarBotTheme" parent="android:Theme.Material.Light.DarkActionBar">
+		<item name="android:windowBackground">@color/background_gray</item>
+		<item name="android:colorPrimary">@color/actionbar_gray</item>
+		<item name="android:colorPrimaryDark">@color/statusbar_gray</item>
+		<item name="android:textColorPrimary">@color/text_white</item>
+		<item name="android:colorAccent">@color/barbot_blue</item>
+    </style>
+
+	<style name="BarBotTheme_AlertDialog">
+		<item name="android:background">@color/actionbar_gray</item>
+	</style>
+</resources>

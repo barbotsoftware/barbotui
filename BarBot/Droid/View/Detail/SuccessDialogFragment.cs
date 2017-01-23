@@ -29,7 +29,7 @@ namespace BarBot.Droid.View.Detail
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
 			builder.SetTitle(Resource.String.title_success_alert);
 			builder.SetMessage(Resource.String.message_success_alert);
 			builder.SetPositiveButton(Resource.String.positive_success_alert, (sender, e) =>

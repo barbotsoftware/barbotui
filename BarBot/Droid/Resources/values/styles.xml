@@ -25,8 +25,8 @@
 		<item name="android:textSize">20sp</item>
 	</style>
 
-	<style name="BarBotTheme_GridView">
-		
+	<style name="BarBotTheme_AlertDialog">
+		<item name="android:background">@color/actionbar_gray</item>
 	</style>
 
 	<style name="BarBotTheme_OrderButton" parent="android:Widget.Holo.Button">

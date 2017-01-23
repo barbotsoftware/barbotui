@@ -26,7 +26,7 @@ namespace BarBot.Droid.View.Detail
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
-			AlertDialog.Builder builder = new AlertDialog.Builder(Activity);
+			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
 			builder.SetTitle(Resource.String.title_volume_alert);
 			var message = GetString(Resource.String.message_volume_alert) + " " + Constants.MaxVolume + " oz";
 			builder.SetMessage(message);

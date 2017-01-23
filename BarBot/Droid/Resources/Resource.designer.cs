@@ -57,7 +57,10 @@ namespace BarBot.Droid
 			public const int barbot_blue = 2131099648;
 			
 			// aapt resource value: 0x7f060003
-			public const int text_white = 2131099651;
+			public const int statusbar_gray = 2131099651;
+			
+			// aapt resource value: 0x7f060004
+			public const int text_white = 2131099652;
 			
 			static Color()
 			{
@@ -311,7 +314,7 @@ namespace BarBot.Droid
 			public const int BarBotTheme_ActionBar_Title = 2131296258;
 			
 			// aapt resource value: 0x7f090003
-			public const int BarBotTheme_GridView = 2131296259;
+			public const int BarBotTheme_AlertDialog = 2131296259;
 			
 			// aapt resource value: 0x7f090004
 			public const int BarBotTheme_OrderButton = 2131296260;
