@@ -121,7 +121,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				ShowSucessAlert();
+				ShowSuccessAlert();
 
 				// Detach Event Handler
 				WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
@@ -175,7 +175,7 @@ namespace BarBot.iOS.View.Detail
 		// Creates and shows an AlertView prompt that:
 		// 1. Thanks the user
 		// 2. Allows the user to tap to return to the me
-		public void ShowSucessAlert()
+		public void ShowSuccessAlert()
 		{
 			// Create Ale
 			var successAlertController = UIAlertController.Create("Thank you for ordering!",

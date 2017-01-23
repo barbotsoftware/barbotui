@@ -88,6 +88,8 @@
     <Compile Include="Util\RESTService.cs" />
     <Compile Include="View\Menu\NameDialogFragment.cs" />
     <Compile Include="View\Menu\GridAdapter.cs" />
+    <Compile Include="View\Detail\VolumeDialogFragment.cs" />
+    <Compile Include="View\Detail\SuccessDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -116,14 +118,14 @@
     <AndroidResource Include="Resources\values\dimens.xml" />
     <AndroidResource Include="Resources\drawable\actionbar_icon_placeholder_compat.xml" />
     <AndroidResource Include="Resources\drawable\actionbar_shadow.xml" />
-    <AndroidResource Include="Resources\layout\actionbar.xml" />
+    <AndroidResource Include="Resources\layout\ActionBar.xml" />
     <AndroidResource Include="Resources\layout\DrinkDetail.axml" />
     <AndroidResource Include="Resources\drawable-hdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\drawable-mdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\drawable-xhdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_ab_up_compat.png" />
     <AndroidResource Include="Resources\layout\NameDialogFragment.xml" />
-    <AndroidResource Include="Resources\layout\hexagon.xml" />
+    <AndroidResource Include="Resources\layout\Hexagon.xml" />
     <AndroidResource Include="Resources\drawable\custom_recipe.png" />
   </ItemGroup>
   <ItemGroup>

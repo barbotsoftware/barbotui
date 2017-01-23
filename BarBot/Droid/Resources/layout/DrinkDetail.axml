@@ -5,4 +5,18 @@
     android:gravity="bottom"
     android:orientation="vertical"
     android:id="@+id/container">
+	<Switch android:id="@+id/iceswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+		    android:layout_weight="1" />
+	<Switch android:id="@+id/garnishswitch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+			android:layout_weight="1" />
+	<Button
+        android:id="@+id/orderbutton"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/title_order_button"
+        style="@style/BarBotTheme_OrderButton" />
 </LinearLayout>

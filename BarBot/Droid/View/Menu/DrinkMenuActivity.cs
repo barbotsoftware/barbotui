@@ -56,7 +56,7 @@ namespace BarBot.Droid.View.Menu
 			//Customize the ActionBar
 
 			ActionBar abar = ActionBar;
-			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.actionbar, null);
+			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.ActionBar, null);
 			var p = new ActionBar.LayoutParams(
 					ViewGroup.LayoutParams.WrapContent,
 					ViewGroup.LayoutParams.MatchParent,
@@ -88,7 +88,7 @@ namespace BarBot.Droid.View.Menu
 		{
 			FragmentTransaction ft = FragmentManager.BeginTransaction();
 			//Remove fragment else it will crash as it is already added to backstack
-			Fragment prev = FragmentManager.FindFragmentByTag("dialog");
+			Fragment prev = FragmentManager.FindFragmentByTag("nameDialog");
 			if (prev != null)
 			{
 				ft.Remove(prev);
@@ -100,8 +100,7 @@ namespace BarBot.Droid.View.Menu
 			NameDialogFragment newFragment = NameDialogFragment.NewInstance(null);
 
 			//Add fragment
-			newFragment.Show(ft, "dialog");
-
+			newFragment.Show(ft, "nameDialog");
 		}
 
 		// EVENT HANDLERS

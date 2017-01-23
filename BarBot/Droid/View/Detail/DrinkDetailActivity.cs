@@ -25,11 +25,13 @@ namespace BarBot.Droid.View.Detail
 	[Activity(Label = "DrinkDetailActivity")]
 	public class DrinkDetailActivity : ActivityBase
 	{
-		private DetailViewModel ViewModel => App.Locator.Detail;
-		private WebSocketUtil WebSocketUtil => App.WebSocketUtil;
+		DetailViewModel ViewModel => App.Locator.Detail;
+		WebSocketUtil WebSocketUtil => App.WebSocketUtil;
 
 		// UI Elements
 		TextView TitleTextView;
+		Switch IceSwitch;
+		Switch GarnishSwitch;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -39,6 +41,9 @@ namespace BarBot.Droid.View.Detail
 			SetContentView(Resource.Layout.DrinkDetail);
 
 			ConfigureActionBar();
+			ConfigureIceSwitch();
+			ConfigureGarnishSwitch();
+			ConfigureOrderButton();
 
 			// Add Event Handlers
 			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
@@ -48,6 +53,14 @@ namespace BarBot.Droid.View.Detail
 
 			// Get RecipeDetails
 			WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+		}
+
+		protected override void OnDestroy()
+		{
+			base.OnDestroy();
+
+			// Clear ViewModel
+			ViewModel.Clear();
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
@@ -70,7 +83,7 @@ namespace BarBot.Droid.View.Detail
 			//Customize the ActionBar
 
 			ActionBar abar = ActionBar;
-			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.actionbar, null);
+			Android.Views.View viewActionBar = LayoutInflater.Inflate(Resource.Layout.ActionBar, null);
 			var p = new ActionBar.LayoutParams(
 					ViewGroup.LayoutParams.WrapContent,
 					ViewGroup.LayoutParams.MatchParent,
@@ -84,14 +97,27 @@ namespace BarBot.Droid.View.Detail
 
 		void ConfigureHexagon()
 		{
-			var drinkImageView = (ImageView)FindViewById(Resource.Id.hexagon_drink_image); // place id of hexagon image here
-
-			// get Recipe
-			var recipe = ViewModel.Recipe;
+			//var drinkImageView = FindViewById<ImageView>(Resource.Id.hexagon_drink_image);
 
 			// load drink image
 			//var url = "http://" + App.HostName + "/" + recipe.Img;
 			//Picasso.With(this).Load(url).Into(drinkImageView);
+		}
+
+		void ConfigureIceSwitch()
+		{
+			IceSwitch = FindViewById<Switch>(Resource.Id.iceswitch);
+		}
+
+		void ConfigureGarnishSwitch()
+		{
+			GarnishSwitch = FindViewById<Switch>(Resource.Id.garnishswitch);
+		}
+
+		void ConfigureOrderButton()
+		{
+			var orderButton = FindViewById<Button>(Resource.Id.orderbutton);
+			orderButton.Click += OrderButton_Click;
 		}
 
 		// EVENT HANDLERS
@@ -125,7 +151,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			await Task.Run(() => RunOnUiThread(() =>
 			{
-				//ShowSucessAlert();
+				ShowSuccessAlert();
 
 				// Detach Event Handler
 				WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
@@ -136,30 +162,25 @@ namespace BarBot.Droid.View.Detail
 		async void Socket_CreateCustomDrinkEvent(object sender, WebSocketEvents.CreateCustomDrinkEventArgs args)
 		{
 			await Task.Run(() => RunOnUiThread(() =>
-			{
-				// Flag to catch multiple calls
-				//if (!CreateCustomCalled)
-				//{
-				//	WebSocketUtil.OrderDrink(args.RecipeId,
-				//							 (View as DrinkDetailView).IceSwitch.On,
-				//							 (View as DrinkDetailView).GarnishSwitch.On);
+			{				
+				WebSocketUtil.OrderDrink(args.RecipeId,
+										 IceSwitch.Checked,
+										 GarnishSwitch.Checked);
 
-					// Detach Event Handler
-					WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
-				//	CreateCustomCalled = true;
-				//}
+				// Detach Event Handler
+				WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 			}));
 		}
 
 		// Event Handler for OrderButton
-		void OrderButton_TouchUpInside(object sender, System.EventArgs e)
+		void OrderButton_Click(object sender, System.EventArgs e)
 		{
 			if (ViewModel.IsCustomRecipe)
 			{
 				var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
 				if (recipe.GetVolume() > Constants.MaxVolume)
 				{
-					//ShowVolumeAlert();
+					ShowVolumeAlert();
 				}
 				else
 				{
@@ -168,10 +189,54 @@ namespace BarBot.Droid.View.Detail
 			}
 			else
 			{
-				//WebSocketUtil.OrderDrink(ViewModel.RecipeId,
-				//						 (View as DrinkDetailView).IceSwitch.On,
-				//						 (View as DrinkDetailView).GarnishSwitch.On);
+				WebSocketUtil.OrderDrink(ViewModel.RecipeId,
+										 IceSwitch.Checked,
+										 GarnishSwitch.Checked);
 			}
+		}
+
+		// Alert Dialogs
+
+		// Show Volume Alert
+		void ShowVolumeAlert()
+		{
+			FragmentTransaction ft = FragmentManager.BeginTransaction();
+
+			//Remove fragment else it will crash as it is already added to backstack
+			Fragment prev = FragmentManager.FindFragmentByTag("volumeDialog");
+			if (prev != null)
+			{
+				ft.Remove(prev);
+			}
+
+			ft.AddToBackStack(null);
+
+			// Create and show the dialog.
+			VolumeDialogFragment newFragment = VolumeDialogFragment.NewInstance(null);
+
+			//Add fragment
+			newFragment.Show(ft, "volumeDialog");
+		}
+
+		// Show Success Alert
+		void ShowSuccessAlert()
+		{
+			FragmentTransaction ft = FragmentManager.BeginTransaction();
+
+			//Remove fragment else it will crash as it is already added to backstack
+			Fragment prev = FragmentManager.FindFragmentByTag("successDialog");
+			if (prev != null)
+			{
+				ft.Remove(prev);
+			}
+
+			ft.AddToBackStack(null);
+
+			// Create and show the dialog.
+			SuccessDialogFragment newFragment = SuccessDialogFragment.NewInstance(null);
+
+			//Add fragment
+			newFragment.Show(ft, "successDialog");
 		}
 	}
 }

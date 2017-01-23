@@ -45,7 +45,7 @@ namespace BarBot.Droid.View.Menu
 			Android.Views.View gridView;
 
 			// get layout from hexagon.xml
-			gridView = inflater.Inflate(Resource.Layout.hexagon, null);
+			gridView = inflater.Inflate(Resource.Layout.Hexagon, null);
 
 			var hexagonImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_tile);
 			var drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);

@@ -1,8 +1,25 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="app_name">BarBot</string>
+
+	<!-- DRINK MENU -->
 	<string name="drink_menu_title">DRINK MENU</string>
+
+	<!-- USERNAME REGISTRATION ALERT -->
 	<string name="title_name_alert">New User Registration</string>
 	<string name="hint_name_alert">Please enter your name</string>
 	<string name="submit_name_alert">Submit</string>
+
+	<!-- DRINK DETAIL -->
+	<string name="title_order_button">ORDER DRINK</string>
+	
+	<!-- VOLUME ALERT -->
+	<string name="title_volume_alert">Drink Too Large</string>
+	<string name="message_volume_alert">Please reduce to</string>
+	<string name="ok_volume_alert">OK</string>
+
+	<!-- SUCCESS ALERT -->
+	<string name="title_success_alert">Thank you for ordering!</string>
+	<string name="message_success_alert">Please approach the machine</string>
+	<string name="positive_success_alert">Return to menu</string>
 </resources>
