@@ -124,14 +124,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
     <ImageAsset Include="Assets.xcassets\Contents.json" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\58x58.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\87x87.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\80x80.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\120x120.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\120iphoneapp.png" />
-    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\180iphoneapp.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Iconsettings.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Iconspotlight.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Iconapp_icon.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon120.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon180.png" />
+    <ImageAsset Include="Assets.xcassets\AppIcons.appiconset\Icon87.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
@@ -146,6 +146,7 @@
     <Folder Include="View\Detail\IngredientTable\" />
     <Folder Include="View\Detail\IngredientTable\Picker\" />
     <Folder Include="Style\" />
+    <Folder Include="Assets.xcassets\AppIcons.appiconset\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />

@@ -44,33 +44,25 @@ namespace BarBot.Droid.View.Menu
 
 			Android.Views.View gridView;
 
-			if (convertView == null)
-			{
-				var recipe = ViewModel.Recipes[position];
+			// get layout from hexagon.xml
+			gridView = inflater.Inflate(Resource.Layout.hexagon, null);
 
-				gridView = new Android.Views.View(context);
+			var hexagonImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_tile);
+			var drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);
 
-				// get layout from hexagon.xml
-				gridView = inflater.Inflate(Resource.Layout.hexagon, null);
+			// resize drink imageview
+			drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
 
-				var hexagonImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_tile);
-				var drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);
+			// get Recipe
+			var recipe = ViewModel.Recipes[position];
 
-				// resize drink imageview
-				drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
+			// load drink image
+			var url = "http://" + App.HostName + "/" + recipe.Img;
+			Picasso.With(context).Load(url).Fit().CenterInside().Into(drinkImageView);
 
-				// load drink image
-				var url = "http://" + App.HostName + "/" + recipe.Img;
-				Picasso.With(context).Load(url).Into(drinkImageView);
-
-				// populate recipe name
-				var recipeNameTextView = (TextView)gridView.FindViewById(Resource.Id.hexagon_recipe_name);
-				recipeNameTextView.Text = recipe.Name;
-			}
-			else 
-			{
-				gridView = convertView;
-			}
+			// populate Recipe name
+			var recipeNameTextView = (TextView)gridView.FindViewById(Resource.Id.hexagon_recipe_name);
+			recipeNameTextView.Text = recipe.Name;
 
 			return gridView;
 		}

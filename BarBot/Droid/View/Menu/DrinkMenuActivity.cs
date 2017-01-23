@@ -16,8 +16,8 @@ namespace BarBot.Droid.View.Menu
 	[Activity(Label = "BarBot", MainLauncher = true)]
 	public class DrinkMenuActivity : ActivityBase
 	{
-		private MenuViewModel ViewModel => App.Locator.Menu;
-		private WebSocketUtil WebSocketUtil => App.WebSocketUtil;
+		MenuViewModel ViewModel => App.Locator.Menu;
+		WebSocketUtil WebSocketUtil => App.WebSocketUtil;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -78,7 +78,6 @@ namespace BarBot.Droid.View.Menu
 				var recipe = ViewModel.Recipes[args.Position];
 				ViewModel.ShowDrinkDetailsCommand(recipe.RecipeId,
 												  null);
-				                                  //ViewModel.ImageCache[recipe.Name]);
 			};
 		}
 

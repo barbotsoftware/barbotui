@@ -13,6 +13,8 @@ using Android.Widget;
 
 using GalaSoft.MvvmLight.Views;
 
+using Square.Picasso;
+
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
@@ -80,6 +82,18 @@ namespace BarBot.Droid.View.Detail
 			abar.SetDisplayHomeAsUpEnabled(true);
 		}
 
+		void ConfigureHexagon()
+		{
+			var drinkImageView = (ImageView)FindViewById(Resource.Id.hexagon_drink_image); // place id of hexagon image here
+
+			// get Recipe
+			var recipe = ViewModel.Recipe;
+
+			// load drink image
+			//var url = "http://" + App.HostName + "/" + recipe.Img;
+			//Picasso.With(this).Load(url).Into(drinkImageView);
+		}
+
 		// EVENT HANDLERS
 
 		// GetRecipeDetails
@@ -99,28 +113,11 @@ namespace BarBot.Droid.View.Detail
 		void Reload()
 		{
 			TitleTextView.Text = ViewModel.Recipe.Name.ToUpper();
-			// set image based on selected text
-			//var drinkImageView = (ImageView)FindViewById(Resource.Id.hexagon_drink_image);
-
-			//string url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;
-
-			//Picasso.With(ApplicationContext).Load(url).Into(drinkImageView);
+			ConfigureHexagon();
 			//(View as DrinkDetailView).IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 
-			//if (ViewModel.ImageContents == null)
-			//{
-			//	// load new Image
-
-
-			//	// Don't set on HTTP 404
-			//	if (ViewModel.ImageContents == null)
-			//	{
-			//		//(View as DrinkDetailView).DrinkImageView.Image = UIImage.LoadFromData(NSData.FromArray(ViewModel.ImageContents));
-			//	}
-			//}
-
 			// Set Available Ingredients
-			//ViewModel.RefreshAvailableIngredients();
+			ViewModel.RefreshAvailableIngredients();
 		}
 
 		// OrderDrink
