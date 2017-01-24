@@ -32,12 +32,13 @@ namespace BarBot.Droid.View.Menu
 			//ShowNameDialog();
 			App.ConnectWebSocket();
 
-			ConfigureActionBar();
+			ConfigureAppBar();
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
 		{
-			MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+			// uncomment to add search button
+			//MenuInflater.Inflate(Resource.Menu.top_menus, menu);
 			return base.OnCreateOptionsMenu(menu);
 		}
 
@@ -66,6 +67,17 @@ namespace BarBot.Droid.View.Menu
 			abar.SetCustomView(viewActionBar, p);
 			abar.SetDisplayShowCustomEnabled(true);
 			abar.SetDisplayShowTitleEnabled(false);
+		}
+
+		void ConfigureAppBar()
+		{
+			var appBar = (Toolbar)FindViewById(Resource.Id.toolbar); // Attaching the layout to the toolbar object
+			SetActionBar(appBar);
+			
+			var textviewTitle = (TextView)appBar.FindViewById(Resource.Id.toolbar_textview);
+			textviewTitle.Text = ViewModel.Title;
+
+			ActionBar.SetDisplayShowTitleEnabled(false);
 		}
 
 		void ConfigureGridView()

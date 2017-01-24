@@ -106,10 +106,6 @@
     <AndroidResource Include="Resources\mipmap-xxxhdpi\Icon.png" />
     <AndroidResource Include="Resources\layout\DrinkMenu.axml" />
     <AndroidResource Include="Resources\values\colors.xml" />
-    <AndroidResource Include="Resources\drawable-xxhdpi\search.png" />
-    <AndroidResource Include="Resources\drawable-mdpi\search.png" />
-    <AndroidResource Include="Resources\drawable-hdpi\search.png" />
-    <AndroidResource Include="Resources\drawable-xhdpi\search.png" />
     <AndroidResource Include="Resources\menu\top_menus.xml" />
     <AndroidResource Include="Resources\drawable\CustomTile.png" />
     <AndroidResource Include="Resources\drawable\HexagonTile.png" />
@@ -128,6 +124,13 @@
     <AndroidResource Include="Resources\layout\Hexagon.xml" />
     <AndroidResource Include="Resources\drawable\custom_recipe.png" />
     <AndroidResource Include="Resources\values-v21\styles.xml" />
+    <AndroidResource Include="Resources\layout\ToolBar.xml" />
+    <AndroidResource Include="Resources\drawable\appbar_shadow.xml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_search_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_search_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_search_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_search_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_search_white_48dp.png" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -138,6 +141,7 @@
     <Folder Include="Resources\menu\" />
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\values-v21\" />
+    <Folder Include="Resources\drawable-xxxhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">

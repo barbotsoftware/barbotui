@@ -40,7 +40,7 @@ namespace BarBot.Droid.View.Detail
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkDetail);
 
-			ConfigureActionBar();
+			ConfigureAppBar();
 			ConfigureIceSwitch();
 			ConfigureGarnishSwitch();
 			ConfigureOrderButton();
@@ -93,6 +93,17 @@ namespace BarBot.Droid.View.Detail
 			abar.SetDisplayShowCustomEnabled(true);
 			abar.SetDisplayShowTitleEnabled(false);
 			abar.SetDisplayHomeAsUpEnabled(true);
+		}
+
+		void ConfigureAppBar()
+		{
+			var appBar = (Toolbar)FindViewById(Resource.Id.toolbar); // Attaching the layout to the toolbar object
+			SetActionBar(appBar);
+
+			TitleTextView = (TextView)appBar.FindViewById(Resource.Id.toolbar_textview);
+
+			ActionBar.SetDisplayShowTitleEnabled(false);
+			ActionBar.SetDisplayHomeAsUpEnabled(true);
 		}
 
 		void ConfigureHexagon()

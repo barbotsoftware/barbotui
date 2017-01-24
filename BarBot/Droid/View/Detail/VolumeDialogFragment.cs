@@ -24,6 +24,11 @@ namespace BarBot.Droid.View.Detail
 			return fragment;
 		}
 
+		public override void OnCreate(Bundle savedInstanceState)
+		{
+			base.OnCreate(savedInstanceState);
+		}
+
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));

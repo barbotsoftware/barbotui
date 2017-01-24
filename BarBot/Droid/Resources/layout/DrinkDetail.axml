@@ -4,7 +4,10 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:id="@+id/container">
+    android:id="@+id/container" >
+	<include
+        android:id="@+id/toolbar"
+        layout="@layout/ToolBar" />
 	<Switch android:id="@+id/iceswitch"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" 
