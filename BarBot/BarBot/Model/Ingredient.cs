@@ -64,5 +64,10 @@ namespace BarBot.Core.Model
 			Name = i.Name;
 			Quantity = i.Quantity;
 		}
+
+		public override string ToString()
+		{
+			return Quantity + " oz " + Name;
+		}
     }
 }

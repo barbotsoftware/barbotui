@@ -13,5 +13,6 @@
         android:clickable="false"
         android:focusable="false"
         android:longClickable="false"
-		android:theme="@style/BarBotTheme_TitleText" />
+		android:theme="@style/BarBotTheme_TitleText" 
+		fontPath="fonts/Microsoft-Yi-Baiti.ttf" />
 </Toolbar>

@@ -11,6 +11,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
+using Calligraphy;
+
 using GalaSoft.MvvmLight.Views;
 
 using Square.Picasso;
@@ -76,6 +78,11 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
+		protected override void AttachBaseContext(Android.Content.Context @base)
+		{
+			base.AttachBaseContext(CalligraphyContextWrapper.Wrap(@base));
+		}
+
 		// Configure UI
 
 		void ConfigureActionBar()
@@ -108,11 +115,32 @@ namespace BarBot.Droid.View.Detail
 
 		void ConfigureHexagon()
 		{
-			//var drinkImageView = FindViewById<ImageView>(Resource.Id.hexagon_drink_image);
+			// get layout from hexagon.xml
+			var hexagon = FindViewById(Resource.Id.hexagon);
+
+			var hexagonImageView = hexagon.FindViewById<ImageView>(Resource.Id.hexagon_tile);
+			var drinkImageView = hexagon.FindViewById<ImageView>(Resource.Id.hexagon_drink_image);
+
+			// resize drink imageview
+			drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
 
 			// load drink image
-			//var url = "http://" + App.HostName + "/" + recipe.Img;
-			//Picasso.With(this).Load(url).Into(drinkImageView);
+			var url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;
+			Picasso.With(this).Load(url).Fit().CenterInside().Into(drinkImageView);
+
+			// Hide Gradient
+			var hexagonGradientImageView = hexagon.FindViewById<ImageView>(Resource.Id.hexagon_tile_gradient);
+			hexagonGradientImageView.Visibility = ViewStates.Invisible;
+		}
+
+		void ConfigureListView()
+		{
+			ArrayAdapter adapter = new ArrayAdapter<Ingredient>(this, 
+			                                                    Resource.Layout.ListViewRow,
+			                                                    ViewModel.Recipe.Ingredients);
+
+			ListView listView = (ListView)FindViewById(Resource.Id.ingredient_listview);
+			listView.Adapter = adapter;
 		}
 
 		void ConfigureIceSwitch()
@@ -151,6 +179,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			TitleTextView.Text = ViewModel.Recipe.Name.ToUpper();
 			ConfigureHexagon();
+			ConfigureListView();
 			//(View as DrinkDetailView).IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 
 			// Set Available Ingredients

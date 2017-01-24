@@ -5,6 +5,8 @@ using Android.OS;
 using Android.Views;
 using Android.Widget;
 
+using Calligraphy;
+
 using GalaSoft.MvvmLight.Views;
 
 using BarBot.Core.Model;
@@ -48,6 +50,11 @@ namespace BarBot.Droid.View.Menu
 			Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
 				ToastLength.Short).Show();
 			return base.OnOptionsItemSelected(item);
+		}
+
+		protected override void AttachBaseContext(Android.Content.Context @base)
+		{
+			base.AttachBaseContext(CalligraphyContextWrapper.Wrap(@base));
 		}
 
 		// Configure UI

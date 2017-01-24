@@ -90,6 +90,7 @@
     <Compile Include="View\Menu\GridAdapter.cs" />
     <Compile Include="View\Detail\VolumeDialogFragment.cs" />
     <Compile Include="View\Detail\SuccessDialogFragment.cs" />
+    <Compile Include="BarBot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -131,6 +132,7 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_search_white_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_search_white_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_search_white_48dp.png" />
+    <AndroidResource Include="Resources\layout\ListViewRow.xml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -150,7 +152,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <AndroidAsset Include="Assets\Fonts\Microsoft-Yi-Baiti.ttf" />
+    <AndroidAsset Include="Assets\fonts\Microsoft-Yi-Baiti.ttf" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <ProjectExtensions>
