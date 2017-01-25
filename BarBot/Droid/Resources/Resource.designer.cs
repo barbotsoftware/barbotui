@@ -288,32 +288,35 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f080003
 			public const int hint_name_alert = 2131230723;
 			
-			// aapt resource value: 0x7f08000a
-			public const int message_success_alert = 2131230730;
-			
-			// aapt resource value: 0x7f080007
-			public const int message_volume_alert = 2131230727;
-			
-			// aapt resource value: 0x7f080008
-			public const int ok_volume_alert = 2131230728;
+			// aapt resource value: 0x7f080004
+			public const int message_name_taken_alert = 2131230724;
 			
 			// aapt resource value: 0x7f08000b
-			public const int positive_success_alert = 2131230731;
+			public const int message_success_alert = 2131230731;
 			
-			// aapt resource value: 0x7f080004
-			public const int submit_name_alert = 2131230724;
+			// aapt resource value: 0x7f080008
+			public const int message_volume_alert = 2131230728;
+			
+			// aapt resource value: 0x7f080009
+			public const int ok_volume_alert = 2131230729;
+			
+			// aapt resource value: 0x7f08000c
+			public const int positive_success_alert = 2131230732;
+			
+			// aapt resource value: 0x7f080005
+			public const int submit_name_alert = 2131230725;
 			
 			// aapt resource value: 0x7f080002
 			public const int title_name_alert = 2131230722;
 			
-			// aapt resource value: 0x7f080005
-			public const int title_order_button = 2131230725;
-			
-			// aapt resource value: 0x7f080009
-			public const int title_success_alert = 2131230729;
-			
 			// aapt resource value: 0x7f080006
-			public const int title_volume_alert = 2131230726;
+			public const int title_order_button = 2131230726;
+			
+			// aapt resource value: 0x7f08000a
+			public const int title_success_alert = 2131230730;
+			
+			// aapt resource value: 0x7f080007
+			public const int title_volume_alert = 2131230727;
 			
 			static String()
 			{

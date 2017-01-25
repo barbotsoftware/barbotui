@@ -23,9 +23,9 @@ namespace BarBot.Core
 		public const string CreateCustomDrink = "create_custom_drink";
 		public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
-		public const string IPAddress = "192.168.1.196";
+		public const string IPAddress = "192.168.1.229";
 
-		public const string HostName = "barbotweb";
+		public const string HostName = "Exploding";
 
 		public const string PortNumber = "8000";
 

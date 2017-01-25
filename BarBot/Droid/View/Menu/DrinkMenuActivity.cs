@@ -31,8 +31,14 @@ namespace BarBot.Droid.View.Menu
 			// Add Event Handlers
 			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 
-			//ShowNameDialog();
-			App.ConnectWebSocket();
+			if (App.User.Uid == null)
+			{
+				ShowNameDialog();
+			}
+			else
+			{
+				App.ConnectWebSocket();
+			}
 
 			ConfigureAppBar();
 		}

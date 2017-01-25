@@ -1,8 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+
+using Android.App;
+using Android.Content;
+using Android.Runtime;
+using Android.Preferences;
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
 using GalaSoft.MvvmLight.Views;
+
+using Calligraphy;
 
 using BarBot.Core;
 using BarBot.Core.Model;
@@ -16,13 +24,37 @@ using BarBot.Droid.WebSocket;
 
 namespace BarBot.Droid
 {
-	public static class App
+	[Application(ManageSpaceActivity = typeof(DrinkMenuActivity))]
+	public class App : Application
 	{
 		private static ViewModelLocator locator;
 		private static WebSocketUtil webSocketUtil;
 		private static RESTService restService;
 		private static List<Ingredient> ingredientsInBarBot;
 		private static User user;
+		private static string hostName;
+
+		public App(IntPtr javaReference, JniHandleOwnership transfer)
+            : base(javaReference, transfer)
+        {
+		}
+
+		public override void OnCreate()
+		{
+			base.OnCreate();
+			CalligraphyConfig.InitDefault(new CalligraphyConfig.Builder()
+					.SetFontAttrId(Resource.Attribute.fontPath)
+					.Build()
+			);
+		}
+
+		public static ISharedPreferences Preferences
+		{
+			get
+			{
+				return PreferenceManager.GetDefaultSharedPreferences(Context);
+			}
+		}
 
 		public static ViewModelLocator Locator
 		{
@@ -77,7 +109,7 @@ namespace BarBot.Droid
 			{
 				if (restService == null)
 				{
-					restService = new RESTService(HostName);
+					restService = new RESTService(Constants.IPAddress);
 				}
 
 				return restService;
@@ -109,7 +141,11 @@ namespace BarBot.Droid
 				if (user == null)
 				{
 					user = new User();
-					user.Uid = "user_3f2bb9";
+					// Check for stored UserID
+					if (Preferences.GetString("UserId", null) != null)
+					{
+						user.Uid = Preferences.GetString("UserId", "");
+					}
 				}
 
 				return user;
@@ -124,7 +160,18 @@ namespace BarBot.Droid
 		{ 
 			get 
 			{
-				return Constants.IPAddress;
+				if (Preferences.GetString("HostName", null) != null)
+				{
+					hostName = Preferences.GetString("HostName", "");
+				}
+				else
+				{
+					hostName = Constants.IPAddress;
+					Preferences.Edit().PutString("HostName", hostName);
+					Preferences.Edit().Commit();
+				}
+
+				return hostName;
 			} 
 		}
 

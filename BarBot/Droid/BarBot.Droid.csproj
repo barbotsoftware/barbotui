@@ -90,7 +90,6 @@
     <Compile Include="View\Menu\GridAdapter.cs" />
     <Compile Include="View\Detail\VolumeDialogFragment.cs" />
     <Compile Include="View\Detail\SuccessDialogFragment.cs" />
-    <Compile Include="BarBot.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
