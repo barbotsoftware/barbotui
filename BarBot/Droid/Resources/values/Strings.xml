@@ -8,6 +8,7 @@
 	<!-- USERNAME REGISTRATION ALERT -->
 	<string name="title_name_alert">New User Registration</string>
 	<string name="hint_name_alert">Please enter your name</string>
+	<string name="message_name_taken_alert">That name is taken</string>
 	<string name="submit_name_alert">Submit</string>
 
 	<!-- DRINK DETAIL -->
@@ -21,5 +22,5 @@
 	<!-- SUCCESS ALERT -->
 	<string name="title_success_alert">Thank you for ordering!</string>
 	<string name="message_success_alert">Please approach the machine</string>
-	<string name="positive_success_alert">Return to menu</string>
+	<string name="positive_success_alert">Menu</string>
 </resources>

@@ -35,36 +35,45 @@ namespace BarBot.Droid.View.Menu
 			LayoutInflater inflater = Activity.LayoutInflater;
 			builder.SetView(inflater.Inflate(Resource.Layout.NameDialogFragment, null));
 
-			builder.SetPositiveButton(Resource.String.submit_name_alert, SubmitAction);
+			builder.SetPositiveButton(Resource.String.submit_name_alert, (EventHandler<DialogClickEventArgs>)null);
 
 			// Create Dialog
 			var dialog = builder.Create();
 			dialog.Window.SetSoftInputMode(SoftInput.StateVisible);
+			dialog.Show();
+
+			// Add Event handler to Submit Button
+			var submitButton = dialog.GetButton((int)DialogButtonType.Positive);
+			submitButton.Click += SubmitAction;
 
 			return dialog;
 		}
 
-		async void SubmitAction(object sender, DialogClickEventArgs e)
+		async void SubmitAction(object sender, EventArgs e)
 		{
 			var editText = (EditText)Dialog.FindViewById(Resource.Id.user_name);
-			if (editText != null)
+			if (editText != null && editText.Text.Length > 0)
 			{
 				var user = await App.RESTService.SaveUserNameAsync(editText.Text);
 
 				if (user.Uid.Equals("name_taken"))
 				{
-					// name is taken
+					Toast.MakeText(Context, "That name is taken", ToastLength.Long).Show();
+				}
+				else if (user.Uid.Equals("exception"))
+				{
+					Dismiss();
 				}
 				else
 				{
 					// Save value
-					//Delegate.UserDefaults.SetString(user.Uid, "UserId");
+					App.Preferences.Edit().PutString("UserId", user.Uid);
 
 					// Set to App
 					App.User = user;
 
 					// Sync changes to database
-					//Delegate.UserDefaults.Synchronize();
+					App.Preferences.Edit().Commit();
 
 					App.ConnectWebSocket();
 					Dismiss();
