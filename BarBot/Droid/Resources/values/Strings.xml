@@ -13,6 +13,8 @@
 
 	<!-- DRINK DETAIL -->
 	<string name="title_order_button">ORDER DRINK</string>
+	<string name="ice_label">ICE</string>
+	<string name="garnish_label">LIME WEDGE</string>
 	
 	<!-- VOLUME ALERT -->
 	<string name="title_volume_alert">Drink Too Large</string>

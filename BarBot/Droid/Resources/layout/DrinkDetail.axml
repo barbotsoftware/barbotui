@@ -4,32 +4,64 @@
     android:layout_height="match_parent"
     android:gravity="top"
     android:orientation="vertical"
-    android:id="@+id/container" >
-	<include
+    android:id="@+id/container">
+    <include
         android:id="@+id/toolbar"
         layout="@layout/ToolBar" />
-	<RelativeLayout
-		android:layout_width="match_parent"
-		android:layout_height="195dp"
-		android:paddingTop="10dp"
-		android:paddingBottom="10dp" >
-	    <include
-			android:id="@+id/hexagon"
-			layout="@layout/Hexagon" />
-	</RelativeLayout>
-	<ListView
-      android:id="@+id/ingredient_listview"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-	  android:layout_weight="1" 
-	  android:divider="@color/actionbar_gray"/>
-	<Switch android:id="@+id/iceswitch"
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="195dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="10dp">
+        <include
+            android:id="@+id/hexagon"
+            layout="@layout/Hexagon" />
+    </RelativeLayout>
+    <ListView
+        android:id="@+id/ingredient_listview"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:divider="@color/actionbar_gray" />
+    <RelativeLayout
+        android:id="@+id/switchcontainer"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginRight="@dimen/detail_margin"
+        android:layout_marginLeft="@dimen/detail_margin"
+        android:gravity="center">
+        <Switch
+            android:id="@+id/iceswitch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-	<Switch android:id="@+id/garnishswitch"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:checked="true"
+            android:theme="@style/BarBotTheme_Switch" />
+        <Button
+            android:id="@+id/icebutton"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/iceswitch"
+            android:text="@string/ice_label"
+            style="@style/BarBotTheme_SwitchLabel" />
+        <Switch
+            android:id="@+id/garnishswitch"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-	<Button
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/icebutton"
+            android:theme="@style/BarBotTheme_Switch" />
+        <Button
+            android:id="@+id/garnishbutton"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/garnishswitch"
+            android:gravity="left|center_vertical"
+            android:text="@string/garnish_label"
+            style="@style/BarBotTheme_SwitchLabel" />
+    </RelativeLayout>
+    <Button
         android:id="@+id/orderbutton"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

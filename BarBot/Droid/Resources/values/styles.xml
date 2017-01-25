@@ -28,16 +28,4 @@
 	<style name="BarBotTheme_AlertDialog">
 		<item name="android:background">@color/actionbar_gray</item>
 	</style>
-
-	<style name="BarBotTheme_OrderButton" parent="android:Widget.Holo.Button">
-		<item name="android:background">@color/barbot_blue</item>
-	    <item name="android:textColor">@color/text_white</item>
-	    <item name="android:gravity">center</item>
-	    <item name="android:layout_margin">20dp</item>
-	    <item name="android:textSize">@dimen/text_size</item>
-	    <item name="android:shadowColor">#000000</item>
-	    <item name="android:shadowDx">1</item>
-	    <item name="android:shadowDy">1</item>
-	    <item name="android:shadowRadius">2</item>
-    </style>
 </resources>

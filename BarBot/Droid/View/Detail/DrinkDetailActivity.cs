@@ -33,11 +33,16 @@ namespace BarBot.Droid.View.Detail
 		// UI Elements
 		TextView TitleTextView;
 		Switch IceSwitch;
+		Button IceButton;
 		Switch GarnishSwitch;
+		Button GarnishButton;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+
+			// Prevent Rotation
+			RequestedOrientation = Android.Content.PM.ScreenOrientation.Nosensor;
 
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkDetail);
@@ -146,11 +151,21 @@ namespace BarBot.Droid.View.Detail
 		void ConfigureIceSwitch()
 		{
 			IceSwitch = FindViewById<Switch>(Resource.Id.iceswitch);
+			IceButton = FindViewById<Button>(Resource.Id.icebutton);
+			IceButton.Click += (sender, e) =>
+			{
+				IceSwitch.Checked = !IceSwitch.Checked;
+			};
 		}
 
 		void ConfigureGarnishSwitch()
 		{
 			GarnishSwitch = FindViewById<Switch>(Resource.Id.garnishswitch);
+			GarnishButton = FindViewById<Button>(Resource.Id.garnishbutton);
+			GarnishButton.Click += (sender, e) =>
+			{
+				GarnishSwitch.Checked = !GarnishSwitch.Checked;
+			};
 		}
 
 		void ConfigureOrderButton()

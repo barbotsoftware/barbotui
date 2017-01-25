@@ -25,6 +25,9 @@ namespace BarBot.Droid.View.Menu
 		{
 			base.OnCreate(savedInstanceState);
 
+			// Prevent Rotation
+			RequestedOrientation = Android.Content.PM.ScreenOrientation.Nosensor;
+
 			// Set our view from the "DrinkMenu" layout resource
 			SetContentView(Resource.Layout.DrinkMenu);
 

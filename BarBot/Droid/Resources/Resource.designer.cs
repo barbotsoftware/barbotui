@@ -84,8 +84,17 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f070001
 			public const int activity_vertical_margin = 2131165185;
 			
+			// aapt resource value: 0x7f070007
+			public const int detail_margin = 2131165191;
+			
+			// aapt resource value: 0x7f070005
+			public const int label_text_size = 2131165189;
+			
 			// aapt resource value: 0x7f070002
 			public const int navigation_drawer_width = 2131165186;
+			
+			// aapt resource value: 0x7f070006
+			public const int switch_padding = 2131165190;
 			
 			// aapt resource value: 0x7f070004
 			public const int text_size = 2131165188;
@@ -152,53 +161,62 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f050002
 			public const int container = 2131034114;
 			
-			// aapt resource value: 0x7f050007
-			public const int garnishswitch = 2131034119;
+			// aapt resource value: 0x7f05000a
+			public const int garnishbutton = 2131034122;
 			
 			// aapt resource value: 0x7f050009
-			public const int gridview = 2131034121;
+			public const int garnishswitch = 2131034121;
+			
+			// aapt resource value: 0x7f05000c
+			public const int gridview = 2131034124;
 			
 			// aapt resource value: 0x7f050004
 			public const int hexagon = 2131034116;
 			
-			// aapt resource value: 0x7f05000c
-			public const int hexagon_drink_image = 2131034124;
-			
-			// aapt resource value: 0x7f05000a
-			public const int hexagon_layout = 2131034122;
-			
-			// aapt resource value: 0x7f05000e
-			public const int hexagon_recipe_name = 2131034126;
-			
-			// aapt resource value: 0x7f05000b
-			public const int hexagon_tile = 2131034123;
+			// aapt resource value: 0x7f05000f
+			public const int hexagon_drink_image = 2131034127;
 			
 			// aapt resource value: 0x7f05000d
-			public const int hexagon_tile_gradient = 2131034125;
+			public const int hexagon_layout = 2131034125;
 			
-			// aapt resource value: 0x7f050006
-			public const int iceswitch = 2131034118;
+			// aapt resource value: 0x7f050011
+			public const int hexagon_recipe_name = 2131034129;
+			
+			// aapt resource value: 0x7f05000e
+			public const int hexagon_tile = 2131034126;
+			
+			// aapt resource value: 0x7f050010
+			public const int hexagon_tile_gradient = 2131034128;
+			
+			// aapt resource value: 0x7f050008
+			public const int icebutton = 2131034120;
+			
+			// aapt resource value: 0x7f050007
+			public const int iceswitch = 2131034119;
 			
 			// aapt resource value: 0x7f050005
 			public const int ingredient_listview = 2131034117;
 			
-			// aapt resource value: 0x7f05000f
-			public const int listview_row = 2131034127;
-			
 			// aapt resource value: 0x7f050012
-			public const int menu_search = 2131034130;
+			public const int listview_row = 2131034130;
 			
-			// aapt resource value: 0x7f050008
-			public const int orderbutton = 2131034120;
+			// aapt resource value: 0x7f050015
+			public const int menu_search = 2131034133;
+			
+			// aapt resource value: 0x7f05000b
+			public const int orderbutton = 2131034123;
+			
+			// aapt resource value: 0x7f050006
+			public const int switchcontainer = 2131034118;
 			
 			// aapt resource value: 0x7f050003
 			public const int toolbar = 2131034115;
 			
-			// aapt resource value: 0x7f050011
-			public const int toolbar_textview = 2131034129;
+			// aapt resource value: 0x7f050014
+			public const int toolbar_textview = 2131034132;
 			
-			// aapt resource value: 0x7f050010
-			public const int user_name = 2131034128;
+			// aapt resource value: 0x7f050013
+			public const int user_name = 2131034131;
 			
 			static Id()
 			{
@@ -285,23 +303,29 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f080001
 			public const int drink_menu_title = 2131230721;
 			
+			// aapt resource value: 0x7f080008
+			public const int garnish_label = 2131230728;
+			
 			// aapt resource value: 0x7f080003
 			public const int hint_name_alert = 2131230723;
+			
+			// aapt resource value: 0x7f080007
+			public const int ice_label = 2131230727;
 			
 			// aapt resource value: 0x7f080004
 			public const int message_name_taken_alert = 2131230724;
 			
+			// aapt resource value: 0x7f08000d
+			public const int message_success_alert = 2131230733;
+			
+			// aapt resource value: 0x7f08000a
+			public const int message_volume_alert = 2131230730;
+			
 			// aapt resource value: 0x7f08000b
-			public const int message_success_alert = 2131230731;
+			public const int ok_volume_alert = 2131230731;
 			
-			// aapt resource value: 0x7f080008
-			public const int message_volume_alert = 2131230728;
-			
-			// aapt resource value: 0x7f080009
-			public const int ok_volume_alert = 2131230729;
-			
-			// aapt resource value: 0x7f08000c
-			public const int positive_success_alert = 2131230732;
+			// aapt resource value: 0x7f08000e
+			public const int positive_success_alert = 2131230734;
 			
 			// aapt resource value: 0x7f080005
 			public const int submit_name_alert = 2131230725;
@@ -312,11 +336,11 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f080006
 			public const int title_order_button = 2131230726;
 			
-			// aapt resource value: 0x7f08000a
-			public const int title_success_alert = 2131230730;
+			// aapt resource value: 0x7f08000c
+			public const int title_success_alert = 2131230732;
 			
-			// aapt resource value: 0x7f080007
-			public const int title_volume_alert = 2131230727;
+			// aapt resource value: 0x7f080009
+			public const int title_volume_alert = 2131230729;
 			
 			static String()
 			{
@@ -343,14 +367,20 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f090003
 			public const int BarBotTheme_AlertDialog = 2131296259;
 			
-			// aapt resource value: 0x7f090005
-			public const int BarBotTheme_AppBar = 2131296261;
-			
 			// aapt resource value: 0x7f090004
-			public const int BarBotTheme_OrderButton = 2131296260;
+			public const int BarBotTheme_AppBar = 2131296260;
+			
+			// aapt resource value: 0x7f090008
+			public const int BarBotTheme_OrderButton = 2131296264;
 			
 			// aapt resource value: 0x7f090006
-			public const int BarBotTheme_TitleText = 2131296262;
+			public const int BarBotTheme_Switch = 2131296262;
+			
+			// aapt resource value: 0x7f090007
+			public const int BarBotTheme_SwitchLabel = 2131296263;
+			
+			// aapt resource value: 0x7f090005
+			public const int BarBotTheme_TitleText = 2131296261;
 			
 			static Style()
 			{

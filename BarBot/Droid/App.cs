@@ -168,7 +168,7 @@ namespace BarBot.Droid
 				{
 					hostName = Constants.IPAddress;
 					Preferences.Edit().PutString("HostName", hostName);
-					Preferences.Edit().Commit();
+					Preferences.Edit().Apply();
 				}
 
 				return hostName;

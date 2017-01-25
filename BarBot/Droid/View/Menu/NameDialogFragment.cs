@@ -73,7 +73,7 @@ namespace BarBot.Droid.View.Menu
 					App.User = user;
 
 					// Sync changes to database
-					App.Preferences.Edit().Commit();
+					App.Preferences.Edit().Apply();
 
 					App.ConnectWebSocket();
 					Dismiss();

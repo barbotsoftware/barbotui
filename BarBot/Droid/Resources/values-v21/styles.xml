@@ -25,4 +25,28 @@
 		<item name="android:background">@color/actionbar_gray</item>
 		<item name="android:colorAccent">@color/text_white</item>
 	</style>
+
+	<style name="BarBotTheme_Switch" parent="BarBotTheme">
+	    <item name="android:thumbTint">@color/barbot_blue</item>
+	</style> 
+
+	<style name="BarBotTheme_SwitchLabel" parent="BarBotTheme">
+		<item name="android:textSize">@dimen/label_text_size</item>
+		<item name="android:background">@color/background_gray</item>
+		<item name="fontPath">fonts/Microsoft-Yi-Baiti.ttf"</item>
+		<item name="android:gravity">left|center_vertical</item>
+		<item name="android:paddingLeft">@dimen/switch_padding</item>
+	</style>
+
+	<style name="BarBotTheme_OrderButton" parent="android:Widget.Holo.Button">
+		<item name="android:background">@color/barbot_blue</item>
+	    <item name="android:textColor">@color/text_white</item>
+	    <item name="android:gravity">center</item>
+		<item name="android:layout_marginTop">@dimen/switch_padding</item>
+		<item name="android:layout_marginBottom">@dimen/detail_margin</item>
+		<item name="android:layout_marginLeft">@dimen/detail_margin</item>
+	    <item name="android:layout_marginRight">@dimen/detail_margin</item>
+	    <item name="android:textSize">@dimen/text_size</item>
+		<item name="fontPath">fonts/Microsoft-Yi-Baiti.ttf"</item>
+    </style>
 </resources>

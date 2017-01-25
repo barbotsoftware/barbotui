@@ -11,4 +11,8 @@
     <dimen name="action_bar_height">40dp</dimen>
 
 	<dimen name="text_size">28dp</dimen>
+	<dimen name="label_text_size">28dp</dimen>
+
+	<dimen name="switch_padding">5dp</dimen>
+	<dimen name="detail_margin">20dp</dimen>
 </resources>
