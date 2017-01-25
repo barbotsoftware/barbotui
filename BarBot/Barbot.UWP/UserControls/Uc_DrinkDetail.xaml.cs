@@ -383,6 +383,7 @@ namespace BarBot.UWP.UserControls
         {
             Recipe FuckMeUp = new Recipe();
             FuckMeUp.Name = "Fuck Me Up";
+            FuckMeUp.Img = "barbotweb/public/img/recipe_images/dickbutt.png";
             FuckMeUp.Ingredients = new List<Ingredient>();
 
             return FuckMeUp;
