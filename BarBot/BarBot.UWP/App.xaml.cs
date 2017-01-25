@@ -159,6 +159,8 @@ namespace BarBot.UWP
 
             webSocketUtil.Socket.GetRecipesEvent += CacheImages;
             webSocketUtil.GetRecipes();
+
+            
         }
 
         private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -251,6 +253,7 @@ namespace BarBot.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
+                Window.Current.CoreWindow.PointerCursor = null;
             }
 
             if (e.PrelaunchActivated == false)

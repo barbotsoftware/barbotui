@@ -33,6 +33,7 @@ namespace BarBot.UWP.UserControls
         private int hexPadding = 20;
         private List<List<Recipe>> AllRecipes = new List<List<Recipe>>();
         private int Page = 0;
+        private int fuckMeUpCounter = 0;
 
         public Uc_Menu()
         {
@@ -189,6 +190,19 @@ namespace BarBot.UWP.UserControls
         private void Back_To_PartyMode(object sender, RoutedEventArgs e)
         {
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+        }
+
+        private void FuckMeUp(object sender, RoutedEventArgs e)
+        {
+            if(fuckMeUpCounter > 4)
+            {
+
+                fuckMeUpCounter = 0;
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_DrinkDetail(null);
+            } else
+            {
+                fuckMeUpCounter++;
+            }
         }
     }
 }

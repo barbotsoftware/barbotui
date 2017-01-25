@@ -72,7 +72,10 @@ namespace BarBot.UWP.UserControls
             }
             else
             {
-                ingredientVolume.SelectedIndex = 0;
+                if(ingredientVolume.Items.Count > 0)
+                {
+                    ingredientVolume.SelectedIndex = 0;
+                }
             }
 
             VolumeChangeInProgress = false;

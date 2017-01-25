@@ -21,7 +21,7 @@
             </Button.Template>
         </Button>
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="95" Canvas.Left="50" TextWrapping="Wrap" Text="DRINK MENU" VerticalAlignment="Top" Width="594" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
-        
+
         <Canvas Name="recipeTileCanvas" Height="970" Width="1640" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="140,100,140,10">
 
         </Canvas>
@@ -35,7 +35,7 @@
             </Button.Template>
         </Button>
         <!--<Image x:Name="BackButton" Stretch="None" Source="ms-appx:///Assets/BackButton.png"/>-->
-        
+
         <Button x:Name="NextButton" Click="Next_Page" HorizontalAlignment="Right" Height="323" Margin="0,303,45,0" VerticalAlignment="Top" Width="186">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
@@ -43,6 +43,7 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
+        <Button x:Name="fukMeUpBtn" Click="FuckMeUp" Content="Button" HorizontalAlignment="Left" Margin="1785,961,0,0" VerticalAlignment="Top" Height="119" Width="135" Opacity="0"/>
 
 
     </Grid>

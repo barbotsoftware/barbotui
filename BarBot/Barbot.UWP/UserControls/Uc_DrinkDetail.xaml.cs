@@ -41,19 +41,33 @@ namespace BarBot.UWP.UserControls
             app = Application.Current as App;
             socketUtil = app.webSocketUtil;
 
+            socketUtil.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
+            socketUtil.GetIngredients();
+
+            if (SelectedRecipe == null)
+            {
+                SelectedRecipe = FuckMeUp();
+            }
+
             this.InitializeComponent();
             this.DataContext = this;
             Recipe = SelectedRecipe;
 
-            init();
+            // Moved init to the handler of getIngredients
         }
 
         public void init()
         {
             TotalVolume = 0;
-            if (Recipe.Name != "Custom Recipe")
-            {
 
+            if (Recipe.Name.Equals("Fuck Me Up"))
+            {
+                Recipe.Ingredients = LoadEmUpBoiz();
+                DisplayIngredients();
+                // 
+            }
+            else if (Recipe.Name != "Custom Recipe")
+            {
                 // Attach event handler and then call GetRecipeDetails
                 socketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
                 socketUtil.GetRecipeDetails(Recipe.RecipeId);
@@ -62,9 +76,6 @@ namespace BarBot.UWP.UserControls
             {
                 DisplayIngredients();
             }
-
-            socketUtil.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
-            socketUtil.GetIngredients();
         }
 
         public double TotalVolume
@@ -148,16 +159,29 @@ namespace BarBot.UWP.UserControls
                 }
             }
 
-            addIngredientBtn = new Uc_AddIngredientButton();
-            addIngredientBtn.PointerReleased += AddIngredientBtn_PointerReleased;
-            ingredientList.Children.Add(addIngredientBtn);
+            if (AvailableIngredientList != null)
+            {
+                if (Recipe.Ingredients.Count < AvailableIngredientList.Count)
+                {
+                    addIngredientBtn = new Uc_AddIngredientButton();
+                    addIngredientBtn.PointerReleased += AddIngredientBtn_PointerReleased;
+                    ingredientList.Children.Add(addIngredientBtn);
+                }
+            }
+            else
+            {
+                addIngredientBtn = new Uc_AddIngredientButton();
+                addIngredientBtn.PointerReleased += AddIngredientBtn_PointerReleased;
+                ingredientList.Children.Add(addIngredientBtn);
+            }
+
         }
 
         private void IngredientElement_SelectionChangeEvent(object sender, SelectionChangedEventArgs e)
         {
             var senderComboBox = (ComboBox)sender;
             var ingredientElement = (Uc_IngredientElement)senderComboBox.DataContext;
-            
+
             // Boolean VolumeChangeInProgress is true when the ingredientElements is re-populating combobox
             if (ingredientElement.VolumeChangeInProgress != true)
             {
@@ -199,6 +223,8 @@ namespace BarBot.UWP.UserControls
                 {
                     AvailableIngredientList.Add(args.Ingredients[i]);
                 }
+
+                init();
             });
 
             socketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
@@ -249,7 +275,7 @@ namespace BarBot.UWP.UserControls
                 TotalVolume += Recipe.Ingredients[i].Quantity;
             }
 
-            if(TotalVolume + ingredientPicker.selectedIngredient.Quantity > Constants.MaxVolume)
+            if (TotalVolume + ingredientPicker.selectedIngredient.Quantity > Constants.MaxVolume)
             {
                 // set ingredient volume to be max within limits
                 ingredientPicker.selectedIngredient.Quantity = Constants.MaxVolume - TotalVolume;
@@ -351,6 +377,54 @@ namespace BarBot.UWP.UserControls
             app.barbotIOController.CupCount = 1;
 
             sender.Hide();
+        }
+
+        private Recipe FuckMeUp()
+        {
+            Recipe FuckMeUp = new Recipe();
+            FuckMeUp.Name = "Fuck Me Up";
+            FuckMeUp.Ingredients = new List<Ingredient>();
+
+            return FuckMeUp;
+        }
+
+        private List<Ingredient> LoadEmUpBoiz()
+        {
+            List<Ingredient> demIngredients = new List<Ingredient>();
+            double totalQuantity = 0;
+            if (AvailableIngredientList != null)
+            {
+                List<int> usedIngredients = new List<int>();
+                Random r = new Random();
+                int ingredientCount = r.Next(3, AvailableIngredientList.Count);
+                for (int i = 0; i < ingredientCount; i++)
+                {
+                    bool ingredientChosen = false;
+                    while (!ingredientChosen)
+                    {
+                        int ingredientID = r.Next(0, AvailableIngredientList.Count);
+                        if (usedIngredients.IndexOf(ingredientID) < 0)
+                        {
+                            usedIngredients.Add(ingredientID);
+                            Ingredient ingy = AvailableIngredientList[ingredientID];
+                            double quant = r.Next(1, (int)Constants.MaxVolume / 2);
+                            if (totalQuantity + quant > Constants.MaxVolume)
+                            {
+                                quant = Constants.MaxVolume - totalQuantity;
+                            }
+                            totalQuantity += quant;
+                            ingy.Quantity = quant;
+                            demIngredients.Add(AvailableIngredientList[ingredientID]);
+                            ingredientChosen = true;
+                        }
+                    }
+                    if(totalQuantity >= Constants.MaxVolume)
+                    {
+                        break;
+                    }
+                }
+            }
+            return demIngredients;
         }
     }
 }
