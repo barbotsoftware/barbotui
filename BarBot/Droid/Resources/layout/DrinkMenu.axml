@@ -4,14 +4,14 @@
     android:layout_height="match_parent"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:id="@+id/container" >
+    android:id="@+id/container">
     <include
         android:id="@+id/toolbar"
         layout="@layout/ToolBar" />
     <GridView
         android:id="@+id/gridview"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:numColumns="2"
         android:verticalSpacing="10dp"
         android:horizontalSpacing="10dp"

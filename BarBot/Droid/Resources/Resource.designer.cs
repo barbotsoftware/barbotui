@@ -84,9 +84,6 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f070001
 			public const int activity_vertical_margin = 2131165185;
 			
-			// aapt resource value: 0x7f070007
-			public const int detail_margin = 2131165191;
-			
 			// aapt resource value: 0x7f070005
 			public const int label_text_size = 2131165189;
 			
