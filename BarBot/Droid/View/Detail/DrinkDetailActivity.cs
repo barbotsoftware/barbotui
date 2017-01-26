@@ -128,6 +128,7 @@ namespace BarBot.Droid.View.Detail
 
 			// resize drink imageview
 			drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
+			drinkImageView.SetY(drinkImageView.GetY() - 15);
 
 			// load drink image
 			var url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;

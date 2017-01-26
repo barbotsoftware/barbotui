@@ -73,7 +73,7 @@ namespace BarBot.iOS.View.Menu
 					() => ViewModel.Recipes,
 					() => source.Rows));
 
-			ConfigureReconnectButton();
+			//ConfigureReconnectButton();
 			ConfigureCustomButton();
 
 			// Init Collection View
@@ -389,7 +389,7 @@ namespace BarBot.iOS.View.Menu
 		void RefreshCollectionView(bool reconnectHidden, bool customHidden)
 		{
 			// Hide Reconnect Button
-			ReconnectButton.Hidden = reconnectHidden;
+			//ReconnectButton.Hidden = reconnectHidden;
 
 			// Show Custom Button
 			CustomButton.Hidden = customHidden;

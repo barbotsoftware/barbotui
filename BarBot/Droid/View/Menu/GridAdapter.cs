@@ -42,16 +42,17 @@ namespace BarBot.Droid.View.Menu
 		{
 			LayoutInflater inflater = (LayoutInflater)context.GetSystemService(Context.LayoutInflaterService);
 
-			Android.Views.View gridView;
+			Android.Views.View hexagonView;
 
 			// get layout from hexagon.xml
-			gridView = inflater.Inflate(Resource.Layout.Hexagon, null);
+			hexagonView = inflater.Inflate(Resource.Layout.Hexagon, null);
 
-			var hexagonImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_tile);
-			var drinkImageView = (ImageView)gridView.FindViewById(Resource.Id.hexagon_drink_image);
+			var hexagonImageView = (ImageView)hexagonView.FindViewById(Resource.Id.hexagon_tile);
+			var drinkImageView = (ImageView)hexagonView.FindViewById(Resource.Id.hexagon_drink_image);
 
 			// resize drink imageview
 			drinkImageView.LayoutParameters = hexagonImageView.LayoutParameters;
+			drinkImageView.SetY(drinkImageView.GetY() - 15);
 
 			// get Recipe
 			var recipe = ViewModel.Recipes[position];
@@ -61,10 +62,10 @@ namespace BarBot.Droid.View.Menu
 			Picasso.With(context).Load(url).Fit().CenterInside().Into(drinkImageView);
 
 			// populate Recipe name
-			var recipeNameTextView = (TextView)gridView.FindViewById(Resource.Id.hexagon_recipe_name);
+			var recipeNameTextView = (TextView)hexagonView.FindViewById(Resource.Id.hexagon_recipe_name);
 			recipeNameTextView.Text = recipe.Name;
 
-			return gridView;
+			return hexagonView;
 		}
 	}
 }
