@@ -25,4 +25,11 @@
 	<string name="title_success_alert">Thank you for ordering!</string>
 	<string name="message_success_alert">Please approach the machine</string>
 	<string name="positive_success_alert">Menu</string>
+
+	<!-- INGREDIENT ALERT -->
+	<string name="title_ingredient_alert">Edit Ingredient</string>
+	<string name="positive_ingredient_alert">OK</string>
+	<string name="negative_ingredient_alert">Cancel</string>
+	<string name="ingredient_prompt">Choose an Ingredient</string>
+
 </resources>

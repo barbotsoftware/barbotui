@@ -101,6 +101,17 @@ namespace BarBot.Droid.View.Menu
 			var gridview = FindViewById<GridView>(Resource.Id.gridview);
 			gridview.Adapter = new GridAdapter(this);
 
+			// Add Progress Bar
+			ProgressBar progressBar = new ProgressBar(this);
+			progressBar.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+																	  ViewGroup.LayoutParams.WrapContent);
+			progressBar.Indeterminate = true;
+			gridview.EmptyView = progressBar;
+
+			// Must add the progress bar to the root of the layout
+			ViewGroup root = (ViewGroup)FindViewById(Android.Resource.Id.Content);
+			root.AddView(progressBar);
+
 			gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
 			{
 				var recipe = ViewModel.Recipes[args.Position];

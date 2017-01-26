@@ -147,6 +147,31 @@ namespace BarBot.Droid.View.Detail
 
 			ListView listView = (ListView)FindViewById(Resource.Id.ingredient_listview);
 			listView.Adapter = adapter;
+			listView.ItemClick += ListView_ItemClick;
+		}
+
+		void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
+		{
+			ShowIngredientDialog();
+		}
+
+		void ShowIngredientDialog()
+		{
+			FragmentTransaction ft = FragmentManager.BeginTransaction();
+			//Remove fragment else it will crash as it is already added to backstack
+			Fragment prev = FragmentManager.FindFragmentByTag("ingredientDialog");
+			if (prev != null)
+			{
+				ft.Remove(prev);
+			}
+
+			ft.AddToBackStack(null);
+
+			// Create and show the dialog.
+			IngredientDialogFragment newFragment = IngredientDialogFragment.NewInstance(null);
+
+			//Add fragment
+			newFragment.Show(ft, "ingredientDialog");
 		}
 
 		void ConfigureIceSwitch()

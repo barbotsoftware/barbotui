@@ -15,6 +15,8 @@ namespace BarBot.Droid.View.Menu
 {
 	public class NameDialogFragment : DialogFragment
 	{
+		EditText NameEditText;
+
 		public static NameDialogFragment NewInstance(Bundle bundle)
 		{
 			var fragment = new NameDialogFragment();
@@ -46,15 +48,28 @@ namespace BarBot.Droid.View.Menu
 			var submitButton = dialog.GetButton((int)DialogButtonType.Positive);
 			submitButton.Click += SubmitAction;
 
+			NameEditText = dialog.FindViewById<EditText>(Resource.Id.user_name);
+			NameEditText.EditorAction += HandleEditorAction;
+
 			return dialog;
+		}
+
+		// Keyboard Done button submission
+		private void HandleEditorAction(object sender, TextView.EditorActionEventArgs e)
+		{
+			e.Handled = false;
+			if (e.ActionId == Android.Views.InputMethods.ImeAction.Done)
+			{
+				SubmitAction(sender, e);
+				e.Handled = true;
+			}
 		}
 
 		async void SubmitAction(object sender, EventArgs e)
 		{
-			var editText = (EditText)Dialog.FindViewById(Resource.Id.user_name);
-			if (editText != null && editText.Text.Length > 0)
+			if (NameEditText != null && NameEditText.Text.Length > 0)
 			{
-				var user = await App.RESTService.SaveUserNameAsync(editText.Text);
+				var user = await App.RESTService.SaveUserNameAsync(NameEditText.Text);
 
 				if (user.Uid.Equals("name_taken"))
 				{
