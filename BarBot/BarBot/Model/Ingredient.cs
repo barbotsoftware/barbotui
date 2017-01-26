@@ -67,7 +67,7 @@ namespace BarBot.Core.Model
 
 		public override string ToString()
 		{
-			return Quantity + " oz " + Name;
+			return Name;
 		}
     }
 }

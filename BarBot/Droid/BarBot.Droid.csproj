@@ -91,6 +91,7 @@
     <Compile Include="View\Detail\VolumeDialogFragment.cs" />
     <Compile Include="View\Detail\SuccessDialogFragment.cs" />
     <Compile Include="View\Detail\IngredientDialogFragment.cs" />
+    <Compile Include="View\Detail\IngredientAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

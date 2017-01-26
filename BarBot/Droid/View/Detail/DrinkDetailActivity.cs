@@ -83,7 +83,7 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
-		protected override void AttachBaseContext(Android.Content.Context @base)
+		protected override void AttachBaseContext(Context @base)
 		{
 			base.AttachBaseContext(CalligraphyContextWrapper.Wrap(@base));
 		}
@@ -141,12 +141,8 @@ namespace BarBot.Droid.View.Detail
 
 		void ConfigureListView()
 		{
-			ArrayAdapter adapter = new ArrayAdapter<Ingredient>(this, 
-			                                                    Resource.Layout.ListViewRow,
-			                                                    ViewModel.Recipe.Ingredients);
-
-			ListView listView = (ListView)FindViewById(Resource.Id.ingredient_listview);
-			listView.Adapter = adapter;
+			var listView = (ListView)FindViewById(Resource.Id.ingredient_listview);
+			listView.Adapter = new IngredientAdapter(this, ViewModel.Recipe.Ingredients);
 			listView.ItemClick += ListView_ItemClick;
 		}
 
@@ -254,7 +250,7 @@ namespace BarBot.Droid.View.Detail
 		}
 
 		// Event Handler for OrderButton
-		void OrderButton_Click(object sender, System.EventArgs e)
+		void OrderButton_Click(object sender, EventArgs e)
 		{
 			if (ViewModel.IsCustomRecipe)
 			{
