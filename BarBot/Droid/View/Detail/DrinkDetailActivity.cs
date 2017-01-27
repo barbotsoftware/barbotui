@@ -32,6 +32,7 @@ namespace BarBot.Droid.View.Detail
 		Button IceButton;
 		Switch GarnishSwitch;
 		Button GarnishButton;
+		ListView ListView;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -40,7 +41,7 @@ namespace BarBot.Droid.View.Detail
 			// Prevent Rotation
 			RequestedOrientation = Android.Content.PM.ScreenOrientation.Nosensor;
 
-			// Set our view from the "DrinkMenu" layout resource
+			// Set our view from the "DrinkDetail" layout resource
 			SetContentView(Resource.Layout.DrinkDetail);
 
 			ConfigureAppBar();
@@ -156,14 +157,25 @@ namespace BarBot.Droid.View.Detail
 
 		void ConfigureListView()
 		{
-			var listView = (ListView)FindViewById(Resource.Id.ingredient_listview);
-			listView.Adapter = new IngredientAdapter(this, ViewModel.Recipe.Ingredients);
-			listView.ItemClick += ListView_ItemClick;
+			var addIngredientRow = new Ingredient(Constants.AddIngredientId,
+												  "Add Ingredient",
+												  0.0);
+
+			ViewModel.Recipe.Ingredients.Add(addIngredientRow);
+
+			ListView = (ListView)FindViewById(Resource.Id.ingredient_listview);
+			ListView.Adapter = new IngredientAdapter(this, ViewModel.Recipe.Ingredients);
+			ListView.ItemClick += ListView_ItemClick;
+		}
+
+		public void ReloadListView()
+		{
+			(ListView.Adapter as IngredientAdapter).NotifyDataSetChanged();
 		}
 
 		void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
 		{
-			ShowIngredientDialog();
+			ShowIngredientDialog(e.Position);
 		}
 
 		void ConfigureIceSwitch()
@@ -275,9 +287,9 @@ namespace BarBot.Droid.View.Detail
 			CreateDialog(customNameDialog, "customNameDialog");
 		}
 
-		void ShowIngredientDialog()
+		void ShowIngredientDialog(int position)
 		{
-			IngredientDialogFragment ingredientDialog = IngredientDialogFragment.NewInstance(null);
+			IngredientDialogFragment ingredientDialog = IngredientDialogFragment.NewInstance(null, position);
 			CreateDialog(ingredientDialog, "ingredientDialog");
 		}
 

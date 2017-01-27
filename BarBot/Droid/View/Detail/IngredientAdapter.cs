@@ -4,6 +4,7 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 
@@ -33,7 +34,14 @@ namespace BarBot.Droid.View.Detail
 			var ingredientRow = (TextView)convertView.FindViewById(Resource.Id.listview_row);
 
 			// Populate the data into the template view using the data object
-			ingredientRow.Text = ingredient.Quantity + " oz " + ingredient.Name;
+			if (ingredient.IngredientId == Constants.AddIngredientId)
+			{
+				ingredientRow.Text = ingredient.Name;
+			}
+			else
+			{
+				ingredientRow.Text = ingredient.Quantity + " oz " + ingredient.Name;
+			}
 
 			// Return the completed view to render on screen
 			return convertView;

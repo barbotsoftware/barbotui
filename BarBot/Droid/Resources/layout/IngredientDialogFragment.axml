@@ -7,5 +7,16 @@
         android:id="@+id/ingredientspinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_margin="4dp"
         android:prompt="@string/ingredient_prompt" />
+    <Spinner
+        android:id="@+id/quantityspinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+		android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_margin="4dp"
+        android:prompt="@string/quantity_prompt" />
 </LinearLayout>

@@ -33,6 +33,8 @@ namespace BarBot.Core
 
 		public const string CustomRecipeId = "custom_recipe";
 
+		public const string AddIngredientId = "add_ingredient";
+
 		public const double MaxVolume = 12.0;
 
 		#endregion

@@ -31,6 +31,7 @@
 	<string name="positive_ingredient_alert">OK</string>
 	<string name="negative_ingredient_alert">Cancel</string>
 	<string name="ingredient_prompt">Choose an Ingredient</string>
+	<string name="quantity_prompt">Choose a Quantity</string>
 
 	<!-- CUSTOM NAME ALERT -->
 	<string name="title_custom_alert">New Custom Drink</string>

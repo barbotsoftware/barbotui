@@ -12,6 +12,7 @@ using Android.Util;
 using Android.Views;
 using Android.Widget;
 
+using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 
 namespace BarBot.Droid.View.Detail
@@ -19,11 +20,13 @@ namespace BarBot.Droid.View.Detail
 	public class IngredientDialogFragment : DialogFragment
 	{
 		DetailViewModel ViewModel => App.Locator.Detail;
+		int index;
 
-		public static IngredientDialogFragment NewInstance(Bundle bundle)
+		public static IngredientDialogFragment NewInstance(Bundle bundle, int position)
 		{
 			var fragment = new IngredientDialogFragment();
 			fragment.Arguments = bundle;
+			fragment.index = position;
 			return fragment;
 		}
 
@@ -34,6 +37,9 @@ namespace BarBot.Droid.View.Detail
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
+			var ingredient = ViewModel.Ingredients[index];
+			var quantity = ingredient.Quantity;
+
 			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
 			builder.SetTitle(Resource.String.title_ingredient_alert);
 
@@ -42,7 +48,8 @@ namespace BarBot.Droid.View.Detail
 
 			builder.SetPositiveButton(Resource.String.positive_ingredient_alert, (sender, e) =>
 			{
-				
+				ViewModel.Ingredients[index] = ingredient;
+				(Activity as DrinkDetailActivity).ReloadListView();
 			});
 
 			builder.SetNegativeButton(Resource.String.negative_ingredient_alert, (sender, e) =>
@@ -54,15 +61,38 @@ namespace BarBot.Droid.View.Detail
 			var dialog = builder.Create();
 			dialog.Show();
 
+			// add current ingredient to Available Ingredients
+			if (index < (ViewModel.Ingredients.Count - 1))
+			{
+				ViewModel.AvailableIngredients.Insert(0, ViewModel.Recipe.Ingredients[index]);
+			}
+
+			// Configure Ingredient Spinner
 			var ingredientSpinner = dialog.FindViewById<Spinner>(Resource.Id.ingredientspinner);
 			ingredientSpinner.ItemSelected += (sender, e) =>
 			{
-				
+				ingredient = ViewModel.AvailableIngredients[e.Position];
+				ingredient.Quantity = quantity;
 			};
-			var adapter = new ArrayAdapter(Context, Resource.Layout.ListViewRow, ViewModel.AvailableIngredients);
 
-			adapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-			ingredientSpinner.Adapter = adapter;
+			// Ingredient Adapter
+			var ingredientAdapter = new ArrayAdapter(Context, Resource.Layout.ListViewRow, ViewModel.AvailableIngredients);
+			ingredientAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			ingredientSpinner.Adapter = ingredientAdapter;
+
+			// Configure Quantity Spinner
+			var quantitySpinner = dialog.FindViewById<Spinner>(Resource.Id.quantityspinner);
+			quantitySpinner.ItemSelected += (sender, e) =>
+			{
+				quantity = ViewModel.Quantities[e.Position];
+				ingredient.Quantity = quantity;
+			};
+
+			// Quantity Adapter
+			var quantityAdapter = new ArrayAdapter(Context, Resource.Layout.ListViewRow, ViewModel.Quantities);
+			quantityAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
+			quantitySpinner.Adapter = quantityAdapter;
+			quantitySpinner.SetSelection(ViewModel.Quantities.IndexOf(quantity));
 
 			return dialog;
 		}
