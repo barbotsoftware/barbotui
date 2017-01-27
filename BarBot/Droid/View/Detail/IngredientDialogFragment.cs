@@ -1,18 +1,8 @@
-﻿
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
-using Android.App;
-using Android.Content;
+﻿using Android.App;
 using Android.OS;
-using Android.Runtime;
-using Android.Util;
 using Android.Views;
 using Android.Widget;
 
-using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 
 namespace BarBot.Droid.View.Detail
@@ -48,7 +38,10 @@ namespace BarBot.Droid.View.Detail
 
 			builder.SetPositiveButton(Resource.String.positive_ingredient_alert, (sender, e) =>
 			{
+				// commits all changes to ViewModel
 				ViewModel.Ingredients[index] = ingredient;
+				ViewModel.AvailableIngredients.Remove(ingredient);
+				ViewModel.IsCustomRecipe = true;
 				(Activity as DrinkDetailActivity).ReloadListView();
 			});
 
@@ -64,7 +57,7 @@ namespace BarBot.Droid.View.Detail
 			// add current ingredient to Available Ingredients
 			if (index < (ViewModel.Ingredients.Count - 1))
 			{
-				ViewModel.AvailableIngredients.Insert(0, ViewModel.Recipe.Ingredients[index]);
+				ViewModel.AvailableIngredients.Insert(0, ViewModel.Ingredients[index]);
 			}
 
 			// Configure Ingredient Spinner
@@ -76,23 +69,39 @@ namespace BarBot.Droid.View.Detail
 			};
 
 			// Ingredient Adapter
-			var ingredientAdapter = new ArrayAdapter(Context, Resource.Layout.ListViewRow, ViewModel.AvailableIngredients);
+			var ingredientAdapter = new ArrayAdapter(Context, Resource.Layout.IngredientSpinnerTextView, ViewModel.AvailableIngredients);
 			ingredientAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			ingredientSpinner.Adapter = ingredientAdapter;
 
-			// Configure Quantity Spinner
-			var quantitySpinner = dialog.FindViewById<Spinner>(Resource.Id.quantityspinner);
-			quantitySpinner.ItemSelected += (sender, e) =>
+			// Configure Quantity TextView
+			var quantityTextView = dialog.FindViewById<TextView>(Resource.Id.quantityTextView);
+			quantityTextView.Text = ingredient.Quantity + " oz";
+
+			// Configure Quantity Increment Button
+			var quantityIncrementButton = dialog.FindViewById<Button>(Resource.Id.quantityIncrementButton);
+			quantityIncrementButton.Click += (sender, e) =>
 			{
-				quantity = ViewModel.Quantities[e.Position];
-				ingredient.Quantity = quantity;
+				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Quantity);
+				if (quantityIndex < ViewModel.Quantities.Count - 1)
+				{
+					quantity = ViewModel.Quantities[quantityIndex + 1];
+					ingredient.Quantity = quantity;
+					quantityTextView.Text = ingredient.Quantity + " oz";
+				}
 			};
 
-			// Quantity Adapter
-			var quantityAdapter = new ArrayAdapter(Context, Resource.Layout.ListViewRow, ViewModel.Quantities);
-			quantityAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
-			quantitySpinner.Adapter = quantityAdapter;
-			quantitySpinner.SetSelection(ViewModel.Quantities.IndexOf(quantity));
+			// Configure Quantity Decrement Button
+			var quantityDecrementButton = dialog.FindViewById<Button>(Resource.Id.quantityDecrementButton);
+			quantityDecrementButton.Click += (sender, e) =>
+			{
+				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Quantity);
+				if (quantityIndex > 0)
+				{
+					quantity = ViewModel.Quantities[quantityIndex - 1];
+					ingredient.Quantity = quantity;
+					quantityTextView.Text = ingredient.Quantity + " oz";
+				}
+			};
 
 			return dialog;
 		}

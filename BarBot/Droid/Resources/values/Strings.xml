@@ -19,7 +19,7 @@
 	<!-- VOLUME ALERT -->
 	<string name="title_volume_alert">Drink Too Large</string>
 	<string name="message_volume_alert">Please reduce to</string>
-	<string name="ok_volume_alert">OK</string>
+	<string name="ok">OK</string>
 
 	<!-- SUCCESS ALERT -->
 	<string name="title_success_alert">Thank you for ordering!</string>
@@ -38,5 +38,9 @@
 	<string name="hint_custom_alert">Enter Drink Name</string>
 	<string name="positive_custom_alert">OK</string>
 	<string name="negative_custom_alert">Cancel</string>
+
+	<!-- EMPTY RECIPE ALERT -->
+	<string name="title_empty_alert">Empty Recipe</string>
+	<string name="message_empty_alert">Please add at least 1 Ingredient</string>
 
 </resources>

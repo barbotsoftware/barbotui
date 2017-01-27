@@ -22,7 +22,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			LayoutInflater inflater = (LayoutInflater)Context.GetSystemService(Context.LayoutInflaterService);
 
-			var ingredient = ViewModel.Recipe.Ingredients[position];
+			var ingredient = ViewModel.Ingredients[position];
 
 			// Check if an existing view is being reused, otherwise inflate the view
 			if (convertView == null)

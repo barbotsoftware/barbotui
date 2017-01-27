@@ -6,11 +6,11 @@ using BarBot.Core;
 
 namespace BarBot.Droid.View.Detail
 {
-	public class VolumeDialogFragment : DialogFragment
+	public class EmptyRecipeDialogFragment : DialogFragment
 	{
-		public static VolumeDialogFragment NewInstance(Bundle bundle)
+		public static EmptyRecipeDialogFragment NewInstance(Bundle bundle)
 		{
-			var fragment = new VolumeDialogFragment();
+			var fragment = new EmptyRecipeDialogFragment();
 			fragment.Arguments = bundle;
 			return fragment;
 		}
@@ -23,8 +23,8 @@ namespace BarBot.Droid.View.Detail
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
 			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
-			builder.SetTitle(Resource.String.title_volume_alert);
-			var message = GetString(Resource.String.message_volume_alert) + " " + Constants.MaxVolume + " oz";
+			builder.SetTitle(Resource.String.title_empty_alert);
+			var message = GetString(Resource.String.message_empty_alert);
 			builder.SetMessage(message);
 			builder.SetPositiveButton(Resource.String.ok, (sender, e) =>
 			{

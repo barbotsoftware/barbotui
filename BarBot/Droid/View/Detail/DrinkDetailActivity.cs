@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Android.App;
@@ -33,6 +34,9 @@ namespace BarBot.Droid.View.Detail
 		Switch GarnishSwitch;
 		Button GarnishButton;
 		ListView ListView;
+
+		// Add Ingredient Row
+		Ingredient AddIngredientRow;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -157,20 +161,34 @@ namespace BarBot.Droid.View.Detail
 
 		void ConfigureListView()
 		{
-			var addIngredientRow = new Ingredient(Constants.AddIngredientId,
-												  "Add Ingredient",
-												  0.0);
+			AddIngredientRow = CreateNewAddIngredientRow();
 
-			ViewModel.Recipe.Ingredients.Add(addIngredientRow);
+			ViewModel.Ingredients.Add(AddIngredientRow);
 
 			ListView = (ListView)FindViewById(Resource.Id.ingredient_listview);
-			ListView.Adapter = new IngredientAdapter(this, ViewModel.Recipe.Ingredients);
+			ListView.Adapter = new IngredientAdapter(this, ViewModel.Ingredients);
 			ListView.ItemClick += ListView_ItemClick;
 		}
 
 		public void ReloadListView()
 		{
+			// add new AddIngredientRow if necessary
+			if (ViewModel.Ingredients.Count < ViewModel.IngredientsInBarBot.Count)
+			{
+				AddIngredientRow = null;
+				AddIngredientRow = CreateNewAddIngredientRow();
+				ViewModel.Ingredients.Add(AddIngredientRow);
+				(ListView.Adapter as IngredientAdapter).Insert(AddIngredientRow, ListView.Adapter.Count);
+			}
+
 			(ListView.Adapter as IngredientAdapter).NotifyDataSetChanged();
+		}
+
+		Ingredient CreateNewAddIngredientRow()
+		{
+			return new Ingredient(Constants.AddIngredientId,
+											"Add Ingredient",
+											0.5);
 		}
 
 		void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
@@ -259,12 +277,21 @@ namespace BarBot.Droid.View.Detail
 		// Event Handler for OrderButton
 		void OrderButton_Click(object sender, EventArgs e)
 		{
+			if (ViewModel.Ingredients.Contains(AddIngredientRow))
+			{
+				ViewModel.Ingredients.Remove(AddIngredientRow);
+			}
+
 			if (ViewModel.IsCustomRecipe)
 			{
 				var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
 				if (recipe.GetVolume() > Constants.MaxVolume)
 				{
 					ShowVolumeDialog();
+				}
+				else if (ViewModel.Ingredients.Count == 0)
+				{
+					ShowEmptyRecipeDialog();
 				}
 				else
 				{
@@ -298,6 +325,13 @@ namespace BarBot.Droid.View.Detail
 		{
 			VolumeDialogFragment volumeDialog = VolumeDialogFragment.NewInstance(null);
 			CreateDialog(volumeDialog, "volumeDialog");
+		}
+
+		// Show Empty RecipeD ialog
+		void ShowEmptyRecipeDialog()
+		{
+			EmptyRecipeDialogFragment emptyRecipeDialog = EmptyRecipeDialogFragment.NewInstance(null);
+			CreateDialog(emptyRecipeDialog, "emptyRecipeDialog");
 		}
 
 		// Show Success Dialog

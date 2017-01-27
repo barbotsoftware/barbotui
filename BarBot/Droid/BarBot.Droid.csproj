@@ -93,6 +93,7 @@
     <Compile Include="View\Detail\IngredientDialogFragment.cs" />
     <Compile Include="View\Detail\IngredientAdapter.cs" />
     <Compile Include="View\Detail\CustomNameDialogFragment.cs" />
+    <Compile Include="View\Detail\EmptyRecipeDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -137,6 +138,17 @@
     <AndroidResource Include="Resources\layout\ListViewRow.axml" />
     <AndroidResource Include="Resources\layout\IngredientDialogFragment.axml" />
     <AndroidResource Include="Resources\layout\CustomNameDialogFragment.axml" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_add_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_remove_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_add_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_remove_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_add_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_remove_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_add_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_remove_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_add_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_remove_white_48dp.png" />
+    <AndroidResource Include="Resources\layout\IngredientSpinnerTextView.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
