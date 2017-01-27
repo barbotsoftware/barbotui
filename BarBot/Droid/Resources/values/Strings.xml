@@ -32,4 +32,10 @@
 	<string name="negative_ingredient_alert">Cancel</string>
 	<string name="ingredient_prompt">Choose an Ingredient</string>
 
+	<!-- CUSTOM NAME ALERT -->
+	<string name="title_custom_alert">New Custom Drink</string>
+	<string name="hint_custom_alert">Enter Drink Name</string>
+	<string name="positive_custom_alert">OK</string>
+	<string name="negative_custom_alert">Cancel</string>
+
 </resources>

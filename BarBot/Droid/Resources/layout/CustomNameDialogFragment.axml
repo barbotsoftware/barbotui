@@ -4,8 +4,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <EditText
-        android:id="@+id/user_name"
-        android:inputType="textPersonName|textCapWords|textNoSuggestions"
+        android:id="@+id/custom_drink_name"
+        android:inputType="textCapSentences|textNoSuggestions"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
@@ -15,6 +15,6 @@
         android:layout_marginRight="4dp"
         android:layout_marginBottom="4dp"
         android:background="@color/actionbar_gray"
-        android:hint="@string/hint_name_alert"
-		android:imeOptions="actionDone" />
+        android:hint="@string/hint_custom_alert"
+        android:imeOptions="actionDone" />
 </LinearLayout>

@@ -31,7 +31,7 @@ namespace BarBot.Core
 
 		public const string BarBotId = "barbot_a0a627";
 
-		public const string CustomRecipeId = "recipe_custom";
+		public const string CustomRecipeId = "custom_recipe";
 
 		public const double MaxVolume = 12.0;
 

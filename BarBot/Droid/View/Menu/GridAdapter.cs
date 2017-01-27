@@ -2,6 +2,7 @@
 using Android.Views;
 using Android.Widget;
 
+using BarBot.Core;
 using BarBot.Core.ViewModel;
 
 using Square.Picasso;
@@ -58,9 +59,15 @@ namespace BarBot.Droid.View.Menu
 			var recipe = ViewModel.Recipes[position];
 
 			// load drink image
-			var url = "http://" + App.HostName + "/" + recipe.Img;
-			Picasso.With(context).Load(url).Fit().CenterInside().Into(drinkImageView);
-
+			if (recipe.RecipeId == Constants.CustomRecipeId)
+			{
+				Picasso.With(context).Load(Resource.Drawable.custom_recipe).Fit().CenterInside().Into(drinkImageView);
+			}
+			else
+			{
+				var url = "http://" + App.HostName + "/" + recipe.Img;
+				Picasso.With(context).Load(url).Fit().CenterInside().Into(drinkImageView);
+			}
 			// populate Recipe name
 			var recipeNameTextView = (TextView)hexagonView.FindViewById(Resource.Id.hexagon_recipe_name);
 			recipeNameTextView.Text = recipe.Name;

@@ -9,6 +9,7 @@ using Calligraphy;
 
 using GalaSoft.MvvmLight.Views;
 
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
@@ -149,7 +150,14 @@ namespace BarBot.Droid.View.Menu
 			await Task.Run(() => RunOnUiThread(() =>
 			{
 				ViewModel.Recipes.Clear();
-				//CollectionView.ReloadData();
+
+				// Add Custom Recipe
+				var customRecipe = new Recipe(Constants.CustomRecipeId,
+										  	"Custom Drink",
+										  	"",
+										  	null);
+				ViewModel.Recipes.Add(customRecipe);
+
 				foreach (Recipe r in args.Recipes)
 				{
 					ViewModel.Recipes.Add(r);

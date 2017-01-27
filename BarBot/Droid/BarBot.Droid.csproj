@@ -92,6 +92,7 @@
     <Compile Include="View\Detail\SuccessDialogFragment.cs" />
     <Compile Include="View\Detail\IngredientDialogFragment.cs" />
     <Compile Include="View\Detail\IngredientAdapter.cs" />
+    <Compile Include="View\Detail\CustomNameDialogFragment.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -135,6 +136,7 @@
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_search_white_48dp.png" />
     <AndroidResource Include="Resources\layout\ListViewRow.axml" />
     <AndroidResource Include="Resources\layout\IngredientDialogFragment.axml" />
+    <AndroidResource Include="Resources\layout\CustomNameDialogFragment.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />

@@ -1,13 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
@@ -58,8 +54,20 @@ namespace BarBot.Droid.View.Detail
 			// Set Ingredients in BarBot
 			ViewModel.IngredientsInBarBot = App.IngredientsInBarBot;
 
-			// Get RecipeDetails
-			WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			// Custom Recipe
+			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				// Get Custom Recipe Name
+				ShowCustomNameDialog();
+
+				// Set custom boolean
+				ViewModel.IsCustomRecipe = true;
+			}
+			else
+			{
+				// Get RecipeDetails
+				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			}
 		}
 
 		protected override void OnDestroy()
@@ -131,8 +139,15 @@ namespace BarBot.Droid.View.Detail
 			drinkImageView.SetY(drinkImageView.GetY() - 15);
 
 			// load drink image
-			var url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;
-			Picasso.With(this).Load(url).Fit().CenterInside().Into(drinkImageView);
+			if (ViewModel.Recipe.RecipeId == Constants.CustomRecipeId)
+			{
+				Picasso.With(this).Load(Resource.Drawable.custom_recipe).Fit().CenterInside().Into(drinkImageView);
+			}
+			else
+			{
+				var url = "http://" + App.HostName + "/" + ViewModel.Recipe.Img;
+				Picasso.With(this).Load(url).Fit().CenterInside().Into(drinkImageView);
+			}
 
 			// Hide Gradient
 			var hexagonGradientImageView = hexagon.FindViewById<ImageView>(Resource.Id.hexagon_tile_gradient);
@@ -149,25 +164,6 @@ namespace BarBot.Droid.View.Detail
 		void ListView_ItemClick(object sender, AdapterView.ItemClickEventArgs e)
 		{
 			ShowIngredientDialog();
-		}
-
-		void ShowIngredientDialog()
-		{
-			FragmentTransaction ft = FragmentManager.BeginTransaction();
-			//Remove fragment else it will crash as it is already added to backstack
-			Fragment prev = FragmentManager.FindFragmentByTag("ingredientDialog");
-			if (prev != null)
-			{
-				ft.Remove(prev);
-			}
-
-			ft.AddToBackStack(null);
-
-			// Create and show the dialog.
-			IngredientDialogFragment newFragment = IngredientDialogFragment.NewInstance(null);
-
-			//Add fragment
-			newFragment.Show(ft, "ingredientDialog");
 		}
 
 		void ConfigureIceSwitch()
@@ -212,12 +208,11 @@ namespace BarBot.Droid.View.Detail
 		}
 
 		// Reload View after GetRecipeDetails
-		void Reload()
+		public void Reload()
 		{
 			TitleTextView.Text = ViewModel.Recipe.Name.ToUpper();
 			ConfigureHexagon();
 			ConfigureListView();
-			//(View as DrinkDetailView).IngredientTableView.ReloadSections(NSIndexSet.FromIndex(0), UITableViewRowAnimation.Automatic);
 
 			// Set Available Ingredients
 			ViewModel.RefreshAvailableIngredients();
@@ -228,7 +223,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			await Task.Run(() => RunOnUiThread(() =>
 			{
-				ShowSuccessAlert();
+				ShowSuccessDialog();
 
 				// Detach Event Handler
 				WebSocketUtil.Socket.OrderDrinkEvent -= Socket_OrderDrinkEvent;
@@ -257,7 +252,7 @@ namespace BarBot.Droid.View.Detail
 				var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
 				if (recipe.GetVolume() > Constants.MaxVolume)
 				{
-					ShowVolumeAlert();
+					ShowVolumeDialog();
 				}
 				else
 				{
@@ -274,34 +269,38 @@ namespace BarBot.Droid.View.Detail
 
 		// Alert Dialogs
 
-		// Show Volume Alert
-		void ShowVolumeAlert()
+		void ShowCustomNameDialog()
 		{
-			FragmentTransaction ft = FragmentManager.BeginTransaction();
-
-			//Remove fragment else it will crash as it is already added to backstack
-			Fragment prev = FragmentManager.FindFragmentByTag("volumeDialog");
-			if (prev != null)
-			{
-				ft.Remove(prev);
-			}
-
-			ft.AddToBackStack(null);
-
-			// Create and show the dialog.
-			VolumeDialogFragment newFragment = VolumeDialogFragment.NewInstance(null);
-
-			//Add fragment
-			newFragment.Show(ft, "volumeDialog");
+			CustomNameDialogFragment customNameDialog = CustomNameDialogFragment.NewInstance(null);
+			CreateDialog(customNameDialog, "customNameDialog");
 		}
 
-		// Show Success Alert
-		void ShowSuccessAlert()
+		void ShowIngredientDialog()
+		{
+			IngredientDialogFragment ingredientDialog = IngredientDialogFragment.NewInstance(null);
+			CreateDialog(ingredientDialog, "ingredientDialog");
+		}
+
+		// Show Volume Dialog
+		void ShowVolumeDialog()
+		{
+			VolumeDialogFragment volumeDialog = VolumeDialogFragment.NewInstance(null);
+			CreateDialog(volumeDialog, "volumeDialog");
+		}
+
+		// Show Success Dialog
+		void ShowSuccessDialog()
+		{
+			SuccessDialogFragment successDialog = SuccessDialogFragment.NewInstance(null);
+			CreateDialog(successDialog, "successDialog");
+		}
+
+		void CreateDialog(DialogFragment newFragment, string identifier)
 		{
 			FragmentTransaction ft = FragmentManager.BeginTransaction();
 
 			//Remove fragment else it will crash as it is already added to backstack
-			Fragment prev = FragmentManager.FindFragmentByTag("successDialog");
+			Fragment prev = FragmentManager.FindFragmentByTag(identifier);
 			if (prev != null)
 			{
 				ft.Remove(prev);
@@ -309,11 +308,8 @@ namespace BarBot.Droid.View.Detail
 
 			ft.AddToBackStack(null);
 
-			// Create and show the dialog.
-			SuccessDialogFragment newFragment = SuccessDialogFragment.NewInstance(null);
-
 			//Add fragment
-			newFragment.Show(ft, "successDialog");
+			newFragment.Show(ft, identifier);
 		}
 	}
 }
