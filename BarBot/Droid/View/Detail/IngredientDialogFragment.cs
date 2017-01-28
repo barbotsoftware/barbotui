@@ -1,4 +1,5 @@
 ﻿using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -9,13 +10,15 @@ namespace BarBot.Droid.View.Detail
 {
 	public class IngredientDialogFragment : DialogFragment
 	{
+		Context context;
 		DetailViewModel ViewModel => App.Locator.Detail;
 		int index;
 
-		public static IngredientDialogFragment NewInstance(Bundle bundle, int position)
+		public static IngredientDialogFragment NewInstance(Bundle bundle, Context c, int position)
 		{
 			var fragment = new IngredientDialogFragment();
 			fragment.Arguments = bundle;
+			fragment.context = c;
 			fragment.index = position;
 			return fragment;
 		}
@@ -69,7 +72,7 @@ namespace BarBot.Droid.View.Detail
 			};
 
 			// Ingredient Adapter
-			var ingredientAdapter = new ArrayAdapter(Context, Resource.Layout.IngredientSpinnerTextView, ViewModel.AvailableIngredients);
+			var ingredientAdapter = new ArrayAdapter(context, Resource.Layout.IngredientSpinnerTextView, ViewModel.AvailableIngredients);
 			ingredientAdapter.SetDropDownViewResource(Android.Resource.Layout.SimpleSpinnerDropDownItem);
 			ingredientSpinner.Adapter = ingredientAdapter;
 
@@ -104,6 +107,11 @@ namespace BarBot.Droid.View.Detail
 			};
 
 			return dialog;
+		}
+
+		public override void OnSaveInstanceState(Bundle outState)
+		{
+			base.OnSaveInstanceState(outState);
 		}
 	}
 }

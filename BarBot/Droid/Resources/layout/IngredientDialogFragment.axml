@@ -27,21 +27,22 @@
         android:orientation="vertical">
         <TextView
             android:id="@+id/quantityTextView"
-            android:layout_width="200dp"
-            android:layout_height="45dp"
+            android:layout_width="160dp"
+            android:layout_height="35dp"
             android:textSize="@dimen/dialog_text_size"
             android:layout_centerVertical="true" />
         <Button
             android:id="@+id/quantityDecrementButton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_toRightOf="@+id/quantityTextView"
             android:gravity="right|center_vertical"
             android:background="@drawable/ic_remove_white_48dp" />
         <Button
             android:id="@+id/quantityIncrementButton"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+			android:layout_marginLeft="10dp"
             android:gravity="right|center_vertical"
             android:layout_toRightOf="@+id/quantityDecrementButton"
             android:background="@drawable/ic_add_white_48dp" />

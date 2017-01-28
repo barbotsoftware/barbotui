@@ -45,5 +45,10 @@ namespace BarBot.Droid.View.Detail
 
 			return builder.Create();
 		}
+
+		public override void OnSaveInstanceState(Bundle outState)
+		{
+			base.OnSaveInstanceState(outState);
+		}
 	}
 }

@@ -15,12 +15,14 @@ namespace BarBot.Droid.View.Menu
 {
 	public class NameDialogFragment : DialogFragment
 	{
+		Context context;
 		EditText NameEditText;
 
-		public static NameDialogFragment NewInstance(Bundle bundle)
+		public static NameDialogFragment NewInstance(Bundle bundle, Context c)
 		{
 			var fragment = new NameDialogFragment();
 			fragment.Arguments = bundle;
+			fragment.context = c;
 			return fragment;
 		}
 
@@ -73,7 +75,7 @@ namespace BarBot.Droid.View.Menu
 
 				if (user.Uid.Equals("name_taken"))
 				{
-					Toast.MakeText(Context, "That name is taken", ToastLength.Long).Show();
+					Toast.MakeText(context, "That name is taken", ToastLength.Long).Show();
 				}
 				else if (user.Uid.Equals("exception"))
 				{
@@ -81,19 +83,18 @@ namespace BarBot.Droid.View.Menu
 				}
 				else
 				{
-					// Save value
-					App.Preferences.Edit().PutString("UserId", user.Uid);
-
 					// Set to App
 					App.User = user;
-
-					// Sync changes to database
-					App.Preferences.Edit().Apply();
 
 					App.ConnectWebSocket();
 					Dismiss();
 				}
 			}
+		}
+
+		public override void OnSaveInstanceState(Bundle outState)
+		{
+			base.OnSaveInstanceState(outState);
 		}
 	}
 }

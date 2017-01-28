@@ -77,5 +77,10 @@ namespace BarBot.Droid.View.Detail
 				Dismiss();
 			}
 		}
+
+		public override void OnSaveInstanceState(Bundle outState)
+		{
+			base.OnSaveInstanceState(outState);
+		}
 	}
 }

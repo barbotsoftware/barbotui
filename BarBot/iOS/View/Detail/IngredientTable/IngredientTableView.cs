@@ -177,8 +177,14 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			var quantity = ingredient.Quantity;
 
 			// select quantity (volume) value
-			pickerView.Select(ViewModel.Quantities.IndexOf(quantity), 0, true);
-
+			if (ViewModel.Quantities.Contains(quantity))
+			{
+				pickerView.Select(ViewModel.Quantities.IndexOf(quantity), 0, true);
+			}
+			else
+			{
+				pickerView.Select(0, 0, true);
+			}
 			// Check if Ingredient is not used in Recipe
 			var fetchedIngredient = ViewModel.AvailableIngredients.FirstOrDefault(i => i.Name.Equals(ingredient.Name));
 

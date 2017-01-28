@@ -141,11 +141,7 @@ namespace BarBot.Droid
 				if (user == null)
 				{
 					user = new User();
-					// Check for stored UserID
-					if (Preferences.GetString("UserId", null) != null)
-					{
-						user.Uid = Preferences.GetString("UserId", "");
-					}
+					//user.Uid = "user_3f2bb9";
 				}
 
 				return user;
@@ -160,16 +156,14 @@ namespace BarBot.Droid
 		{ 
 			get 
 			{
-				if (Preferences.GetString("HostName", null) != null)
-				{
-					hostName = Preferences.GetString("HostName", "");
-				}
-				else
-				{
-					hostName = Constants.IPAddress;
-					Preferences.Edit().PutString("HostName", hostName);
-					Preferences.Edit().Apply();
-				}
+				//if (Preferences.GetString("HostName", null) != null)
+				//{
+				//	hostName = Preferences.GetString("HostName", "");
+				//}
+				//else
+				//{
+				hostName = Constants.IPAddress;
+				//}
 
 				return hostName;
 			} 
@@ -186,10 +180,42 @@ namespace BarBot.Droid
 					Locator.Menu.Recipes.Clear();
 					WebSocketUtil.CloseWebSocket();
 				}
-
-				// Open WebSocket
-				WebSocketUtil.OpenWebSocket(App.User.Uid, true);
+				else
+				{
+					// Open WebSocket
+					WebSocketUtil.OpenWebSocket(user.Uid, true);
+				}
 			}
+		}
+
+		public static void DisconnectWebSocket()
+		{
+			if (webSocketUtil != null)
+			{
+				if (WebSocketUtil.Socket.IsOpen)
+				{
+					WebSocketUtil.CloseWebSocket();
+				}
+			}
+		}
+
+		// Saves UserId
+		public static void SaveSharedPreferences()
+		{
+			// Save values
+			var editor = Preferences.Edit();
+			editor.Clear();
+			editor.PutString("UserId", user.Uid);
+			//editor.PutString("HostName", hostName);
+
+			// Sync changes to Shared Prefs
+			editor.Commit();
+		}
+
+		public static void LoadSharedPreferences()
+		{
+			User.Uid = Preferences.GetString("UserId", "");
+			//hostName = Preferences.GetString("HostName", "");
 		}
 	}
 }

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 
 using Android.App;
@@ -96,6 +95,20 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
+		// Save SharedPreferences
+		protected override void OnPause()
+		{
+			base.OnPause();
+			App.SaveSharedPreferences();
+		}
+
+		// Load SharedPreferences
+		protected override void OnResume()
+		{
+			base.OnResume();
+			App.LoadSharedPreferences();
+		}
+
 		protected override void AttachBaseContext(Context @base)
 		{
 			base.AttachBaseContext(CalligraphyContextWrapper.Wrap(@base));
@@ -175,10 +188,12 @@ namespace BarBot.Droid.View.Detail
 			// add new AddIngredientRow if necessary
 			if (ViewModel.Ingredients.Count < ViewModel.IngredientsInBarBot.Count)
 			{
-				AddIngredientRow = null;
-				AddIngredientRow = CreateNewAddIngredientRow();
-				ViewModel.Ingredients.Add(AddIngredientRow);
-				(ListView.Adapter as IngredientAdapter).Insert(AddIngredientRow, ListView.Adapter.Count);
+				if (!ViewModel.Ingredients.Contains(AddIngredientRow))
+				{
+					AddIngredientRow = CreateNewAddIngredientRow();
+					ViewModel.Ingredients.Add(AddIngredientRow);
+					(ListView.Adapter as IngredientAdapter).Insert(AddIngredientRow, ListView.Adapter.Count);
+				}
 			}
 
 			(ListView.Adapter as IngredientAdapter).NotifyDataSetChanged();
@@ -316,7 +331,7 @@ namespace BarBot.Droid.View.Detail
 
 		void ShowIngredientDialog(int position)
 		{
-			IngredientDialogFragment ingredientDialog = IngredientDialogFragment.NewInstance(null, position);
+			IngredientDialogFragment ingredientDialog = IngredientDialogFragment.NewInstance(null, this, position);
 			CreateDialog(ingredientDialog, "ingredientDialog");
 		}
 

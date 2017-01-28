@@ -44,6 +44,8 @@ namespace BarBot.Core.ViewModel
 			});
 
 			_ingredients = new List<Ingredient>();
+			_availableIngredients = new List<Ingredient>();
+			_ingredientsInBarBot = new List<Ingredient>();
 			_quantities = new List<double>();
 			for (var i = 0.5; i <= Constants.MaxVolume; i += 0.5)
 			{

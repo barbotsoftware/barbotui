@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 
 using Android.App;
+using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -35,6 +36,9 @@ namespace BarBot.Droid.View.Menu
 			// Add Event Handlers
 			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 
+			// Attempt to load UserId from SharedPrefs
+			App.LoadSharedPreferences();
+
 			if (App.User.Uid == null)
 			{
 				ShowNameDialog();
@@ -60,6 +64,27 @@ namespace BarBot.Droid.View.Menu
 			Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
 				ToastLength.Short).Show();
 			return base.OnOptionsItemSelected(item);
+		}
+
+		// Save SharedPreferences On Pause
+		protected override void OnPause()
+		{
+			base.OnPause();
+			App.SaveSharedPreferences();
+		}
+
+		// Save SharedPreferences On Stop
+		protected override void OnStop()
+		{
+			base.OnStop();
+			App.SaveSharedPreferences();
+		}
+
+		// Load SharedPreferences On Resume
+		protected override void OnResume()
+		{
+			base.OnResume();
+			App.LoadSharedPreferences();
 		}
 
 		protected override void AttachBaseContext(Android.Content.Context @base)
@@ -137,7 +162,7 @@ namespace BarBot.Droid.View.Menu
 			ft.AddToBackStack(null);
 
 			// Create and show the dialog.
-			NameDialogFragment newFragment = NameDialogFragment.NewInstance(null);
+			NameDialogFragment newFragment = NameDialogFragment.NewInstance(null, this);
 
 			//Add fragment
 			newFragment.Show(ft, "nameDialog");
