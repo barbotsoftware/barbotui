@@ -143,10 +143,13 @@ namespace BarBot.Droid
 			public const int ic_add_white_48dp = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_remove_white_48dp = 2130837513;
+			public const int ic_clear_white_48dp = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_search_white_48dp = 2130837514;
+			public const int ic_remove_white_48dp = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int ic_search_white_48dp = 2130837515;
 			
 			static Drawable()
 			{
@@ -215,11 +218,17 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f050014
 			public const int ingredientspinner = 2131034132;
 			
+			// aapt resource value: 0x7f05001b
+			public const int listview_removebutton = 2131034139;
+			
 			// aapt resource value: 0x7f050019
 			public const int listview_row = 2131034137;
 			
-			// aapt resource value: 0x7f05001c
-			public const int menu_search = 2131034140;
+			// aapt resource value: 0x7f05001a
+			public const int listview_textview = 2131034138;
+			
+			// aapt resource value: 0x7f05001e
+			public const int menu_search = 2131034142;
 			
 			// aapt resource value: 0x7f05000c
 			public const int orderbutton = 2131034124;
@@ -242,11 +251,11 @@ namespace BarBot.Droid
 			// aapt resource value: 0x7f050004
 			public const int toolbar = 2131034116;
 			
-			// aapt resource value: 0x7f05001b
-			public const int toolbar_textview = 2131034139;
+			// aapt resource value: 0x7f05001d
+			public const int toolbar_textview = 2131034141;
 			
-			// aapt resource value: 0x7f05001a
-			public const int user_name = 2131034138;
+			// aapt resource value: 0x7f05001c
+			public const int user_name = 2131034140;
 			
 			static Id()
 			{
