@@ -1,16 +1,18 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
+
 using UIKit;
 using CoreGraphics;
+
+using GalaSoft.MvvmLight.Helpers;
+
+using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.Core.ViewModel;
-using BarBot.iOS.Style;
 using BarBot.iOS.Util;
+using BarBot.iOS.Style;
 using BarBot.iOS.View.Menu.Search;
-
-using GalaSoft.MvvmLight.Helpers;
-using Foundation;
 
 namespace BarBot.iOS.View.Menu
 {
@@ -143,7 +145,7 @@ namespace BarBot.iOS.View.Menu
 			{
 				field = textField;
 				field.Text = textField.Text;
-				ConfigureKeyboard(field, "Host Name", UIKeyboardType.Default);
+				KeyboardManager.ConfigureKeyboard(field, ActionToEnable, "Host Name", UIKeyboardType.Default);
 			});
 
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, (obj) => 
@@ -199,14 +201,6 @@ namespace BarBot.iOS.View.Menu
 
 			UITextField field = null;
 
-			// Add Text Input
-			nameInputAlertController.AddTextField(textField =>
-			{
-				field = textField;
-				field.Text = textField.Text;
-				ConfigureKeyboard(field, "Your Name", UIKeyboardType.Default);
-			});
-
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
@@ -242,6 +236,14 @@ namespace BarBot.iOS.View.Menu
 			ActionToEnable = submit;
 			submit.Enabled = false;
 
+			// Add Text Input
+			nameInputAlertController.AddTextField(textField =>
+			{
+				field = textField;
+				field.Text = textField.Text;
+				KeyboardManager.ConfigureKeyboard(field, ActionToEnable, "Your Name", UIKeyboardType.Default);
+			});
+
 			// Present Alert
 			PresentViewController(nameInputAlertController, true, null);
 		}
@@ -259,76 +261,12 @@ namespace BarBot.iOS.View.Menu
 
 			CustomButton.TouchUpInside+= (sender, e) =>
 			{
-				ShowCustomAlertController();
+				ViewModel.ShowDrinkDetailsCommand(Constants.CustomRecipeId, null);
 			};
 
 			// hide button initially
 			CustomButton.Hidden = true;
 			CollectionView.AddSubview(CustomButton);
-		}
-
-		// Display alert popup when adding a new (custom) drink.
-		// Prompts user to enter a name, and adds it to the menu.
-		void ShowCustomAlertController()
-		{
-			var alertController = UIAlertController.Create("Name Your Drink", null, UIAlertControllerStyle.Alert);
-
-			UITextField field = null;
-
-			// Configure text view
-			alertController.AddTextField(textField =>
-			{
-				field = textField;
-				field.Text = textField.Text;
-				ConfigureKeyboard(field, "Drink Name", UIKeyboardType.Default);
-			});
-
-			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) =>
-			{
-				ViewModel.ShowDrinkDetailsCommand(field.Text, null);
-			});
-
-			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, (obj) =>
-			{
-				alertController.DismissViewController(true, null);
-			});
-
-			alertController.AddAction(ok);
-			alertController.AddAction(cancel);
-
-			ActionToEnable = ok;
-			ok.Enabled = false;
-			PresentViewController(alertController, true, null);
-		}
-
-		// UITextField
-
-		void ConfigureKeyboard(UITextField field, string placeholder, UIKeyboardType keyboardType)
-		{
-			field.Placeholder = placeholder;
-			field.AutocorrectionType = UITextAutocorrectionType.No;
-			field.AutocapitalizationType = UITextAutocapitalizationType.Words;
-			field.EnablesReturnKeyAutomatically = true;
-			field.KeyboardType = keyboardType;
-			field.KeyboardAppearance = UIKeyboardAppearance.Dark;
-			field.ReturnKeyType = UIReturnKeyType.Default;
-			field.Delegate = new TextFieldDelegate();
-			field.AddTarget((sender, e) => { TextChanged(field); }, UIControlEvent.EditingChanged);
-		}
-
-		// Enable Action when Text is not empty
-		void TextChanged(UITextField sender)
-		{
-			ActionToEnable.Enabled = (sender.Text != "");
-    	}
-
-		public class TextFieldDelegate : UITextFieldDelegate
-		{
-			public override bool ShouldChangeCharacters(UITextField textField, NSRange range, string replacementString)
-			{
-				string resultText = textField.Text.Substring(0, (int)range.Location) + replacementString + textField.Text.Substring((int)(range.Location + range.Length));
-				return resultText.Length <= 32;
-			}
 		}
 
 		// SEARCH

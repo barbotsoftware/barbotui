@@ -183,6 +183,7 @@
     <Compile Include="View\Detail\DrinkDetailView.cs" />
     <Compile Include="Style\Color.cs" />
     <Compile Include="Style\SharedStyles.cs" />
+    <Compile Include="Util\KeyboardManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

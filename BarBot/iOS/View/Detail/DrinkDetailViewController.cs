@@ -8,6 +8,8 @@ using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
+using BarBot.iOS.Util;
+
 namespace BarBot.iOS.View.Detail
 {
 	public class DrinkDetailViewController : UIViewController
@@ -19,7 +21,10 @@ namespace BarBot.iOS.View.Detail
 		AppDelegate Delegate;
 		WebSocketUtil WebSocketUtil;
 
-		// hax
+		// UIAlert Button
+		UIAlertAction ActionToEnable;
+
+		// hack
 		bool CreateCustomCalled = false;
 
 		public DrinkDetailViewController()
@@ -54,22 +59,28 @@ namespace BarBot.iOS.View.Detail
 
 		public override void ViewWillAppear(bool animated)
 		{
+			if (!ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			{
+				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+			}
+		}
+
+		public override void ViewDidAppear(bool animated)
+		{
 			// Custom Recipe
 			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
 			{
+				// Get Custom Recipe Name
+				ShowCustomAlertController();
+
+				// Set custom boolean
+				ViewModel.IsCustomRecipe = true;
+
 				// Set Available Ingredients
 				ViewModel.RefreshAvailableIngredients();
 
-				(View as DrinkDetailView).NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
-				(View as DrinkDetailView).DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
-				(View as DrinkDetailView).OrderButton.Enabled = false;
-				(View as DrinkDetailView).IngredientTableView.Editing = true;
-				ViewModel.IsCustomRecipe = true;
+				// hack
 				CreateCustomCalled = false;
-			}
-			else
-			{
-				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
 			}
 		}
 
@@ -207,6 +218,47 @@ namespace BarBot.iOS.View.Detail
 			volumeAlertController.AddAction(ok);
 
 			PresentViewController(volumeAlertController, true, null);
+		}
+
+		// Display alert popup when adding a new (custom) drink.
+		// Prompts user to enter a name, and adds it to the menu.
+		void ShowCustomAlertController()
+		{
+			var alertController = UIAlertController.Create("Name Your Drink", null, UIAlertControllerStyle.Alert);
+
+			UITextField field = null;
+
+			var ok = UIAlertAction.Create("OK", UIAlertActionStyle.Default, (obj) =>
+			{
+				// Set RecipeName
+				ViewModel.Recipe.Name = field.Text;
+
+				(View as DrinkDetailView).NavBar.TopItem.Title = ViewModel.Recipe.Name.ToUpper();
+				(View as DrinkDetailView).DrinkImageView.Image = UIImage.FromFile("Images/custom_recipe.png");
+				(View as DrinkDetailView).OrderButton.Enabled = false;
+				(View as DrinkDetailView).IngredientTableView.Editing = true;
+			});
+
+			var cancel = UIAlertAction.Create("Cancel", UIAlertActionStyle.Cancel, action =>
+			{
+				ViewModel.ShowDrinkMenuCommand(false);
+			});
+
+			alertController.AddAction(ok);
+			alertController.AddAction(cancel);
+
+			ActionToEnable = ok;
+			ok.Enabled = false;
+
+			// Configure text vie
+			alertController.AddTextField(textField =>
+			{
+				field = textField;
+				field.Text = textField.Text;
+				KeyboardManager.ConfigureKeyboard(field, ActionToEnable, "Drink Name", UIKeyboardType.Default);
+			});
+
+			PresentViewController(alertController, true, null);
 		}
 	}
 }
