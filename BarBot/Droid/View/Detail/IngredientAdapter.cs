@@ -31,33 +31,44 @@ namespace BarBot.Droid.View.Detail
 			LayoutInflater inflater = (LayoutInflater)Context.GetSystemService(Context.LayoutInflaterService);
 
 			var ingredient = ViewModel.Ingredients[position];
-			Button removeButton = new Button(Context);
 
 			// Check if an existing view is being reused, otherwise inflate the view
 			if (convertView == null)
 			{
 				convertView = inflater.Inflate(Resource.Layout.ListViewRow, null);
-				removeButton = convertView.FindViewById<Button>(Resource.Id.listview_removebutton);
-				removeButton.Click += (sender, e) =>
+				var rmBtn = convertView.FindViewById<Button>(Resource.Id.listview_removebutton);
+				rmBtn.Click += (sender, e) =>
 				{
 					ViewModel.Ingredients.RemoveAt(position);
 					Remove(position);
 					NotifyDataSetChanged();
+
+					// Set Available Ingredients
+					ViewModel.RefreshAvailableIngredients();
 				};
 			}
 
 			// Lookup view for data population
 			var ingredientRow = convertView.FindViewById<TextView>(Resource.Id.listview_textview);
+			var removeButton = convertView.FindViewById<Button>(Resource.Id.listview_removebutton);
 
 			// Populate the data into the template view using the data object
 			if (ingredient.IngredientId == Constants.AddIngredientId)
 			{
 				ingredientRow.Text = ingredient.Name;
-				removeButton.Visibility = ViewStates.Invisible;
 			}
 			else
 			{
 				ingredientRow.Text = ingredient.Quantity + " oz " + ingredient.Name;
+			}
+
+			// Set visibility of Remove Button
+			if (position == Count - 1)
+			{
+				removeButton.Visibility = ViewStates.Invisible;
+			}
+			else
+			{
 				removeButton.Visibility = ViewStates.Visible;
 			}
 

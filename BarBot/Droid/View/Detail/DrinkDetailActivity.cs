@@ -192,7 +192,7 @@ namespace BarBot.Droid.View.Detail
 				{
 					AddIngredientRow = CreateNewAddIngredientRow();
 					ViewModel.Ingredients.Add(AddIngredientRow);
-					(ListView.Adapter as IngredientAdapter).Insert(AddIngredientRow, ListView.Adapter.Count);
+					(ListView.Adapter as IngredientAdapter).Insert(AddIngredientRow, ListView.Adapter.Count - 1);
 				}
 			}
 
