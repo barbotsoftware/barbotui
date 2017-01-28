@@ -74,9 +74,12 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
-		protected override void OnDestroy()
+		protected override void OnStop()
 		{
-			base.OnDestroy();
+			base.OnStop();
+
+			// Add Event Handlers
+			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
 
 			// Clear ViewModel
 			ViewModel.Clear();

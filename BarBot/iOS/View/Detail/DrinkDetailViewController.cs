@@ -24,9 +24,6 @@ namespace BarBot.iOS.View.Detail
 		// UIAlert Button
 		UIAlertAction ActionToEnable;
 
-		// hack
-		bool CreateCustomCalled = false;
-
 		public DrinkDetailViewController()
 		{
 		}
@@ -47,9 +44,6 @@ namespace BarBot.iOS.View.Detail
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 			WebSocketUtil = Delegate.WebSocketUtil;
 
-			// Add Event Handlers
-			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
-
 			// Set Ingredients in BarBot
 			ViewModel.IngredientsInBarBot = Delegate.IngredientsInBarBot;
 
@@ -59,6 +53,9 @@ namespace BarBot.iOS.View.Detail
 
 		public override void ViewWillAppear(bool animated)
 		{
+			// Add Event Handlers
+			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
+
 			if (!ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
 			{
 				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
@@ -78,14 +75,14 @@ namespace BarBot.iOS.View.Detail
 
 				// Set Available Ingredients
 				ViewModel.RefreshAvailableIngredients();
-
-				// hack
-				CreateCustomCalled = false;
 			}
 		}
 
 		public override void ViewWillDisappear(bool animated)
 		{
+			// Remove Event Handlers
+			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
+
 			// Clear ViewModel
 			ViewModel.Clear();
 		}
@@ -144,17 +141,12 @@ namespace BarBot.iOS.View.Detail
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
-				// Flag to catch multiple calls
-				if (!CreateCustomCalled)
-				{
-					WebSocketUtil.OrderDrink(args.RecipeId, 
-					                         (View as DrinkDetailView).IceSwitch.On, 
-					                         (View as DrinkDetailView).GarnishSwitch.On);
+				WebSocketUtil.OrderDrink(args.RecipeId, 
+				                         (View as DrinkDetailView).IceSwitch.On, 
+				                         (View as DrinkDetailView).GarnishSwitch.On);
 
-					// Detach Event Handler
-					WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
-					CreateCustomCalled = true;
-				}
+				// Detach Event Handler
+				WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
 			}));
 		}
 
