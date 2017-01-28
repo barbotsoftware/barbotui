@@ -21,6 +21,7 @@ using BarBot.Droid.Util;
 using BarBot.Droid.View.Detail;
 using BarBot.Droid.View.Menu;
 using BarBot.Droid.WebSocket;
+using System.Threading.Tasks;
 
 namespace BarBot.Droid
 {
@@ -172,18 +173,16 @@ namespace BarBot.Droid
 		// WEBSOCKET
 		public static void ConnectWebSocket()
 		{
-			if (webSocketUtil != null)
+			if (WebSocketUtil != null)
 			{
-				// Close WebSocket if Reconnecting
-				if (WebSocketUtil.Socket.IsOpen)
-				{
-					Locator.Menu.Recipes.Clear();
-					WebSocketUtil.CloseWebSocket();
-				}
-				else
+				if (!WebSocketUtil.Socket.IsOpen)
 				{
 					// Open WebSocket
 					WebSocketUtil.OpenWebSocket(user.Uid, true);
+					while (!WebSocketUtil.Socket.IsOpen)
+					{
+						Task.Delay(10).Wait();
+					}
 				}
 			}
 		}

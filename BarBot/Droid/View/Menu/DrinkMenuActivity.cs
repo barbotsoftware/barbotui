@@ -1,14 +1,11 @@
 ﻿using System.Threading.Tasks;
 
 using Android.App;
-using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
 
 using Calligraphy;
-
-using GalaSoft.MvvmLight.Views;
 
 using BarBot.Core;
 using BarBot.Core.Model;
@@ -18,7 +15,7 @@ using BarBot.Core.WebSocket;
 namespace BarBot.Droid.View.Menu
 {
 	[Activity(Label = "BarBot", MainLauncher = true)]
-	public class DrinkMenuActivity : ActivityBase
+	public class DrinkMenuActivity : BaseActivity
 	{
 		MenuViewModel ViewModel => App.Locator.Menu;
 		WebSocketUtil WebSocketUtil => App.WebSocketUtil;
@@ -26,6 +23,8 @@ namespace BarBot.Droid.View.Menu
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
 			base.OnCreate(savedInstanceState);
+
+			s_mainactivityvisible = true;
 
 			// Prevent Rotation
 			RequestedOrientation = Android.Content.PM.ScreenOrientation.Nosensor;
@@ -66,25 +65,22 @@ namespace BarBot.Droid.View.Menu
 			return base.OnOptionsItemSelected(item);
 		}
 
-		// Save SharedPreferences On Pause
-		protected override void OnPause()
+		protected override void OnStart()
 		{
-			base.OnPause();
-			App.SaveSharedPreferences();
+			s_mainactivityvisible = true;
+			base.OnStart();
 		}
 
 		// Save SharedPreferences On Stop
 		protected override void OnStop()
 		{
-			base.OnStop();
-			App.SaveSharedPreferences();
+			s_mainactivityvisible = false;
+			base.OnPause();
 		}
 
-		// Load SharedPreferences On Resume
 		protected override void OnResume()
 		{
 			base.OnResume();
-			App.LoadSharedPreferences();
 		}
 
 		protected override void AttachBaseContext(Android.Content.Context @base)

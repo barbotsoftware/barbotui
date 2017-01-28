@@ -9,8 +9,6 @@ using Android.Widget;
 
 using Calligraphy;
 
-using GalaSoft.MvvmLight.Views;
-
 using Square.Picasso;
 
 using BarBot.Core;
@@ -21,7 +19,7 @@ using BarBot.Core.WebSocket;
 namespace BarBot.Droid.View.Detail
 {
 	[Activity(Label = "DrinkDetailActivity")]
-	public class DrinkDetailActivity : ActivityBase
+	public class DrinkDetailActivity : BaseActivity
 	{
 		DetailViewModel ViewModel => App.Locator.Detail;
 		WebSocketUtil WebSocketUtil => App.WebSocketUtil;
@@ -74,17 +72,6 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
-		protected override void OnStop()
-		{
-			base.OnStop();
-
-			// Add Event Handlers
-			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
-
-			// Clear ViewModel
-			ViewModel.Clear();
-		}
-
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
 			switch (item.ItemId)
@@ -98,18 +85,27 @@ namespace BarBot.Droid.View.Detail
 			}
 		}
 
-		// Save SharedPreferences
-		protected override void OnPause()
+		protected override void OnStart()
 		{
-			base.OnPause();
-			App.SaveSharedPreferences();
+			s_activitycounter++;
+			base.OnStart();
 		}
 
-		// Load SharedPreferences
+		protected override void OnStop()
+		{
+			// Add Event Handlers
+			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
+
+			// Clear ViewModel
+			ViewModel.Clear();
+
+			s_activitycounter--;
+			base.OnPause();
+		}
+
 		protected override void OnResume()
 		{
 			base.OnResume();
-			App.LoadSharedPreferences();
 		}
 
 		protected override void AttachBaseContext(Context @base)

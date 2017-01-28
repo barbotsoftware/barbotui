@@ -94,6 +94,7 @@
     <Compile Include="View\Detail\IngredientAdapter.cs" />
     <Compile Include="View\Detail\CustomNameDialogFragment.cs" />
     <Compile Include="View\Detail\EmptyRecipeDialogFragment.cs" />
+    <Compile Include="View\BaseActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
