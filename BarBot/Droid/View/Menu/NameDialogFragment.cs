@@ -75,7 +75,9 @@ namespace BarBot.Droid.View.Menu
 
 				if (user.Uid.Equals("name_taken"))
 				{
-					Toast.MakeText(context, "That name is taken", ToastLength.Long).Show();
+					Toast toast = Toast.MakeText(context, "That name is taken", ToastLength.Long);
+					toast.SetGravity(GravityFlags.Center, 0, 0);
+					toast.Show();
 				}
 				else if (user.Uid.Equals("exception"))
 				{
