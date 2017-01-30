@@ -31,7 +31,7 @@ namespace BarBot.UWP.IO
 
         public GpioController gpio;
 
-        public int CupCount = 0;
+        public int CupCount = 45;
 
         private Dictionary<GpioPin, int> sensorTicks = new Dictionary<GpioPin, int>();
 
@@ -62,18 +62,21 @@ namespace BarBot.UWP.IO
             mcp1 = new MCP23017();
             mcp2 = new MCP23017(2);
 
+            // Initialize I2C Controllers
+            initI2C();
+
             // Create ice hopper
-            GpioPin reedSwitch = gpio.OpenPin(iceHopper.reedSwitch.address);
-            IOPort reedSwitchIOPort = new IOPort(reedSwitch, GpioPinDriveMode.InputPullDown);
-            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4),
-                createIOPort(iceHopper.stepper5), createIOPort(iceHopper.stepper6), createIOPort(iceHopper.stepper7), createIOPort(iceHopper.stepper8),
-                reedSwitchIOPort);
+            GpioPin FSR2Pin = gpio.OpenPin(iceHopper.fsr.address);
+            IOPort FSR2 = new IOPort(FSR2Pin, GpioPinDriveMode.InputPullDown);
+            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), FSR2);
 
             // Create garnish dispenser
             GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4));
 
             // Create cup dispenser
-            CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4));
+            GpioPin FSR1Pin = gpio.OpenPin(cupDispenser.fsr.address);
+            IOPort FSR1 = new IOPort(FSR1Pin, GpioPinDriveMode.InputPullDown);
+            CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4), FSR1);
 
             Pumps = new List<Pump>();
             foreach(Database.Pump pump in pumps)
@@ -110,9 +113,6 @@ namespace BarBot.UWP.IO
             // Initialize LED
             GpioPin ioPort = gpio.OpenPin(21);
             ledPort = new IOPort(ioPort);
-
-            // Initialize I2C Controllers
-            initI2C();
         }
 
         public async void initI2C()
@@ -150,6 +150,68 @@ namespace BarBot.UWP.IO
             }
         }
 
+        public void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = true)
+        {
+            // Turn on LED
+            LEDOn();
+
+            // Reset any sensor tracking
+            sensorTicks = new Dictionary<GpioPin, int>();
+            maxTicks = new Dictionary<GpioPin, int>();
+            pinPumpMapping = new Dictionary<GpioPin, Pump>();
+
+            if (cup)
+            {
+                DispenseCup();
+
+                CupCount--;
+            }
+
+            if (ice)
+            {
+                AddIce();
+            }
+
+            if(garnish)
+            {
+                AddGarnish();
+            }
+
+            // Start the udder pump
+            Pump pump = Pumps.Where(x => x.IOPort.Name.Equals("mixer pump")).First();
+            pump.StartPump();
+
+            // Start pouring each ingredient
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                // Get the container and the amount to pour
+                Container container = ingredients.ElementAt(i).Key as Container;
+                double amount = ingredients.ElementAt(i).Value;
+
+                // Start pouring the ingredient
+                PourIngredient(container, amount);
+
+                // Wait for it to finish, shutting it down if the sensor times out
+                Timeout(TimeSpan.TicksPerSecond * ((int)amount * container.FlowSensor.CalibrationFactor));
+            }
+
+            // Wait 5 seconds for the udder to clear
+            long start = DateTime.Now.Ticks;
+            while (true)
+            {
+                if (DateTime.Now.Ticks - start > TimeSpan.TicksPerSecond * TIMEOUT)
+                {
+                    Debug.WriteLine(string.Format("Some pumps timed out after {0} seconds", TIMEOUT));
+                    // Stop the udder
+                    pump.StopPump();
+                    break;
+                }
+            }
+
+            // Turn LED off
+            LEDOff();
+        }
+
         public void PourDrink(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = true)
         {
             // Turn on LED
@@ -172,12 +234,19 @@ namespace BarBot.UWP.IO
                 AddIce();
             }
 
-            // Start pouring each ingredient
-            for(int i = 0; i < ingredients.Count; i++)
+            if (garnish)
             {
+                AddGarnish();
+            }
+
+            // Start pouring each ingredient
+            for (int i = 0; i < ingredients.Count; i++)
+            {
+                // Get the container and amount to pour
                 Container container = ingredients.ElementAt(i).Key as Container;
                 double amount = ingredients.ElementAt(i).Value;
 
+                // Start pouring the ingredient
                 PourIngredient(container, amount);
             }
 
@@ -186,11 +255,6 @@ namespace BarBot.UWP.IO
 
             // Run the flush pump
             FlushMixer();
-
-            if(garnish)
-            {
-                AddGarnish();
-            }
 
             // Turn LED off
             LEDOff();
@@ -204,8 +268,8 @@ namespace BarBot.UWP.IO
             maxTicks.Add(pin, container.FlowSensor.CalibrationFactor * Convert.ToInt32(amount));
             pinPumpMapping.Add(pin, container.Pump);
 
-            pin.SetDriveMode(GpioPinDriveMode.Input);
-            pin.DebounceTimeout = TimeSpan.FromMilliseconds(1);
+            pin.SetDriveMode(GpioPinDriveMode.InputPullDown);
+            pin.DebounceTimeout = TimeSpan.FromMilliseconds(25);
             pin.ValueChanged += Input_ValueChanged;
 
             container.Pump.StartPump();
@@ -281,7 +345,7 @@ namespace BarBot.UWP.IO
 
         public void LEDOff()
         {
-            ledPort.write(GpioPinValue.High);
+            ledPort.write(GpioPinValue.Low);
         }
 
         private IIOPort createIOPort(Database.IOPort IOPort, GpioPinDriveMode driveMode = GpioPinDriveMode.Output)

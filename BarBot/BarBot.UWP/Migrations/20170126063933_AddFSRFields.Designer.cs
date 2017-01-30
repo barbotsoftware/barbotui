@@ -8,9 +8,10 @@ using BarBot.UWP.Database;
 namespace BarBot.UWP.Migrations
 {
     [DbContext(typeof(BarbotContext))]
-    partial class BarbotContextModelSnapshot : ModelSnapshot
+    [Migration("20170126063933_AddFSRFields")]
+    partial class AddFSRFields
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752");

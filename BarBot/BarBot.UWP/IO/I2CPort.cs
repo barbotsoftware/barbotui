@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Devices.Gpio;
+using System.Diagnostics;
 
 namespace BarBot.UWP.IO.Devices
 {
@@ -28,8 +29,15 @@ namespace BarBot.UWP.IO.Devices
 
         public void write(GpioPinValue val)
         {
-            MCP.SetDriveMode(Pin, MCP23017.PinMode.Output);
-            MCP.Write(Pin, (MCP23017.PinValue) val);
+            try
+            {
+                MCP.SetDriveMode(Pin, MCP23017.PinMode.Output);
+                MCP.Write(Pin, (MCP23017.PinValue)val);
+            }
+            catch (Exception e)
+            {
+                Debug.WriteLine(string.Format("Failed to write to pin {0} : {1}", Pin, e.Message));
+            }
         }
     }
 }

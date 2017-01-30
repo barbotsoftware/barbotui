@@ -17,29 +17,16 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public L298NDriver stepperDriver2;
 
-        public IOPort ReedSwitch;
+        public IOPort FSR2;
 
         public IceHopper() { }
 
-        private bool ReedSwitchIsOpen = false;
-
-        public IceHopper(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4,
-            IIOPort stepper5, IIOPort stepper6, IIOPort stepper7, IIOPort stepper8,
-            IOPort reedSwitch)
+        public IceHopper(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort fsr2)
         {
             // Create stepper drivers for both stepper motors
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4);
-            stepperDriver2 = new L298NDriver(stepper5, stepper6, stepper7, stepper8);
 
-            // Initialize reed switch
-            ReedSwitch = reedSwitch;
-            ReedSwitch.GpioPin.DebounceTimeout = TimeSpan.FromMilliseconds(15);
-            ReedSwitch.GpioPin.ValueChanged += GpioPin_ValueChanged;
-        }
-
-        private void GpioPin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
-        {
-            ReedSwitchIsOpen = args.Edge.Equals(GpioPinEdge.RisingEdge);
+            FSR2 = fsr2;
         }
 
         public void AddIce()
@@ -47,25 +34,17 @@ namespace BarBot.UWP.IO.Devices.V1
             Debug.WriteLine(string.Format("Running ice hopper"));
 
             bool forward = true;
-            while (!ReedSwitchIsOpen)
+            bool triggered = FSR2.GpioPin.Read().Equals(GpioPinValue.High);
+            while (!triggered)
             {
                 if (forward)
-                {
                     stepperDriver.run(1);
-                }
                 else
-                {
                     stepperDriver.runBackwards(1);
-                }
 
                 forward = !forward;
+                triggered = FSR2.GpioPin.Read().Equals(GpioPinValue.High);
             }
-
-            stepperDriver2.SleepTime = 7;
-
-            stepperDriver2.run(0.25);
-
-            stepperDriver2.runBackwards(0.25);
 
             Debug.WriteLine("Finished adding ice");
         }

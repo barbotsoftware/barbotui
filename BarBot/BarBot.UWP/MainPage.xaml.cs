@@ -30,6 +30,8 @@ namespace BarBot.UWP
 
             //ContentFrame.Content = new Uc_Menu();
             ContentFrame.Content = new Uc_PartyMode();
+            //App app = App.Current as App;
+            //ContentFrame.Content = new TestClient.TestClient(app.barbotDB, app.barbotIOController);
         }
     }
 }

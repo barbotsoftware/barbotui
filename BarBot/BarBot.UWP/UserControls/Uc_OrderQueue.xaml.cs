@@ -117,11 +117,11 @@ namespace BarBot.UWP.UserControls
 
             Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, app.barbotIOController.Containers);
 
-            app.barbotIOController.PourDrink(ingredients);
-
             DrinkOrder drinkorder = DrinkOrders.Where(x => x.Recipe.Equals(recipe)).First();
             DrinkOrders.Remove(drinkorder);
             app.DrinkOrders.Remove(drinkorder);
+
+            app.barbotIOController.PourDrinkSync(ingredients, drinkorder.Ice, drinkorder.Garnish);
 
             sender.Hide();
         }

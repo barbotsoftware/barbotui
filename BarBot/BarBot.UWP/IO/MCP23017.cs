@@ -225,6 +225,12 @@ namespace BarBot.UWP.IO
 
             Initialized = true;
 
+            for (int i = 0; i < 16; i++)
+            {
+                SetDriveMode((Pin)i, PinMode.Output);
+                Write((Pin)i, PinValue.Low);
+            }
+
             return true;
         }
 

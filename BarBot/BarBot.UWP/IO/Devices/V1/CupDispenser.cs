@@ -15,24 +15,35 @@ namespace BarBot.UWP.IO.Devices.V1
     {
         public L298NDriver stepperDriver;
 
+        public IOPort fsr1;
+
         public CupDispenser() { }
 
-        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4)
+        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort fsr1)
         {
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
+            this.fsr1 = fsr1;
         }
 
         public void DispenseCup()
         {
             Debug.WriteLine(string.Format("Running cup dispenser"));
 
-            stepperDriver.run(1);
+            bool triggered = fsr1.GpioPin.Read().Equals(GpioPinValue.High);
+            if (!triggered)
+            {
+                // Attempt to release a cup
+                stepperDriver.run(1);
 
-            /*stepperDriver.SleepTime = 3;
+                while (!triggered)
+                {
+                    // Wait a bit for it to settle
+                    Task.Delay(100);
 
-            stepperDriver.runBackwards(0.125);
-
-            stepperDriver.run(0.125);*/
+                    // Check if the weight sensor has been triggered
+                    triggered = fsr1.GpioPin.Read().Equals(GpioPinValue.High);
+                }
+            }
         }
     }
 }

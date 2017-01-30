@@ -33,5 +33,10 @@ namespace BarBot.UWP.Database
         /// IO port for the reed switch
         /// </summary>
         public IOPort reedSwitch { get; set; }
+
+        /// <summary>
+        /// IO port for the FSR
+        /// </summary>
+        public IOPort fsr { get; set; }
     }
 }

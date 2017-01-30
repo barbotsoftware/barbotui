@@ -359,7 +359,7 @@ namespace BarBot.UWP.UserControls
 
             Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(OrderRecipe, app.barbotIOController.Containers);
 
-            app.barbotIOController.PourDrink(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
+            app.barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
 
             sender.Hide();
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();

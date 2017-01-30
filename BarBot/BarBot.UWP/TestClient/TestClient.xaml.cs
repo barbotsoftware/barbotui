@@ -90,8 +90,8 @@ namespace BarBot.UWP.TestClient
             IO.Devices.V1.Container c = (IO.Devices.V1.Container)((Button)sender).Tag;
             Dictionary<IO.Devices.IContainer, double> recipe = new Dictionary<IO.Devices.IContainer, double>();
             recipe.Add(c, 1);
-
-            ioController.PourDrink(recipe);
+            
+            ioController.PourDrinkSync(recipe, false, false, false);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
