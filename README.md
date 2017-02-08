@@ -1,21 +1,64 @@
 # BarBot User Interface
-## Version 0.2.0
 
-## Setup
-### Windows
-1. Download Visual Studio 2015
+## BarBot.Core
 
-### Mac
-1. Download Xcode
-2. Download Xamarin Studio
+### Packages
+* `Websockets.PCL`
+* `MvvmLight`
+* `Json.NET`
 
-## Built With
-* C#/.NET (Xamarin v4.0.3)
-* Universal Windows App Development Tools
+### Namespaces
 
-## Authors
-* Alex Horstmann
-* Jan Horstmann
-* Naveen Yadav
+##### BarBot.Core
+##### Model
+##### ViewModel
+##### WebSocket
 
-## License
+### Project Settings
+* Profile: PCL 4.5
+* Target Frameworks
+  * `.NET Framework 4.5`
+  * `Windows 8 or later`
+  * `Xamarin Android`
+  * `Xamarin iOS`
+
+## BarBot.Droid
+
+### Packages
+* `Websockets.PCL`
+* `MvvmLight`
+* `Calligraphy Xamarin`
+* `Picasso`
+
+### Namespaces
+
+##### BarBot.Droid
+##### Resources
+##### Util
+##### View
+##### WebSocket
+
+### Project Settings
+* Minimum Android Version: 5.0 (API Level 21)
+* Target Framework: Android 6.0 (Marshmallow)
+
+## BarBot.iOS
+
+### Packages
+* `Websockets.PCL`
+* `MvvmLight`
+* `ModernHttpClient`
+
+### Namespaces
+
+##### BarBot.iOS
+##### Style
+##### Util
+##### View
+##### WebSocket
+
+### Project Settings
+* Deployment Target: 9.0
+* Devices: iPhone, iPad
+
+## BarBot.UWP
