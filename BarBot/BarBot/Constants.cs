@@ -16,12 +16,15 @@ namespace BarBot.Core
 		public const string Response = "response";
 		public const int Timeout = 10000;
 
-		public const string GetRecipesForBarbot = "get_recipes_for_barbot";
-		public const string GetRecipeDetails = "get_recipe_details";
+        public const string CreateCustomRecipe = "create_custom_recipe";
+        public const string GetContainersForBarbot = "get_containers_for_barbot";
 		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
+        public const string GetRecipeDetails = "get_recipe_details";
+        public const string GetRecipesForBarbot = "get_recipes_for_barbot";
 		public const string OrderDrink = "order_drink";
+        public const string SetContainersForBarbot = "set_containers_for_barbot";
 		public const string CreateCustomDrink = "create_custom_drink";
-		public const string DrinkOrderedEvent = "barbot.drink_ordered";
+        public const string DrinkOrderedEvent = "barbot.drink_ordered";
 
 		public const string IPAddress = "192.168.1.229";
 

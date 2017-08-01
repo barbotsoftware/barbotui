@@ -51,6 +51,9 @@
     <Compile Include="Model\IODevice.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="WebSocket\WebSocketUtil.cs" />
+    <Compile Include="Service\WebSocket\IWebSocketService.cs" />
+    <Compile Include="Service\WebSocket\WebSocketService.cs" />
+    <Compile Include="Service\Rest\IRestService.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -80,6 +83,11 @@
     <None Include="packages.config">
       <SubType>Designer</SubType>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Service\" />
+    <Folder Include="Service\Rest\" />
+    <Folder Include="Service\WebSocket\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>
