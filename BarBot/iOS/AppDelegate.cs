@@ -89,9 +89,9 @@ namespace BarBot.iOS
 			DispatcherHelper.Initialize(application);
 
 			// Initialize and register the Navigation Service
-			var nav = new Service.Navigation.NavigationServiceExtension();
-			SimpleIoc.Default.Register<INavigationService>(() => nav);
-			SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
+			var nav = new Service.Navigation.NavigationService();
+            SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+            SimpleIoc.Default.Register<Core.Service.Navigation.INavigationService>(() => nav);
 			nav.Initialize(navController);
 			nav.Configure(ViewModelLocator.DrinkMenuKey, typeof(DrinkMenuViewController));
 			nav.Configure(ViewModelLocator.DrinkDetailKey, typeof(DrinkDetailViewController));

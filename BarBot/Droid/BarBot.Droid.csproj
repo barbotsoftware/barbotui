@@ -95,7 +95,7 @@
     <Compile Include="View\Detail\EmptyRecipeDialogFragment.cs" />
     <Compile Include="View\BaseActivity.cs" />
     <Compile Include="Service\Rest\RestService.cs" />
-    <Compile Include="Service\Navigation\NavigationServiceExtension.cs" />
+    <Compile Include="Service\Navigation\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

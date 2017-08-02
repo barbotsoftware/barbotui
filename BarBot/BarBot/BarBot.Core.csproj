@@ -6,7 +6,7 @@
     <ProjectGuid>{641AE0D1-CEBF-42A6-A504-C8E9889C648F}</ProjectGuid>
     <ProjectTypeGuids>{786C830F-07A1-408B-BD7F-6EE04809D6DB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>BarBot</RootNamespace>
+    <RootNamespace>BarBot.Core</RootNamespace>
     <AssemblyName>BarBot</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <TargetFrameworkProfile>Profile78</TargetFrameworkProfile>
@@ -50,8 +50,12 @@
     <Compile Include="Service\WebSocket\IWebSocketService.cs" />
     <Compile Include="Service\WebSocket\WebSocketService.cs" />
     <Compile Include="Service\Rest\IRestService.cs" />
-    <Compile Include="Service\Navigation\INavigationServiceExtension.cs" />
-    <Compile Include="Service\Navigation\NavigationServiceExtension.cs" />
+    <Compile Include="Service\Navigation\INavigationService.cs" />
+    <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="ViewModel\LoginViewModel.cs" />
+    <Compile Include="ViewModel\HomeViewModel.cs" />
+    <Compile Include="ViewModel\SignUpViewModel.cs" />
+    <Compile Include="ViewModel\SearchViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

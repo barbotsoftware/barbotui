@@ -7,11 +7,9 @@ using Android.Content;
 
 using GalaSoft.MvvmLight.Views;
 
-using BarBot.Core.Service.Navigation;
-
 namespace BarBot.Droid.Service.Navigation
 {
-	public class NavigationServiceExtension : NavigationService, INavigationServiceExtension
+	public class NavigationService : GalaSoft.MvvmLight.Views.NavigationService, Core.Service.Navigation.INavigationService
 	{
 		private Dictionary<string, Type> _pageKeys = new Dictionary<string, Type>();
 
@@ -19,7 +17,7 @@ namespace BarBot.Droid.Service.Navigation
 
 		public void Initialize()
 		{
-			Core.Service.Navigation.NavigationServiceExtension.Current = this;
+			Core.Service.Navigation.NavigationService.Current = this;
 		}
 
 		public void OpenModal(string key)

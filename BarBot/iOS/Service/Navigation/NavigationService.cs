@@ -1,15 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 
-using GalaSoft.MvvmLight.Views;
-
 using UIKit;
-
-using BarBot.Core.Service.Navigation;
 
 namespace BarBot.iOS.Service.Navigation
 {
-	public class NavigationServiceExtension : NavigationService, INavigationServiceExtension
+	public class NavigationService : GalaSoft.MvvmLight.Views.NavigationService, Core.Service.Navigation.INavigationService
 	{
 		private Dictionary<string, Type> _pageKeys = new Dictionary<string, Type>();
 
@@ -17,7 +13,7 @@ namespace BarBot.iOS.Service.Navigation
 		{
 			base.Initialize(navigation);
 
-			Core.Service.Navigation.NavigationServiceExtension.Current = this;
+			Core.Service.Navigation.NavigationService.Current = this;
 		}
 
 		public void OpenModal(string key)

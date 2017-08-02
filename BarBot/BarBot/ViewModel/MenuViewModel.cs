@@ -12,7 +12,7 @@ namespace BarBot.Core.ViewModel
 {
     public class MenuViewModel : ViewModelBase
     {
-        private readonly INavigationServiceExtension navigationService;
+        private readonly INavigationService navigationService;
         private readonly IWebSocketService webSocketService;
 
         private RelayCommand getRecipesCommand;
@@ -22,7 +22,7 @@ namespace BarBot.Core.ViewModel
         private bool _shouldDisplaySearch = false;
         private Dictionary<string, byte[]> _imageCache;
 
-        public MenuViewModel(INavigationServiceExtension navigationService,
+        public MenuViewModel(INavigationService navigationService,
                              IWebSocketService webSocketService)
         {
             this.navigationService = navigationService;

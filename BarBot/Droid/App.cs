@@ -68,12 +68,12 @@ namespace BarBot.Droid
 					DispatcherHelper.Initialize();
 
 					// Initialize NavigationService
-					var nav = new Service.Navigation.NavigationServiceExtension();
+					var nav = new Service.Navigation.NavigationService();
 					nav.Initialize();
 
-					// Register NavigationService interfaces
-					SimpleIoc.Default.Register<INavigationService>(() => nav);
-					SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
+                    // Register NavigationService interfaces
+                    SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
+                    SimpleIoc.Default.Register<Core.Service.Navigation.INavigationService>(() => nav);
 
 					// Configure PageKeys
 					nav.Configure(

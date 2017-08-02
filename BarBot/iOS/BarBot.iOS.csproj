@@ -175,7 +175,7 @@
     <Compile Include="Style\SharedStyles.cs" />
     <Compile Include="Util\KeyboardManager.cs" />
     <Compile Include="Service\Rest\RestService.cs" />
-    <Compile Include="Service\Navigation\NavigationServiceExtension.cs" />
+    <Compile Include="Service\Navigation\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

@@ -10,7 +10,7 @@ namespace BarBot.Core.ViewModel
 {
 	public class DetailViewModel : ViewModelBase
 	{
-		private readonly INavigationServiceExtension _navigationService;
+		private readonly INavigationService _navigationService;
 		private string _recipeId;
 		private Recipe _recipe;
 		private byte[] _imageContents;
@@ -20,7 +20,7 @@ namespace BarBot.Core.ViewModel
 		private List<Ingredient> _ingredientsInBarBot;
 		private bool _isCustomRecipe;
 
-		public DetailViewModel(INavigationServiceExtension navigationService)
+		public DetailViewModel(INavigationService navigationService)
 		{
 			_navigationService = navigationService;
 			MessengerInstance.Register<string>(this, passedString =>

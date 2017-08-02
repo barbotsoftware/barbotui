@@ -1,8 +1,9 @@
 ﻿﻿namespace BarBot.Core.Service.Navigation
 {
-	public interface INavigationServiceExtension
+	public interface INavigationService
 	{
 		void OpenModal(string key);
 		void CloseModal();
+        void NavigateTo(string key);
 	}
 }
