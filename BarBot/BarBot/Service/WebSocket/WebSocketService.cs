@@ -11,10 +11,11 @@ namespace BarBot.Core.Service.WebSocket
         private string barbotId;
         private string endpoint;
 
-        public WebSocketService(WebSocketHandler webSocket, string barbotId)
+        public WebSocketService(WebSocketHandler webSocket, string barbotId, string endpoint)
         {
             this.webSocket = webSocket;
             this.barbotId = barbotId;
+            this.endpoint = endpoint;
         }
 
 		public async void OpenWebSocket(string username, string password)

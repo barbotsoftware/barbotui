@@ -1,10 +1,13 @@
-﻿using GalaSoft.MvvmLight.Views;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using UIKit;
-using BarBot.Core.ViewModel;
 
-namespace BarBot.iOS.Util
+using GalaSoft.MvvmLight.Views;
+
+using UIKit;
+
+using BarBot.Core.Service.Navigation;
+
+namespace BarBot.iOS.Service.Navigation
 {
 	public class NavigationServiceExtension : NavigationService, INavigationServiceExtension
 	{
@@ -14,7 +17,7 @@ namespace BarBot.iOS.Util
 		{
 			base.Initialize(navigation);
 
-			Core.ViewModel.NavigationServiceExtension.Current = this;
+			Core.Service.Navigation.NavigationServiceExtension.Current = this;
 		}
 
 		public void OpenModal(string key)

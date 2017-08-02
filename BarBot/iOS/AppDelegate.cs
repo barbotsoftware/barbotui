@@ -9,10 +9,11 @@ using GalaSoft.MvvmLight.Threading;
 
 using BarBot.Core;
 using BarBot.Core.Model;
+using BarBot.Core.Service.Navigation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
-using BarBot.iOS.Util;
+using BarBot.iOS.Service.Rest;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
 using BarBot.iOS.WebSocket;
@@ -27,7 +28,7 @@ namespace BarBot.iOS
 		public NSUserDefaults UserDefaults { get; set; }
 
 		public WebSocketUtil WebSocketUtil { get; set; }
-		public RESTService RESTService { get; set; }
+		public RestService RestService { get; set; }
 		public List<Ingredient> IngredientsInBarBot { get; set; }
 		public User User { get; set; }
 
@@ -50,7 +51,7 @@ namespace BarBot.iOS
 			// Check for stored UserID
 			if (UserDefaults.StringForKey("UserId") != null)
 			{
-				User.Uid = UserDefaults.StringForKey("UserId");
+				User.UserId = UserDefaults.StringForKey("UserId");
 			}
 
 			// Initialize Ingredient List
@@ -70,7 +71,7 @@ namespace BarBot.iOS
 			}
 
 			// Initialize RESTService
-			RESTService = new RESTService(HostName);
+			RestService = new RestService(HostName);
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -88,7 +89,7 @@ namespace BarBot.iOS
 			DispatcherHelper.Initialize(application);
 
 			// Initialize and register the Navigation Service
-			var nav = new Util.NavigationServiceExtension();
+			var nav = new Service.Navigation.NavigationServiceExtension();
 			SimpleIoc.Default.Register<INavigationService>(() => nav);
 			SimpleIoc.Default.Register<INavigationServiceExtension>(() => nav);
 			nav.Initialize(navController);
@@ -123,7 +124,7 @@ namespace BarBot.iOS
 			// Here you can undo many of the changes made on entering the background.
 			if (!WebSocketUtil.Socket.IsOpen)
 			{
-				WebSocketUtil.OpenWebSocket(User.Uid, true);
+				WebSocketUtil.OpenWebSocket(User.UserId, true);
 			}
 		}
 

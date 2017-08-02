@@ -1,6 +1,6 @@
 ﻿using GalaSoft.MvvmLight.Views;
 
-namespace BarBot.Core.ViewModel
+namespace BarBot.Core.Service.Navigation
 {
 	public static class NavigationServiceExtension
 	{

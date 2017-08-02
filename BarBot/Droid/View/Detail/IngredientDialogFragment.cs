@@ -31,7 +31,7 @@ namespace BarBot.Droid.View.Detail
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
 			var ingredient = ViewModel.Ingredients[index];
-			var quantity = ingredient.Quantity;
+			var quantity = ingredient.Amount;
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
 			builder.SetTitle(Resource.String.title_ingredient_alert);
@@ -68,7 +68,7 @@ namespace BarBot.Droid.View.Detail
 			ingredientSpinner.ItemSelected += (sender, e) =>
 			{
 				ingredient = ViewModel.AvailableIngredients[e.Position];
-				ingredient.Quantity = quantity;
+				ingredient.Amount = quantity;
 			};
 
 			// Ingredient Adapter
@@ -78,18 +78,18 @@ namespace BarBot.Droid.View.Detail
 
 			// Configure Quantity TextView
 			var quantityTextView = dialog.FindViewById<TextView>(Resource.Id.quantityTextView);
-			quantityTextView.Text = ingredient.Quantity + " oz";
+			quantityTextView.Text = ingredient.Amount + " oz";
 
 			// Configure Quantity Increment Button
 			var quantityIncrementButton = dialog.FindViewById<Button>(Resource.Id.quantityIncrementButton);
 			quantityIncrementButton.Click += (sender, e) =>
 			{
-				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Quantity);
+				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Amount);
 				if (quantityIndex < ViewModel.Quantities.Count - 1)
 				{
 					quantity = ViewModel.Quantities[quantityIndex + 1];
-					ingredient.Quantity = quantity;
-					quantityTextView.Text = ingredient.Quantity + " oz";
+					ingredient.Amount = quantity;
+					quantityTextView.Text = ingredient.Amount + " oz";
 				}
 			};
 
@@ -97,12 +97,12 @@ namespace BarBot.Droid.View.Detail
 			var quantityDecrementButton = dialog.FindViewById<Button>(Resource.Id.quantityDecrementButton);
 			quantityDecrementButton.Click += (sender, e) =>
 			{
-				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Quantity);
+				var quantityIndex = ViewModel.Quantities.IndexOf(ingredient.Amount);
 				if (quantityIndex > 0)
 				{
 					quantity = ViewModel.Quantities[quantityIndex - 1];
-					ingredient.Quantity = quantity;
-					quantityTextView.Text = ingredient.Quantity + " oz";
+					ingredient.Amount = quantity;
+					quantityTextView.Text = ingredient.Amount + " oz";
 				}
 			};
 

@@ -4,6 +4,7 @@ using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
 
 using BarBot.Core.Model;
+using BarBot.Core.Service.Navigation;
 using BarBot.Core.Service.WebSocket;
 using BarBot.Core.WebSocket;
 

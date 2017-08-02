@@ -1,88 +1,92 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.ComponentModel;
+﻿using System.ComponentModel;
+
+using Newtonsoft.Json;
 
 namespace BarBot.Core.Model
 {
     public class DrinkOrder : JsonModelObject, INotifyPropertyChanged
     {
-        private string _id;
-        private string _userId;
-        private string _userName;
-        private Recipe _recipe;
-        private bool _ice;
-        private bool _garnish;
-        private string _timestamp;
+        string drinkOrderId;
+        string userId;
+        string userName;
+        Recipe recipe;
+        bool ice;
+        bool garnish;
+        string timestamp;
 
-        public string Id
+        [JsonProperty("drink_order_id")]
+        public string DrinkOrderId
         {
-            get { return _id; }
+            get
+            {
+                return drinkOrderId;
+            }
+
             set
             {
-                _id = value;
-                OnPropertyChanged("Id");
+                drinkOrderId = value;
+                OnPropertyChanged("DrinkOrderId");
             }
         }
 
         public string UserId
         {
-            get { return _userId; }
+            get { return userId; }
             set
             {
-                _userId = value;
+                userId = value;
                 OnPropertyChanged("UserId");
             }
         }
 
         public string UserName
         {
-            get { return _userName; }
+            get { return userName; }
             set
             {
-                _userName = value;
+                userName = value;
                 OnPropertyChanged("UserName");
             }
         }
 
         public Recipe Recipe
         {
-            get { return _recipe; }
+            get { return recipe; }
             set
             {
-                _recipe = value;
+                recipe = value;
                 OnPropertyChanged("Recipe");
             }
         }
 
+        [JsonProperty("ice")]
         public bool Ice
         {
-            get { return _ice; }
+            get { return ice; }
             set
             {
-                _ice = value;
+                ice = value;
                 OnPropertyChanged("Ice");
             }
         }
 
+        [JsonProperty("garnish")]
         public bool Garnish
         {
-            get { return _garnish; }
+            get { return garnish; }
             set
             {
-                _garnish = value;
+                garnish = value;
                 OnPropertyChanged("Garnish");
             }
         }
 
         public string Timestamp
         {
-            get { return _timestamp; }
+            get { return timestamp; }
             set
             {
-                _timestamp = value;
+                timestamp = value;
                 OnPropertyChanged("Timestamp");
             }
         }
@@ -92,7 +96,7 @@ namespace BarBot.Core.Model
         public DrinkOrder(string json)
         {
             var d = (DrinkOrder)parseJSON(json, typeof(DrinkOrder));
-            Id = d.Id;
+            DrinkOrderId = d.DrinkOrderId;
             UserId = d.UserId;
             UserName = d.UserName;
             Recipe = d.Recipe;

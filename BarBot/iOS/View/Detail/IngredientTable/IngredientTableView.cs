@@ -77,7 +77,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 				// initialize some fields: transition from new ingredient to added ingredient
 				ViewModel.Ingredients[indexPath.Row].IngredientId = ViewModel.AvailableIngredients[0].IngredientId;
 				ViewModel.Ingredients[indexPath.Row].Name = ViewModel.AvailableIngredients[0].Name;
-				ViewModel.Ingredients[indexPath.Row].Quantity = 0.5;
+				ViewModel.Ingredients[indexPath.Row].Amount = 0.5;
 			}
 
 			var cell = CellAt(indexPath);
@@ -174,7 +174,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			pickerView.Delegate = new IngredientPickerViewDelegate(this);
 			pickerView.Frame = new CGRect(0, 0, cell.Frame.Width, 216);
 
-			var quantity = ingredient.Quantity;
+			var quantity = ingredient.Amount;
 
 			// select quantity (volume) value
 			if (ViewModel.Quantities.Contains(quantity))
@@ -211,7 +211,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 			}
 			else
 			{
-				cell.TextLabel.Text = element.Quantity + " oz " + element.Name;
+				cell.TextLabel.Text = element.Amount + " oz " + element.Name;
 			}
 		}
 	}

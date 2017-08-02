@@ -6,55 +6,61 @@
  * Copyright © 2016 BarBot. All rights reserved.
  */
 
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
+
+using Newtonsoft.Json;
 
 namespace BarBot.Core.Model
 {
 	public class Recipe : JsonModelObject, INotifyPropertyChanged
 	{
-		private string _recipeId;
-        private string _name;
-        private string _img;
-        private List<Ingredient> _ingredients;
+        string recipeId;
+        string name;
+        string img;
+        List<Ingredient> ingredients;
 
+        [JsonProperty("recipe_id")]
 		public string RecipeId
         {
-            get { return _recipeId; }
+            get { return recipeId; }
             set
             {
-                _recipeId = value;
+                recipeId = value;
                 OnPropertyChanged("RecipeId");
             }
         }
 
+        [JsonProperty("name")]
 		public string Name
         {
-            get { return _name; }
+            get { return name; }
             set
             {
-                _name = value;
+                name = value;
                 OnPropertyChanged("Name");
             }
         }
 
+        [JsonProperty("img")]
 		public string Img
         {
-            get { return _img; }
+            get { return img; }
             set
             {
-                _img = value;
+                img = value;
                 OnPropertyChanged("Img");
             }
         }
 
+        [JsonProperty("ingredients")]
 		public List<Ingredient> Ingredients
         {
-            get { return _ingredients; }
+            get { return ingredients; }
             set
             {
-                _ingredients = value;
-                OnPropertyChanged("Steps");
+                ingredients = value;
+                OnPropertyChanged("Ingredients");
             }
         }
 
@@ -62,9 +68,9 @@ namespace BarBot.Core.Model
 		{
 		}
 
-		public Recipe(string id, string name, string img, List<Ingredient> ingredients)
+		public Recipe(string recipeId, string name, string img, List<Ingredient> ingredients)
 		{
-			RecipeId = id;
+			RecipeId = recipeId;
 			Name = name;
 			Img = img;
 			Ingredients = ingredients;
@@ -84,7 +90,7 @@ namespace BarBot.Core.Model
 			var volume = 0.0;
 			foreach (var i in Ingredients)
 			{
-				volume += i.Quantity;
+				volume += i.Amount;
 			}
 			return volume;
 		}

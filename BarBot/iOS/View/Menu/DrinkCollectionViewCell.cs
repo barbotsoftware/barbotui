@@ -105,7 +105,7 @@ namespace BarBot.iOS.View.Menu
 			if (!ViewModel.ImageCache.ContainsKey(element.Name))
 			{
 				// Load new Image
-				_imageContents = await appDelegate.RESTService.LoadImage(element.Img);
+				_imageContents = await appDelegate.RestService.LoadImage(element.Img);
 				ViewModel.ImageCache.Add(element.Name, _imageContents);
 			}
 			else

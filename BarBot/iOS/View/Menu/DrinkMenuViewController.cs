@@ -84,7 +84,7 @@ namespace BarBot.iOS.View.Menu
 			Delegate = (AppDelegate)UIApplication.SharedApplication.Delegate;
 
 			// if new user
-			if (Delegate.User.Uid == null)
+			if (Delegate.User.UserId == null)
 			{
 				ShowUserNameAlert();
 			}
@@ -162,7 +162,7 @@ namespace BarBot.iOS.View.Menu
 					// Store in DB
 					Delegate.UserDefaults.Synchronize();
 				
- 					if (Delegate.User.Uid == null)
+ 					if (Delegate.User.UserId == null)
 					{
 						ShowUserNameAlert();
 					}
@@ -204,23 +204,23 @@ namespace BarBot.iOS.View.Menu
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
-				var user = await Delegate.RESTService.SaveUserNameAsync(field.Text);
+				var user = await Delegate.RestService.RegisterUser(field.Text, "", "");
 
-				if (user.Uid.Equals("name_taken"))
+				if (user.UserId.Equals("name_taken"))
 				{
 					PresentViewController(nameInputAlertController, true, () =>
 					{
 						nameInputAlertController.Title = "That name is taken";
 					});
 				}
-				else if (user.Uid.Equals("exception"))
+				else if (user.UserId.Equals("exception"))
 				{
 					DismissViewController(true, null);
 				}
 				else
 				{
 					// Save value
-					Delegate.UserDefaults.SetString(user.Uid, "UserId");
+					Delegate.UserDefaults.SetString(user.UserId, "UserId");
 
 					// Set to Delegate
 					Delegate.User = user;
@@ -361,7 +361,7 @@ namespace BarBot.iOS.View.Menu
 				WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 
 				// Open WebSocket
-				WebSocketUtil.OpenWebSocket(Delegate.User.Uid, true);
+				WebSocketUtil.OpenWebSocket(Delegate.User.UserId, true);
 			}
 		}
 

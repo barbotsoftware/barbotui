@@ -1,21 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Reflection;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 
 using GalaSoft.MvvmLight.Views;
 
-using BarBot.Core.ViewModel;
+using BarBot.Core.Service.Navigation;
 
-namespace BarBot.Droid.Util
+namespace BarBot.Droid.Service.Navigation
 {
 	public class NavigationServiceExtension : NavigationService, INavigationServiceExtension
 	{
@@ -25,7 +19,7 @@ namespace BarBot.Droid.Util
 
 		public void Initialize()
 		{
-			Core.ViewModel.NavigationServiceExtension.Current = this;
+			Core.Service.Navigation.NavigationServiceExtension.Current = this;
 		}
 
 		public void OpenModal(string key)

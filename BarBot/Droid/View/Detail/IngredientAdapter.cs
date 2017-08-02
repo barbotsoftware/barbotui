@@ -59,7 +59,7 @@ namespace BarBot.Droid.View.Detail
 			}
 			else
 			{
-				ingredientRow.Text = ingredient.Quantity + " oz " + ingredient.Name;
+				ingredientRow.Text = ingredient.Amount + " oz " + ingredient.Name;
 			}
 
 			// Set visibility of Remove Button

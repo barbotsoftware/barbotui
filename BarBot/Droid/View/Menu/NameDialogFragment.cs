@@ -71,15 +71,15 @@ namespace BarBot.Droid.View.Menu
 		{
 			if (NameEditText != null && NameEditText.Text.Length > 0)
 			{
-				var user = await App.RESTService.SaveUserNameAsync(NameEditText.Text);
+				var user = await App.RestService.RegisterUser(NameEditText.Text, "", "");
 
-				if (user.Uid.Equals("name_taken"))
+				if (user.UserId.Equals("name_taken"))
 				{
 					Toast toast = Toast.MakeText(context, "That name is taken", ToastLength.Long);
 					toast.SetGravity(GravityFlags.Center, 0, 0);
 					toast.Show();
 				}
-				else if (user.Uid.Equals("exception"))
+				else if (user.UserId.Equals("exception"))
 				{
 					Dismiss();
 				}

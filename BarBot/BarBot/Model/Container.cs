@@ -1,18 +1,48 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
+
+using Newtonsoft.Json;
 
 namespace BarBot.Core.Model
 {
-    class Container : JsonModelObject
+    public class Container : JsonModelObject, INotifyPropertyChanged
     {
-        private int number;
-        private int ingredient_id;
-        private int size;
-        private int fluid_level;
+        string barbotId;
+        string ingredientId;
+        int number;
+        int currentVolume;
+        int maxVolume;
 
+        [JsonProperty("barbot_id")]
+        public string BarbotId
+        {
+            get
+            {
+                return barbotId;
+            }
+
+            set
+            {
+                barbotId = value;
+                OnPropertyChanged("BarbotId");
+            }
+        }
+
+        [JsonProperty("ingredient_id")]
+        public string IngredientId
+        {
+            get
+            {
+                return ingredientId;
+            }
+
+            set
+            {
+                ingredientId = value;
+                OnPropertyChanged("IngredientId");
+            }
+        }
+
+        [JsonProperty("number")]
         public int Number
         {
             get
@@ -27,65 +57,58 @@ namespace BarBot.Core.Model
             }
         }
 
-        public int Ingredient_id
+        [JsonProperty("current_volume")]
+        public int CurrentVolume
         {
             get
             {
-                return ingredient_id;
+                return currentVolume;
             }
 
             set
             {
-                ingredient_id = value;
-                OnPropertyChanged("Ingredient_id");
+                currentVolume = value;
+                OnPropertyChanged("CurrentVolume");
             }
         }
 
-        public int Size
+        [JsonProperty("max_volume")]
+        public int MaxVolume
         {
             get
             {
-                return size;
+                return maxVolume;
             }
 
             set
             {
-                size = value;
-                OnPropertyChanged("Size");
+                maxVolume = value;
+                OnPropertyChanged("MaxVolume");
             }
         }
 
-        public int Fluid_level
+        public Container()
         {
-            get
-            {
-                return fluid_level;
-            }
-
-            set
-            {
-                fluid_level = value;
-                OnPropertyChanged("Fluid_level");
-            }
         }
 
-        public Container() { }
-
-        public Container(int number, int ingredient_id, int size, int fluid_level)
+        public Container(string barbotId, string ingredientId, int number,
+                         int currentVolume, int maxVolume)
         {
+            BarbotId = barbotId;
+            IngredientId = ingredientId;
             Number = number;
-            Ingredient_id = ingredient_id;
-            Size = size;
-            Fluid_level = fluid_level;
+            CurrentVolume = currentVolume;
+            MaxVolume = maxVolume;
         }
 
         public Container(string json)
         {
             var c = (Container)parseJSON(json, typeof(Container));
+            BarbotId = c.BarbotId;
+            IngredientId = c.IngredientId;
             Number = c.Number;
-            Ingredient_id = c.Ingredient_id;
-            Size = c.Size;
-            Fluid_level = c.Fluid_level;    
+            CurrentVolume = c.CurrentVolume;
+            MaxVolume = c.MaxVolume;
         }
     }
 }

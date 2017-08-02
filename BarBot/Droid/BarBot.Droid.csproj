@@ -85,8 +85,6 @@
     <Compile Include="View\Detail\DrinkDetailActivity.cs" />
     <Compile Include="View\Menu\DrinkMenuActivity.cs" />
     <Compile Include="WebSocket\DroidWebSocketHandler.cs" />
-    <Compile Include="Util\NavigationServiceExtension.cs" />
-    <Compile Include="Util\RESTService.cs" />
     <Compile Include="View\Menu\NameDialogFragment.cs" />
     <Compile Include="View\Menu\GridAdapter.cs" />
     <Compile Include="View\Detail\VolumeDialogFragment.cs" />
@@ -96,6 +94,8 @@
     <Compile Include="View\Detail\CustomNameDialogFragment.cs" />
     <Compile Include="View\Detail\EmptyRecipeDialogFragment.cs" />
     <Compile Include="View\BaseActivity.cs" />
+    <Compile Include="Service\Rest\RestService.cs" />
+    <Compile Include="Service\Navigation\NavigationServiceExtension.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -161,12 +161,14 @@
     <Folder Include="View\" />
     <Folder Include="View\Menu\" />
     <Folder Include="View\Detail\" />
-    <Folder Include="Util\" />
     <Folder Include="WebSocket\" />
     <Folder Include="Resources\menu\" />
     <Folder Include="Resources\drawable\" />
     <Folder Include="Resources\values-v21\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
+    <Folder Include="Service\" />
+    <Folder Include="Service\Rest\" />
+    <Folder Include="Service\Navigation\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
@@ -182,7 +184,10 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <DotNetNamingPolicy DirectoryNamespaceAssociation="PrefixedHierarchical" ResourceNamePolicy="FileFormatDefault" />
+          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical">
+            <inheritsSet />
+            <inheritsScope />
+          </DotNetNamingPolicy>
         </Policies>
       </Properties>
     </MonoDevelop>

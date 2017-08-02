@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using GalaSoft.MvvmLight;
 
 using BarBot.Core.Model;
+using BarBot.Core.Service.Navigation;
 
 namespace BarBot.Core.ViewModel
 {

@@ -27,7 +27,7 @@ namespace BarBot.iOS.View.Menu.Search
 			if (!ViewModel.ImageCache.ContainsKey(element.Name))
 			{
 				// Load new Image
-				ImageContents = await appDelegate.RESTService.LoadImage(element.Img);
+				ImageContents = await appDelegate.RestService.LoadImage(element.Img);
 				ViewModel.ImageCache.Add(element.Name, ImageContents);
 			}
 			else

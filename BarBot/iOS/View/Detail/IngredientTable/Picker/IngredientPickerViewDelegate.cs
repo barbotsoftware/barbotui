@@ -53,7 +53,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 
 			if (component == 0)
 			{
-				ViewModel.Ingredients[parentCellIndexPath.Row].Quantity = ViewModel.Quantities[(int)row];
+				ViewModel.Ingredients[parentCellIndexPath.Row].Amount = ViewModel.Quantities[(int)row];
 			}
 			else if (component == 1)
 			{

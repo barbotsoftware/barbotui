@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 using Android.App;
 using Android.Content;
@@ -14,14 +15,14 @@ using Calligraphy;
 
 using BarBot.Core;
 using BarBot.Core.Model;
+using BarBot.Core.Service.Navigation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
-using BarBot.Droid.Util;
+using BarBot.Droid.Service.Rest;
 using BarBot.Droid.View.Detail;
 using BarBot.Droid.View.Menu;
 using BarBot.Droid.WebSocket;
-using System.Threading.Tasks;
 
 namespace BarBot.Droid
 {
@@ -30,7 +31,7 @@ namespace BarBot.Droid
 	{
 		private static ViewModelLocator locator;
 		private static WebSocketUtil webSocketUtil;
-		private static RESTService restService;
+		private static RestService restService;
 		private static List<Ingredient> ingredientsInBarBot;
 		private static User user;
 		private static string hostName;
@@ -67,7 +68,7 @@ namespace BarBot.Droid
 					DispatcherHelper.Initialize();
 
 					// Initialize NavigationService
-					var nav = new Util.NavigationServiceExtension();
+					var nav = new Service.Navigation.NavigationServiceExtension();
 					nav.Initialize();
 
 					// Register NavigationService interfaces
@@ -104,13 +105,13 @@ namespace BarBot.Droid
 			}
 		}
 
-		public static RESTService RESTService
+		public static RestService RestService
 		{
 			get
 			{
 				if (restService == null)
 				{
-					restService = new RESTService(Constants.IPAddress);
+					restService = new RestService(Constants.IPAddress);
 				}
 
 				return restService;
@@ -178,7 +179,7 @@ namespace BarBot.Droid
 				if (!WebSocketUtil.Socket.IsOpen)
 				{
 					// Open WebSocket
-					WebSocketUtil.OpenWebSocket(user.Uid, true);
+					WebSocketUtil.OpenWebSocket(user.UserId, true);
 					while (!WebSocketUtil.Socket.IsOpen)
 					{
 						Task.Delay(10).Wait();
@@ -204,7 +205,7 @@ namespace BarBot.Droid
 			// Save values
 			var editor = Preferences.Edit();
 			editor.Clear();
-			editor.PutString("UserId", user.Uid);
+			editor.PutString("UserId", user.UserId);
 			//editor.PutString("HostName", hostName);
 
 			// Sync changes to Shared Prefs
@@ -213,7 +214,7 @@ namespace BarBot.Droid
 
 		public static void LoadSharedPreferences()
 		{
-			User.Uid = Preferences.GetString("UserId", "");
+			User.UserId = Preferences.GetString("UserId", "");
 			//hostName = Preferences.GetString("HostName", "");
 		}
 	}

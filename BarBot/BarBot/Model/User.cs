@@ -1,60 +1,81 @@
-﻿using System.ComponentModel;
-
-namespace BarBot.Core.Model
+﻿namespace BarBot.Core.Model
 {
-	public class User : JsonModelObject, INotifyPropertyChanged
+	public class User : JsonModelObject
 	{
-		private string _email;
-		private string _name;
-		private string _uid;
+        string userId;
+		string name;
+        string email;
+        string password;
 
-		public string Email
+		public string UserId
 		{
-			get { return _email; }
+			get
+            {
+                return userId;
+            }
 			set
 			{
-				_email = value;
-				OnPropertyChanged("Email");
+				userId = value;
 			}
 		}
 
 		public string Name
 		{
-			get { return _name; }
+			get
+			{
+				return name;
+			}
 			set
 			{
-				_name = value;
-				OnPropertyChanged("Name");
+				name = value;
 			}
 		}
 
-		public string Uid
+		public string Email
 		{
-			get { return _uid; }
+			get
+            {
+                return email; 
+            }
+
 			set
 			{
-				_uid = value;
-				OnPropertyChanged("Uid");
+				email = value;
 			}
 		}
 
-		public User()
-		{
-		}
+        public string Password
+        {
+            get
+            {
+                return password;
+            }
 
-		public User(string email, string name, string uid)
+            set
+            {
+                password = value;
+            }
+        }
+
+        public User()
+        {
+        }
+
+        public User(string userId, string name, string email, string password)
 		{
+            UserId = userId;
+            Name = name;
 			Email = email;
-			Name = name;
-			Uid = uid;
+            Password = password;
 		}
 
-		public User(string json)
-		{
+        public User(string json)
+        {
 			var u = (User)parseJSON(json, typeof(User));
-			Email = u.Email;
-			Name = u.Name;
-			Uid = u.Uid;
+            UserId = u.UserId;
+            Name = u.Name;
+            Email = u.Email;
+            Password = u.Password;
 		}
 	}
 }

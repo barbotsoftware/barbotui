@@ -4,7 +4,20 @@ namespace BarBot.Core.Model
 {
 	public class RecipeList : JsonModelObject
 	{
-		private List<Recipe> _recipes;
+        List<Recipe> recipes;
+
+		public List<Recipe> Recipes
+		{
+            get
+            {
+               return recipes;
+            }
+
+			set
+            {
+                recipes = value;
+            }
+		}
 
 		public RecipeList()
 		{
@@ -13,12 +26,6 @@ namespace BarBot.Core.Model
 		public RecipeList(string json)
 		{
 			Recipes = (List<Recipe>)parseJSON(json, typeof(List<Recipe>));
-		}
-
-		public List<Recipe> Recipes
-		{
-			get { return _recipes; }
-			set { _recipes = value; }
 		}
 	}
 }

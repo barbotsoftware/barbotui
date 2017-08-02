@@ -35,8 +35,6 @@
     <Compile Include="Model\Recipe.cs" />
     <Compile Include="Constants.cs" />
     <Compile Include="Model\JsonModelObject.cs" />
-    <Compile Include="Model\Step.cs" />
-    <Compile Include="Model\Event.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
     <Compile Include="ViewModel\DetailViewModel.cs" />
@@ -44,8 +42,6 @@
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Model\IngredientList.cs" />
     <Compile Include="Model\RecipeList.cs" />
-    <Compile Include="ViewModel\INavigationServiceExtension.cs" />
-    <Compile Include="ViewModel\NavigationServiceExtension.cs" />
     <Compile Include="Model\Container.cs" />
     <Compile Include="Model\DrinkOrder.cs" />
     <Compile Include="Model\IODevice.cs" />
@@ -54,6 +50,8 @@
     <Compile Include="Service\WebSocket\IWebSocketService.cs" />
     <Compile Include="Service\WebSocket\WebSocketService.cs" />
     <Compile Include="Service\Rest\IRestService.cs" />
+    <Compile Include="Service\Navigation\INavigationServiceExtension.cs" />
+    <Compile Include="Service\Navigation\NavigationServiceExtension.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -88,6 +86,7 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Rest\" />
     <Folder Include="Service\WebSocket\" />
+    <Folder Include="Service\Navigation\" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
 </Project>

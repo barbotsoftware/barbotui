@@ -8,41 +8,46 @@
 
 using System.ComponentModel;
 
+using Newtonsoft.Json;
+
 namespace BarBot.Core.Model
 {
 	public class Ingredient : JsonModelObject, INotifyPropertyChanged
 	{
-		private string _ingredientId;
-		private string _name;
-		private double _quantity;
+        string ingredientId;
+        string name;
+        double amount;
 
+        [JsonProperty("ingredient_id")]
 		public string IngredientId
 		{
-			get { return _ingredientId; }
+			get { return ingredientId; }
 			set
 			{
-				_ingredientId = value;
+				ingredientId = value;
 				OnPropertyChanged("IngredientId");
 			}
 		}
 
+        [JsonProperty("name")]
 		public string Name
 		{
-			get { return _name; }
+			get { return name; }
 			set
 			{
-				_name = value;
+				name = value;
 				OnPropertyChanged("Name");
 			}
 		}
 
-		public double Quantity
+        [JsonProperty("amount")]
+		public double Amount
 		{
-			get { return _quantity; }
+			get { return amount; }
 			set
 			{
-				_quantity = value;
-				OnPropertyChanged("Quantity");
+				amount = value;
+				OnPropertyChanged("Amount");
 			}
 		}
 
@@ -50,11 +55,11 @@ namespace BarBot.Core.Model
 		{
 		}
 
-        public Ingredient(string ingredientId, string name, double quantity)
+        public Ingredient(string ingredientId, string name, double amount)
         {
             IngredientId = ingredientId;
 			Name = name;
-			Quantity = quantity;
+			Amount = amount;
         }
 
 		public Ingredient(string json)
@@ -62,7 +67,7 @@ namespace BarBot.Core.Model
 			var i = (Ingredient)parseJSON(json, typeof(Ingredient));
 			IngredientId = i.IngredientId;
 			Name = i.Name;
-			Quantity = i.Quantity;
+			Amount = i.Amount;
 		}
 
 		public override string ToString()

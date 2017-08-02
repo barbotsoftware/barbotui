@@ -1,4 +1,4 @@
-﻿namespace BarBot.Core.ViewModel
+﻿﻿namespace BarBot.Core.Service.Navigation
 {
 	public interface INavigationServiceExtension
 	{

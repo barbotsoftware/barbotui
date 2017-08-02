@@ -38,7 +38,7 @@ namespace BarBot.Droid.View.Menu
 			// Attempt to load UserId from SharedPrefs
 			App.LoadSharedPreferences();
 
-			if (App.User.Uid == "")
+			if (App.User.UserId == "")
 			{
 				ShowNameDialog();
 			}
