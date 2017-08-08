@@ -4,7 +4,7 @@
 	{
         string userId;
 		string name;
-        string email;
+        string emailAddress;
         string password;
 
 		public string UserId
@@ -31,16 +31,16 @@
 			}
 		}
 
-		public string Email
+        public string EmailAddress
 		{
 			get
             {
-                return email; 
+                return emailAddress; 
             }
 
 			set
 			{
-				email = value;
+				emailAddress = value;
 			}
 		}
 
@@ -61,11 +61,11 @@
         {
         }
 
-        public User(string userId, string name, string email, string password)
+        public User(string userId, string name, string emailAddress, string password)
 		{
             UserId = userId;
             Name = name;
-			Email = email;
+			EmailAddress = emailAddress;
             Password = password;
 		}
 
@@ -74,7 +74,7 @@
 			var u = (User)parseJSON(json, typeof(User));
             UserId = u.UserId;
             Name = u.Name;
-            Email = u.Email;
+            EmailAddress = u.EmailAddress;
             Password = u.Password;
 		}
 	}

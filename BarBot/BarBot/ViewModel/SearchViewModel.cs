@@ -1,8 +1,10 @@
-﻿using BarBot.Core.Service.Navigation;
+﻿using GalaSoft.MvvmLight;
+
+using BarBot.Core.Service.Navigation;
 
 namespace BarBot.Core.ViewModel
 {
-    public class SearchViewModel
+    public class SearchViewModel : ViewModelBase
     {
         INavigationService navigationService;
 

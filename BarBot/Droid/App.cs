@@ -19,7 +19,7 @@ using BarBot.Core.Service.Navigation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
-using BarBot.Droid.Service.Rest;
+using BarBot.Droid.Service.Login;
 using BarBot.Droid.View.Detail;
 using BarBot.Droid.View.Menu;
 using BarBot.Droid.WebSocket;
@@ -31,7 +31,7 @@ namespace BarBot.Droid
 	{
 		private static ViewModelLocator locator;
 		private static WebSocketUtil webSocketUtil;
-		private static RestService restService;
+		private static LoginService loginService;
 		private static List<Ingredient> ingredientsInBarBot;
 		private static User user;
 		private static string hostName;
@@ -105,16 +105,16 @@ namespace BarBot.Droid
 			}
 		}
 
-		public static RestService RestService
+		public static LoginService LoginService
 		{
 			get
 			{
-				if (restService == null)
+				if (loginService == null)
 				{
-					restService = new RestService(Constants.IPAddress);
+					loginService = new LoginService(Constants.IPAddress);
 				}
 
-				return restService;
+				return loginService;
 			}
 		}
 

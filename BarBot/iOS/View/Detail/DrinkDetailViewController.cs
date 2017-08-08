@@ -111,7 +111,7 @@ namespace BarBot.iOS.View.Detail
 			if (ViewModel.ImageContents == null)
 			{
 				// load new Image
-				ViewModel.ImageContents = await Delegate.RestService.LoadImage(ViewModel.Recipe.Img);
+				ViewModel.ImageContents = await Delegate.LoginService.LoadImage(ViewModel.Recipe.Img);
 
 				// Don't set on HTTP 404
 				if (ViewModel.ImageContents == null)

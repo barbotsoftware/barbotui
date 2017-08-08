@@ -94,7 +94,7 @@
     <Compile Include="View\Detail\CustomNameDialogFragment.cs" />
     <Compile Include="View\Detail\EmptyRecipeDialogFragment.cs" />
     <Compile Include="View\BaseActivity.cs" />
-    <Compile Include="Service\Rest\RestService.cs" />
+    <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -167,7 +167,7 @@
     <Folder Include="Resources\values-v21\" />
     <Folder Include="Resources\drawable-xxxhdpi\" />
     <Folder Include="Service\" />
-    <Folder Include="Service\Rest\" />
+    <Folder Include="Service\Login\" />
     <Folder Include="Service\Navigation\" />
   </ItemGroup>
   <ItemGroup>

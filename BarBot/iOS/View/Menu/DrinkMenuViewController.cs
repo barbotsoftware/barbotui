@@ -204,7 +204,7 @@ namespace BarBot.iOS.View.Menu
 			//  Add Actionn
 			var submit = UIAlertAction.Create("Submit", UIAlertActionStyle.Default, async (obj) =>
 			{
-				var user = await Delegate.RestService.RegisterUser(field.Text, "", "");
+				var user = await Delegate.LoginService.RegisterUser(field.Text, "", "");
 
 				if (user.UserId.Equals("name_taken"))
 				{

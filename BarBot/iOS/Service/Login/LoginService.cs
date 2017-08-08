@@ -17,16 +17,16 @@ using System.Threading.Tasks;
 using ModernHttpClient;
 
 using BarBot.Core.Model;
-using BarBot.Core.Service.Rest;
+using BarBot.Core.Service.Login;
 
-namespace BarBot.iOS.Service.Rest
+namespace BarBot.iOS.Service.Login
 {
-    public class RestService : IRestService
+    public class LoginService : ILoginService
     {
 		HttpClient httpClient;
 		string Host { get; set; }
 
-        public RestService(string host)
+        public LoginService(string host)
         {
 			httpClient = new HttpClient(new NativeMessageHandler());
 			httpClient.MaxResponseContentBufferSize = 256000;
@@ -45,11 +45,12 @@ namespace BarBot.iOS.Service.Rest
         /*
          * Registers a new User.
          */
-        public async Task<User> RegisterUser(string name, string email, string password)
+        public async Task<User> RegisterUser(string name, string emailAddress, string password)
         {
             try
             {
-				var uri = new Uri("http://" + Host + "/auth/register?name=" + name + "&email=" + email + "&password=" + password);
+				var uri = new Uri("http://" + Host + "/auth/register?name=" + name + "&email=" +
+                                  emailAddress + "&password=" + password);
 
 				var content = new StringContent("");
 
@@ -79,11 +80,11 @@ namespace BarBot.iOS.Service.Rest
         /*
          * Logs in an existing User.
          */
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<bool> LoginUser(string emailAddress, string password)
         {
             try
             {
-                var uri = new Uri("http://" + Host + "/auth/login?email=" + email + "&password=" + password);
+                var uri = new Uri("http://" + Host + "/auth/login?email=" + emailAddress + "&password=" + password);
 
                 var content = new StringContent("");
 
@@ -107,6 +108,36 @@ namespace BarBot.iOS.Service.Rest
                 System.Diagnostics.Debug.WriteLine(e.ToString());
             }
             return false;
+        }
+
+        public async Task<bool> ForgotPassword(string emailAddress)
+        {
+            try
+            {
+				var uri = new Uri("http://" + Host + "/auth/resetpassword?email=" + emailAddress);
+
+				var content = new StringContent("");
+
+				HttpResponseMessage response = await httpClient.PostAsync(uri, content);
+
+				if (response.IsSuccessStatusCode)
+				{
+					var responseContent = await response.Content.ReadAsStringAsync();
+
+					// check response content
+
+					return true;
+				}
+				else
+				{
+					return false;
+				}
+            }
+			catch (Exception e)
+			{
+				System.Diagnostics.Debug.WriteLine(e.ToString());
+			}
+			return false;
         }
 
 		public async Task<byte[]> LoadImage(string imageUrl)

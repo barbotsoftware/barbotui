@@ -13,7 +13,7 @@ using BarBot.Core.Service.Navigation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
-using BarBot.iOS.Service.Rest;
+using BarBot.iOS.Service.Login;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
 using BarBot.iOS.WebSocket;
@@ -28,7 +28,7 @@ namespace BarBot.iOS
 		public NSUserDefaults UserDefaults { get; set; }
 
 		public WebSocketUtil WebSocketUtil { get; set; }
-		public RestService RestService { get; set; }
+		public LoginService LoginService { get; set; }
 		public List<Ingredient> IngredientsInBarBot { get; set; }
 		public User User { get; set; }
 
@@ -71,7 +71,7 @@ namespace BarBot.iOS
 			}
 
 			// Initialize RESTService
-			RestService = new RestService(HostName);
+			LoginService = new LoginService(HostName);
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);

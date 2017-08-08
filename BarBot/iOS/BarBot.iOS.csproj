@@ -137,7 +137,7 @@
     <Folder Include="Style\" />
     <Folder Include="Assets.xcassets\AppIcons.appiconset\" />
     <Folder Include="Service\" />
-    <Folder Include="Service\Rest\" />
+    <Folder Include="Service\Login\" />
     <Folder Include="Service\Navigation\" />
   </ItemGroup>
   <ItemGroup>
@@ -174,7 +174,7 @@
     <Compile Include="Style\Color.cs" />
     <Compile Include="Style\SharedStyles.cs" />
     <Compile Include="Util\KeyboardManager.cs" />
-    <Compile Include="Service\Rest\RestService.cs" />
+    <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
   </ItemGroup>
   <ItemGroup>

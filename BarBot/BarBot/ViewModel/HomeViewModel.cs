@@ -1,7 +1,6 @@
 ﻿using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.Command;
-
-using BarBot.Core.Service.Navigation;
+using GalaSoft.MvvmLight.Views;
 
 namespace BarBot.Core.ViewModel
 {
@@ -47,12 +46,12 @@ namespace BarBot.Core.ViewModel
 
         private void GoToLoginPage()
         {
-            navigationService.NavigateTo("Login");
+            navigationService.NavigateTo(ViewModelLocator.LoginKey);
         }
 
         private void GoToSignUpPage()
         {
-            navigationService.NavigateTo("SignUp");
+            navigationService.NavigateTo(ViewModelLocator.SignUpKey);
         }
     }
 }

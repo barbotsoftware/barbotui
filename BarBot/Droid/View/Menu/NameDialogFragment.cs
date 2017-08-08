@@ -71,7 +71,7 @@ namespace BarBot.Droid.View.Menu
 		{
 			if (NameEditText != null && NameEditText.Text.Length > 0)
 			{
-				var user = await App.RestService.RegisterUser(NameEditText.Text, "", "");
+				var user = await App.LoginService.RegisterUser(NameEditText.Text, "", "");
 
 				if (user.UserId.Equals("name_taken"))
 				{
