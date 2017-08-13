@@ -121,7 +121,7 @@ namespace BarBot.Core.ViewModel
 
         private void GoToHomePage()
         {
-            navigationService.NavigateTo(ViewModelLocator.HomeKey);
+            navigationService.GoBack();
         }
 	}
 }

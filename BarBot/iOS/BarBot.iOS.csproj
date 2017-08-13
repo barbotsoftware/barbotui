@@ -19,7 +19,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Naveen Yadav (ULY8T46758)</CodesignKey>
+    <CodesignKey>iPhone Developer: n_yadav@comcast.net (E933DHCSW2)</CodesignKey>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
     <MtouchLink>None</MtouchLink>
@@ -68,7 +68,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <CodesignKey>iPhone Developer: Naveen Yadav (ULY8T46758)</CodesignKey>
+    <CodesignKey>iPhone Developer</CodesignKey>
     <DeviceSpecificBuild>true</DeviceSpecificBuild>
     <MtouchDebug>true</MtouchDebug>
     <MtouchFastDev>true</MtouchFastDev>
@@ -79,7 +79,7 @@
     <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
     <MtouchTlsProvider>Default</MtouchTlsProvider>
     <PlatformTarget>x86</PlatformTarget>
-    <CodesignProvision>43320f79-f5e1-4236-bcf7-42a13e8a08d8</CodesignProvision>
+    <CodesignProvision></CodesignProvision>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -139,6 +139,7 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Login\" />
     <Folder Include="Service\Navigation\" />
+    <Folder Include="View\Home\" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="LaunchScreen.storyboard" />
@@ -176,6 +177,7 @@
     <Compile Include="Util\KeyboardManager.cs" />
     <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="View\Home\HomeViewController.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

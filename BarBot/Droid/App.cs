@@ -15,7 +15,7 @@ using Calligraphy;
 
 using BarBot.Core;
 using BarBot.Core.Model;
-using BarBot.Core.Service.Navigation;
+using BarBot.Core.Service.Login;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
@@ -68,20 +68,20 @@ namespace BarBot.Droid
 					DispatcherHelper.Initialize();
 
 					// Initialize NavigationService
-					var nav = new Service.Navigation.NavigationService();
-					nav.Initialize();
+					var nav = new NavigationService();
 
-                    // Register NavigationService interfaces
-                    SimpleIoc.Default.Register<GalaSoft.MvvmLight.Views.INavigationService>(() => nav);
-                    SimpleIoc.Default.Register<Core.Service.Navigation.INavigationService>(() => nav);
+                    // Register Services with IoC Container
+                    SimpleIoc.Default.Register<INavigationService>(() => nav);
+                    SimpleIoc.Default.Register<IDialogService, DialogService>();
+                    SimpleIoc.Default.Register<ILoginService, LoginService>();
 
-					// Configure PageKeys
-					nav.Configure(
-					  ViewModelLocator.DrinkMenuKey,
+                    // Configure PageKeys
+                    nav.Configure(
+					  ViewModelLocator.MenuPageKey,
 					  typeof(DrinkMenuActivity));
 
 					nav.Configure(
-					  ViewModelLocator.DrinkDetailKey,
+					  ViewModelLocator.RecipeDetailPageKey,
 					  typeof(DrinkDetailActivity));
 
 					locator = new ViewModelLocator();

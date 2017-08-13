@@ -79,7 +79,7 @@ namespace BarBot.Core.ViewModel
             {
                 MessengerInstance.Send(imageContents);
             }
-            navigationService.OpenModal(ViewModelLocator.DrinkDetailKey);
+            navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
         }
 
 		#endregion

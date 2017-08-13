@@ -46,12 +46,12 @@ namespace BarBot.Core.ViewModel
 
         private void GoToLoginPage()
         {
-            navigationService.NavigateTo(ViewModelLocator.LoginKey);
+            navigationService.NavigateTo(ViewModelLocator.LoginPageKey);
         }
 
         private void GoToSignUpPage()
         {
-            navigationService.NavigateTo(ViewModelLocator.SignUpKey);
+            navigationService.NavigateTo(ViewModelLocator.SignUpPageKey);
         }
     }
 }
