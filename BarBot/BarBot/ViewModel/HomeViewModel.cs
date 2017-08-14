@@ -11,17 +11,17 @@ namespace BarBot.Core.ViewModel
         RelayCommand goToLoginCommand;
         RelayCommand goToSignUpCommand;
 
-        public string Title
-        {
-            get;
-            private set;
-        }
+        public string TitleText { get; set; }
+        public string LoginButtonText { get; set; }
+        public string SignUpButtonText { get; set; }
 
         public HomeViewModel(INavigationService navigationService)
         {
             this.navigationService = navigationService;
 
-            Title = "BarBot";
+            TitleText = AppResources.HomeTitleLabel;
+            LoginButtonText = AppResources.LoginButtonLabel;
+            SignUpButtonText = AppResources.SignUpButtonLabel;
         }
 
 		#region Command

@@ -6,7 +6,7 @@ using BarBot.iOS.Style;
 
 namespace BarBot.iOS.View.Menu
 {
-	public class DrinkMenuView : UIView
+	public class DrinkMenuView : BaseView
 	{
 		public UIButton ReconnectButton;
 		public UIButton CustomButton;

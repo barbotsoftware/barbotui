@@ -178,6 +178,8 @@
     <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
     <Compile Include="View\Home\HomeViewController.cs" />
+    <Compile Include="View\Home\HomeView.cs" />
+    <Compile Include="View\BaseView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Microsoft-Yi-Baiti.ttf" />

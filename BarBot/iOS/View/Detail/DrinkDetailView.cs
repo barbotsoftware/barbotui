@@ -15,7 +15,7 @@ using BarBot.iOS.View.Detail.IngredientTable.Picker;
 
 namespace BarBot.iOS.View.Detail
 {
-	public class DrinkDetailView : UIView
+	public class DrinkDetailView : BaseView
 	{
 		// Positioning Constants
 		const int SWITCH_WIDTH = 51;
@@ -49,9 +49,7 @@ namespace BarBot.iOS.View.Detail
 
 		[Export("initWithFrame:")]
 		public DrinkDetailView(CGRect Frame) : base(Frame)
-		{
-			BackgroundColor = Color.BackgroundGray;
-
+		{		
 			ConfigureNavBar();
 			ConfigureHexagon();
 			ConfigureIceSwitch();
