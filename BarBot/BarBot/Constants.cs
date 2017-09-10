@@ -25,6 +25,8 @@ namespace BarBot.Core
         public const string SetContainersForBarbot = "set_containers_for_barbot";
 		public const string CreateCustomDrink = "create_custom_drink";
         public const string DrinkOrderedEvent = "barbot.drink_ordered";
+        public const string GetCategories = "get_categories";
+        public const string GetCategory = "get_category";
 
 		public const string IPAddress = "192.168.1.229";
 

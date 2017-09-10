@@ -29,6 +29,8 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CategoryList.cs" />
     <Compile Include="WebSocket\DictinaryOrEmptyArrayConverter.cs" />
     <Compile Include="WebSocket\Message.cs" />
     <Compile Include="Model\Ingredient.cs" />

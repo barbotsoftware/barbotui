@@ -26,7 +26,7 @@ using BarBot.UWP.Pages;
 
 namespace BarBot.UWP.UserControls
 {
-    public sealed partial class Uc_Menu : UserControl
+    public sealed partial class Uc_RecipeList : UserControl
     {
         private UWPWebSocketService webSocketService;
 
@@ -37,7 +37,7 @@ namespace BarBot.UWP.UserControls
         private int Page = 0;
         private int fuckMeUpCounter = 0;
 
-        public Uc_Menu()
+        public Uc_RecipeList()
         {
             this.InitializeComponent();
 
@@ -187,11 +187,6 @@ namespace BarBot.UWP.UserControls
         {
             Page--;
             displayPage(Page);
-        }
-
-        private void Back_To_PartyMode(object sender, RoutedEventArgs e)
-        {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode));
         }
 
         private void FuckMeUp(object sender, RoutedEventArgs e)

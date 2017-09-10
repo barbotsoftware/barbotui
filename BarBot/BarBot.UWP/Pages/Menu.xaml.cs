@@ -26,5 +26,10 @@ namespace BarBot.UWP.Pages
         {
             this.InitializeComponent();
         }
+
+        private void Back_To_PartyMode(object sender, RoutedEventArgs e)
+        {
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode));
+        }
     }
 }

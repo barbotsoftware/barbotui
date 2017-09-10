@@ -166,6 +166,12 @@
     <Compile Include="TestClient\TestClient.xaml.cs">
       <DependentUpon>TestClient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Uc_CategoryTile.xaml.cs">
+      <DependentUpon>Uc_CategoryTile.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Uc_CategoryList.xaml.cs">
+      <DependentUpon>Uc_CategoryList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
@@ -179,8 +185,8 @@
     <Compile Include="UserControls\Uc_IngredientPicker.xaml.cs">
       <DependentUpon>Uc_IngredientPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_Menu.xaml.cs">
-      <DependentUpon>Uc_Menu.xaml</DependentUpon>
+    <Compile Include="UserControls\Uc_RecipeList.xaml.cs">
+      <DependentUpon>Uc_RecipeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_OrderQueue.xaml.cs">
       <DependentUpon>Uc_OrderQueue.xaml</DependentUpon>
@@ -277,6 +283,14 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="UserControls\Uc_CategoryTile.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Uc_CategoryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserControls\Uc_AddIngredientButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -293,7 +307,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_Menu.xaml">
+    <Page Include="UserControls\Uc_RecipeList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

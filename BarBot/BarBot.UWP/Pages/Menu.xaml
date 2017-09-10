@@ -9,6 +9,19 @@
     mc:Ignorable="d">
 
     <Grid>
-        <uc:Uc_Menu></uc:Uc_Menu>
+        <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
+            <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
+        </Border>
+        <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="79" Width="84" Click="Back_To_PartyMode" Margin="0,10,0,0" Background="{x:Null}" ExitDisplayModeOnAccessKeyInvoked="False" UseSystemFocusVisuals="False" AllowFocusOnInteraction="False">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image Width="84" Height="70" Source="ms-appx:///Assets/back_arrow.png" Margin="0,0,17,0"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="95" Canvas.Left="50" TextWrapping="Wrap" Text="MENU" VerticalAlignment="Top" Width="594" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
+
+        <uc:Uc_RecipeList x:Name="RecipeList" Visibility="Collapsed"></uc:Uc_RecipeList>
+        <uc:Uc_CategoryList x:Name="CategoryList"></uc:Uc_CategoryList>
     </Grid>
 </Page>

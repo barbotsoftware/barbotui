@@ -112,5 +112,39 @@ namespace BarBot.Core.WebSocket
 				get { return recipeId; }
 			}
 		}
+
+        public delegate void GetCategoriesEventHandler(object sender, GetCategoriesEventArgs args);
+
+        public class GetCategoriesEventArgs : EventArgs
+        {
+            private List<Category> categories;
+
+            public GetCategoriesEventArgs(List<Category> categories)
+            {
+                this.categories = categories;
+            }
+
+            public List<Category> Categories
+            {
+                get { return categories; }
+            }
+        }
+
+        public delegate void GetCategoryEventHandler(object sender, GetCategoryEventArgs args);
+
+        public class GetCategoryEventArgs : EventArgs
+        {
+            private Category category;
+
+            public GetCategoryEventArgs(Category category)
+            {
+                this.category = category;
+            }
+
+            public Category Category
+            {
+                get { return category; }
+            }
+        }
     }
 }

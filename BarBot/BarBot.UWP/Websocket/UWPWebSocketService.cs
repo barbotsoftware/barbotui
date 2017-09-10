@@ -128,5 +128,27 @@ namespace BarBot.UWP.Websocket
                 Socket.sendMessage(message);
             }
         }
+
+        public void GetCategories()
+        {
+            if(Socket.IsOpen)
+            {
+                var message = new Message(Constants.Command, Constants.GetCategories, new Dictionary<string, object>());
+                Socket.sendMessage(message);
+            }
+        }
+
+        public void GetCategory(string categoryId)
+        {
+            if(Socket.IsOpen)
+            {
+                var data = new Dictionary<string, object>();
+                data.Add("category_id", categoryId);
+
+                var message = new Message(Constants.Command, Constants.GetCategory, data);
+
+                Socket.sendMessage(message);
+            }
+        }
     }
 }
