@@ -50,18 +50,18 @@ namespace BarBot.UWP.UserControls
             ingredientSelector.SelectedIndex = 0;
 
             selectedIngredient = availableIngredientList[0];
-            selectedIngredient.Quantity = 1;
+            //selectedIngredient.Quantity = 1;
         }
 
         private void Volume_Changed(object sender, SelectionChangedEventArgs e)
         {
-            selectedIngredient.Quantity = (double)volumeSelector.Items[volumeSelector.SelectedIndex];
+            //selectedIngredient.Quantity = (double)volumeSelector.Items[volumeSelector.SelectedIndex];
         }
 
         private void Ingredient_Changed(object sender, SelectionChangedEventArgs e)
         {
             selectedIngredient = availableIngredientList[ingredientSelector.SelectedIndex];
-            selectedIngredient.Quantity = (double)volumeSelector.Items[volumeSelector.SelectedIndex];
+            //selectedIngredient.Quantity = (double)volumeSelector.Items[volumeSelector.SelectedIndex];
         }
     }
 }

@@ -13,7 +13,7 @@ namespace BarBot.Core
 		#region Websocket
 		public const string Command = "command";
 		public const string Event = "event";
-		public const string Response = "response";
+		public const string Response = "command_response";
 		public const int Timeout = 10000;
 
         public const string CreateCustomRecipe = "create_custom_recipe";
@@ -30,7 +30,7 @@ namespace BarBot.Core
 
 		public const string HostName = "Exploding";
 
-		public const string PortNumber = "8000";
+		public const string PortNumber = "8080";
 
 		public const string BarBotId = "barbot_a0a627";
 

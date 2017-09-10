@@ -26,6 +26,7 @@ using System.Threading.Tasks;
 using BarBot.UWP.IO;
 using System.Diagnostics;
 using BarBot.UWP.Websocket;
+using BarBot.Core.Service.WebSocket;
 
 namespace BarBot.UWP
 {
@@ -36,7 +37,7 @@ namespace BarBot.UWP
     {
         #region Global App Properties
 
-        public WebSocketUtil webSocketUtil { get; set; }
+        public UWPWebSocketService webSocketService { get; set; }
 
         public BarbotContext barbotDB { get; set; }
 
@@ -141,26 +142,23 @@ namespace BarBot.UWP
                 Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
 
-            // Initialize websocket connection
-            webSocketUtil = new WebSocketUtil(new UWPWebsocketHandler());
-            webSocketUtil.EndPoint = endpoint;
+            // Initialize websocket service
+            webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);
 
-            // Opening websocket, with barbID, false bool for isMobile
-            webSocketUtil.OpenWebSocket("barbot_" + barbotID, false);
+            // Opening websocket, with barbID/password
+            webSocketService.OpenWebSocket("password");
 
             // Wait until the websocket connection is open
-            while (!webSocketUtil.Socket.IsOpen)
+            while (!webSocketService.Socket.IsOpen)
             {
                 Task.Delay(10).Wait();
             }
 
             DrinkOrders = new List<Core.Model.DrinkOrder>();
-            webSocketUtil.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+            webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
-            webSocketUtil.Socket.GetRecipesEvent += CacheImages;
-            webSocketUtil.GetRecipes();
-
-            
+            webSocketService.Socket.GetRecipesEvent += CacheImages;
+            webSocketService.GetRecipes();
         }
 
         private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
@@ -187,7 +185,7 @@ namespace BarBot.UWP
                 }
 
                 // Remove event handler when done
-                webSocketUtil.Socket.GetRecipesEvent -= CacheImages;
+                //webSocketUtil.Socket.GetRecipesEvent -= CacheImages;
                 Status = Constants.BarbotStatus.READY;
             });
         }

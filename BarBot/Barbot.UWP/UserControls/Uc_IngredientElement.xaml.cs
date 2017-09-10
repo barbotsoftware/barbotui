@@ -44,7 +44,7 @@ namespace BarBot.UWP.UserControls
 
         private void PopulateVolumeSelector()
         {
-            VolumeChangeInProgress = true;
+            /*VolumeChangeInProgress = true;
             ingredientVolume.Items.Clear();
 
 
@@ -78,7 +78,7 @@ namespace BarBot.UWP.UserControls
                 }
             }
 
-            VolumeChangeInProgress = false;
+            VolumeChangeInProgress = false;*/
         }
 
         public double VolumeAvailable
@@ -120,7 +120,7 @@ namespace BarBot.UWP.UserControls
         {
             if (ingredientVolume.SelectedIndex >= 0)
             {
-                Ingredient.Quantity = (double)ingredientVolume.Items[ingredientVolume.SelectedIndex];
+                //Ingredient.Quantity = (double)ingredientVolume.Items[ingredientVolume.SelectedIndex];
             }
         }
     }

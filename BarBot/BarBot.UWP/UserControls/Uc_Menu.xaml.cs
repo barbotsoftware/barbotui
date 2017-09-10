@@ -19,6 +19,8 @@ using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Database;
 using BarBot.UWP.Bluetooth;
+using BarBot.UWP.Websocket;
+using BarBot.UWP.Pages;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -26,7 +28,7 @@ namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_Menu : UserControl
     {
-        private WebSocketUtil socketUtil;
+        private UWPWebSocketService webSocketService;
 
         // Public in case i wanna access it elsewhere
         private int margin = 40;
@@ -40,7 +42,7 @@ namespace BarBot.UWP.UserControls
             this.InitializeComponent();
 
             App app = Application.Current as App;
-            socketUtil = app.webSocketUtil;
+            webSocketService = app.webSocketService;
 
             init();
         }
@@ -48,8 +50,8 @@ namespace BarBot.UWP.UserControls
         public void init()
         {
             // Attach event handler and then call GetRecipes
-            socketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, null);
-            socketUtil.GetRecipes();
+            webSocketService.AddMenuEventHandlers(Socket_GetRecipesEvent, null);
+            webSocketService.GetRecipes();
 
             // Set back and next button sizes
             // Back Button
@@ -95,7 +97,7 @@ namespace BarBot.UWP.UserControls
                 displayPage(Page);
             });
 
-            socketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+            webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
         private void displayPage(int page)
@@ -189,7 +191,7 @@ namespace BarBot.UWP.UserControls
 
         private void Back_To_PartyMode(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode));
         }
 
         private void FuckMeUp(object sender, RoutedEventArgs e)

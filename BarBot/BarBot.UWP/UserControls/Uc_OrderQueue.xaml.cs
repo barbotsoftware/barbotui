@@ -15,6 +15,8 @@ using Windows.UI.Xaml.Navigation;
 using BarBot.Core.Model;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using Windows.UI.Xaml.Media.Animation;
+using BarBot.UWP.Pages;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -38,6 +40,8 @@ namespace BarBot.UWP.UserControls
 
             app.DrinkOrderAdded += App_DrinkOrderAdded;
         }
+
+        //protected override void On
 
         private async void App_DrinkOrderAdded(object sender, App.DrinkOrderAddedEventArgs args)
         {
@@ -128,7 +132,7 @@ namespace BarBot.UWP.UserControls
 
         private void Back_To_PartyMode(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode), null, new DrillInNavigationTransitionInfo());
         }
     }
 }

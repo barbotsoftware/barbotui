@@ -8,6 +8,12 @@
     mc:Ignorable="d">
 
     <Grid Background="#FF131313">
-        <Frame Name="ContentFrame" x:FieldModifier="public"></Frame>
+        <Frame Name="ContentFrame" x:FieldModifier="public">
+            <Frame.ContentTransitions>
+                <TransitionCollection>
+                    <NavigationThemeTransition />
+                </TransitionCollection>
+            </Frame.ContentTransitions>
+        </Frame>
     </Grid>
 </Page>

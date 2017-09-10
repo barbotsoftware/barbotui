@@ -15,21 +15,23 @@ using Windows.UI.Xaml.Navigation;
 using BarBot.UWP.Bluetooth;
 using BarBot.UWP.IO;
 using BarBot.UWP.Database;
+using BarBot.UWP.Pages;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
-namespace BarBot.UWP.UserControls
+namespace BarBot.UWP.Pages
 {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class Uc_PartyMode : Page
+    public sealed partial class PartyMode : Page
     {
         private string barbotID;
 
         private BarbotIOController controller;
 
-        public Uc_PartyMode()
+        public PartyMode()
         {
             this.InitializeComponent();
 
@@ -40,12 +42,12 @@ namespace BarBot.UWP.UserControls
 
         private void Btn_DrinkMenu_Click(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_Menu();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), null, new DrillInNavigationTransitionInfo());
         }
 
         private void Btn_OrderQueue_Click(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_OrderQueue();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(OrderQueue), null, new DrillInNavigationTransitionInfo());
         }
     }
 }

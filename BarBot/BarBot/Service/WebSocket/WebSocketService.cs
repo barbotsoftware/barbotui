@@ -7,9 +7,22 @@ namespace BarBot.Core.Service.WebSocket
 {
     public class WebSocketService : IWebSocketService
     {
-        private readonly WebSocketHandler webSocket;
-        private string barbotId;
-        private string endpoint;
+        protected WebSocketHandler webSocket;
+        protected string barbotId;
+        protected string endpoint;
+
+        public WebSocketHandler Socket
+        {
+            get
+            {
+                return webSocket;
+            }
+
+            set
+            {
+                webSocket = value;
+            }
+        }
 
         public WebSocketService(WebSocketHandler webSocket, string barbotId, string endpoint)
         {

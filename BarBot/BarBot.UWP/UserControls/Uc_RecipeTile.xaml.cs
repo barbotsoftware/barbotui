@@ -16,6 +16,8 @@ using Windows.UI.Xaml.Navigation;
 using BarBot.Core;
 using BarBot.Core.Model;
 using System.ComponentModel;
+using Windows.UI.Xaml.Media.Animation;
+using BarBot.UWP.Pages;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -159,7 +161,7 @@ namespace BarBot.UWP.UserControls
 
         private void Drink_Detail(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_DrinkDetail(Recipe);
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(DrinkDetail), Recipe, new SlideNavigationTransitionInfo());
         }
     }
 }

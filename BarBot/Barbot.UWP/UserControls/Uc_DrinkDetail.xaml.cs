@@ -19,6 +19,9 @@ using BarBot.Core.WebSocket;
 using System.ComponentModel;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using BarBot.UWP.Pages;
+using Windows.UI.Xaml.Media.Animation;
+using BarBot.UWP.Websocket;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -27,7 +30,7 @@ namespace BarBot.UWP.UserControls
     public sealed partial class Uc_DrinkDetail : UserControl, INotifyPropertyChanged
     {
         private Recipe _recipe;
-        private WebSocketUtil socketUtil;
+        private UWPWebSocketService webSocketService;
         private List<Uc_IngredientElement> _ingredientElementList;
         private List<Ingredient> AvailableIngredientList;
         private Recipe OrderRecipe;
@@ -39,10 +42,10 @@ namespace BarBot.UWP.UserControls
         public Uc_DrinkDetail(Recipe SelectedRecipe)
         {
             app = Application.Current as App;
-            socketUtil = app.webSocketUtil;
+            webSocketService = app.webSocketService;
 
-            socketUtil.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
-            socketUtil.GetIngredients();
+            webSocketService.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
+            webSocketService.GetIngredients();
 
             if (SelectedRecipe == null)
             {
@@ -69,8 +72,8 @@ namespace BarBot.UWP.UserControls
             else if (Recipe.Name != "Custom Recipe")
             {
                 // Attach event handler and then call GetRecipeDetails
-                socketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
-                socketUtil.GetRecipeDetails(Recipe.RecipeId);
+                //webSocketService.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
+                webSocketService.GetRecipeDetails(Recipe.RecipeId);
             }
             else
             {
@@ -115,7 +118,7 @@ namespace BarBot.UWP.UserControls
 
         private void Back_To_Menu(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_Menu();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo());
         }
 
         private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -127,7 +130,7 @@ namespace BarBot.UWP.UserControls
                 DisplayIngredients();
             });
 
-            socketUtil.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailEvent;
+            webSocketService.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailEvent;
         }
 
         private void DisplayIngredients()
@@ -138,7 +141,7 @@ namespace BarBot.UWP.UserControls
             TotalVolume = 0;
             for (int i = 0; i < Recipe.Ingredients.Count; i++)
             {
-                TotalVolume += Recipe.Ingredients[i].Quantity;
+                TotalVolume += Recipe.Ingredients[i].Amount;
             }
 
             double volumeAvailable = Constants.MaxVolume - TotalVolume;
@@ -189,7 +192,7 @@ namespace BarBot.UWP.UserControls
                 TotalVolume = 0;
                 for (int i = 0; i < _ingredientElementList.Count; i++)
                 {
-                    TotalVolume += _ingredientElementList[i].Ingredient.Quantity;
+                    TotalVolume += _ingredientElementList[i].Ingredient.Amount;
                 }
 
                 // Now that we have the new total, we need to limit ingredientElements to a value
@@ -227,7 +230,7 @@ namespace BarBot.UWP.UserControls
                 init();
             });
 
-            socketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
+            webSocketService.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
         }
 
         private void AddIngredientBtn_PointerReleased(object sender, PointerRoutedEventArgs e)
@@ -272,13 +275,13 @@ namespace BarBot.UWP.UserControls
             // Calculate total volume to ensure added ingredient is within limits
             for (int i = 0; i < Recipe.Ingredients.Count; i++)
             {
-                TotalVolume += Recipe.Ingredients[i].Quantity;
+                TotalVolume += Recipe.Ingredients[i].Amount;
             }
 
-            if (TotalVolume + ingredientPicker.selectedIngredient.Quantity > Constants.MaxVolume)
+            if (TotalVolume + ingredientPicker.selectedIngredient.Amount > Constants.MaxVolume)
             {
                 // set ingredient volume to be max within limits
-                ingredientPicker.selectedIngredient.Quantity = Constants.MaxVolume - TotalVolume;
+                ingredientPicker.selectedIngredient.Amount = Constants.MaxVolume - TotalVolume;
             }
 
             Recipe.Ingredients.Add(ingredientPicker.selectedIngredient);
@@ -320,7 +323,7 @@ namespace BarBot.UWP.UserControls
 
             // Can snag ingredients from _ingredientElementList[x]._ingredient
             Console.WriteLine(_ingredientElementList);
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode));
 
             OrderRecipe = new Recipe();
             OrderRecipe.Name = Recipe.Name;
@@ -362,7 +365,7 @@ namespace BarBot.UWP.UserControls
             app.barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
 
             sender.Hide();
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_PartyMode();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new PartyMode();
         }
 
         private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -414,7 +417,7 @@ namespace BarBot.UWP.UserControls
                                 quant = Constants.MaxVolume - totalQuantity;
                             }
                             totalQuantity += quant;
-                            ingy.Quantity = quant;
+                            ingy.Amount = quant;
                             demIngredients.Add(AvailableIngredientList[ingredientID]);
                             ingredientChosen = true;
                         }

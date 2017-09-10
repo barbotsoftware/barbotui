@@ -18,7 +18,7 @@ namespace BarBot.UWP.Utils
                 try
                 {
                     IO.Devices.IContainer container = containers.Where(x => x.IngredientId.Equals(ingredient.IngredientId)).First();
-                    res.Add(container, ingredient.Quantity);
+                    //res.Add(container, ingredient.Quantity);
                 } 
                 catch (Exception e)
                 {
