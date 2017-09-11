@@ -1,5 +1,7 @@
 ﻿using BarBot.Core;
 using BarBot.Core.Model;
+using BarBot.UWP.Pages;
+using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,6 +16,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
@@ -28,6 +31,7 @@ namespace BarBot.UWP.UserControls
         private double lastHeight = 0;
         private PathFigure figure;
         private double HexagonWidth = Constants.HexagonWidth;
+        private UWPWebSocketService webSocketService;
 
         public Category Category
         {
@@ -44,12 +48,37 @@ namespace BarBot.UWP.UserControls
             this.InitializeComponent();
             Category category = new Category();
             this.DataContext = this;
+
+            App app = Application.Current as App;
+            webSocketService = app.webSocketService;
         }
 
         private void Category_Click(object sender, RoutedEventArgs e)
         {
-
+            webSocketService.Socket.GetCategoryEvent += Socket_GetCategoryEvent;
+            webSocketService.GetCategory(category.CategoryId);
         }
+
+        private async void Socket_GetCategoryEvent(object sender, Core.WebSocket.WebSocketEvents.GetCategoryEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                // If category has sub categories, navigate to category list, populate with sub category list
+                // Otherwise, navigate to menu with recipe list
+                if (args.Category.SubCategories != null && args.Category.SubCategories.Count > 0)
+                {
+                    ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Category.SubCategories, new DrillInNavigationTransitionInfo());
+                }
+                else
+                {
+                    ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Category.Recipes, new DrillInNavigationTransitionInfo());
+                }
+            });
+
+            webSocketService.Socket.GetCategoryEvent -= Socket_GetCategoryEvent;
+        }
+
         private void hexagon_Loaded(object sender, RoutedEventArgs e)
         {
             hexagon = sender as Windows.UI.Xaml.Shapes.Path;
