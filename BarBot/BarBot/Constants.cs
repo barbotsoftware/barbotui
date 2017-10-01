@@ -42,6 +42,8 @@ namespace BarBot.Core
 
 		public const double MaxVolume = 12.0;
 
+        public const string CustomRecipeName = "Custom Recipe";
+
 		#endregion
 
 		// UI - Hexagon

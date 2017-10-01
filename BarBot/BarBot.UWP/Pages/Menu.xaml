@@ -6,8 +6,18 @@
     xmlns:uc="using:BarBot.UWP.UserControls"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    Width="1920"
+    Height="1080">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Textbox.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+    
     <Grid>
         <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
             <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
@@ -20,7 +30,13 @@
             </Button.Template>
         </Button>
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Height="95" Canvas.Left="50" TextWrapping="Wrap" Text="MENU" VerticalAlignment="Top" Width="594" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
-
+        <TextBox x:Name="searchTextBox" KeyUp="searchTextBox_KeyUp" Foreground="White" Height="75" Width="1200" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Yi Baiti" FontSize="55" Canvas.ZIndex="50" Margin="400,10,0,0" Background="#66000000" FocusVisualSecondaryBrush="Black" PlaceholderText="Search" BorderBrush="#FF424242">
+            <TextBox.Resources>
+                <Style TargetType="ContentControl">
+                    <Setter Property="Foreground" Value="White"/>
+                </Style>
+            </TextBox.Resources>
+        </TextBox>
         <uc:Uc_RecipeList x:Name="RecipeList" Visibility="Collapsed"></uc:Uc_RecipeList>
         <uc:Uc_CategoryList x:Name="CategoryList"></uc:Uc_CategoryList>
     </Grid>

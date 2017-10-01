@@ -46,7 +46,7 @@ namespace BarBot.UWP.Pages
             set
             {
                 recipes = value;
-                //RecipeList.Recipes = recipes;
+                RecipeList.Recipes = recipes;
             }
         }
 
@@ -59,18 +59,27 @@ namespace BarBot.UWP.Pages
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);
+
+            CategoryList.Visibility = Visibility.Collapsed;
+            RecipeList.Visibility = Visibility.Collapsed;
             if (e.Parameter == null)
             {
                 webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
                 webSocketService.GetCategories();
+                CategoryList.Visibility = Visibility.Visible;
+                searchTextBox.Visibility = Visibility.Collapsed;
             }
             else if (e.Parameter.GetType().Equals(Categories.GetType()))
             {
                 Categories = e.Parameter as List<Category>;
+                CategoryList.Visibility = Visibility.Visible;
+                searchTextBox.Visibility = Visibility.Collapsed;
             }
             else if (e.Parameter.GetType().Equals(Recipes.GetType()))
             {
                 Recipes = e.Parameter as List<Recipe>;
+                RecipeList.Visibility = Visibility.Visible;
+                searchTextBox.Visibility = Visibility.Visible;
             }
         }
 
@@ -88,6 +97,13 @@ namespace BarBot.UWP.Pages
             });
 
             webSocketService.Socket.GetCategoriesEvent -= Socket_GetCategoriesEvent;
+        }
+
+        private void searchTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
+        {
+            List<Recipe> filteredList = recipes.Where(x => x.Name.StartsWith(searchTextBox.Text)).ToList();
+
+            RecipeList.Recipes = filteredList;
         }
     }
 }

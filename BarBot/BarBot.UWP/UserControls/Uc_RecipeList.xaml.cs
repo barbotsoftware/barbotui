@@ -29,13 +29,42 @@ namespace BarBot.UWP.UserControls
     public sealed partial class Uc_RecipeList : UserControl
     {
         private UWPWebSocketService webSocketService;
+        private List<Recipe> recipes;
 
-        // Public in case i wanna access it elsewhere
         private int margin = 40;
         private int hexPadding = 20;
-        private List<List<Recipe>> AllRecipes = new List<List<Recipe>>();
-        private int Page = 0;
-        private int fuckMeUpCounter = 0;
+
+        private int page = 0;
+        private int itemsPerPage = 10;
+        private int pages = 1;
+
+        public List<Recipe> Recipes
+        {
+            get { return recipes; }
+            set
+            {
+                // set recipes, and insert custom recipe as first element
+                recipes = value;
+                if (recipes.Count == 0 || !recipes.ElementAt(0).Name.Equals(Constants.CustomRecipeName))
+                {
+                    recipes.Insert(0, Recipe.CustomRecipe());
+                }
+                
+                // calculate page count, and reset current page to 0
+                pages = (recipes.Count + itemsPerPage - 1) / itemsPerPage;
+                Page = 0;
+            }
+        }
+
+        public int Page
+        {
+            get { return page; }
+            set
+            {
+                page = value;
+                displayPage(page);
+            }
+        }
 
         public Uc_RecipeList()
         {
@@ -49,10 +78,6 @@ namespace BarBot.UWP.UserControls
 
         public void init()
         {
-            // Attach event handler and then call GetRecipes
-            webSocketService.AddMenuEventHandlers(Socket_GetRecipesEvent, null);
-            webSocketService.GetRecipes();
-
             // Set back and next button sizes
             // Back Button
             double BackButtonSizeRatio = BackButton.Height / BackButton.Width;
@@ -69,73 +94,23 @@ namespace BarBot.UWP.UserControls
             NextButton.Margin = new Thickness(0, recipeTileCanvas.Margin.Top + margin + (NextButton.Height / 2) + (hexPadding / 2), recipeTileCanvas.Margin.Left - (hexPadding / 2) - (NextButton.Width / 2), 0);
         }
 
-        private async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
-        {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () =>
-            {
-                List<Recipe> page = new List<Recipe>();
-
-                // Add custom ingredient
-                var customRecipe = new Recipe();
-                customRecipe.Name = "Custom Recipe";
-                customRecipe.Ingredients = new List<Ingredient>();
-                customRecipe.Img = "barbotweb/public/img/recipe_images/custom_recipe.png";
-                page.Add(customRecipe);
-
-                // Populate AllRecipes
-                for (var i = 0; i < args.Recipes.Count; i++)
-                {
-                    page.Add(args.Recipes[i]);
-                    if(page.Count == 10 || i == args.Recipes.Count - 1)
-                    //if((i != 0 && i % 10 == 9)|| i == args.Recipes.Count - 1)
-                    {
-                        AllRecipes.Add(page);
-                        page = new List<Recipe>();
-                    }
-                }
-                displayPage(Page);
-            });
-
-            webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
-        }
-
         private void displayPage(int page)
         {
-            // Hide BackButton if it's the first page
-            if (page == 0)
-            {
-                BackButton.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                BackButton.Visibility = Visibility.Visible;
-            }
+            // Hide BackButton if it's the first page, hide NextButton if its the last page
+            BackButton.Visibility = page == 0 ? Visibility.Collapsed : Visibility.Visible;
+            NextButton.Visibility = page >= page - 1 ? Visibility.Collapsed : Visibility.Visible;
 
-            if(page == AllRecipes.Count-1)
-            {
-                NextButton.Visibility = Visibility.Collapsed;
-            } else
-            {
-                NextButton.Visibility = Visibility.Visible;
-            }
-            
+            // clear out the current recipe tiles
+            recipeTileCanvas.Children.Clear();
 
-            if (page < AllRecipes.Count)
+            for(int i = 0 + (itemsPerPage * page); i < Math.Min((itemsPerPage * page) + itemsPerPage, recipes.Count); i++)
             {
-                recipeTileCanvas.Children.Clear();
-                for (int i = 0; i < AllRecipes[page].Count; i++)
-                {
-                    if (AllRecipes[page][i] != null)
-                    {
-                        Uc_RecipeTile tile = new Uc_RecipeTile();
-                        tile.Recipe = AllRecipes[page][i];
-                        Point pos = getPoint(i, Constants.HexagonWidth);
-                        Canvas.SetLeft(tile, pos.X);
-                        Canvas.SetTop(tile, pos.Y);
-                        recipeTileCanvas.Children.Add(tile);
-                    }
-                }
+                Uc_RecipeTile tile = new Uc_RecipeTile();
+                tile.Recipe = recipes[i];
+                Point pos = getPoint(i, Constants.HexagonWidth);
+                Canvas.SetLeft(tile, pos.X);
+                Canvas.SetTop(tile, pos.Y);
+                recipeTileCanvas.Children.Add(tile);
             }
         }
 
@@ -178,28 +153,14 @@ namespace BarBot.UWP.UserControls
 
         private void Next_Page(object sender, RoutedEventArgs e)
         {
-            Page++;
-            displayPage(Page);
-            // XAML: Fix Button to work with this shit
+            page++;
+            displayPage(page);
         }
 
         private void Previous_Page(object sender, RoutedEventArgs e)
         {
-            Page--;
-            displayPage(Page);
-        }
-
-        private void FuckMeUp(object sender, RoutedEventArgs e)
-        {
-            if(fuckMeUpCounter > 4)
-            {
-
-                fuckMeUpCounter = 0;
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Uc_DrinkDetail(null);
-            } else
-            {
-                fuckMeUpCounter++;
-            }
+            page--;
+            displayPage(page);
         }
     }
 }

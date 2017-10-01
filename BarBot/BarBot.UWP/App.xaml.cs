@@ -192,8 +192,8 @@ namespace BarBot.UWP
 
         public BitmapImage getCachedImage(Recipe recipe)
         {
-
-            if (_ImageCache[recipe.Name] != null)
+           
+            if (_ImageCache.ContainsKey(recipe.Name))
             {
                 return _ImageCache[recipe.Name];
             } else

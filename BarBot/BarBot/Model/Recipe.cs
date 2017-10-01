@@ -94,5 +94,14 @@ namespace BarBot.Core.Model
 			}
 			return volume;
 		}
+
+        public static Recipe CustomRecipe()
+        {
+            var customRecipe = new Recipe();
+            customRecipe.Name = Constants.CustomRecipeName;
+            customRecipe.Ingredients = new List<Ingredient>();
+            customRecipe.Img = "barbotweb/public/img/recipe_images/custom_recipe.png";
+            return customRecipe;
+        }
     }
 }

@@ -30,55 +30,24 @@ namespace BarBot.UWP.UserControls
     public sealed partial class Uc_DrinkDetail : UserControl, INotifyPropertyChanged
     {
         private Recipe _recipe;
-        private UWPWebSocketService webSocketService;
+        private Recipe OrderRecipe;
         private List<Uc_IngredientElement> _ingredientElementList;
         private List<Ingredient> AvailableIngredientList;
-        private Recipe OrderRecipe;
-        double _totalVolume;
-        App app;
-        Uc_AddIngredientButton addIngredientBtn;
-        Uc_IngredientPicker ingredientPicker;
+        private UWPWebSocketService webSocketService;
+        private Uc_AddIngredientButton addIngredientBtn;
+        private Uc_IngredientPicker ingredientPicker;
+        private App app;
+        private double _totalVolume;
 
         public Uc_DrinkDetail(Recipe SelectedRecipe)
         {
-            app = Application.Current as App;
-            webSocketService = app.webSocketService;
-
-            webSocketService.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
-            webSocketService.GetIngredients();
-
-            if (SelectedRecipe == null)
-            {
-                SelectedRecipe = FuckMeUp();
-            }
-
             this.InitializeComponent();
             this.DataContext = this;
-            Recipe = SelectedRecipe;
 
-            // Moved init to the handler of getIngredients
-        }
-
-        public void init()
-        {
-            TotalVolume = 0;
-
-            if (Recipe.Name.Equals("Fuck Me Up"))
-            {
-                Recipe.Ingredients = LoadEmUpBoiz();
-                DisplayIngredients();
-                // 
-            }
-            else if (Recipe.Name != "Custom Recipe")
-            {
-                // Attach event handler and then call GetRecipeDetails
-                //webSocketService.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
-                webSocketService.GetRecipeDetails(Recipe.RecipeId);
-            }
-            else
-            {
-                DisplayIngredients();
-            }
+            app = Application.Current as App;
+            webSocketService = app.webSocketService;
+            webSocketService.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
+            webSocketService.GetIngredients();
         }
 
         public double TotalVolume
@@ -105,20 +74,24 @@ namespace BarBot.UWP.UserControls
             set
             {
                 _recipe = value;
+                TotalVolume = 0;
+                if (Recipe.Name != "Custom Recipe")
+                {
+                    // Attach event handler and then call GetRecipeDetails
+                    webSocketService.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
+                    webSocketService.GetRecipeDetails(Recipe.RecipeId);
+                }
+                else
+                {
+                    DisplayIngredients();
+                }
                 OnPropertyChanged("Recipe");
             }
         }
 
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        protected void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
         private void Back_To_Menu(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), null, new SlideNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new SlideNavigationTransitionInfo());
         }
 
         private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -221,13 +194,10 @@ namespace BarBot.UWP.UserControls
             () =>
             {
                 AvailableIngredientList = new List<Ingredient>();
-                // Populate AllRecipes
                 for (var i = 0; i < args.Ingredients.Count; i++)
                 {
                     AvailableIngredientList.Add(args.Ingredients[i]);
                 }
-
-                init();
             });
 
             webSocketService.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
@@ -429,6 +399,13 @@ namespace BarBot.UWP.UserControls
                 }
             }
             return demIngredients;
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        protected void OnPropertyChanged(string name)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
     }
 }
