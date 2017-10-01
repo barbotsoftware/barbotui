@@ -30,6 +30,7 @@ namespace BarBot.UWP.UserControls
     {
         private UWPWebSocketService webSocketService;
         private List<Recipe> recipes;
+        private App app;
 
         private int margin = 40;
         private int hexPadding = 20;
@@ -53,6 +54,8 @@ namespace BarBot.UWP.UserControls
                 // calculate page count, and reset current page to 0
                 pages = (recipes.Count + itemsPerPage - 1) / itemsPerPage;
                 Page = 0;
+
+                cacheImages();
             }
         }
 
@@ -70,7 +73,7 @@ namespace BarBot.UWP.UserControls
         {
             this.InitializeComponent();
 
-            App app = Application.Current as App;
+            app = Application.Current as App;
             webSocketService = app.webSocketService;
 
             init();
@@ -161,6 +164,23 @@ namespace BarBot.UWP.UserControls
         {
             page--;
             displayPage(page);
+        }
+
+        private async void cacheImages()
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                for (var i = 0; i < recipes.Count; i++)
+                {
+                    var imageUri = new Uri("http://" + app.webserverUrl + "/" + recipes[i].Img);
+                    var recipeImage = new BitmapImage(imageUri);
+                    if (!app._ImageCache.ContainsKey(recipes[i].Name))
+                    {
+                        app._ImageCache.Add(recipes[i].Name, recipeImage);
+                    }
+                }
+            });
         }
     }
 }

@@ -51,7 +51,7 @@ namespace BarBot.UWP
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
 
-        Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
+        public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
 
         #endregion
 
@@ -157,37 +157,7 @@ namespace BarBot.UWP
             DrinkOrders = new List<Core.Model.DrinkOrder>();
             webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
-            webSocketService.Socket.GetRecipesEvent += CacheImages;
-            webSocketService.GetRecipes();
-        }
-
-        private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () =>
-            {
-                _ImageCache = new Dictionary<string, BitmapImage>();
-
-                // Get the custom_recipe
-                //var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
-                //var recipeImage = new BitmapImage(imageUri);
-                //_ImageCache.Add("Custom Recipe", recipeImage);
-
-                // Populate AllRecipes
-                for (var i = 0; i < args.Recipes.Count; i++)
-                {
-                    var imageUri = new Uri("http://" + webserverUrl + "/" + args.Recipes[i].Img);
-                    var recipeImage = new BitmapImage(imageUri);
-                    if (!_ImageCache.ContainsKey(args.Recipes[i].Name))
-                    {
-                        _ImageCache.Add(args.Recipes[i].Name, recipeImage);
-                    }
-                }
-
-                // Remove event handler when done
-                //webSocketUtil.Socket.GetRecipesEvent -= CacheImages;
-                Status = Constants.BarbotStatus.READY;
-            });
+            Status = Constants.BarbotStatus.READY;
         }
 
         public BitmapImage getCachedImage(Recipe recipe)
