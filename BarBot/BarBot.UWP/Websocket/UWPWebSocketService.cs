@@ -24,8 +24,8 @@ namespace BarBot.UWP.Websocket
 
             if (success)
             {
-                GetRecipes();
-                GetIngredients();
+                //GetRecipes();
+                //GetIngredients();
             }
         }
 

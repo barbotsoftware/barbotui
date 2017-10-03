@@ -153,8 +153,8 @@
       <DependentUpon>20170126063933_AddFSRFields.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
-    <Compile Include="Pages\DrinkDetail.xaml.cs">
-      <DependentUpon>DrinkDetail.xaml</DependentUpon>
+    <Compile Include="Pages\RecipeDetail.xaml.cs">
+      <DependentUpon>RecipeDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\Menu.xaml.cs">
       <DependentUpon>Menu.xaml</DependentUpon>
@@ -176,8 +176,8 @@
     <Compile Include="UserControls\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_DrinkDetail.xaml.cs">
-      <DependentUpon>Uc_DrinkDetail.xaml</DependentUpon>
+    <Compile Include="UserControls\Uc_RecipeDetail.xaml.cs">
+      <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_IngredientElement.xaml.cs">
       <DependentUpon>Uc_IngredientElement.xaml</DependentUpon>
@@ -237,7 +237,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Pages\DrinkDetail.xaml">
+    <Page Include="Pages\RecipeDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -295,7 +295,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_DrinkDetail.xaml">
+    <Page Include="UserControls\Uc_RecipeDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

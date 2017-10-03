@@ -51,6 +51,8 @@ namespace BarBot.UWP
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
 
+        public List<Ingredient> IngredientsInBarbot { get; set; }
+
         public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
 
         #endregion
@@ -116,6 +118,10 @@ namespace BarBot.UWP
                     webserverUrl = config.ElementAt(0).apiEndpoint;
                     endpoint = "ws://" + webserverUrl + ":" + Constants.PortNumber;
                 }
+                else
+                {
+                    webserverUrl = Constants.IPAddress;
+                }
             }
             catch (Exception e)
             {
@@ -141,6 +147,9 @@ namespace BarBot.UWP
             {
                 Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
+
+            // Initialize Global Ingredients List
+            IngredientsInBarbot = new List<Ingredient>();
 
             // Initialize websocket service
             webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);
@@ -191,6 +200,26 @@ namespace BarBot.UWP
         }
 
         /// <summary>
+        /// WebSocket Event Handler for GetIngredients Event
+        /// Populates the Application's Global Ingredient List
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private async void WebSocket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+            () =>
+            {
+                for (var i = 0; i < args.Ingredients.Count; i++)
+                {
+                    IngredientsInBarbot.Add(args.Ingredients[i]);
+                }
+            });
+
+            webSocketService.Socket.GetIngredientsEvent -= WebSocket_GetIngredientsEvent;
+        }
+
+        /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
         /// </summary>
@@ -236,6 +265,10 @@ namespace BarBot.UWP
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            // Attach GetIngredients Event Handler and call GetIngredients
+            webSocketService.Socket.GetIngredientsEvent += WebSocket_GetIngredientsEvent;
+            webSocketService.GetIngredients();
         }
 
         /// <summary>

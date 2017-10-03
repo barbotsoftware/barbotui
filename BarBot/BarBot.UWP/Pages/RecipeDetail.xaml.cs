@@ -22,9 +22,9 @@ namespace BarBot.UWP.Pages
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class DrinkDetail : Page
+    public sealed partial class RecipeDetail : Page
     {
-        public DrinkDetail()
+        public RecipeDetail()
         {
             this.InitializeComponent();
         }
@@ -34,7 +34,7 @@ namespace BarBot.UWP.Pages
             base.OnNavigatedTo(e);
             Recipe recipe = e.Parameter as Recipe;
             MainGrid.Children.Clear();
-            MainGrid.Children.Add(new Uc_DrinkDetail(recipe));
+            MainGrid.Children.Add(new Uc_RecipeDetail(recipe));
         }
     }
 }

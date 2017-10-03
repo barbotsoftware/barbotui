@@ -161,7 +161,7 @@ namespace BarBot.UWP.UserControls
 
         private void Drink_Detail(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(DrinkDetail), Recipe, new SlideNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(RecipeDetail), Recipe, new SlideNavigationTransitionInfo());
         }
     }
 }

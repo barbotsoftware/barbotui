@@ -1,53 +1,49 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using System.ComponentModel;
-using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using BarBot.UWP.Pages;
 using Windows.UI.Xaml.Media.Animation;
+using BarBot.UWP.IO;
 using BarBot.UWP.Websocket;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls
 {
-    public sealed partial class Uc_DrinkDetail : UserControl, INotifyPropertyChanged
+    public sealed partial class Uc_RecipeDetail : UserControl, INotifyPropertyChanged
     {
-        private Recipe _recipe;
+        private UWPWebSocketService webSocketService;
+        private BarbotIOController barbotIOController;
+
+        private Recipe recipe;
+
         private Recipe OrderRecipe;
         private List<Uc_IngredientElement> _ingredientElementList;
         private List<Ingredient> AvailableIngredientList;
-        private UWPWebSocketService webSocketService;
+        
         private Uc_AddIngredientButton addIngredientBtn;
         private Uc_IngredientPicker ingredientPicker;
-        private App app;
+        
         private double _totalVolume;
 
-        public Uc_DrinkDetail(Recipe SelectedRecipe)
+        public Uc_RecipeDetail(Recipe SelectedRecipe)
         {
             this.InitializeComponent();
             this.DataContext = this;
 
-            app = Application.Current as App;
-            webSocketService = app.webSocketService;
-            webSocketService.AddMenuEventHandlers(null, Socket_GetIngredientsEvent);
-            webSocketService.GetIngredients();
+            this.webSocketService = (Application.Current as App).webSocketService;
+            this.barbotIOController = (Application.Current as App).barbotIOController;
+            this.Recipe = SelectedRecipe;
+
+            this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
         }
 
         public double TotalVolume
@@ -68,12 +64,12 @@ namespace BarBot.UWP.UserControls
         {
             get
             {
-                return _recipe;
+                return recipe;
             }
 
             set
             {
-                _recipe = value;
+                recipe = value;
                 TotalVolume = 0;
                 if (Recipe.Name != "Custom Recipe")
                 {
@@ -188,21 +184,6 @@ namespace BarBot.UWP.UserControls
             DisplayIngredients();
         }
 
-        private async void Socket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
-        {
-            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () =>
-            {
-                AvailableIngredientList = new List<Ingredient>();
-                for (var i = 0; i < args.Ingredients.Count; i++)
-                {
-                    AvailableIngredientList.Add(args.Ingredients[i]);
-                }
-            });
-
-            webSocketService.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
-        }
-
         private void AddIngredientBtn_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             // Blast last element of ingredientList if it's the addIngredientBtn
@@ -265,7 +246,7 @@ namespace BarBot.UWP.UserControls
 
         private async void Pour_Drink(object sender, RoutedEventArgs e)
         {
-            if (app.barbotIOController.CupCount == 0)
+            if (barbotIOController.CupCount == 0)
             {
                 var cupDialog = new ContentDialog()
                 {
@@ -330,9 +311,9 @@ namespace BarBot.UWP.UserControls
         {
             await Task.Delay(1);
 
-            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(OrderRecipe, app.barbotIOController.Containers);
+            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(OrderRecipe, barbotIOController.Containers);
 
-            app.barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
+            barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
 
             sender.Hide();
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new PartyMode();
@@ -340,14 +321,14 @@ namespace BarBot.UWP.UserControls
 
         private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            app.barbotIOController.CupCount = 25;
+            barbotIOController.CupCount = 25;
 
             sender.Hide();
         }
 
         private void CupDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            app.barbotIOController.CupCount = 1;
+            barbotIOController.CupCount = 1;
 
             sender.Hide();
         }
