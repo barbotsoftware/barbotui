@@ -61,12 +61,16 @@ namespace BarBot.UWP.Websocket
             Socket.CreateCustomDrinkEvent -= createCustomDrinkHandler;
         }
 
-        public void GetRecipes()
+        public void GetRecipes(string categoryId = "")
         {
             if (Socket.IsOpen)
             {
                 var data = new Dictionary<string, object>();
                 data.Add("barbot_id", barbotId);
+                if(!"".Equals(categoryId))
+                {
+                    data.Add("category_id", categoryId);
+                }
 
                 var message = new Message(Constants.Command, Constants.GetRecipesForBarbot, data);
 

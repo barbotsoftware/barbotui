@@ -72,11 +72,23 @@ namespace BarBot.UWP.UserControls
                 }
                 else
                 {
-                    ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Category.Recipes, new DrillInNavigationTransitionInfo());
+                    webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
+                    webSocketService.GetRecipes(args.Category.CategoryId);
                 }
             });
 
             webSocketService.Socket.GetCategoryEvent -= Socket_GetCategoryEvent;
+        }
+
+        private async void Socket_GetRecipesEvent(object sender, Core.WebSocket.WebSocketEvents.GetRecipesEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Recipes, new DrillInNavigationTransitionInfo());
+            });
+
+            webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
         private void hexagon_Loaded(object sender, RoutedEventArgs e)

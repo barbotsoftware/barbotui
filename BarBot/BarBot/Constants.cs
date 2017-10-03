@@ -34,7 +34,7 @@ namespace BarBot.Core
 
 		public const string PortNumber = "8080";
 
-		public const string BarBotId = "barbot_a0a627";
+		public const string BarBotId = "d9f064";
 
 		public const string CustomRecipeId = "custom_recipe";
 
