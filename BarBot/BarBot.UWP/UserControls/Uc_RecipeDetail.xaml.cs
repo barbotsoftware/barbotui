@@ -95,7 +95,8 @@ namespace BarBot.UWP.UserControls
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                Recipe.Ingredients = args.Recipe.Ingredients;
+                // Get Ingredient Names from Global Ingredient List
+                Recipe.Ingredients = Utils.Helpers.GetIngredientsWithNames(AvailableIngredientList, args.Recipe.Ingredients);
                 DisplayIngredients();
             });
 

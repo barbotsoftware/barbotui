@@ -27,5 +27,29 @@ namespace BarBot.UWP.Utils
             }
             return res;
         }
+
+        /// <summary>
+        /// Accepts two lists of Ingredients as parameters, one with Ingredient objects
+        /// that have names and ingredient IDs (Global Ingredient List) and one with only
+        /// ingredient IDs (Recipe Ingredients). Sets the names on these Ingredient objects 
+        /// and returns that list.
+        /// </summary>
+        /// <param name="IngredientsWithNames"></param>
+        /// <param name="IngredientsInRecipe"></param>
+        /// <returns></returns>
+        public static List<Ingredient> GetIngredientsWithNames(List<Ingredient> IngredientsWithNames, List<Ingredient> IngredientsInRecipe)
+        {
+            foreach (Ingredient ingredient in IngredientsInRecipe)
+            {
+                Ingredient foundIngredient = IngredientsWithNames.Where(x => x.IngredientId.Equals(ingredient.IngredientId)).First();
+
+                if (foundIngredient != null)
+                {
+                    ingredient.Name = foundIngredient.Name;
+                }
+            }
+
+            return IngredientsInRecipe;
+        }
     }
 }
