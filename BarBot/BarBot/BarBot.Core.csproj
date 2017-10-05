@@ -40,7 +40,7 @@
     <Compile Include="Model\JsonModelObject.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
-    <Compile Include="ViewModel\DetailViewModel.cs" />
+    <Compile Include="ViewModel\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Model\IngredientList.cs" />

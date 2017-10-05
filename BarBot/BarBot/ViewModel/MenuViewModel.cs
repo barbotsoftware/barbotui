@@ -1,12 +1,11 @@
-﻿using System.Collections.Generic;
-
-using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-
-using BarBot.Core.Model;
-using BarBot.Core.Service.Navigation;
+﻿using BarBot.Core.Model;
 using BarBot.Core.Service.WebSocket;
 using BarBot.Core.WebSocket;
+using GalaSoft.MvvmLight;
+using GalaSoft.MvvmLight.Command;
+using GalaSoft.MvvmLight.Views;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
 
 namespace BarBot.Core.ViewModel
 {
@@ -16,8 +15,10 @@ namespace BarBot.Core.ViewModel
         private readonly IWebSocketService webSocketService;
 
         private RelayCommand getRecipesCommand;
+        private RelayCommand<RecipeDetailViewModel> showRecipeDetailCommand;
 
-        private string _title;
+        public ObservableCollection<RecipeDetailViewModel> Recipes { get; }
+
         private List<Recipe> _recipes;
         private bool _shouldDisplaySearch = false;
         private Dictionary<string, byte[]> _imageCache;
@@ -27,6 +28,8 @@ namespace BarBot.Core.ViewModel
         {
             this.navigationService = navigationService;
             this.webSocketService = webSocketService;
+
+            Recipes = new ObservableCollection<RecipeDetailViewModel>();
 
             _recipes = new List<Recipe>();
             _imageCache = new Dictionary<string, byte[]>();
@@ -39,11 +42,11 @@ namespace BarBot.Core.ViewModel
 
         public string Title
         {
-            get { return _title; }
-            set { Set(ref _title, value); }
+            get;
+            set;
         }
 
-        public List<Recipe> Recipes
+        public List<Recipe> RecipeList
         {
             get { return _recipes; }
             set { Set(ref _recipes, value); }
@@ -71,16 +74,35 @@ namespace BarBot.Core.ViewModel
             }
         }
 
-        public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)
+        public RelayCommand<RecipeDetailViewModel> ShowRecipeDetailCommand
         {
-            // recipeIdentifier = name for Custom, recipeId otherwise
-            MessengerInstance.Send(recipeIdentifier);
-            if (imageContents != null)
+            get
             {
-                MessengerInstance.Send(imageContents);
+                return showRecipeDetailCommand
+                       ?? (showRecipeDetailCommand = new RelayCommand<RecipeDetailViewModel>(
+                           recipe =>
+                           {
+                               if (!ShowRecipeDetailCommand.CanExecute(recipe))
+                               {
+                                   return;
+                               }
+
+                               navigationService.NavigateTo(ViewModelLocator.RecipeDetailPageKey, recipe);
+                           },
+                           recipe => recipe != null));
             }
-            navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
         }
+
+        //public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)
+        //{
+        //    // recipeIdentifier = name for Custom, recipeId otherwise
+        //    MessengerInstance.Send(recipeIdentifier);
+        //    if (imageContents != null)
+        //    {
+        //        MessengerInstance.Send(imageContents);
+        //    }
+        //    navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
+        //}
 
 		#endregion
 

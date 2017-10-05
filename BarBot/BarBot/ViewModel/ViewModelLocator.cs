@@ -2,17 +2,21 @@
 
 using Microsoft.Practices.ServiceLocation;
 
-using BarBot.Core.Service.WebSocket; 
+using BarBot.Core.Service.WebSocket;
+
 namespace BarBot.Core.ViewModel
 {
 	public class ViewModelLocator
 	{
         public const string HomePageKey = "HomePage";
         public const string LoginPageKey = "LoginPage";
-        public const string SignUpPageKey = "SignUpPage"; 		public const string MenuPageKey = "MenuPage";
+        public const string SignUpPageKey = "SignUpPage";
+		public const string MenuPageKey = "MenuPage";
 		public const string RecipeDetailPageKey = "RecipeDetailPage";
 
-		static ViewModelLocator() 	    { 	    	ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+		static ViewModelLocator()
+	    {
+	    	ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
             // Register Services
             SimpleIoc.Default.Register<IWebSocketService, WebSocketService>();
@@ -20,7 +24,10 @@ namespace BarBot.Core.ViewModel
             // Register ViewModels
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
-            SimpleIoc.Default.Register<SignUpViewModel>(); 	    	SimpleIoc.Default.Register<MenuViewModel>(); 			SimpleIoc.Default.Register<DetailViewModel>(); 	    }
+            SimpleIoc.Default.Register<SignUpViewModel>();
+	    	SimpleIoc.Default.Register<MenuViewModel>();
+			SimpleIoc.Default.Register<RecipeDetailViewModel>();
+	    }
 
         public HomeViewModel Home
         {
@@ -44,6 +51,28 @@ namespace BarBot.Core.ViewModel
 			{
 				return ServiceLocator.Current.GetInstance<SignUpViewModel>();
 			}
-		}  	    public MenuViewModel Menu 	    { 	    	get 			{ 				return ServiceLocator.Current.GetInstance<MenuViewModel>(); 			} 	    }  		public DetailViewModel Detail 		{ 			get 			{ 				return ServiceLocator.Current.GetInstance<DetailViewModel>(); 			} 		}   	    public static void Cleanup() 	    { 	    	// TODO Clear the ViewModels 	    }
+		}
+
+	    public MenuViewModel Menu
+	    {
+	    	get
+			{
+				return ServiceLocator.Current.GetInstance<MenuViewModel>();
+			}
+	    }
+
+		public RecipeDetailViewModel Detail
+		{
+			get
+			{
+				return ServiceLocator.Current.GetInstance<RecipeDetailViewModel>();
+			}
+		}
+
+
+	    public static void Cleanup()
+	    {
+	    	// TODO Clear the ViewModels
+	    }
 	}
 }

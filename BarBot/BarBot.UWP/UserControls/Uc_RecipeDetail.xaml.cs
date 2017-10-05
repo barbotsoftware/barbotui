@@ -1,18 +1,19 @@
-﻿using System;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
+using BarBot.Core.ViewModel;
+using BarBot.Core.WebSocket;
+using BarBot.UWP.IO;
+using BarBot.UWP.Pages;
+using BarBot.UWP.Websocket;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
-using BarBot.Core;
-using BarBot.Core.Model;
-using BarBot.Core.WebSocket;
-using System.ComponentModel;
-using System.Threading.Tasks;
-using BarBot.UWP.Pages;
 using Windows.UI.Xaml.Media.Animation;
-using BarBot.UWP.IO;
-using BarBot.UWP.Websocket;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -22,6 +23,14 @@ namespace BarBot.UWP.UserControls
     {
         private UWPWebSocketService webSocketService;
         private BarbotIOController barbotIOController;
+
+        public RecipeDetailViewModel ViewModel
+        {
+            get
+            {
+                return (RecipeDetailViewModel)DataContext;
+            }
+        }
 
         private Recipe recipe;
 
@@ -34,14 +43,14 @@ namespace BarBot.UWP.UserControls
         
         private double _totalVolume;
 
-        public Uc_RecipeDetail(Recipe SelectedRecipe)
+        public Uc_RecipeDetail(RecipeDetailViewModel ViewModel)
         {
             this.InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = ViewModel;
 
             this.webSocketService = (Application.Current as App).webSocketService;
             this.barbotIOController = (Application.Current as App).barbotIOController;
-            this.Recipe = SelectedRecipe;
+            this.Recipe = ViewModel.Recipe;
 
             this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
         }
