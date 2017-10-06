@@ -55,8 +55,16 @@ namespace BarBot.UWP.UserControls
 
         private void Category_Click(object sender, RoutedEventArgs e)
         {
-            webSocketService.Socket.GetCategoryEvent += Socket_GetCategoryEvent;
-            webSocketService.GetCategory(category.CategoryId);
+            if (category.CategoryId == null || "".Equals(category.CategoryId))
+            {
+                webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
+                webSocketService.GetRecipes();
+            }
+            else
+            {
+                webSocketService.Socket.GetCategoryEvent += Socket_GetCategoryEvent;
+                webSocketService.GetCategory(category.CategoryId);
+            }
         }
 
         private async void Socket_GetCategoryEvent(object sender, Core.WebSocket.WebSocketEvents.GetCategoryEventArgs args)

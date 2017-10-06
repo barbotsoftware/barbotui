@@ -44,6 +44,8 @@ namespace BarBot.Core
 
         public const string CustomRecipeName = "Custom Recipe";
 
+        public const string AllRecipesCategoryName = "All Cocktails";
+
 		#endregion
 
 		// UI - Hexagon

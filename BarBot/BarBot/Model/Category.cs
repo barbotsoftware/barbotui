@@ -77,5 +77,13 @@ namespace BarBot.Core.Model
             SubCategories = c.SubCategories;
             Recipes = c.Recipes;
         }
+
+        public static Category AllRecipes()
+        {
+            Category category = new Category();
+            category.name = Constants.AllRecipesCategoryName;
+            category.CategoryId = null;
+            return category;
+        }
     }
 }

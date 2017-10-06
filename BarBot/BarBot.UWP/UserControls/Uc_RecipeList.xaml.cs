@@ -101,7 +101,7 @@ namespace BarBot.UWP.UserControls
         {
             // Hide BackButton if it's the first page, hide NextButton if its the last page
             BackButton.Visibility = page == 0 ? Visibility.Collapsed : Visibility.Visible;
-            NextButton.Visibility = page >= page - 1 ? Visibility.Collapsed : Visibility.Visible;
+            NextButton.Visibility = page >= pages - 1 ? Visibility.Collapsed : Visibility.Visible;
 
             // clear out the current recipe tiles
             recipeTileCanvas.Children.Clear();
@@ -110,7 +110,7 @@ namespace BarBot.UWP.UserControls
             {
                 Uc_RecipeTile tile = new Uc_RecipeTile();
                 tile.Recipe = recipes[i];
-                Point pos = getPoint(i, Constants.HexagonWidth);
+                Point pos = getPoint(i % itemsPerPage, Constants.HexagonWidth);
                 Canvas.SetLeft(tile, pos.X);
                 Canvas.SetTop(tile, pos.Y);
                 recipeTileCanvas.Children.Add(tile);
