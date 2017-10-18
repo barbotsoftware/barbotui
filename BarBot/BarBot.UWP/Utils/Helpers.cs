@@ -51,5 +51,15 @@ namespace BarBot.UWP.Utils
 
             return IngredientsInRecipe;
         }
+
+        public static Ingredient GetIngredientByIngredientId(List<Ingredient> ingredients, string ingredientId)
+        {
+            if (ingredients.Count > 0)
+            {
+                return ingredients.Where(x => x.IngredientId.Equals(ingredientId)).First();
+            }
+
+            return null;
+        }
     }
 }

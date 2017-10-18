@@ -153,6 +153,9 @@
       <DependentUpon>20170126063933_AddFSRFields.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\BarbotContextModelSnapshot.cs" />
+    <Compile Include="Pages\ContainerPanel.xaml.cs">
+      <DependentUpon>ContainerPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\RecipeDetail.xaml.cs">
       <DependentUpon>RecipeDetail.xaml</DependentUpon>
     </Compile>
@@ -175,6 +178,9 @@
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\Uc_ContainerList.xaml.cs">
+      <DependentUpon>Uc_ContainerList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\Uc_RecipeDetail.xaml.cs">
       <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
@@ -237,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Pages\ContainerPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Pages\RecipeDetail.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -269,6 +279,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Styles\Styles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="TestClient\TestClient.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -292,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Uc_AddIngredientButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Uc_ContainerList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

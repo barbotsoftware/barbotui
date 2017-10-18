@@ -146,5 +146,22 @@ namespace BarBot.Core.WebSocket
                 get { return category; }
             }
         }
+
+        public delegate void GetContainersEventHandler(object sender, GetContainersEventArgs args);
+
+        public class GetContainersEventArgs : EventArgs
+        {
+            private List<Container> containers;
+
+            public GetContainersEventArgs(List<Container> containers)
+            {
+                this.containers = containers;
+            }
+
+            public List<Container> Containers
+            {
+                get { return containers; }
+            }
+        }
     }
 }
