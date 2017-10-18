@@ -182,6 +182,9 @@
     <Compile Include="UserControls\Uc_ContainerList.xaml.cs">
       <DependentUpon>Uc_ContainerList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\Uc_ContainerTile.xaml.cs">
+      <DependentUpon>Uc_ContainerTile.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Uc_RecipeDetail.xaml.cs">
       <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
     </Compile>
@@ -311,6 +314,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\Uc_ContainerList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Uc_ContainerTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

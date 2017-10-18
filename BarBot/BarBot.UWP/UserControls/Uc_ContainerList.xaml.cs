@@ -1,8 +1,9 @@
 ﻿using BarBot.Core.Model;
 using BarBot.UWP.Utils;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -20,13 +21,20 @@ namespace BarBot.UWP.UserControls
             {
                 containers = value;
 
-                foreach (Container c in containers)
+                // Sort Containers by Number
+                containers.Sort((x, y) => x.Number.CompareTo(y.Number));
+
+                List<Uc_ContainerTile> tiles = new List<Uc_ContainerTile>();
+                for (int i = 0; i < containers.Count; i++)
                 {
-                    Console.WriteLine("Container Number: " + c.Number + 
-                                      ", Current Volume: " + c.CurrentVolume +
-                                      ", Max Volume: " + c.MaxVolume +
-                                      ", Ingredient: " + Helpers.GetIngredientByIngredientId(ingredients, c.IngredientId).Name);
+                    Uc_ContainerTile tile = new Uc_ContainerTile();
+                    tile.SetValue(Grid.ColumnProperty, i % 4);
+                    tile.SetValue(Grid.RowProperty, i / 4);
+                    tile.Container = containers[i];
+                    tile.Ingredient = Helpers.GetIngredientByIngredientId(ingredients, containers[i].IngredientId);
+                    tiles.Add(tile);
                 }
+                icContainerItems.ItemsSource = tiles;
 
                 OnPropertyChanged("Containers");
             }
