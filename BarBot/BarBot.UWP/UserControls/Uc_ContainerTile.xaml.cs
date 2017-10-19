@@ -13,6 +13,7 @@ namespace BarBot.UWP.UserControls
     {
         private Container container;
         private Ingredient ingredient;
+        private string maxVolumeLabel;
 
         public Container Container
         {
@@ -21,6 +22,7 @@ namespace BarBot.UWP.UserControls
             {
                 container = value;
                 SetTextBlockColor();
+                SetMaxVolumeLabel();
                 OnPropertyChanged("Container");
             }
         }
@@ -35,33 +37,48 @@ namespace BarBot.UWP.UserControls
             }
         }
 
+        public string MaxVolumeLabel
+        {
+            get { return maxVolumeLabel; }
+            set
+            {
+                maxVolumeLabel = value;
+                OnPropertyChanged("MaxVolumeLabel");
+            }
+        }
+
         public Uc_ContainerTile()
         {
             this.InitializeComponent();
             this.DataContext = this;
         }
 
+        private void SetMaxVolumeLabel()
+        {
+            MaxVolumeLabel = "/ " + Container.MaxVolume + " oz";
+        }
+
         private void SetTextBlockColor()
         {
             if (container.CurrentVolume > 80)
             {
-                this.ContainerBorder.Background = new SolidColorBrush(Colors.Green);
+                this.ContainerCurrentVolumeTextBlock.Foreground = new SolidColorBrush(Colors.Green);
             }
             else if (container.CurrentVolume > 60)
             {
-                this.ContainerBorder.Background = new SolidColorBrush(Colors.YellowGreen);
+                this.ContainerCurrentVolumeTextBlock.Foreground = new SolidColorBrush(Colors.YellowGreen);
             }
             else if (container.CurrentVolume > 40)
             {
-                this.ContainerBorder.Background = new SolidColorBrush(Colors.DarkOrange);
+                this.ContainerCurrentVolumeTextBlock.Foreground = new SolidColorBrush(Colors.DarkOrange);
             }
             else if (container.CurrentVolume > 20)
             {
-                this.ContainerBorder.Background = new SolidColorBrush(Colors.OrangeRed);
+                this.ContainerCurrentVolumeTextBlock.Foreground = new SolidColorBrush(Colors.OrangeRed);
             }
             else
             {
-                this.ContainerBorder.Background = new SolidColorBrush(Colors.Red);
+                this.ContainerCurrentVolumeTextBlock.Foreground = new SolidColorBrush(Colors.Red);
             }
         }
 
