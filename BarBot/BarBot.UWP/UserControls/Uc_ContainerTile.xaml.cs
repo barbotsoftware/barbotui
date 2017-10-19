@@ -1,4 +1,6 @@
 ﻿using BarBot.Core.Model;
+using BarBot.UWP.Utils;
+using System;
 using System.ComponentModel;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -84,7 +86,54 @@ namespace BarBot.UWP.UserControls
 
         private void Container_Click(object sender, RoutedEventArgs e)
         {
+            // Show Dialog
+            DisplayContainerLoadDialog();
+        }
 
+        private async void DisplayContainerLoadDialog()
+        {
+            string loadDialogText = "Please load " + Helpers.UppercaseWords(Ingredient.Name) + " into Container " + Container.Number + ".";
+
+            var containerLoadDialog = new ContentDialog()
+            {
+                MaxWidth = 1920,
+                Content = new TextBlock()
+                {
+                    Text = loadDialogText,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 45
+                },
+                Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
+                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
+                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
+                FontFamily = new FontFamily("Microsoft Yi Baiti"),
+                IsPrimaryButtonEnabled = true,
+                IsSecondaryButtonEnabled = true,
+                PrimaryButtonText = "OK",
+                SecondaryButtonText = "CANCEL"
+            };
+
+            containerLoadDialog.PrimaryButtonClick += ContainerLoadDialog_PrimaryButtonClick;
+            containerLoadDialog.SecondaryButtonClick += ContainerLoadDialog_SecondaryButtonClick;
+            await containerLoadDialog.ShowAsync();
+        }
+
+        private void ContainerLoadDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Activate BarbotIOController
+
+            // Call Load Ingredient for Container routine
+
+            // Update Container Object's CurrentVolume
+
+            sender.Hide();
+        }
+
+        private void ContainerLoadDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Dismiss Dialog
+            sender.Hide();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -226,6 +226,7 @@
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
     <Content Include="Assets\Plus_Icon.png" />
+    <Content Include="Assets\settings.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml">
       <SubType>Designer</SubType>
