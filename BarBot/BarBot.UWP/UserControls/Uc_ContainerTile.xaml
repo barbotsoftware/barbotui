@@ -1,0 +1,155 @@
+﻿<UserControl
+    x:Class="BarBot.UWP.UserControls.Uc_ContainerTile"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:styles="BarBot.UWP.Styles"
+    mc:Ignorable="d"
+    d:DesignHeight="200"
+    d:DesignWidth="200">
+
+    <UserControl.Resources>
+        <local:ToUpperConverter x:Name="ToUpperConverter" />
+        
+        <!-- Colors -->
+        <SolidColorBrush x:Key="TileColor"
+                        Color="#222222" />
+        <SolidColorBrush x:Key="TextColor"
+                        Color="White" />
+
+        <!-- Font -->
+        
+        <Style x:Key="ContainerTileCanvasStyle"
+               TargetType="Canvas">
+            <Setter Property="Margin"
+                    Value="10,10,10,10" />
+            <Setter Property="Background"
+                    Value="{StaticResource TileColor}" />
+        </Style>
+
+        <Style x:Key="ContainerNumberTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+            <Setter Property="FontFamily"
+                    Value="Microsoft Yi Baiti" />
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="Canvas.ZIndex"
+                    Value="70" />
+            <Setter Property="Canvas.Left"
+                    Value="10" />
+            <Setter Property="Canvas.Top"
+                    Value="10" />
+            <Setter Property="Height"
+                    Value="auto" />
+            <Setter Property="Width"
+                    Value="auto" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
+
+        <Style x:Key="ContainerTileButtonStyle"
+               TargetType="Button">
+            <Setter Property="Canvas.ZIndex"
+                    Value="90" />
+            <Setter Property="Canvas.Left"
+                    Value="100" />
+            <Setter Property="Canvas.Top"
+                    Value="50" />
+            <Setter Property="HorizontalAlignment"
+                    Value="Center" />
+        </Style>
+
+        <Style x:Key="IngredientNameTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+            <Setter Property="FontFamily"
+                    Value="Microsoft Yi Baiti" />
+            <Setter Property="FontSize"
+                    Value="40" />
+            <Setter Property="Height"
+                    Value="auto" />
+            <Setter Property="Width"
+                    Value="auto" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+            <Setter Property="TextTrimming"
+                    Value="CharacterEllipsis" />
+            <Setter Property="TextWrapping"
+                    Value="WrapWholeWords" />
+        </Style>
+
+        <Style x:Key="ContainerCurrentVolumeTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+            <Setter Property="FontFamily"
+                    Value="Microsoft Yi Baiti" />
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="Canvas.ZIndex"
+                    Value="70" />
+            <Setter Property="Canvas.Left"
+                    Value="100" />
+            <Setter Property="Canvas.Top"
+                    Value="100" />
+            <Setter Property="Height"
+                    Value="auto" />
+            <Setter Property="Width"
+                    Value="auto" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
+
+        <Style x:Key="ContainerMaxVolumeTextBlockStyle"
+               TargetType="TextBlock">
+            <Setter Property="Foreground"
+                    Value="{StaticResource TextColor}" />
+            <Setter Property="FontFamily"
+                    Value="Microsoft Yi Baiti" />
+            <Setter Property="FontSize"
+                    Value="36" />
+            <Setter Property="Canvas.ZIndex"
+                    Value="71" />
+            <Setter Property="Canvas.Left"
+                    Value="160" />
+            <Setter Property="Canvas.Top"
+                    Value="100" />
+            <Setter Property="Height"
+                    Value="auto" />
+            <Setter Property="Width"
+                    Value="auto" />
+            <Setter Property="TextAlignment"
+                    Value="Center" />
+        </Style>
+
+    </UserControl.Resources>
+
+    <Canvas Style="{StaticResource ContainerTileCanvasStyle}">
+        <TextBlock x:Name="ContainerNumberTextBlock" 
+                       Text="{Binding Path=Container.Number}"
+                       Style="{StaticResource ContainerNumberTextBlockStyle}" />
+        <Button x:Name="ContainerTileButton" 
+                    x:FieldModifier="public" 
+                    Click="Container_Click"
+                    Style="{StaticResource ContainerTileButtonStyle}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock x:Name="IngredientNameTextBlock"
+                               Text="{Binding Path=Ingredient.Name, Converter={StaticResource ToUpperConverter}}" 
+                               Style="{StaticResource IngredientNameTextBlockStyle}" />
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="ContainerCurrentVolumeTextBlock"
+                   Text="{Binding Path=Container.CurrentVolume}"
+                   Style="{StaticResource ContainerCurrentVolumeTextBlockStyle}" />
+        <TextBlock x:Name="ContainerMaxVolumeTextBlock"
+                   Text="{Binding Path=MaxVolumeLabel}"
+                   Style="{StaticResource ContainerMaxVolumeTextBlockStyle}" />
+    </Canvas>
+</UserControl>

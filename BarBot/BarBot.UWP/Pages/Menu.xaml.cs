@@ -88,6 +88,11 @@ namespace BarBot.UWP.Pages
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new DrillInNavigationTransitionInfo());
         }
 
+        private void Open_Settings(object sender, RoutedEventArgs e)
+        {
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(ContainerPanel), null, new DrillInNavigationTransitionInfo());
+        }
+
         private async void Socket_GetCategoriesEvent(object sender, WebSocketEvents.GetCategoriesEventArgs args)
         {
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
