@@ -34,11 +34,6 @@ namespace BarBot.UWP.UserControls
             set
             {
                 categories = value;
-                if (categories.Count == 0 || !categories.ElementAt(0).Name.Equals(Constants.AllRecipesCategoryName))
-                {
-                    categories.Insert(0, Category.AllRecipes());
-                }
-
                 List<Uc_CategoryTile> tiles = new List<Uc_CategoryTile>();
                 for (int i = 0; i < Math.Min(8, categories.Count); i++)
                 {

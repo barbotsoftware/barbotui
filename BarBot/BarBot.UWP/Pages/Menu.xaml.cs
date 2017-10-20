@@ -93,6 +93,7 @@ namespace BarBot.UWP.Pages
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
+                args.Categories.Insert(0, Category.AllRecipes());
                 Categories = args.Categories;
             });
 
