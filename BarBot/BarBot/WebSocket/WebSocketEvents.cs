@@ -96,13 +96,13 @@ namespace BarBot.Core.WebSocket
 			}
 		}
 
-		public delegate void CreateCustomDrinkEventHandler(object sender, CreateCustomDrinkEventArgs args);
+		public delegate void CreateCustomRecipeEventHandler(object sender, CreateCustomRecipeEventArgs args);
 
-		public class CreateCustomDrinkEventArgs : EventArgs
+		public class CreateCustomRecipeEventArgs : EventArgs
 		{
 			private string recipeId;
 
-			public CreateCustomDrinkEventArgs(string recipeId)
+			public CreateCustomRecipeEventArgs(string recipeId)
 			{
 				this.recipeId = recipeId;
 			}
@@ -161,6 +161,23 @@ namespace BarBot.Core.WebSocket
             public List<Container> Containers
             {
                 get { return containers; }
+            }
+        }
+
+        public delegate void UpdateContainerEventHandler(object sender, UpdateContainerEventArgs args);
+
+        public class UpdateContainerEventArgs : EventArgs
+        {
+            private Container container;
+
+            public UpdateContainerEventArgs(Container container)
+            {
+                this.container = container;
+            }
+
+            public Container Container
+            {
+                get { return container; }
             }
         }
     }

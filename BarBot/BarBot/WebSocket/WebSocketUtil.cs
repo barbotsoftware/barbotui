@@ -59,20 +59,20 @@ namespace BarBot.Core.WebSocket
 
 		public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
 									 	   WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
-		                                   WebSocketEvents.CreateCustomDrinkEventHandler createCustomDrinkHandler)
+		                                   WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
 		{
 			Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
 			Socket.OrderDrinkEvent += orderDrinkHandler;
-			Socket.CreateCustomDrinkEvent += createCustomDrinkHandler;
+			Socket.CreateCustomRecipeEvent += createCustomDrinkHandler;
 		}
 
 		public void RemoveDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
 											  WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
-										      WebSocketEvents.CreateCustomDrinkEventHandler createCustomDrinkHandler)
+										      WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
 		{
 			Socket.GetRecipeDetailsEvent -= recipeDetailsHandler;
 			Socket.OrderDrinkEvent -= orderDrinkHandler;
-			Socket.CreateCustomDrinkEvent -= createCustomDrinkHandler;
+			Socket.CreateCustomRecipeEvent -= createCustomDrinkHandler;
 		}
 
 		public void GetRecipes()
@@ -137,7 +137,7 @@ namespace BarBot.Core.WebSocket
 				var data = new Dictionary<string, object>();
 				data.Add("recipe", recipe);
 
-				var message = new Message(Constants.Command, Constants.CreateCustomDrink, data);
+				var message = new Message(Constants.Command, Constants.CreateCustomRecipe, data);
 
 				Socket.sendMessage(message);
 			}

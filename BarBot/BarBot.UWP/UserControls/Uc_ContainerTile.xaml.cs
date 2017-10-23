@@ -1,5 +1,6 @@
 ﻿using BarBot.Core.Model;
 using BarBot.UWP.Utils;
+using BarBot.UWP.Websocket;
 using System;
 using System.ComponentModel;
 using Windows.UI;
@@ -13,6 +14,8 @@ namespace BarBot.UWP.UserControls
 {
     public sealed partial class Uc_ContainerTile : UserControl, INotifyPropertyChanged
     {
+        private UWPWebSocketService webSocketService;
+
         private Container container;
         private Ingredient ingredient;
         private string maxVolumeLabel;
@@ -53,6 +56,7 @@ namespace BarBot.UWP.UserControls
         {
             this.InitializeComponent();
             this.DataContext = this;
+            webSocketService = (Application.Current as App).webSocketService;
         }
 
         private void SetMaxVolumeLabel()
@@ -110,7 +114,7 @@ namespace BarBot.UWP.UserControls
                 FontFamily = new FontFamily("Microsoft Yi Baiti"),
                 IsPrimaryButtonEnabled = true,
                 IsSecondaryButtonEnabled = true,
-                PrimaryButtonText = "OK",
+                PrimaryButtonText = "DONE",
                 SecondaryButtonText = "CANCEL"
             };
 
@@ -121,11 +125,14 @@ namespace BarBot.UWP.UserControls
 
         private void ContainerLoadDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            // Activate BarbotIOController
+            // Update Current Volume
+            Container.CurrentVolume = Container.MaxVolume;
 
-            // Call Load Ingredient for Container routine
+            // Update Current Volume Color
+            SetTextBlockColor();
 
-            // Update Container Object's CurrentVolume
+            // Call Update Container
+            webSocketService.UpdateContainer(Container);
 
             sender.Hide();
         }

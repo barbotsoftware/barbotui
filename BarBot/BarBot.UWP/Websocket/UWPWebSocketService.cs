@@ -41,20 +41,20 @@ namespace BarBot.UWP.Websocket
 
         public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
                                             WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
-                                           WebSocketEvents.CreateCustomDrinkEventHandler createCustomDrinkHandler)
+                                           WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
         {
             Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
             Socket.OrderDrinkEvent += orderDrinkHandler;
-            Socket.CreateCustomDrinkEvent += createCustomDrinkHandler;
+            Socket.CreateCustomRecipeEvent += createCustomDrinkHandler;
         }
 
         public void RemoveDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
                                               WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
-                                              WebSocketEvents.CreateCustomDrinkEventHandler createCustomDrinkHandler)
+                                              WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
         {
             Socket.GetRecipeDetailsEvent -= recipeDetailsHandler;
             Socket.OrderDrinkEvent -= orderDrinkHandler;
-            Socket.CreateCustomDrinkEvent -= createCustomDrinkHandler;
+            Socket.CreateCustomRecipeEvent -= createCustomDrinkHandler;
         }
 
         public void GetRecipes(string categoryId = "")
@@ -105,7 +105,7 @@ namespace BarBot.UWP.Websocket
             if (Socket.IsOpen)
             {
                 var data = new Dictionary<string, object>();
-                data.Add("barbot_id", Constants.BarBotId);
+                data.Add("barbot_id", barbotId);
                 data.Add("recipe_id", recipeId);
                 data.Add("ice", ice ? 1 : 0);
                 data.Add("garnish", garnish ? 1 : 0);
@@ -116,14 +116,14 @@ namespace BarBot.UWP.Websocket
             }
         }
 
-        public void CreateCustomDrink(Recipe recipe)
+        public void CreateCustomRecipe(Recipe recipe)
         {
             if (Socket.IsOpen)
             {
                 var data = new Dictionary<string, object>();
                 data.Add("recipe", recipe);
 
-                var message = new Message(Constants.Command, Constants.CreateCustomDrink, data);
+                var message = new Message(Constants.Command, Constants.CreateCustomRecipe, data);
 
                 Socket.sendMessage(message);
             }
@@ -146,6 +146,22 @@ namespace BarBot.UWP.Websocket
                 data.Add("category_id", categoryId);
 
                 var message = new Message(Constants.Command, Constants.GetCategory, data);
+
+                Socket.sendMessage(message);
+            }
+        }
+
+        public void UpdateContainer(Container container)
+        {
+            if (Socket.IsOpen)
+            {
+                var data = new Dictionary<string, object>()
+                {
+                    { "barbot_id", barbotId },
+                    { "container", container }
+                };
+
+                var message = new Message(Constants.Command, Constants.UpdateContainer, data);
 
                 Socket.sendMessage(message);
             }
