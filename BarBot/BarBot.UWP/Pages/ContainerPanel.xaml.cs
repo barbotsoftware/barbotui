@@ -1,6 +1,7 @@
 ﻿using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Websocket;
+using BarBot.UWP.UserControls.ContainerPanel;
 using System;
 using System.Collections.Generic;
 using Windows.UI.Xaml;

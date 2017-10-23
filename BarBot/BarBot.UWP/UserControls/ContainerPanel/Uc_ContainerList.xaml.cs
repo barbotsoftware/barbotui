@@ -7,7 +7,7 @@ using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
-namespace BarBot.UWP.UserControls
+namespace BarBot.UWP.UserControls.ContainerPanel
 {
     public sealed partial class Uc_ContainerList : UserControl, INotifyPropertyChanged
     {

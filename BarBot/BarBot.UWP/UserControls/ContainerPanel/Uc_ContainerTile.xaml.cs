@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media;
 
 // The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace BarBot.UWP.UserControls
+namespace BarBot.UWP.UserControls.ContainerPanel
 {
     public sealed partial class Uc_ContainerTile : UserControl, INotifyPropertyChanged
     {
