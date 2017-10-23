@@ -17,27 +17,32 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Canvas Style="{StaticResource ContainerTileCanvasStyle}">
-        <TextBlock x:Name="ContainerNumberTextBlock" 
-                       Text="{Binding Path=Container.Number}"
-                       Style="{StaticResource ContainerNumberTextBlockStyle}" />
-        <Button x:Name="ContainerTileButton" 
-                    x:FieldModifier="public" 
+    <Button x:Name="ContainerTileButton" 
+                    x:FieldModifier="public"
                     Click="Container_Click"
                     Style="{StaticResource ContainerTileButtonStyle}">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
+        <Button.Template>
+            <ControlTemplate TargetType="Button">
+                <StackPanel x:Name="ContainerTileStackPanel"
+                            Style="{StaticResource ContainerTileStackPanelStyle}">
+                    <TextBlock x:Name="ContainerNumberTextBlock"
+                               Text="{Binding Path=Container.Number}"
+                               Style="{StaticResource ContainerNumberTextBlockStyle}" />
                     <TextBlock x:Name="IngredientNameTextBlock"
                                Text="{Binding Path=Ingredient.Name, Converter={StaticResource ToUpperConverter}}" 
                                Style="{StaticResource IngredientNameTextBlockStyle}" />
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
-        <TextBlock x:Name="ContainerCurrentVolumeTextBlock"
-                   Text="{Binding Path=Container.CurrentVolume}"
-                   Style="{StaticResource ContainerCurrentVolumeTextBlockStyle}" />
-        <TextBlock x:Name="ContainerMaxVolumeTextBlock"
-                   Text="{Binding Path=MaxVolumeLabel}"
-                   Style="{StaticResource ContainerMaxVolumeTextBlockStyle}" />
-    </Canvas>
+                    <StackPanel x:Name="ContainerVolumeStackPanel"
+                                Style="{StaticResource ContainerVolumeStackPanelStyle}">
+                        <TextBlock x:Name="ContainerCurrentVolumeTextBlock"
+                                   Text="{Binding Path=Container.CurrentVolume}"
+                                   Style="{StaticResource ContainerCurrentVolumeTextBlockStyle}"
+                                   Foreground="{Binding Path=VolumeColor}"/>
+                        <TextBlock x:Name="ContainerMaxVolumeTextBlock"
+                                   Text="{Binding Path=MaxVolumeLabel}"
+                                   Style="{StaticResource ContainerMaxVolumeTextBlockStyle}" />
+                    </StackPanel>
+                </StackPanel>
+            </ControlTemplate>
+        </Button.Template>
+    </Button>
 </UserControl>
