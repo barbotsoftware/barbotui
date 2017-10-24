@@ -1,9 +1,6 @@
 ﻿using BarBot.Core.Model;
-using BarBot.UWP.Utils;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -12,7 +9,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
     public sealed partial class Uc_ContainerList : UserControl, INotifyPropertyChanged
     {
         private List<Container> containers;
-        private List<Ingredient> ingredients;
+        private Dictionary<string, Ingredient> ingredients;
 
         public List<Container> Containers
         {
@@ -31,7 +28,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
                     tile.SetValue(Grid.ColumnProperty, i % 4);
                     tile.SetValue(Grid.RowProperty, i / 4);
                     tile.Container = containers[i];
-                    tile.Ingredient = Helpers.GetIngredientByIngredientId(ingredients, containers[i].IngredientId);
+                    tile.Ingredient = ingredients[tile.Container.IngredientId];
                     tiles.Add(tile);
                 }
                 icContainerItems.ItemsSource = tiles;
@@ -40,7 +37,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        public List<Ingredient> Ingredients
+        public Dictionary<string, Ingredient> Ingredients
         {
             get { return ingredients; }
             set

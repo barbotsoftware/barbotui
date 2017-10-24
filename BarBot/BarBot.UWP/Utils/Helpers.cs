@@ -1,10 +1,7 @@
-﻿using System;
+﻿using BarBot.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using BarBot.Core.Model;
-using BarBot.UWP.IO;
 
 namespace BarBot.UWP.Utils
 {
@@ -26,40 +23,6 @@ namespace BarBot.UWP.Utils
                 }
             }
             return res;
-        }
-
-        /// <summary>
-        /// Accepts two lists of Ingredients as parameters, one with Ingredient objects
-        /// that have names and ingredient IDs (Global Ingredient List) and one with only
-        /// ingredient IDs (Recipe Ingredients). Sets the names on these Ingredient objects 
-        /// and returns that list.
-        /// </summary>
-        /// <param name="IngredientsWithNames"></param>
-        /// <param name="IngredientsInRecipe"></param>
-        /// <returns></returns>
-        public static List<Ingredient> GetIngredientsWithNames(List<Ingredient> IngredientsWithNames, List<Ingredient> IngredientsInRecipe)
-        {
-            foreach (Ingredient ingredient in IngredientsInRecipe)
-            {
-                Ingredient foundIngredient = IngredientsWithNames.Where(x => x.IngredientId.Equals(ingredient.IngredientId)).First();
-
-                if (foundIngredient != null)
-                {
-                    ingredient.Name = foundIngredient.Name;
-                }
-            }
-
-            return IngredientsInRecipe;
-        }
-
-        public static Ingredient GetIngredientByIngredientId(List<Ingredient> ingredients, string ingredientId)
-        {
-            if (ingredients.Count > 0)
-            {
-                return ingredients.Where(x => x.IngredientId.Equals(ingredientId)).First();
-            }
-
-            return null;
         }
 
         public static string UppercaseWords(string value)

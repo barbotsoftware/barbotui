@@ -1,32 +1,22 @@
-﻿using System;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
+using BarBot.Core.WebSocket;
+using BarBot.UWP.Database;
+using BarBot.UWP.IO;
+using BarBot.UWP.Websocket;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BarBot.Core.WebSocket;
-using BarBot.UWP.Database;
-using BarBot.UWP.Bluetooth;
-using BarBot.Core;
-using BarBot.Core.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using BarBot.UWP.IO;
-using System.Diagnostics;
-using BarBot.UWP.Websocket;
-using BarBot.Core.Service.WebSocket;
 
 namespace BarBot.UWP
 {
@@ -51,7 +41,7 @@ namespace BarBot.UWP
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
 
-        public List<Ingredient> IngredientsInBarbot { get; set; }
+        public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
 
         public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
 
@@ -149,7 +139,7 @@ namespace BarBot.UWP
             }
 
             // Initialize Global Ingredients List
-            IngredientsInBarbot = new List<Ingredient>();
+            IngredientsInBarbot = new Dictionary<string, Ingredient>();
 
             // Initialize websocket service
             webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);
@@ -212,7 +202,7 @@ namespace BarBot.UWP
             {
                 for (var i = 0; i < args.Ingredients.Count; i++)
                 {
-                    IngredientsInBarbot.Add(args.Ingredients[i]);
+                    IngredientsInBarbot.Add(args.Ingredients[i].IngredientId, args.Ingredients[i]);
                 }
             });
 

@@ -36,7 +36,7 @@ namespace BarBot.UWP.UserControls
 
         private Recipe OrderRecipe;
         private List<Uc_IngredientElement> _ingredientElementList;
-        private List<Ingredient> AvailableIngredientList;
+        private Dictionary<string, Ingredient> AvailableIngredientList;
         
         private Uc_AddIngredientButton addIngredientBtn;
         private Uc_IngredientPicker ingredientPicker;
@@ -105,7 +105,11 @@ namespace BarBot.UWP.UserControls
             () =>
             {
                 // Get Ingredient Names from Global Ingredient List
-                Recipe.Ingredients = Utils.Helpers.GetIngredientsWithNames(AvailableIngredientList, args.Recipe.Ingredients);
+                Recipe.Ingredients = args.Recipe.Ingredients;
+                foreach (Ingredient i in Recipe.Ingredients)
+                {
+                    i.Name = AvailableIngredientList[i.IngredientId].Name;
+                }
                 DisplayIngredients();
             });
 
@@ -205,12 +209,12 @@ namespace BarBot.UWP.UserControls
             // Add the new ingredient control
 
             List<Ingredient> nonRepeatedIngredients = new List<Ingredient>();
-            for (var i = 0; i < AvailableIngredientList.Count; i++)
+            foreach (Ingredient i in AvailableIngredientList.Values)
             {
                 bool ingredientFound = false;
                 for (var j = 0; j < Recipe.Ingredients.Count; j++)
                 {
-                    if (Recipe.Ingredients[j].Name == AvailableIngredientList[i].Name)
+                    if (Recipe.Ingredients[j].Name == i.Name)
                     {
                         ingredientFound = true;
                         break;
@@ -218,7 +222,7 @@ namespace BarBot.UWP.UserControls
                 }
                 if (!ingredientFound)
                 {
-                    nonRepeatedIngredients.Add(AvailableIngredientList[i]);
+                    nonRepeatedIngredients.Add(i);
                 }
             }
             ingredientPicker = new Uc_IngredientPicker(nonRepeatedIngredients);
@@ -343,54 +347,54 @@ namespace BarBot.UWP.UserControls
             sender.Hide();
         }
 
-        private Recipe FuckMeUp()
-        {
-            Recipe FuckMeUp = new Recipe();
-            FuckMeUp.Name = "Fuck Me Up";
-            FuckMeUp.Img = "barbotweb/public/img/recipe_images/dickbutt.png";
-            FuckMeUp.Ingredients = new List<Ingredient>();
+        //private Recipe FuckMeUp()
+        //{
+        //    Recipe FuckMeUp = new Recipe();
+        //    FuckMeUp.Name = "Fuck Me Up";
+        //    FuckMeUp.Img = "barbotweb/public/img/recipe_images/dickbutt.png";
+        //    FuckMeUp.Ingredients = new List<Ingredient>();
 
-            return FuckMeUp;
-        }
+        //    return FuckMeUp;
+        //}
 
-        private List<Ingredient> LoadEmUpBoiz()
-        {
-            List<Ingredient> demIngredients = new List<Ingredient>();
-            double totalQuantity = 0;
-            if (AvailableIngredientList != null)
-            {
-                List<int> usedIngredients = new List<int>();
-                Random r = new Random();
-                int ingredientCount = r.Next(3, AvailableIngredientList.Count);
-                for (int i = 0; i < ingredientCount; i++)
-                {
-                    bool ingredientChosen = false;
-                    while (!ingredientChosen)
-                    {
-                        int ingredientID = r.Next(0, AvailableIngredientList.Count);
-                        if (usedIngredients.IndexOf(ingredientID) < 0)
-                        {
-                            usedIngredients.Add(ingredientID);
-                            Ingredient ingy = AvailableIngredientList[ingredientID];
-                            double quant = r.Next(1, (int)Constants.MaxVolume / 2);
-                            if (totalQuantity + quant > Constants.MaxVolume)
-                            {
-                                quant = Constants.MaxVolume - totalQuantity;
-                            }
-                            totalQuantity += quant;
-                            ingy.Amount = quant;
-                            demIngredients.Add(AvailableIngredientList[ingredientID]);
-                            ingredientChosen = true;
-                        }
-                    }
-                    if(totalQuantity >= Constants.MaxVolume)
-                    {
-                        break;
-                    }
-                }
-            }
-            return demIngredients;
-        }
+        //private List<Ingredient> LoadEmUpBoiz()
+        //{
+        //    List<Ingredient> demIngredients = new List<Ingredient>();
+        //    double totalQuantity = 0;
+        //    if (AvailableIngredientList != null)
+        //    {
+        //        List<int> usedIngredients = new List<int>();
+        //        Random r = new Random();
+        //        int ingredientCount = r.Next(3, AvailableIngredientList.Count);
+        //        for (int i = 0; i < ingredientCount; i++)
+        //        {
+        //            bool ingredientChosen = false;
+        //            while (!ingredientChosen)
+        //            {
+        //                int ingredientID = r.Next(0, AvailableIngredientList.Count);
+        //                if (usedIngredients.IndexOf(ingredientID) < 0)
+        //                {
+        //                    usedIngredients.Add(ingredientID);
+        //                    Ingredient ingy = AvailableIngredientList[ingredientID];
+        //                    double quant = r.Next(1, (int)Constants.MaxVolume / 2);
+        //                    if (totalQuantity + quant > Constants.MaxVolume)
+        //                    {
+        //                        quant = Constants.MaxVolume - totalQuantity;
+        //                    }
+        //                    totalQuantity += quant;
+        //                    ingy.Amount = quant;
+        //                    demIngredients.Add(AvailableIngredientList[ingredientID]);
+        //                    ingredientChosen = true;
+        //                }
+        //            }
+        //            if(totalQuantity >= Constants.MaxVolume)
+        //            {
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    return demIngredients;
+        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
