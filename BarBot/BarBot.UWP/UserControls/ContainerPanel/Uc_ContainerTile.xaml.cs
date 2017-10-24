@@ -8,14 +8,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 
-// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace BarBot.UWP.UserControls.ContainerPanel
 {
     public sealed partial class Uc_ContainerTile : UserControl, INotifyPropertyChanged
     {
         private UWPWebSocketService webSocketService;
-
         private Container container;
         private Ingredient ingredient;
         private string maxVolumeLabel;
@@ -43,16 +40,6 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        public SolidColorBrush VolumeColor
-        {
-            get { return volumeColor; }
-            set
-            {
-                volumeColor = value;
-                OnPropertyChanged("VolumeColor");
-            }
-        }
-
         public string MaxVolumeLabel
         {
             get { return maxVolumeLabel; }
@@ -60,6 +47,16 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             {
                 maxVolumeLabel = value;
                 OnPropertyChanged("MaxVolumeLabel");
+            }
+        }
+
+        public SolidColorBrush VolumeColor
+        {
+            get { return volumeColor; }
+            set
+            {
+                volumeColor = value;
+                OnPropertyChanged("VolumeColor");
             }
         }
 
@@ -111,13 +108,13 @@ namespace BarBot.UWP.UserControls.ContainerPanel
 
             var containerLoadDialog = new ContentDialog()
             {
-                MaxWidth = 1920,
+                MaxWidth = 1280,
                 Content = new TextBlock()
                 {
                     Text = loadDialogText,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    FontSize = 45
+                    FontSize = 40
                 },
                 Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
                 Foreground = new SolidColorBrush(Windows.UI.Colors.White),

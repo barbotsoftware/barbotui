@@ -6,40 +6,55 @@
 
     <!-- ToUpperConverter -->
     <usercontrols:ToUpperConverter x:Name="ToUpperConverter" />
-    
+
+    <!-- Dimensions -->
+    <x:Double x:Key="PageWidth">1280</x:Double>
+    <x:Double x:Key="PageHeight">720</x:Double>
+
+    <x:Double x:Key="WrapperWidth">1240</x:Double>
+    <x:Double x:Key="WrapperHeight">620</x:Double>
+
+    <x:Double x:Key="TileWidth">300</x:Double>
+    <x:Double x:Key="TileHeight">145</x:Double>
+
     <!-- Colors -->
     <SolidColorBrush x:Key="TileColor"
                         Color="#222222" />
     <SolidColorBrush x:Key="TextColor"
                         Color="White" />
     
+    <!-- Font -->
+    <x:Double x:Key="ContainerNumberFontSize">28</x:Double>
+    <x:Double x:Key="IngredientFontSize">37</x:Double>
+    <x:Double x:Key="VolumeFontSize">34</x:Double>
+
     <!-- Container List -->
     <Style x:Key="ContainerListMainGridStyle"
            TargetType="Grid">
         <Setter Property="Height"
-                Value="1080" />
+                Value="{StaticResource PageHeight}" />
         <Setter Property="Width"
-                Value="1920" />
+                Value="{StaticResource PageWidth}" />
     </Style>
 
     <Style x:Key="ContainerListWrapperGridStyle"
            TargetType="Grid">
+        <Setter Property="Width"
+                Value="{StaticResource WrapperWidth}" />
         <Setter Property="Height" 
-                Value="900" />
-        <Setter Property="Width" 
-                Value="1820" />
+                Value="{StaticResource WrapperHeight}" />
         <Setter Property="HorizontalAlignment" 
                 Value="Center" />
         <Setter Property="VerticalAlignment" 
                 Value="Center" />
-        <Setter Property="Margin" 
-                Value="50,50,50,50" />
+        <Setter Property="Margin"
+                Value="20,20,20,20" />
     </Style>
 
     <Style x:Key="ContainerListIcGridStyle"
            TargetType="Grid">
         <Setter Property="Margin"
-                Value="0,30,0,0" />
+                Value="0,40,0,0" />
     </Style>
 
     <!-- Container Tile -->
@@ -47,7 +62,7 @@
     <Style x:Key="ContainerTileButtonStyle"
                TargetType="Button">
         <Setter Property="Margin"
-                    Value="10,10,10,10" />
+                    Value="5,5,5,5" />
         <Setter Property="HorizontalAlignment"
                     Value="Center" />
     </Style>
@@ -56,10 +71,10 @@
            TargetType="StackPanel">
         <Setter Property="Background"
                 Value="{StaticResource TileColor}" />
-        <Setter Property="Height"
-                Value="205" />
         <Setter Property="Width"
-                Value="435" />
+                Value="{StaticResource TileWidth}" />
+        <Setter Property="Height"
+                Value="{StaticResource TileHeight}"/>
     </Style>
 
     <Style x:Key="ContainerNumberTextBlockStyle"
@@ -69,9 +84,9 @@
         <Setter Property="FontFamily"
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
-                Value="40" />
+                Value="{StaticResource ContainerNumberFontSize}" />
         <Setter Property="Margin"
-                Value="10,0,0,0" />
+                Value="5,0,0,0" />
         <Setter Property="Height"
                 Value="auto" />
         <Setter Property="Width"
@@ -87,13 +102,13 @@
         <Setter Property="FontFamily"
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
-                Value="56" />
+                Value="{StaticResource IngredientFontSize}" />
         <Setter Property="Height"
                 Value="auto" />
         <Setter Property="Width"
                 Value="auto" />
         <Setter Property="Margin"
-                Value="0,15,0,0" />
+                Value="0,10,0,0" />
         <Setter Property="TextAlignment"
                 Value="Center" />
         <Setter Property="TextTrimming"
@@ -121,7 +136,7 @@
         <Setter Property="FontFamily"
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
-                Value="52" />
+                Value="{StaticResource VolumeFontSize}" />
         <Setter Property="Height"
                 Value="auto" />
         <Setter Property="TextAlignment"
@@ -135,7 +150,7 @@
         <Setter Property="FontFamily"
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
-                Value="52" />
+                Value="{StaticResource VolumeFontSize}" />
         <Setter Property="Height"
                 Value="auto" />
         <Setter Property="Width"

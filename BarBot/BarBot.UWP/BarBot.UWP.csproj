@@ -169,6 +169,9 @@
     <Compile Include="TestClient\TestClient.xaml.cs">
       <DependentUpon>TestClient.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AppBar\AppBar.xaml.cs">
+      <DependentUpon>AppBar.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\Uc_CategoryTile.xaml.cs">
       <DependentUpon>Uc_CategoryTile.xaml</DependentUpon>
     </Compile>
@@ -279,6 +282,15 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="ResourceDefinitions\Rd_ScrollViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\AppBar\AppBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AppBar\AppBarStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

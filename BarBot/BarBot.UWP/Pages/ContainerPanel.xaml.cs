@@ -35,11 +35,6 @@ namespace BarBot.UWP.Pages
             webSocketService = (Application.Current as App).webSocketService;
         }
 
-        private void NavigateBack(object sender, RoutedEventArgs e)
-        {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new DrillInNavigationTransitionInfo());
-        }
-
         protected override void OnNavigatedTo(NavigationEventArgs e)
         {
             base.OnNavigatedTo(e);

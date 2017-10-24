@@ -1,0 +1,50 @@
+﻿<UserControl
+    x:Class="BarBot.UWP.UserControls.AppBar.AppBar"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls.AppBar"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="AppBarStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="AppBarGrid"
+          Style="{StaticResource AppBarGridStyle}">
+        <Border x:Name="AppBarBorder"
+                Style="{StaticResource AppBarBorderStyle}">
+            <Rectangle x:Name="AppBarRectangle" 
+                       Style="{StaticResource AppBarRectangleStyle}"/>
+        </Border>
+        <Button x:Name="AppBarBackButton"
+                Style="{StaticResource AppBarBackButtonStyle}"
+                Click="NavigateBack">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="AppBarBackButtonImage"
+                           Style="{StaticResource AppBarBackButtonImageStyle}"
+                           Source="ms-appx:///Assets/back_arrow.png" />
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <Button x:Name="AppBarBackLabel"
+                Style="{StaticResource AppBarBackLabelStyle}"
+                Click="NavigateBack">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <TextBlock x:Name="AppBarBackTextBlock"
+                               Style="{StaticResource AppBarBackTextBlockStyle}" />
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+        <TextBlock x:Name="AppBarTitleTextBlock"
+                   Style="{StaticResource AppBarTitleTextBlockStyle}"
+                   Text="CONTAINERS"/>
+    </Grid>
+</UserControl>
