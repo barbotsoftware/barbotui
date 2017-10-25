@@ -7,14 +7,20 @@ namespace BarBot.UWP.UserControls.AppBar
 {
     public sealed partial class AppBar : UserControl, INotifyPropertyChanged
     {
-        private string title;
+        public static readonly DependencyProperty TitleProperty = DependencyProperty.Register
+        (
+            "Title",
+            typeof(string),
+            typeof(AppBar),
+            new PropertyMetadata(string.Empty)
+        );
 
         public string Title
         {
-            get { return title; }
+            get { return (string)GetValue(TitleProperty); }
             set
             {
-                title = value;
+                SetValue(TitleProperty, value);
                 OnPropertyChanged("Title");
             }
         }
@@ -22,6 +28,7 @@ namespace BarBot.UWP.UserControls.AppBar
         public AppBar()
         {
             this.InitializeComponent();
+            this.DataContext = this;
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)

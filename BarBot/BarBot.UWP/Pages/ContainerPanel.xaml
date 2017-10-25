@@ -12,7 +12,7 @@
     Height="720">
 
     <Grid>
-        <ab:AppBar x:Name="AppBar"></ab:AppBar>
+        <ab:AppBar x:Name="AppBar" Title="Containers"></ab:AppBar>
         <uc:Uc_ContainerList x:Name="ContainerList"></uc:Uc_ContainerList>
     </Grid>
 </Page>

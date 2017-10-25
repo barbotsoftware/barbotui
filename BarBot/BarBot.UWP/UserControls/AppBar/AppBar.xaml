@@ -45,6 +45,6 @@
         </Button>
         <TextBlock x:Name="AppBarTitleTextBlock"
                    Style="{StaticResource AppBarTitleTextBlockStyle}"
-                   Text="CONTAINERS"/>
+                   Text="{Binding Path=Title, Converter={StaticResource ToUpperConverter}}"/>
     </Grid>
 </UserControl>
