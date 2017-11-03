@@ -6,8 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="1080"
-    d:DesignWidth="1920">
+    d:DesignHeight="720"
+    d:DesignWidth="1280">
 
     <UserControl.Resources>
         <!--<Style TargetType="CheckBox">
@@ -31,13 +31,13 @@
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Height="1080" Width="1920">
+    <Grid Height="720" Width="1280">
         <Grid.Resources>
             <local:ToUpperConverter x:Name="ToUpperConverter" />
         </Grid.Resources>
 
         <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
-            <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1920"/>
+            <Rectangle Fill="#222222" HorizontalAlignment="Left" Height="95" VerticalAlignment="Top" Width="1280"/>
         </Border>
 
         <Button HorizontalAlignment="Left" VerticalAlignment="Top" Height="79" Width="84" Click="Back_To_Menu" Margin="0,10,0,0" Background="{x:Null}" ExitDisplayModeOnAccessKeyInvoked="False" UseSystemFocusVisuals="False" AllowFocusOnInteraction="False">
@@ -50,7 +50,11 @@
         <TextBlock x:Name="menuTitle" Foreground="White" HorizontalAlignment="Left" Canvas.Left="50" Height="95" TextWrapping="Wrap" Text="{Binding Path=Recipe.Name, Converter={StaticResource ToUpperConverter}}" VerticalAlignment="Top" Width="942" FontFamily="Microsoft Yi Baiti" FontSize="100" Canvas.ZIndex="50" SelectionHighlightColor="{x:Null}" Margin="70,-10,0,0"/>
 
         <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png" Margin="70,125,1383,550" />
-        <Image x:Name="RecipeImage" Stretch="Uniform" Source="{Binding Path=Recipe.Img}" Margin="70,105,1383,570"/>
+        <Image x:Name="RecipeImage" Stretch="Uniform" Margin="70,105,1383,570">
+            <Image.Source>
+                <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+            </Image.Source>
+        </Image>
 
         <TextBox x:Name="textBox" HorizontalAlignment="Left" Margin="58,582,0,0" TextWrapping="Wrap" Text="Total Volume: " VerticalAlignment="Top" Background="{x:Null}" Foreground="#FFFFFEFE" FontFamily="Microsoft Yi Baiti" FontSize="64" IsReadOnly="True" IsDoubleTapEnabled="False" IsHoldingEnabled="False" IsRightTapEnabled="False" IsTapEnabled="False" ManipulationMode="None" BorderBrush="{x:Null}"/>
         <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="5" Margin="34,656,0,0" Stroke="Black" VerticalAlignment="Top" Width="556"/>

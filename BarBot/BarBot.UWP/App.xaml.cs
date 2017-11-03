@@ -167,13 +167,13 @@ namespace BarBot.UWP
                 return _ImageCache[recipe.Name];
             } else
             {
-                var imageUri = new Uri("http://" + webserverUrl + "/" + recipe.Img);
-                var image = new BitmapImage(imageUri);
-                if(image != null)
+                UriBuilder uriBuilder = new UriBuilder("http", webserverUrl, Int32.Parse(Constants.PortNumber), recipe.Img);
+                BitmapImage recipeImage = new BitmapImage(uriBuilder.Uri);
+                if (recipeImage != null)
                 {
-                    _ImageCache.Add(recipe.Name, image);
+                    _ImageCache.Add(recipe.Name, recipeImage);
                 }
-                return image;
+                return recipeImage;
 
             }
         }

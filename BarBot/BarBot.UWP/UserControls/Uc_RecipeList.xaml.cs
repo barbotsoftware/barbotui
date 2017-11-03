@@ -32,8 +32,8 @@ namespace BarBot.UWP.UserControls
         private List<Recipe> recipes;
         private App app;
 
-        private int margin = 40;
-        private int hexPadding = 20;
+        private int margin = 25;
+        private int hexPadding = 12;
 
         private int page = 0;
         private int itemsPerPage = 10;
@@ -54,8 +54,6 @@ namespace BarBot.UWP.UserControls
                 // calculate page count, and reset current page to 0
                 pages = (recipes.Count + itemsPerPage - 1) / itemsPerPage;
                 Page = 0;
-
-                cacheImages();
             }
         }
 
@@ -75,26 +73,6 @@ namespace BarBot.UWP.UserControls
 
             app = Application.Current as App;
             webSocketService = app.webSocketService;
-
-            init();
-        }
-
-        public void init()
-        {
-            // Set back and next button sizes
-            // Back Button
-            double BackButtonSizeRatio = BackButton.Height / BackButton.Width;
-            BackButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
-            BackButton.Width = BackButton.Height / BackButtonSizeRatio;
-            // Left, Top
-            BackButton.Margin = new Thickness(recipeTileCanvas.Margin.Left - (hexPadding / 2) - (BackButton.Width / 2) - 5, recipeTileCanvas.Margin.Top + margin + (BackButton.Height / 2) + (hexPadding / 2) - 5, 0, 0);
-
-            // Next Button
-            double NextButtonSizeRatio = NextButton.Height / NextButton.Width;
-            NextButton.Height = (2 * Math.Sqrt(Math.Pow(Constants.HexagonWidth / 2, 2) - Math.Pow(Constants.HexagonWidth / 4, 2)));
-            NextButton.Width = NextButton.Height / NextButtonSizeRatio;
-            // Left, Top
-            NextButton.Margin = new Thickness(0, recipeTileCanvas.Margin.Top + margin + (NextButton.Height / 2) + (hexPadding / 2), recipeTileCanvas.Margin.Left - (hexPadding / 2) - (NextButton.Width / 2), 0);
         }
 
         private void displayPage(int page)
@@ -164,23 +142,6 @@ namespace BarBot.UWP.UserControls
         {
             page--;
             displayPage(page);
-        }
-
-        private async void cacheImages()
-        {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () =>
-            {
-                for (var i = 0; i < recipes.Count; i++)
-                {
-                    var imageUri = new Uri("http://" + app.webserverUrl + "/" + recipes[i].Img);
-                    var recipeImage = new BitmapImage(imageUri);
-                    if (!app._ImageCache.ContainsKey(recipes[i].Name))
-                    {
-                        app._ImageCache.Add(recipes[i].Name, recipeImage);
-                    }
-                }
-            });
         }
     }
 }

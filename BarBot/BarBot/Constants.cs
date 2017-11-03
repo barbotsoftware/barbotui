@@ -49,7 +49,7 @@ namespace BarBot.Core
 		#endregion
 
 		// UI - Hexagon
-		public const int HexagonWidth = 390;
+		public const int HexagonWidth = 260;
 
 		public enum BarbotStatus
 		{

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -29,6 +30,17 @@ namespace BarBot.UWP.UserControls
             get
             {
                 return (RecipeDetailViewModel)DataContext;
+            }
+        }
+
+        private BitmapImage _cachedImage;
+        public BitmapImage CachedImage
+        {
+            get { return _cachedImage; }
+            set
+            {
+                _cachedImage = value;
+                OnPropertyChanged("CachedImage");
             }
         }
 
@@ -90,6 +102,9 @@ namespace BarBot.UWP.UserControls
                 {
                     DisplayIngredients();
                 }
+
+                CachedImage = (Application.Current as App).getCachedImage(value);
+
                 OnPropertyChanged("Recipe");
             }
         }
