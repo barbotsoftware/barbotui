@@ -1,10 +1,11 @@
 ﻿<UserControl
-    x:Class="BarBot.UWP.UserControls.Uc_RecipeDetail"
+    x:Class="BarBot.UWP.UserControls.RecipeDetail.Uc_RecipeDetail"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BarBot.UWP.UserControls"
+    xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:uc="using:BarBot.UWP.UserControls" 
     mc:Ignorable="d"
     d:DesignHeight="720"
     d:DesignWidth="1280">
@@ -33,7 +34,7 @@
 
     <Grid Height="720" Width="1280">
         <Grid.Resources>
-            <local:ToUpperConverter x:Name="ToUpperConverter" />
+            <uc:ToUpperConverter x:Name="ToUpperConverter" />
         </Grid.Resources>
 
         <Border BorderBrush="#004b99" BorderThickness="0,0,0,5" VerticalAlignment="Top">
@@ -76,8 +77,5 @@
                 <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
             </CheckBox.RenderTransform>
         </CheckBox>
-
-
-
     </Grid>
 </UserControl>

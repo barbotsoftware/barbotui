@@ -172,14 +172,14 @@
     <Compile Include="UserControls\AppBar\AppBar.xaml.cs">
       <DependentUpon>AppBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_CategoryTile.xaml.cs">
+    <Compile Include="UserControls\CategoryList\Uc_CategoryTile.xaml.cs">
       <DependentUpon>Uc_CategoryTile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_CategoryList.xaml.cs">
+    <Compile Include="UserControls\CategoryList\Uc_CategoryList.xaml.cs">
       <DependentUpon>Uc_CategoryList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ToUpperConverter.cs" />
-    <Compile Include="UserControls\Uc_AddIngredientButton.xaml.cs">
+    <Compile Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ContainerPanel\Uc_ContainerList.xaml.cs">
@@ -188,25 +188,25 @@
     <Compile Include="UserControls\ContainerPanel\Uc_ContainerTile.xaml.cs">
       <DependentUpon>Uc_ContainerTile.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_RecipeDetail.xaml.cs">
+    <Compile Include="UserControls\RecipeDetail\Uc_RecipeDetail.xaml.cs">
       <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_IngredientElement.xaml.cs">
+    <Compile Include="UserControls\RecipeDetail\Uc_IngredientElement.xaml.cs">
       <DependentUpon>Uc_IngredientElement.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_IngredientPicker.xaml.cs">
+    <Compile Include="UserControls\RecipeDetail\Uc_IngredientPicker.xaml.cs">
       <DependentUpon>Uc_IngredientPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_RecipeList.xaml.cs">
+    <Compile Include="UserControls\RecipeList\Uc_RecipeList.xaml.cs">
       <DependentUpon>Uc_RecipeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_OrderQueue.xaml.cs">
+    <Compile Include="UserControls\OrderQueue\Uc_OrderQueue.xaml.cs">
       <DependentUpon>Uc_OrderQueue.xaml</DependentUpon>
     </Compile>
     <Compile Include="Pages\PartyMode.xaml.cs">
       <DependentUpon>PartyMode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\Uc_RecipeTile.xaml.cs">
+    <Compile Include="UserControls\RecipeList\Uc_RecipeTile.xaml.cs">
       <DependentUpon>Uc_RecipeTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Helpers.cs" />
@@ -317,15 +317,15 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="UserControls\Uc_CategoryTile.xaml">
+    <Page Include="UserControls\CategoryList\Uc_CategoryTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_CategoryList.xaml">
+    <Page Include="UserControls\CategoryList\Uc_CategoryList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_AddIngredientButton.xaml">
+    <Page Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -337,23 +337,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_RecipeDetail.xaml">
+    <Page Include="UserControls\RecipeDetail\Uc_RecipeDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Uc_IngredientElement.xaml">
+    <Page Include="UserControls\RecipeDetail\Uc_IngredientElement.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_IngredientPicker.xaml">
+    <Page Include="UserControls\RecipeDetail\Uc_IngredientPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_RecipeList.xaml">
+    <Page Include="UserControls\RecipeList\Uc_RecipeList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserControls\Uc_OrderQueue.xaml">
+    <Page Include="UserControls\OrderQueue\Uc_OrderQueue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -361,7 +361,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserControls\Uc_RecipeTile.xaml">
+    <Page Include="UserControls\RecipeList\Uc_RecipeTile.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

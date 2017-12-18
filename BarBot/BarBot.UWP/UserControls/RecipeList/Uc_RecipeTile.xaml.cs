@@ -1,28 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+﻿using BarBot.Core.Model;
+using BarBot.Core.ViewModel;
+using System;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
-using Windows.UI.Xaml.Navigation;
-using BarBot.Core;
-using BarBot.Core.Model;
-using System.ComponentModel;
 using Windows.UI.Xaml.Media.Animation;
-using BarBot.UWP.Pages;
-using BarBot.Core.ViewModel;
+using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace BarBot.UWP.UserControls
+namespace BarBot.UWP.UserControls.RecipeList
 {
     public sealed partial class Uc_RecipeTile : UserControl, INotifyPropertyChanged
     {
@@ -92,7 +79,7 @@ namespace BarBot.UWP.UserControls
 
         private void Drink_Detail(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(RecipeDetail), new RecipeDetailViewModel(null, Recipe), new SlideNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), new RecipeDetailViewModel(null, Recipe), new SlideNavigationTransitionInfo());
         }
     }
 }

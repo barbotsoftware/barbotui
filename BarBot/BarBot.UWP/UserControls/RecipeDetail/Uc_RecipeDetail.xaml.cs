@@ -18,7 +18,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
-namespace BarBot.UWP.UserControls
+namespace BarBot.UWP.UserControls.RecipeDetail
 {
     public sealed partial class Uc_RecipeDetail : UserControl, INotifyPropertyChanged
     {

@@ -3,18 +3,9 @@ using BarBot.Core.WebSocket;
 using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -62,6 +53,8 @@ namespace BarBot.UWP.Pages
 
             CategoryList.Visibility = Visibility.Collapsed;
             RecipeList.Visibility = Visibility.Collapsed;
+            AppBar.BackButtonVisible = false;
+
             if (e.Parameter == null)
             {
                 webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
@@ -73,12 +66,14 @@ namespace BarBot.UWP.Pages
             {
                 Categories = e.Parameter as List<Category>;
                 CategoryList.Visibility = Visibility.Visible;
+                AppBar.BackButtonVisible = true;
                 //searchTextBox.Visibility = Visibility.Collapsed;
             }
             else if (e.Parameter.GetType().Equals(Recipes.GetType()))
             {
                 Recipes = e.Parameter as List<Recipe>;
                 RecipeList.Visibility = Visibility.Visible;
+                AppBar.BackButtonVisible = true;
                 //searchTextBox.Visibility = Visibility.Visible;
             }
         }

@@ -12,7 +12,12 @@
     Height="720">
 
     <Grid>
-        <ab:AppBar x:Name="AppBar" Title="Containers"></ab:AppBar>
+        <ab:AppBar x:Name="AppBar" 
+                   Title="Containers"
+                   BackButtonVisible="True"
+                   FilterButtonVisible="False"
+                   SearchButtonVisible="False"
+                   SettingsButtonVisible="False"></ab:AppBar>
         <uc:Uc_ContainerList x:Name="ContainerList"></uc:Uc_ContainerList>
     </Grid>
 </Page>

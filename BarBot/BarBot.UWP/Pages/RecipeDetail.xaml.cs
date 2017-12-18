@@ -1,6 +1,6 @@
 ﻿using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
-using BarBot.UWP.UserControls;
+using BarBot.UWP.UserControls.RecipeDetail;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 

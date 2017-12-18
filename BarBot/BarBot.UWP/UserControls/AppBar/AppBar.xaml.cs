@@ -2,7 +2,6 @@
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using BarBot.UWP.Pages;
 
 namespace BarBot.UWP.UserControls.AppBar
 {
@@ -121,7 +120,7 @@ namespace BarBot.UWP.UserControls.AppBar
 
         private void Open_Settings(object sender, RoutedEventArgs e)
         {
-            //((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(ContainerPanel), null, new DrillInNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.ContainerPanel), null, new DrillInNavigationTransitionInfo());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

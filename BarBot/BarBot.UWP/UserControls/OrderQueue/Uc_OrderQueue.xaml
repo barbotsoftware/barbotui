@@ -1,8 +1,8 @@
 ﻿<UserControl
-    x:Class="BarBot.UWP.UserControls.Uc_OrderQueue"
+    x:Class="BarBot.UWP.UserControls.OrderQueue.Uc_OrderQueue"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BarBot.UWP.UserControls"
+    xmlns:local="using:BarBot.UWP.UserControls.OrderQueue"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
