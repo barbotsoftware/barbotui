@@ -127,4 +127,36 @@
         <Setter Property="SelectionHighlightColor"
                 Value="{x:Null}" />
     </Style>
+
+    <Style x:Key="AppBarIconButtonStyle"
+           TargetType="Button">
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Height"
+                Value="64" />
+        <Setter Property="Width"
+                Value="64" />
+        <Setter Property="Margin"
+                Value="0,5,15,0" />
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="ExitDisplayModeOnAccessKeyInvoked"
+                Value="False" />
+        <Setter Property="UseSystemFocusVisuals"
+                Value="False" />
+        <Setter Property="AllowFocusOnInteraction"
+                Value="False" />
+    </Style>
+
+    <Style x:Key="AppBarIconImageStyle"
+           TargetType="Image">
+        <Setter Property="Height"
+                Value="64" />
+        <Setter Property="Width"
+                Value="64" />
+        <Setter Property="Margin"
+                Value="0,0,0,0" />
+    </Style>
 </ResourceDictionary>

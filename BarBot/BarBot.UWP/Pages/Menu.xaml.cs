@@ -67,30 +67,20 @@ namespace BarBot.UWP.Pages
                 webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
                 webSocketService.GetCategories();
                 CategoryList.Visibility = Visibility.Visible;
-                searchTextBox.Visibility = Visibility.Collapsed;
+                //searchTextBox.Visibility = Visibility.Collapsed;
             }
             else if (e.Parameter.GetType().Equals(Categories.GetType()))
             {
                 Categories = e.Parameter as List<Category>;
                 CategoryList.Visibility = Visibility.Visible;
-                searchTextBox.Visibility = Visibility.Collapsed;
+                //searchTextBox.Visibility = Visibility.Collapsed;
             }
             else if (e.Parameter.GetType().Equals(Recipes.GetType()))
             {
                 Recipes = e.Parameter as List<Recipe>;
                 RecipeList.Visibility = Visibility.Visible;
-                searchTextBox.Visibility = Visibility.Visible;
+                //searchTextBox.Visibility = Visibility.Visible;
             }
-        }
-
-        private void Back_To_PartyMode(object sender, RoutedEventArgs e)
-        {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new DrillInNavigationTransitionInfo());
-        }
-
-        private void Open_Settings(object sender, RoutedEventArgs e)
-        {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(ContainerPanel), null, new DrillInNavigationTransitionInfo());
         }
 
         private async void Socket_GetCategoriesEvent(object sender, WebSocketEvents.GetCategoriesEventArgs args)
@@ -107,9 +97,9 @@ namespace BarBot.UWP.Pages
 
         private void searchTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
         {
-            List<Recipe> filteredList = recipes.Where(x => x.Name.StartsWith(searchTextBox.Text)).ToList();
+            //List<Recipe> filteredList = recipes.Where(x => x.Name.StartsWith(searchTextBox.Text)).ToList();
 
-            RecipeList.Recipes = filteredList;
+            //RecipeList.Recipes = filteredList;
         }
     }
 }

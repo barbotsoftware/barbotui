@@ -24,7 +24,8 @@
         </Border>
         <Button x:Name="AppBarBackButton"
                 Style="{StaticResource AppBarBackButtonStyle}"
-                Click="NavigateBack">
+                Click="NavigateBack"
+                Visibility="{Binding Path=BackButtonVisible}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Image x:Name="AppBarBackButtonImage"
@@ -35,7 +36,8 @@
         </Button>
         <Button x:Name="AppBarBackLabel"
                 Style="{StaticResource AppBarBackLabelStyle}"
-                Click="NavigateBack">
+                Click="NavigateBack"
+                Visibility="{Binding Path=BackButtonVisible}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock x:Name="AppBarBackTextBlock"
@@ -46,5 +48,42 @@
         <TextBlock x:Name="AppBarTitleTextBlock"
                    Style="{StaticResource AppBarTitleTextBlockStyle}"
                    Text="{Binding Path=Title, Converter={StaticResource ToUpperConverter}}"/>
+        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
+            <Button x:Name="AppBarSearchButton"
+                Style="{StaticResource AppBarIconButtonStyle}"
+                Click="Open_Search" 
+                Visibility="{Binding Path=SearchButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Style="{StaticResource AppBarIconImageStyle}"
+                           Source="ms-appx:///Assets/search.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="AppBarFilterButton"
+                Style="{StaticResource AppBarIconButtonStyle}"
+                Click="Open_Filter" 
+                Visibility="{Binding Path=FilterButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Style="{StaticResource AppBarIconImageStyle}"
+                           Source="ms-appx:///Assets/filter2.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
+            <Button x:Name="AppBarSettingsButton"
+                Style="{StaticResource AppBarIconButtonStyle}"
+                Click="Open_Settings"
+                Visibility="{Binding Path=SettingsButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Style="{StaticResource AppBarIconImageStyle}"
+                           Source="ms-appx:///Assets/settings.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

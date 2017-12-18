@@ -223,12 +223,15 @@
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\back_arrow.png" />
     <BundleResource Include="Assets\custom_recipe.png" />
+    <Content Include="Assets\filter1.png" />
+    <Content Include="Assets\filter2.png" />
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\HexagonTileGradient.png" />
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
     <Content Include="Assets\Plus_Icon.png" />
+    <Content Include="Assets\search.png" />
     <Content Include="Assets\settings.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
     <Content Include="Properties\Default.rd.xml">
