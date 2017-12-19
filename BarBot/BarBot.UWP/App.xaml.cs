@@ -3,6 +3,7 @@ using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Database;
 using BarBot.UWP.IO;
+using BarBot.UWP.Service.Login;
 using BarBot.UWP.Websocket;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -29,11 +30,15 @@ namespace BarBot.UWP
 
         public UWPWebSocketService webSocketService { get; set; }
 
+        public UWPLoginService loginService { get; set; }
+
         public BarbotContext barbotDB { get; set; }
 
         public BarbotIOController barbotIOController { get; set; }
 
         public string barbotID { get; set; }
+
+        public string barbotName { get; set; }
 
         public string webserverUrl { get; set; }
 
@@ -96,6 +101,7 @@ namespace BarBot.UWP
             // Default config values to fall back on
             string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
             barbotID = Constants.BarBotId;
+            barbotName = Constants.BarBotName;
 
             // Get database configuration
             try
@@ -140,6 +146,9 @@ namespace BarBot.UWP
 
             // Initialize Global Ingredients List
             IngredientsInBarbot = new Dictionary<string, Ingredient>();
+
+            // Initialize Login Service
+            loginService = new UWPLoginService(Constants.IPAddress + ":" + Constants.PortNumber);
 
             // Initialize websocket service
             webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);

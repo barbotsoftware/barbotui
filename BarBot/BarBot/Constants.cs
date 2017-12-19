@@ -36,6 +36,8 @@ namespace BarBot.Core
 
 		public const string BarBotId = "d9f064";
 
+        public const string BarBotName = "sloshnet";
+
 		public const string CustomRecipeId = "custom_recipe";
 
 		public const string AddIngredientId = "add_ingredient";

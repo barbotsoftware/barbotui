@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BarBot.UWP.Service.Login;
+using System;
 using System.ComponentModel;
 using Windows.UI;
 using Windows.UI.Xaml;
@@ -100,10 +101,16 @@ namespace BarBot.UWP.UserControls.AppBar
             }
         }
 
+        private App app;
+        private UWPLoginService loginService;
+
         public AppBar()
         {
             this.InitializeComponent();
             this.DataContext = this;
+
+            this.app = Application.Current as App;
+            loginService = app.loginService;
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
@@ -123,10 +130,10 @@ namespace BarBot.UWP.UserControls.AppBar
 
         private void Open_Settings(object sender, RoutedEventArgs e)
         {
-            DisplayPasswordDialog();
+            DisplayPasswordDialog(false);
         }
 
-        private async void DisplayPasswordDialog()
+        private async void DisplayPasswordDialog(bool showHeader)
         {
             var passwordDialog = new ContentDialog()
             {
@@ -138,7 +145,9 @@ namespace BarBot.UWP.UserControls.AppBar
                     PasswordRevealMode = PasswordRevealMode.Hidden,
                     VerticalAlignment = VerticalAlignment.Center,
                     HorizontalAlignment = HorizontalAlignment.Center,
-                    FontSize = 40
+                    FontSize = 40,
+                    MaxLength = 25,
+                    Header = (showHeader ? "Incorrect Password" : "")
                 },
                 Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
                 Foreground = new SolidColorBrush(Windows.UI.Colors.White),
@@ -155,14 +164,22 @@ namespace BarBot.UWP.UserControls.AppBar
             await passwordDialog.ShowAsync();
         }
 
-        private void PasswordDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private async void PasswordDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var password = (sender.Content as PasswordBox).Password;
+            var passwordBox = sender.Content as PasswordBox;
+            var password = passwordBox.Password;
 
-            // use Contants.BarbotId && password to login via HTTP Client
+            // use barbot name & password to login via HTTP Client
+            var success = await this.loginService.LoginUser("barbot", app.barbotName, password);
 
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.ContainerPanel), null, new DrillInNavigationTransitionInfo());
-
+            if (success)
+            {
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.ContainerPanel), null, new DrillInNavigationTransitionInfo());
+            }
+            else
+            {
+                DisplayPasswordDialog(true);
+            }
             sender.Hide();
         }
 

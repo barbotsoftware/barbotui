@@ -16,6 +16,12 @@ namespace BarBot.Core.WebSocket
 
         public Message() { }
 
+        public Message(string result, Dictionary<String, Object> data)
+        {
+            Result = result;
+            Data = data;
+        }
+
         public Message(string type, string command, Dictionary<String, Object> data)
         {
             Type = type;
