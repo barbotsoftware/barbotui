@@ -20,6 +20,14 @@
             </Button.Template>
         </Button>
 
+        <TextBlock x:Name="NoRecipesFoundTextBlock"
+                   HorizontalAlignment="Center" 
+                   VerticalAlignment="Center"
+                   Text="NO RECIPES FOUND"
+                   FontFamily="Microsoft Yi Baiti"
+                   FontSize="75"
+                   Visibility="Collapsed" />
+
         <Button x:Name="NextButton" Click="Next_Page" HorizontalAlignment="Right" Height="230" Margin="0,240,20,200" VerticalAlignment="Top" Width="120">
             <Button.Template>
                 <ControlTemplate TargetType="Button">

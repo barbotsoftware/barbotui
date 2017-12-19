@@ -30,7 +30,12 @@ namespace BarBot.UWP.UserControls.RecipeList
             {
                 // set recipes, and insert custom recipe as first element
                 recipes = value;
-                if (recipes.Count == 0 || !recipes.ElementAt(0).Name.Equals(Constants.CustomRecipeName))
+                
+                if (recipes.Count == 0)
+                {
+                    NoRecipesFoundTextBlock.Visibility = Visibility.Visible;
+                }
+                else if (!recipes.ElementAt(0).Name.Equals(Constants.CustomRecipeName))
                 {
                     recipes.Insert(0, Recipe.CustomRecipe());
                 }
