@@ -9,12 +9,20 @@
     d:DesignHeight="720"
     d:DesignWidth="1280">
 
-    <Grid Name="MainGrid" Height="720" Width="1280">
-        <Grid Height="650" Width="1110" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CategoryListStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid Name="CategoryListMainGrid" Style="{StaticResource CategoryListMainGridStyle}">
+        <Grid Name="CategoryListWrapperGrid" Style="{StaticResource CategoryListWrapperGridStyle}">
             <ItemsControl Name="icMenuItems" ItemsSource="{Binding}">
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
-                        <Grid Margin="0,50,0,0">
+                        <Grid Margin="0,70,0,0">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition></ColumnDefinition>
                                 <ColumnDefinition></ColumnDefinition>

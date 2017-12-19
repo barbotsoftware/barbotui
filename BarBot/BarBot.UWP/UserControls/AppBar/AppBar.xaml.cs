@@ -1,6 +1,9 @@
-﻿using System.ComponentModel;
+﻿using System;
+using System.ComponentModel;
+using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace BarBot.UWP.UserControls.AppBar
@@ -120,7 +123,53 @@ namespace BarBot.UWP.UserControls.AppBar
 
         private void Open_Settings(object sender, RoutedEventArgs e)
         {
+            DisplayPasswordDialog();
+        }
+
+        private async void DisplayPasswordDialog()
+        {
+            var passwordDialog = new ContentDialog()
+            {
+                MaxWidth = 1280,
+                Content = new PasswordBox()
+                {
+                    Width = 500,
+                    PlaceholderText = "Password",
+                    PasswordRevealMode = PasswordRevealMode.Hidden,
+                    VerticalAlignment = VerticalAlignment.Center,
+                    HorizontalAlignment = HorizontalAlignment.Center,
+                    FontSize = 40
+                },
+                Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
+                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
+                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
+                FontFamily = new FontFamily("Microsoft Yi Baiti"),
+                IsPrimaryButtonEnabled = true,
+                IsSecondaryButtonEnabled = true,
+                PrimaryButtonText = "LOGIN",
+                SecondaryButtonText = "CANCEL"
+            };
+
+            passwordDialog.PrimaryButtonClick += PasswordDialog_PrimaryButtonClick;
+            passwordDialog.SecondaryButtonClick += PasswordDialog_SecondaryButtonClick;
+            await passwordDialog.ShowAsync();
+        }
+
+        private void PasswordDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            var password = (sender.Content as PasswordBox).Password;
+
+            // use Contants.BarbotId && password to login via HTTP Client
+
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.ContainerPanel), null, new DrillInNavigationTransitionInfo());
+
+            sender.Hide();
+        }
+
+        private void PasswordDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Dismiss Dialog
+            sender.Hide();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

@@ -7,11 +7,11 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
+// The User Control item template is documented at https://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
-    public sealed partial class Uc_CategoryTile : UserControl, INotifyPropertyChanged
+    public sealed partial class Uc_CategoryTileRect : UserControl
     {
         private Category category;
         private UWPWebSocketService webSocketService;
@@ -26,14 +26,16 @@ namespace BarBot.UWP.UserControls.CategoryList
             }
         }
 
-        public Uc_CategoryTile()
+        public Uc_CategoryTileRect()
         {
             this.InitializeComponent();
+            Category category = new Category();
             this.DataContext = this;
 
             App app = Application.Current as App;
             webSocketService = app.webSocketService;
         }
+
 
         private void Category_Click(object sender, RoutedEventArgs e)
         {
@@ -87,6 +89,5 @@ namespace BarBot.UWP.UserControls.CategoryList
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }

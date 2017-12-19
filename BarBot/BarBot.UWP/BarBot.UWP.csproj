@@ -178,6 +178,9 @@
     <Compile Include="UserControls\CategoryList\Uc_CategoryList.xaml.cs">
       <DependentUpon>Uc_CategoryList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\CategoryList\Uc_CategoryTileRect.xaml.cs">
+      <DependentUpon>Uc_CategoryTileRect.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
@@ -297,6 +300,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\CategoryList\CategoryListStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\CategoryList\Uc_CategoryTileRect.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ContainerPanel\ContainerPanelStyles.xaml">
       <SubType>Designer</SubType>
