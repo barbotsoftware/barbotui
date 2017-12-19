@@ -6,21 +6,20 @@
     <x:Double x:Key="PageWidth">1280</x:Double>
     <x:Double x:Key="PageHeight">720</x:Double>
 
-    <x:Double x:Key="WrapperWidth">1240</x:Double>
+    <x:Double x:Key="WrapperWidth">1200</x:Double>
     <x:Double x:Key="WrapperHeight">680</x:Double>
 
     <!-- Dimensions -->
-    <x:Double x:Key="TileWidth">300</x:Double>
-    <x:Double x:Key="TileHeight">300</x:Double>
+    <x:Double x:Key="TileWidth">240</x:Double>
+    <x:Double x:Key="TileHeight">240</x:Double>
 
     <!-- Colors -->
-    <SolidColorBrush x:Key="TileColor"
-                        Color="#222222" />
+    <SolidColorBrush x:Key="BorderColor"
+                     Color="#222222" />
     <SolidColorBrush x:Key="TextColor"
-                        Color="White" />
-
-    <!-- Font -->
-    <x:Double x:Key="CategoryNameFontSize">35</x:Double>
+                     Color="White" />
+    <SolidColorBrush x:Key="TileColor"
+                     Color="Black" />
 
     <Style x:Key="CategoryListMainGridStyle"
            TargetType="Grid">
@@ -30,60 +29,97 @@
                 Value="{StaticResource PageHeight}" />
     </Style>
 
-    <Style x:Key="CategoryListWrapperGridStyle"
-           TargetType="Grid">
-        <Setter Property="Width"
-                Value="{StaticResource WrapperWidth}" />
+    <Style x:Key="CategoryListCanvasStyle"
+           TargetType="Canvas">
         <Setter Property="Height"
-                Value="{StaticResource WrapperHeight}" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
+                Value="650" />
+        <Setter Property="Width"
+                Value="1100" />
         <Setter Property="HorizontalAlignment"
                 Value="Center" />
-    </Style>
-
-    <Style x:Key="CategoryTileButtonStyle"
-               TargetType="Button">
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
         <Setter Property="Margin"
-                    Value="0,0,0,10" />
+                Value="0,100,0,0" />
     </Style>
 
-    <Style x:Key="CategoryTileStackPanelStyle"
-           TargetType="StackPanel">
-        <Setter Property="Background"
-                Value="{StaticResource TileColor}" />
-        <Setter Property="Width"
-                Value="{StaticResource TileWidth}" />
+    <Style x:Key="CategoryListBackButtonStyle"
+           TargetType="Button">
         <Setter Property="Height"
-                Value="{StaticResource TileHeight}"/>
+                Value="230" />
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Margin"
+                Value="0,240,20,200" />
+        <Setter Property="Visibility"
+                Value="Collapsed" />
     </Style>
 
-    <Style x:Key="CategoryImageStyle"
+    <Style x:Key="CategoryListNextButtonStyle"
+           TargetType="Button">
+        <Setter Property="Height"
+                Value="230" />
+        <Setter Property="Width"
+                Value="120" />
+        <Setter Property="HorizontalAlignment"
+                Value="Right" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Margin"
+                Value="0,240,20,200" />
+        <Setter Property="Visibility"
+                Value="Collapsed" />
+    </Style>
+
+    <Style x:Key="CategoryTileImageButtonStyle"
+           TargetType="Button">
+        <Setter Property="Canvas.Top"
+                Value="0" />
+        <Setter Property="Canvas.ZIndex"
+                Value="75" />
+    </Style>
+
+    <Style x:Key="CategoryTileImageStyle"
            TargetType="Image">
         <Setter Property="Stretch"
                 Value="Uniform" />
-        <Setter Property="Width"
-                Value="200" />
         <Setter Property="Height"
-                Value="250"/>
+                Value="{StaticResource TileHeight}" />
+        <Setter Property="Width"
+                Value="{StaticResource TileWidth}" />
     </Style>
 
-    <Style x:Key="CategoryNameTextBlockStyle"
-               TargetType="TextBlock">
-        <Setter Property="Foreground"
-                Value="{StaticResource TextColor}" />
+    <Style x:Key="CategoryTileNameTextBlockStyle"
+           TargetType="TextBlock">
+        <Setter Property="Height"
+                Value="auto" />
+        <Setter Property="Width"
+                Value="auto" />
+        <Setter Property="MaxHeight"
+                Value="200" />
+        <Setter Property="MaxWidth"
+                Value="{StaticResource TileWidth}" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="TextAlignment"
+                Value="Center" />
+        <Setter Property="TextWrapping"
+                Value="WrapWholeWords" />
+        <Setter Property="TextTrimming"
+                Value="CharacterEllipsis" />
         <Setter Property="FontFamily"
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
-                Value="{StaticResource CategoryNameFontSize}" />
-        <Setter Property="Margin"
-                Value="0,0,0,0" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="TextTrimming"
-                Value="CharacterEllipsis" />
-        <Setter Property="TextWrapping"
-                Value="WrapWholeWords" />
+                Value="35" />
+        <Setter Property="Foreground"
+                Value="White" />
+        <Setter Property="Canvas.ZIndex"
+                Value="99" />
     </Style>
-
 </ResourceDictionary>

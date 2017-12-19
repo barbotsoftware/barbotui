@@ -18,25 +18,29 @@
     </UserControl.Resources>
 
     <Grid Name="CategoryListMainGrid" Style="{StaticResource CategoryListMainGridStyle}">
-        <Grid Name="CategoryListWrapperGrid" Style="{StaticResource CategoryListWrapperGridStyle}">
-            <ItemsControl Name="icMenuItems" ItemsSource="{Binding}">
-                <ItemsControl.ItemsPanel>
-                    <ItemsPanelTemplate>
-                        <Grid Margin="0,70,0,0">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                                <ColumnDefinition></ColumnDefinition>
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition></RowDefinition>
-                                <RowDefinition></RowDefinition>
-                            </Grid.RowDefinitions>
-                        </Grid>
-                    </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-            </ItemsControl>
-        </Grid>
+        <Canvas Name="CategoryListCanvas" Style="{StaticResource CategoryListCanvasStyle}"></Canvas>
+        <Button x:Name="CategoryListBackButton" 
+                Click="Previous_Page"
+                Style="{StaticResource CategoryListBackButtonStyle}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="BackButtonImg" 
+                           Stretch="Uniform" 
+                           Source="ms-appx:///Assets/BackButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
+
+        <Button x:Name="CategoryListNextButton" 
+                Click="Next_Page" 
+                Style="{StaticResource CategoryListNextButtonStyle}">
+            <Button.Template>
+                <ControlTemplate TargetType="Button">
+                    <Image x:Name="NextButtonImg" 
+                           Stretch="Uniform" 
+                           Source="ms-appx:///Assets/NextButton.png"/>
+                </ControlTemplate>
+            </Button.Template>
+        </Button>
     </Grid>
 </UserControl>

@@ -7,6 +7,7 @@ using Windows.UI.Xaml.Controls;
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.UWP.Websocket;
+using BarBot.UWP.Utils;
 
 // The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
@@ -17,9 +18,6 @@ namespace BarBot.UWP.UserControls.RecipeList
         private UWPWebSocketService webSocketService;
         private List<Recipe> recipes;
         private App app;
-
-        private int margin = 25;
-        private int hexPadding = 12;
 
         private int page = 0;
         private int itemsPerPage = 10;
@@ -74,48 +72,11 @@ namespace BarBot.UWP.UserControls.RecipeList
             {
                 Uc_RecipeTile tile = new Uc_RecipeTile();
                 tile.Recipe = recipes[i];
-                Point pos = getPoint(i % itemsPerPage, Constants.HexagonWidth);
+                Point pos = Helpers.GetPoint(i % itemsPerPage, Constants.HexagonWidth);
                 Canvas.SetLeft(tile, pos.X);
                 Canvas.SetTop(tile, pos.Y);
                 recipeTileCanvas.Children.Add(tile);
             }
-        }
-
-        private Point getPoint(int i, int width)
-        {
-            int pos = i % 4;
-            int r = i / 4;
-
-            int top = 0;
-            int left = 0;
-            int height = (int)(2 * Math.Sqrt(Math.Pow(width / 2, 2) - Math.Pow(width / 4, 2)));
-
-            // Top Left
-            if (pos == 0)
-            {
-                top = 0;
-                left = r * (width + (width / 2) + (hexPadding * 2));
-            }
-            // Bottom Left
-            else if (pos == 1)
-            {
-                top = height + hexPadding;
-                left = r * (width + (width / 2) + (hexPadding * 2));
-            }
-            // Top right (Diagonally down and right from top left)
-            else if (pos == 2)
-            {
-                top = height / 2 + hexPadding / 2;
-                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
-            }
-            // Bottom right (Diagonally down and right from bottom left)
-            else if (pos == 3)
-            {
-                top = height + hexPadding + height / 2 + hexPadding / 2;
-                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
-            }
-
-            return new Point(left, top + margin);
         }
 
         private void Next_Page(object sender, RoutedEventArgs e)

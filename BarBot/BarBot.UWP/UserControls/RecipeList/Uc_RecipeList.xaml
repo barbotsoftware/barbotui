@@ -19,7 +19,6 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <!--<Image x:Name="BackButton" Stretch="None" Source="ms-appx:///Assets/BackButton.png"/>-->
 
         <Button x:Name="NextButton" Click="Next_Page" HorizontalAlignment="Right" Height="230" Margin="0,240,20,200" VerticalAlignment="Top" Width="120">
             <Button.Template>
@@ -29,7 +28,5 @@
             </Button.Template>
         </Button>
         <!--<Button x:Name="fukMeUpBtn" Click="FuckMeUp" Content="Button" HorizontalAlignment="Left" Margin="1785,961,0,0" VerticalAlignment="Top" Height="119" Width="135" Opacity="0"/>-->
-
-
     </Grid>
 </UserControl>

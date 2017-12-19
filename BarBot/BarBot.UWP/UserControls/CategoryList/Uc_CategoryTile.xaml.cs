@@ -3,11 +3,10 @@ using BarBot.UWP.Pages;
 using BarBot.UWP.Websocket;
 using System;
 using System.ComponentModel;
+using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
@@ -58,7 +57,13 @@ namespace BarBot.UWP.UserControls.CategoryList
                 // Otherwise, navigate to menu with recipe list
                 if (args.Category.SubCategories != null && args.Category.SubCategories.Count > 0)
                 {
-                    ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Category.SubCategories, new DrillInNavigationTransitionInfo());
+                    // Map Category to Sub Categories and pass as navigation parameter
+                    Dictionary<string, List<Category>> categories = new Dictionary<string, List<Category>>
+                    {
+                        { args.Category.Name, args.Category.SubCategories }
+                    };
+
+                    ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), categories, new DrillInNavigationTransitionInfo());
                 }
                 else
                 {
@@ -75,7 +80,12 @@ namespace BarBot.UWP.UserControls.CategoryList
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), args.Recipes, new DrillInNavigationTransitionInfo());
+                Dictionary<string, List<Recipe>> recipes = new Dictionary<string, List<Recipe>>
+                {
+                    { Category.Name, args.Recipes }
+                };
+
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipes, new DrillInNavigationTransitionInfo());
             });
 
             webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
@@ -87,6 +97,5 @@ namespace BarBot.UWP.UserControls.CategoryList
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
         }
-
     }
 }

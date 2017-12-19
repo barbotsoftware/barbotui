@@ -2,11 +2,52 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.Foundation;
 
 namespace BarBot.UWP.Utils
 {
     public class Helpers
     {
+        public static Point GetPoint(int i, int width)
+        {
+            int margin = 25;
+            int hexPadding = 12;
+
+        int pos = i % 4;
+            int r = i / 4;
+
+            int top = 0;
+            int left = 0;
+            int height = (int)(2 * Math.Sqrt(Math.Pow(width / 2, 2) - Math.Pow(width / 4, 2)));
+
+            // Top Left
+            if (pos == 0)
+            {
+                top = 0;
+                left = r * (width + (width / 2) + (hexPadding * 2));
+            }
+            // Bottom Left
+            else if (pos == 1)
+            {
+                top = height + hexPadding;
+                left = r * (width + (width / 2) + (hexPadding * 2));
+            }
+            // Top right (Diagonally down and right from top left)
+            else if (pos == 2)
+            {
+                top = height / 2 + hexPadding / 2;
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
+            }
+            // Bottom right (Diagonally down and right from bottom left)
+            else if (pos == 3)
+            {
+                top = height + hexPadding + height / 2 + hexPadding / 2;
+                left = (width - (width / 4) + hexPadding) + (r * (width + (width / 2) + (hexPadding * 2)));
+            }
+
+            return new Point(left, top + margin);
+        }
+
         public static Dictionary<IO.Devices.IContainer, double> GetContainersFromRecipe(Recipe recipe, List<IO.Devices.V1.Container> containers)
         {
             Dictionary<IO.Devices.IContainer, double> res = new Dictionary<IO.Devices.IContainer, double>();

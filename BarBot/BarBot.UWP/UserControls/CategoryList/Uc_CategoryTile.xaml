@@ -13,21 +13,32 @@
     Width="260">
 
     <UserControl.Resources>
-        <uc:ToUpperConverter x:Name="ToUpperConverter" />
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="CategoryListStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+            <uc:ToUpperConverter x:Name="ToUpperConverter" />
+        </ResourceDictionary>
     </UserControl.Resources>
 
     <Grid>
-        <Button x:Name="hexTile" Click="Category_Click">
+        <Button x:Name="hexTile" 
+                Click="Category_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image x:Name="HexBackground"  Stretch="Uniform" Source="ms-appx:///Assets/HexagonTile.png"/>
+                    <Image x:Name="HexBackground"
+                           Stretch="Uniform"
+                           Source="ms-appx:///Assets/HexagonTile.png"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="imageButton" Click="Category_Click" Canvas.Top="0" Canvas.ZIndex="75">
+        <Button x:Name="CategoryTileImageButton" 
+                Click="Category_Click"
+                Style="{StaticResource CategoryTileImageButtonStyle}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image x:Name="categoryImage" Stretch="Uniform" Height="240" Width="240">
+                    <Image x:Name="CategoryTileImage"
+                           Style="{StaticResource CategoryTileImageStyle}">
                         <Image.Source>
                             <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
                         </Image.Source>
@@ -35,17 +46,25 @@
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="hexGradient" Click="Category_Click">
+        <Button x:Name="hexGradient" 
+                Click="Category_Click">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image Stretch="Uniform"  Source="ms-appx:///Assets/HexagonTileGradient.png" Width="240"/>
+                    <Image Stretch="Uniform" 
+                           Source="ms-appx:///Assets/HexagonTileGradient.png"
+                           Width="240"/>
                 </ControlTemplate>
             </Button.Template>
         </Button>
-        <Button x:Name="textButtonWrapper" x:FieldModifier="public" Click="Category_Click" HorizontalAlignment="Center">
+        <Button x:Name="textButtonWrapper" 
+                x:FieldModifier="public" 
+                Click="Category_Click" 
+                HorizontalAlignment="Center">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock Text="{Binding Path=Category.Name, Converter={StaticResource ToUpperConverter}}" Height="auto" MaxHeight="200" Width="auto" MaxWidth="240" TextWrapping="WrapWholeWords" FontFamily="Microsoft Yi Baiti" FontSize="50" Foreground="#FFE6E1E1" Canvas.ZIndex="99" HorizontalAlignment="Center" VerticalAlignment="Center" TextTrimming="CharacterEllipsis"></TextBlock>
+                    <TextBlock x:Name="CategoryTileNameTextBlock"
+                               Text="{Binding Path=Category.Name, Converter={StaticResource ToUpperConverter}}"
+                               Style="{StaticResource CategoryTileNameTextBlockStyle}" />
                 </ControlTemplate>
             </Button.Template>
         </Button>

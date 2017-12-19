@@ -2,7 +2,10 @@
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Websocket;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -60,21 +63,36 @@ namespace BarBot.UWP.Pages
                 webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
                 webSocketService.GetCategories();
                 CategoryList.Visibility = Visibility.Visible;
-                //searchTextBox.Visibility = Visibility.Collapsed;
             }
-            else if (e.Parameter.GetType().Equals(Categories.GetType()))
+            else if (e.Parameter.GetType() == typeof(Dictionary<string, List<Category>>))
             {
-                Categories = e.Parameter as List<Category>;
+                // Category Name is mapped to a List of Categories.
+                // Grab the categoryName and set it as the Title,
+                // and set Categories to the List, and show the CategoryList
+
+                var dictionary = e.Parameter as Dictionary<string, List<Category>>;
+                var categoryName = dictionary.Keys.First();
+                
+                Categories = dictionary[categoryName] as List<Category>;
                 CategoryList.Visibility = Visibility.Visible;
+
+                AppBar.Title = categoryName;
                 AppBar.BackButtonVisible = true;
-                //searchTextBox.Visibility = Visibility.Collapsed;
             }
-            else if (e.Parameter.GetType().Equals(Recipes.GetType()))
-            {
-                Recipes = e.Parameter as List<Recipe>;
+            else if (e.Parameter.GetType() == typeof(Dictionary<string, List<Recipe>>))
+            {   
+                // Category Name is mapped to a List of Recipes.
+                // Grab the categoryName and set it as the Title,
+                // and set Recipes to the List, and show the RecipeList
+
+                var dictionary = e.Parameter as Dictionary<string, List<Recipe>>;
+                var categoryName = dictionary.Keys.First();
+
+                Recipes = dictionary[categoryName] as List<Recipe>;
                 RecipeList.Visibility = Visibility.Visible;
+
+                AppBar.Title = categoryName;
                 AppBar.BackButtonVisible = true;
-                //searchTextBox.Visibility = Visibility.Visible;
             }
         }
 
