@@ -36,6 +36,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             set
             {
                 ingredient = value;
+                ingredient.Name = Helpers.UppercaseWords(ingredient.Name);
                 OnPropertyChanged("Ingredient");
             }
         }

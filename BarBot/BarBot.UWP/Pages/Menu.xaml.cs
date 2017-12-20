@@ -89,6 +89,8 @@ namespace BarBot.UWP.Pages
                 if (categoryName.Equals(Constants.SearchCategoryName))
                 {
                     AppBar.SearchButtonVisible = false;
+                    AppBar.FilterButtonVisible = false;
+                    AppBar.SettingsButtonVisible = false;
                 }
 
                 Recipes = dictionary[categoryName] as List<Recipe>;

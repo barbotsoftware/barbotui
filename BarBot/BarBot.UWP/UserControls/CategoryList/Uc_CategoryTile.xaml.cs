@@ -9,6 +9,7 @@ using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using BarBot.Core;
 using BarBot.Core.ViewModel;
+using BarBot.UWP.Utils;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
@@ -24,6 +25,7 @@ namespace BarBot.UWP.UserControls.CategoryList
             set
             {
                 category = value;
+                category.Name = Helpers.UppercaseWords(category.Name);
                 OnPropertyChanged("Category");
             }
         }

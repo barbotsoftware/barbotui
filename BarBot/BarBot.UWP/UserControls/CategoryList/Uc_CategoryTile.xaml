@@ -17,7 +17,6 @@
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="CategoryListStyles.xaml"/>
             </ResourceDictionary.MergedDictionaries>
-            <uc:ToUpperConverter x:Name="ToUpperConverter" />
         </ResourceDictionary>
     </UserControl.Resources>
 
@@ -63,7 +62,7 @@
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <TextBlock x:Name="CategoryTileNameTextBlock"
-                               Text="{Binding Path=Category.Name, Converter={StaticResource ToUpperConverter}}"
+                               Text="{Binding Path=Category.Name}"
                                Style="{StaticResource CategoryTileNameTextBlockStyle}" />
                 </ControlTemplate>
             </Button.Template>

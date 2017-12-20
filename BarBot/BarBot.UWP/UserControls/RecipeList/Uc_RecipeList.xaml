@@ -23,7 +23,7 @@
         <TextBlock x:Name="NoRecipesFoundTextBlock"
                    HorizontalAlignment="Center" 
                    VerticalAlignment="Center"
-                   Text="NO COCKTAILS FOUND"
+                   Text="No Cocktails Found"
                    FontFamily="Microsoft Yi Baiti"
                    FontSize="75"
                    Visibility="Collapsed" />

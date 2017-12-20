@@ -47,7 +47,7 @@
         </Button>
         <TextBlock x:Name="AppBarTitleTextBlock"
                    Style="{StaticResource AppBarTitleTextBlockStyle}"
-                   Text="{Binding Path=Title, Converter={StaticResource ToUpperConverter}}"/>
+                   Text="{Binding Path=Title}"/>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <Button x:Name="AppBarSearchButton"
                 Style="{StaticResource AppBarIconButtonStyle}"

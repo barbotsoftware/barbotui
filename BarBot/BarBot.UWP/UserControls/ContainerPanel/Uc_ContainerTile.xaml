@@ -29,7 +29,7 @@
                                Text="{Binding Path=Container.Number}"
                                Style="{StaticResource ContainerNumberTextBlockStyle}" />
                     <TextBlock x:Name="IngredientNameTextBlock"
-                               Text="{Binding Path=Ingredient.Name, Converter={StaticResource ToUpperConverter}}" 
+                               Text="{Binding Path=Ingredient.Name}" 
                                Style="{StaticResource IngredientNameTextBlockStyle}" />
                     <StackPanel x:Name="ContainerVolumeStackPanel"
                                 Style="{StaticResource ContainerVolumeStackPanelStyle}">

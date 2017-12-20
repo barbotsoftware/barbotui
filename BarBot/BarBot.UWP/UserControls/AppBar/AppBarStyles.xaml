@@ -99,7 +99,7 @@
     <Style x:Key="AppBarBackTextBlockStyle"
            TargetType="TextBlock">
         <Setter Property="Text"
-                Value="BACK" />
+                Value="Back" />
         <Setter Property="TextWrapping"
                 Value="Wrap" />
         <Setter Property="SelectionHighlightColor"
