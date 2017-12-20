@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Text;
-using System.Threading.Tasks;
-using BarBot.Core.Model;
+﻿using BarBot.Core.Model;
 using BarBot.Core.Service.Login;
 using BarBot.Core.WebSocket;
 using Newtonsoft.Json;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Windows.Web;
+using Windows.Web.Http;
 
 namespace BarBot.UWP.Service.Login
 {
@@ -29,15 +30,15 @@ namespace BarBot.UWP.Service.Login
 
         public async Task<bool> LoginUser(string type, string username, string password)
         {
+            var uri = new Uri("http://" + this.endpoint + "/auth/login?type=" + type + "&username=" +
+                  username + "&password=" + password);
+
+            var request = new HttpRequestMessage(HttpMethod.Post, uri);
+
             try
             {
-                var uri = new Uri("http://" + this.endpoint + "/auth/login?type=" + type + "&username=" +
-                                  username + "&password=" + password);
-
-                var content = new StringContent("");
-
-                HttpResponseMessage response = await httpClient.PostAsync(uri, content);
-
+                HttpResponseMessage response = await httpClient.SendRequestAsync(request);
+            
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
@@ -56,9 +57,10 @@ namespace BarBot.UWP.Service.Login
                     }
                 }
             }
-            catch (Exception e)
+            catch (Exception ex)
             {
-                System.Diagnostics.Debug.WriteLine(e.ToString());
+                WebErrorStatus error = WebError.GetStatus(ex.HResult);
+                System.Diagnostics.Debug.WriteLine(error.ToString());
             }
             return false;
         }

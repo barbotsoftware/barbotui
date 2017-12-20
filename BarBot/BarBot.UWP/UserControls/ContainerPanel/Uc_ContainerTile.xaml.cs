@@ -24,7 +24,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             set
             {
                 container = value;
-                SetTextBlockColor();
+                SetTextBlockColor(container);
                 SetMaxVolumeLabel();
                 OnPropertyChanged("Container");
             }
@@ -72,7 +72,8 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             MaxVolumeLabel = "/" + Container.MaxVolume + " oz";
         }
 
-        private void SetTextBlockColor()
+
+        public void SetTextBlockColor(Container container)
         {
             if (container.CurrentVolume > 80)
             {
@@ -96,59 +97,10 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        private void Container_Click(object sender, RoutedEventArgs e)
+        private async void Container_Click(object sender, RoutedEventArgs e)
         {
-            // Show Dialog
-            DisplayContainerLoadDialog();
-        }
-
-        private async void DisplayContainerLoadDialog()
-        {
-            string loadDialogText = "Please load " + Helpers.UppercaseWords(Ingredient.Name) + " into Container " + Container.Number + ".";
-
-            var containerLoadDialog = new ContentDialog()
-            {
-                MaxWidth = 1280,
-                Content = new TextBlock()
-                {
-                    Text = loadDialogText,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    FontSize = 40
-                },
-                Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
-                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
-                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
-                FontFamily = new FontFamily("Microsoft Yi Baiti"),
-                IsPrimaryButtonEnabled = true,
-                IsSecondaryButtonEnabled = true,
-                PrimaryButtonText = "DONE",
-                SecondaryButtonText = "CANCEL"
-            };
-
-            containerLoadDialog.PrimaryButtonClick += ContainerLoadDialog_PrimaryButtonClick;
-            containerLoadDialog.SecondaryButtonClick += ContainerLoadDialog_SecondaryButtonClick;
+            var containerLoadDialog = new ContainerLoadContentDialog(Container, Ingredient, this);
             await containerLoadDialog.ShowAsync();
-        }
-
-        private void ContainerLoadDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            // Update Current Volume
-            Container.CurrentVolume = Container.MaxVolume;
-
-            // Update Current Volume Color
-            SetTextBlockColor();
-
-            // Call Update Container
-            webSocketService.UpdateContainer(Container);
-
-            sender.Hide();
-        }
-
-        private void ContainerLoadDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            // Dismiss Dialog
-            sender.Hide();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

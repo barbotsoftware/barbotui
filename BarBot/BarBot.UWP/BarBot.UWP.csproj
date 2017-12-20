@@ -189,6 +189,9 @@
     <Compile Include="UserControls\CategoryList\Uc_CategoryList.xaml.cs">
       <DependentUpon>Uc_CategoryList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ContainerPanel\ContainerLoadContentDialog.xaml.cs">
+      <DependentUpon>ContainerLoadContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
@@ -325,6 +328,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\ContainerPanel\ContainerLoadContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ContainerPanel\ContainerPanelStyles.xaml">
       <SubType>Designer</SubType>
