@@ -3,10 +3,8 @@ using BarBot.UWP.UserControls.AppBar.Search;
 using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
 using System.ComponentModel;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace BarBot.UWP.UserControls.AppBar
@@ -103,10 +101,38 @@ namespace BarBot.UWP.UserControls.AppBar
             }
         }
 
+        private string filterIconSource;
+
+        public string FilterIconSource
+        {
+            get { return filterIconSource; }
+            set
+            {
+                filterIconSource = value;
+                OnPropertyChanged("FilterIconSource");
+            }
+        }
+
         public AppBar()
         {
             this.InitializeComponent();
             this.DataContext = this;
+
+            SetFilterIcon();
+        }
+
+        // Sets Filter Icon Image according to Filter Ingredients List:
+        // White if list is empty, Blue if list is not empty
+        private void SetFilterIcon()
+        {
+            string filterIconUri = "ms-appx:///Assets/filter-";
+            filterIconUri += (Application.Current as App).FilterIngredients.Count == 0 ? "white.png" : "blue.png";
+
+            // only set if value hasn't changed
+            if (!filterIconUri.Equals(FilterIconSource))
+            {
+                FilterIconSource = filterIconUri;
+            }
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
@@ -124,6 +150,7 @@ namespace BarBot.UWP.UserControls.AppBar
         {
             var filterDialog = new FilterContentDialog();
             await filterDialog.ShowAsync();
+            SetFilterIcon();
         }
 
         private async void Open_Settings(object sender, RoutedEventArgs e)

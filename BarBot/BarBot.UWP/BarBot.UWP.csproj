@@ -237,8 +237,8 @@
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\back_arrow.png" />
     <BundleResource Include="Assets\custom_recipe.png" />
-    <Content Include="Assets\filter1.png" />
-    <Content Include="Assets\filter2.png" />
+    <Content Include="Assets\filter-blue.png" />
+    <Content Include="Assets\filter-white.png" />
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\HexagonTileGradient.png" />
     <Content Include="Assets\NextButton.png" />

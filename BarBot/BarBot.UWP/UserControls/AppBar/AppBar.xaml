@@ -67,8 +67,8 @@
                 Visibility="{Binding Path=FilterButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarIconImageStyle}"
-                           Source="ms-appx:///Assets/filter2.png" />
+                        <Image Style="{StaticResource AppBarIconImageStyle}" 
+                               Source="{Binding FilterIconSource}" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>

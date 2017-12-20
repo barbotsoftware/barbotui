@@ -10,6 +10,7 @@
     PrimaryButtonText="Done"
     CloseButtonText="Cancel"
     PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    Width="900"
     MaxWidth="1280"
     Background="#161616"
     Foreground="White"
@@ -36,5 +37,5 @@
                FontFamily="Microsoft Yi Baiti"
                Foreground="White"
                Text="{Binding Path=Text}"
-               Width="750" />
+               Width="auto" />
 </ContentDialog>
