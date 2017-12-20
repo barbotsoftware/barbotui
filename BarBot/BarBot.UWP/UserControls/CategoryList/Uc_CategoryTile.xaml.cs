@@ -8,6 +8,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using BarBot.Core;
+using BarBot.Core.ViewModel;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
@@ -38,6 +39,7 @@ namespace BarBot.UWP.UserControls.CategoryList
 
         private void Category_Click(object sender, RoutedEventArgs e)
         {
+            // All Recipes
             if (category.CategoryId == null || "".Equals(category.CategoryId))
             {
                 if (this.app.AllRecipes.Count == 0)
@@ -50,6 +52,13 @@ namespace BarBot.UWP.UserControls.CategoryList
                     DisplayRecipesInMenu(this.app.AllRecipes);
                 }
             }
+            // Custom Recipe -> Recipe Detail
+            else if (category.Name.Equals(Constants.CustomCategoryName))
+            {
+                var customRecipe = Recipe.CustomRecipe();
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), new RecipeDetailViewModel(null, customRecipe), new SlideNavigationTransitionInfo());
+            }
+            // Get Category, Event handler deals with displaying Recipes for a Category
             else
             {
                 webSocketService.Socket.GetCategoryEvent += Socket_GetCategoryEvent;

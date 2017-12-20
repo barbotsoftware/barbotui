@@ -5,6 +5,7 @@ using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -25,6 +26,14 @@ namespace BarBot.UWP.UserControls.CategoryList
             set
             {
                 categories = value;
+
+                var firstCategory = categories[0];
+
+                if (firstCategory.CategoryId == null || "".Equals(firstCategory.CategoryId))
+                {
+                    Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, null, null);
+                    categories.Insert(1, customCategory);
+                }
 
                 pages = (categories.Count + itemsPerPage - 1) / itemsPerPage;
                 Page = 0;

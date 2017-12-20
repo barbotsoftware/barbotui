@@ -42,9 +42,13 @@ namespace BarBot.Core
 
 		public const string AddIngredientId = "add_ingredient";
 
+        public const string CustomCategoryId = "custom_category";
+
 		public const double MaxVolume = 12.0;
 
         public const string CustomRecipeName = "Custom Recipe";
+
+        public const string CustomCategoryName = "Custom Cocktail";
 
         public const string AllRecipesCategoryName = "All Cocktails";
 

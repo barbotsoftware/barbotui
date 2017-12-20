@@ -28,16 +28,12 @@ namespace BarBot.UWP.UserControls.RecipeList
             get { return recipes; }
             set
             {
-                // set recipes, and insert custom recipe as first element
+                // set recipes
                 recipes = value;
                 
                 if (recipes.Count == 0)
                 {
                     NoRecipesFoundTextBlock.Visibility = Visibility.Visible;
-                }
-                else if (!recipes.ElementAt(0).Name.Equals(Constants.CustomRecipeName))
-                {
-                    recipes.Insert(0, Recipe.CustomRecipe());
                 }
                 
                 // calculate page count, and reset current page to 0
