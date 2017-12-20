@@ -46,6 +46,8 @@ namespace BarBot.UWP
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
 
+        public List<Recipe> AllRecipes { get; set; }
+
         public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
 
         public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
@@ -143,6 +145,9 @@ namespace BarBot.UWP
             {
                 Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
+
+            // Initialize All Recipes List
+            AllRecipes = new List<Recipe>();
 
             // Initialize Global Ingredients List
             IngredientsInBarbot = new Dictionary<string, Ingredient>();

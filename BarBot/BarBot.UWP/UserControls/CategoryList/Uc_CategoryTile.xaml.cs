@@ -7,11 +7,13 @@ using System.Collections.Generic;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using BarBot.Core;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
     public sealed partial class Uc_CategoryTile : UserControl, INotifyPropertyChanged
     {
+        private App app;
         private Category category;
         private UWPWebSocketService webSocketService;
 
@@ -30,7 +32,7 @@ namespace BarBot.UWP.UserControls.CategoryList
             this.InitializeComponent();
             this.DataContext = this;
 
-            App app = Application.Current as App;
+            this.app = Application.Current as App;
             webSocketService = app.webSocketService;
         }
 
@@ -38,8 +40,15 @@ namespace BarBot.UWP.UserControls.CategoryList
         {
             if (category.CategoryId == null || "".Equals(category.CategoryId))
             {
-                webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
-                webSocketService.GetRecipes();
+                if (this.app.AllRecipes.Count == 0)
+                {
+                    webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
+                    webSocketService.GetRecipes();
+                }
+                else
+                {
+                    DisplayRecipesInMenu(this.app.AllRecipes);
+                }
             }
             else
             {
@@ -80,15 +89,24 @@ namespace BarBot.UWP.UserControls.CategoryList
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                Dictionary<string, List<Recipe>> recipes = new Dictionary<string, List<Recipe>>
+                if (Category.Name == Constants.AllRecipesCategoryName)
                 {
-                    { Category.Name, args.Recipes }
-                };
-
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipes, new DrillInNavigationTransitionInfo());
+                    this.app.AllRecipes = args.Recipes;
+                }
+                DisplayRecipesInMenu(args.Recipes);
             });
 
             webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+        }
+
+        private void DisplayRecipesInMenu(List<Recipe> recipes)
+        {
+            Dictionary<string, List<Recipe>> recipeDictionary = new Dictionary<string, List<Recipe>>
+            {
+                { Category.Name, recipes }
+            };
+
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipeDictionary, new DrillInNavigationTransitionInfo());
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

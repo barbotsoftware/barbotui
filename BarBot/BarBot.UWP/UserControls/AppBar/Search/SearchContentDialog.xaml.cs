@@ -36,10 +36,24 @@ namespace BarBot.UWP.UserControls.AppBar.Search
                 AutoSuggestBox.Focus(FocusState.Keyboard);
             } else
             {
-                webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
-                webSocketService.GetRecipes();
+                if (this.app.AllRecipes.Count == 0)
+                {
+                    webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
+                    webSocketService.GetRecipes();
+                }
+                else
+                {
+                    DisplaySearchResults(this.app.AllRecipes);
+                }
+                
                 sender.Hide();
             }
+        }
+
+        private void SearchDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Dismiss Dialog
+            sender.Hide();
         }
 
         private async void Socket_GetRecipesEvent(object sender, Core.WebSocket.WebSocketEvents.GetRecipesEventArgs args)
@@ -47,24 +61,24 @@ namespace BarBot.UWP.UserControls.AppBar.Search
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
-                // Get all Recipes from WS Server then filter, TODO: send query string and do search on server side
-                List<Recipe> filteredList = args.Recipes.Where(x => x.Name.ToLower().StartsWith(queryString.ToLower())).ToList();
-
-                Dictionary<string, List<Recipe>> recipes = new Dictionary<string, List<Recipe>>
-                {
-                    { Constants.SearchCategoryName, filteredList }
-                };
-
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipes, new DrillInNavigationTransitionInfo());
+                this.app.AllRecipes = args.Recipes;
+                DisplaySearchResults(args.Recipes);
             });
 
             webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
-        private void SearchDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        private void DisplaySearchResults(List<Recipe> recipes)
         {
-            // Dismiss Dialog
-            sender.Hide();
+            // Get all Recipes from WS Server then filter, TODO: send query string and do search on server side
+            List<Recipe> filteredList = recipes.Where(x => x.Name.ToLower().StartsWith(queryString.ToLower())).ToList();
+
+            Dictionary<string, List<Recipe>> recipeDictionary = new Dictionary<string, List<Recipe>>
+                {
+                    { Constants.SearchCategoryName, filteredList }
+                };
+
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipeDictionary, new DrillInNavigationTransitionInfo());
         }
     }
 }
