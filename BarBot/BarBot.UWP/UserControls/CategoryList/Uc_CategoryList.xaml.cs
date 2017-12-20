@@ -27,11 +27,15 @@ namespace BarBot.UWP.UserControls.CategoryList
             {
                 categories = value;
 
-                var firstCategory = categories[0];
+                // Add Custom Cocktail 'Category'. Clicking this goes to Recipe Detail
+                Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, null, null);
 
-                if (firstCategory.CategoryId == null || "".Equals(firstCategory.CategoryId))
+                if (categories.Count == 0)
                 {
-                    Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, null, null);
+                    categories.Add(customCategory);
+                }
+                else if (categories[0].CategoryId == null || "".Equals(categories[0].CategoryId))
+                {
                     categories.Insert(1, customCategory);
                 }
 
