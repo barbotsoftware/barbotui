@@ -1,14 +1,12 @@
-﻿using BarBot.Core.Model;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Websocket;
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -88,6 +86,11 @@ namespace BarBot.UWP.Pages
                 var dictionary = e.Parameter as Dictionary<string, List<Recipe>>;
                 var categoryName = dictionary.Keys.First();
 
+                if (categoryName.Equals(Constants.SearchCategoryName))
+                {
+                    AppBar.SearchButtonVisible = false;
+                }
+
                 Recipes = dictionary[categoryName] as List<Recipe>;
                 RecipeList.Visibility = Visibility.Visible;
 
@@ -106,13 +109,6 @@ namespace BarBot.UWP.Pages
             });
 
             webSocketService.Socket.GetCategoriesEvent -= Socket_GetCategoriesEvent;
-        }
-
-        private void searchTextBox_KeyUp(object sender, KeyRoutedEventArgs e)
-        {
-            //List<Recipe> filteredList = recipes.Where(x => x.Name.StartsWith(searchTextBox.Text)).ToList();
-
-            //RecipeList.Recipes = filteredList;
         }
     }
 }

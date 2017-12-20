@@ -27,13 +27,6 @@
                    FilterButtonVisible="True"
                    SearchButtonVisible="True"
                    SettingsButtonVisible="True"></ab:AppBar>
-        <!--<TextBox x:Name="searchTextBox" KeyUp="searchTextBox_KeyUp" Foreground="White" Height="75" Width="700" HorizontalAlignment="Left" VerticalAlignment="Top" FontFamily="Microsoft Yi Baiti" FontSize="55" Canvas.ZIndex="50" Margin="400,10,0,0" Background="#66000000" FocusVisualSecondaryBrush="Black" PlaceholderText="Search" BorderBrush="#FF424242">
-            <TextBox.Resources>
-                <Style TargetType="ContentControl">
-                    <Setter Property="Foreground" Value="White"/>
-                </Style>
-            </TextBox.Resources>
-        </TextBox>-->
         <rl:Uc_RecipeList x:Name="RecipeList" Visibility="Visible"></rl:Uc_RecipeList>
         <cl:Uc_CategoryList x:Name="CategoryList"></cl:Uc_CategoryList>
     </Grid>

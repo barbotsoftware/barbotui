@@ -28,6 +28,7 @@ namespace BarBot.UWP.UserControls.AppBar.Settings
             {
                 args.Cancel = true;
                 PasswordBox.Header = "Password is required.";
+                PasswordBox.Focus(FocusState.Keyboard);
             }
             else
             {
@@ -41,6 +42,8 @@ namespace BarBot.UWP.UserControls.AppBar.Settings
                 {
                     args.Cancel = true;
                     PasswordBox.Header = "Incorrect Password";
+                    PasswordBox.Password = "";
+                    PasswordBox.Focus(FocusState.Keyboard);
                 }
                 deferral.Complete();
             }

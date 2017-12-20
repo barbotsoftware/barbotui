@@ -48,6 +48,8 @@ namespace BarBot.Core
 
         public const string AllRecipesCategoryName = "All Cocktails";
 
+        public const string SearchCategoryName = "Search Results";
+
 		#endregion
 
 		// UI - Hexagon
