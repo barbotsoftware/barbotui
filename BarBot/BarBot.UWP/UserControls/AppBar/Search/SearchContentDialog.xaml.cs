@@ -1,6 +1,7 @@
 ﻿using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.UWP.Pages;
+using BarBot.UWP.Utils;
 using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
@@ -27,13 +28,12 @@ namespace BarBot.UWP.UserControls.AppBar.Search
 
         private void SearchDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var AutoSuggestBox = sender.Content as AutoSuggestBox;
-            queryString = AutoSuggestBox.Text;
+            queryString = Helpers.CleanInput(SearchAutoSuggestBox.Text);
 
             if (string.IsNullOrEmpty(queryString))
             {
                 args.Cancel = true;
-                AutoSuggestBox.Focus(FocusState.Keyboard);
+                SearchAutoSuggestBox.Focus(FocusState.Keyboard);
             } else
             {
                 if (this.app.AllRecipes.Count == 0)
@@ -48,12 +48,6 @@ namespace BarBot.UWP.UserControls.AppBar.Search
                 
                 sender.Hide();
             }
-        }
-
-        private void SearchDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            // Dismiss Dialog
-            sender.Hide();
         }
 
         private async void Socket_GetRecipesEvent(object sender, Core.WebSocket.WebSocketEvents.GetRecipesEventArgs args)

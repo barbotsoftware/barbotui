@@ -21,13 +21,13 @@ namespace BarBot.UWP.UserControls.AppBar.Settings
 
         private async void PasswordDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            var passwordBox = sender.Content as PasswordBox;
-            var password = passwordBox.Password;
+            var password = PasswordBox.Password;
 
             if (string.IsNullOrEmpty(password))
             {
                 args.Cancel = true;
-                PasswordBox.Header = "Password is required.";
+                ErrorTextBlock.Text = "Password is required.";
+                ErrorTextBlock.Visibility = Visibility.Visible;
                 PasswordBox.Focus(FocusState.Keyboard);
             }
             else
@@ -41,18 +41,13 @@ namespace BarBot.UWP.UserControls.AppBar.Settings
                 else
                 {
                     args.Cancel = true;
-                    PasswordBox.Header = "Incorrect Password";
+                    ErrorTextBlock.Text = "Incorrect Password.";
+                    ErrorTextBlock.Visibility = Visibility.Visible;
                     PasswordBox.Password = "";
                     PasswordBox.Focus(FocusState.Keyboard);
                 }
                 deferral.Complete();
             }
-        }
-
-        private void PasswordDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            // Dismiss Dialog
-            sender.Hide();
         }
     }
 }

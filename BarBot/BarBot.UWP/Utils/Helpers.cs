@@ -2,7 +2,9 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text.RegularExpressions;
 using Windows.Foundation;
+using Windows.UI.Xaml.Media;
 
 namespace BarBot.UWP.Utils
 {
@@ -90,6 +92,22 @@ namespace BarBot.UWP.Utils
                 }
             }
             return new string(array);
+        }
+
+        public static string CleanInput(string strIn)
+        {
+            // Replace invalid characters with empty strings.
+            try
+            {
+                return Regex.Replace(strIn, @"[^a-zA-Z0-9 -]", "",
+                                     RegexOptions.None, TimeSpan.FromSeconds(1.5));
+            }
+            // If we timeout when replacing invalid characters, 
+            // we should return Empty.
+            catch (RegexMatchTimeoutException)
+            {
+                return String.Empty;
+            }
         }
     }
 }

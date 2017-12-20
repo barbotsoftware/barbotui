@@ -10,7 +10,7 @@
     <x:Double x:Key="WrapperHeight">680</x:Double>
 
     <!-- Dimensions -->
-    <x:Double x:Key="TileWidth">240</x:Double>
+    <x:Double x:Key="TileWidth">230</x:Double>
     <x:Double x:Key="TileHeight">240</x:Double>
 
     <!-- Colors -->
@@ -98,7 +98,7 @@
         <Setter Property="Height"
                 Value="auto" />
         <Setter Property="Width"
-                Value="auto" />
+                Value="{StaticResource TileWidth}" />
         <Setter Property="MaxHeight"
                 Value="200" />
         <Setter Property="MaxWidth"

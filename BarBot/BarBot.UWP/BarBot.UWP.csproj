@@ -129,6 +129,7 @@
     <Compile Include="IO\Devices\V1\Pump.cs" />
     <Compile Include="IO\MCP23017.cs" />
     <Compile Include="IO\L298NDriver.cs" />
+    <Compile Include="IO\MCP3008.cs" />
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
@@ -172,6 +173,9 @@
     </Compile>
     <Compile Include="UserControls\AppBar\AppBar.xaml.cs">
       <DependentUpon>AppBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AppBar\Filter\FilterContentDialog.xaml.cs">
+      <DependentUpon>FilterContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\AppBar\Settings\PasswordContentDialog.xaml.cs">
       <DependentUpon>PasswordContentDialog.xaml</DependentUpon>
@@ -304,6 +308,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\AppBar\Filter\FilterContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\AppBar\Settings\PasswordContentDialog.xaml">
       <SubType>Designer</SubType>

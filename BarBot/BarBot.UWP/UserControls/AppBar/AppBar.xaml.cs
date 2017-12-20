@@ -1,4 +1,5 @@
-﻿using BarBot.UWP.UserControls.AppBar.Search;
+﻿using BarBot.UWP.UserControls.AppBar.Filter;
+using BarBot.UWP.UserControls.AppBar.Search;
 using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
 using System.ComponentModel;
@@ -119,9 +120,10 @@ namespace BarBot.UWP.UserControls.AppBar
             await searchDialog.ShowAsync();
         }
 
-        private void Open_Filter(object sender, RoutedEventArgs e)
+        private async void Open_Filter(object sender, RoutedEventArgs e)
         {
-
+            var filterDialog = new FilterContentDialog();
+            await filterDialog.ShowAsync();
         }
 
         private async void Open_Settings(object sender, RoutedEventArgs e)

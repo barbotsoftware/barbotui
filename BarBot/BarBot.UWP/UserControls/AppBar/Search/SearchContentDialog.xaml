@@ -8,11 +8,9 @@
     mc:Ignorable="d"
     x:Name="ContentDialog"
     IsPrimaryButtonEnabled="True"
-    IsSecondaryButtonEnabled="True"
-    PrimaryButtonText="SEARCH"
-    SecondaryButtonText="CANCEL"
+    PrimaryButtonText="Search"
+    CloseButtonText="Cancel"
     PrimaryButtonClick="SearchDialog_PrimaryButtonClick"
-    SecondaryButtonClick="SearchDialog_SecondaryButtonClick"
     MaxWidth="1280"
     Background="#161616"
     Foreground="White"
@@ -22,12 +20,14 @@
         <Style TargetType="Button" x:Key="ButtonStyle">
             <Setter Property="FontSize"
                     Value="38" />
+            <Setter Property="FontFamily"
+                        Value="Microsoft Yi Baiti" />
         </Style>
     </ContentDialog.Resources>
     <ContentDialog.Style>
         <Style TargetType="ContentDialog">
             <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
-            <Setter Property="SecondaryButtonStyle" Value="{StaticResource ButtonStyle}" />
+            <Setter Property="CloseButtonStyle" Value="{StaticResource ButtonStyle}" />
         </Style>
     </ContentDialog.Style>
     
@@ -39,6 +39,8 @@
             <Style TargetType="TextBox" x:Key="AutoSuggestBoxTextBoxStyle">
                 <Setter Property="FontSize"
                         Value="45" />
+                <Setter Property="FontFamily"
+                        Value="Microsoft Yi Baiti" />
             </Style>
         </AutoSuggestBox.Resources>
         <AutoSuggestBox.Style>
