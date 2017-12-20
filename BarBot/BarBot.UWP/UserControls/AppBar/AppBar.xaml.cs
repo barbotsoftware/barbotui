@@ -1,4 +1,5 @@
-﻿using BarBot.UWP.Service.Login;
+﻿using BarBot.UWP.UserControls.AppBar.Search;
+using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
 using System.ComponentModel;
 using Windows.UI;
@@ -101,16 +102,10 @@ namespace BarBot.UWP.UserControls.AppBar
             }
         }
 
-        private App app;
-        private UWPLoginService loginService;
-
         public AppBar()
         {
             this.InitializeComponent();
             this.DataContext = this;
-
-            this.app = Application.Current as App;
-            loginService = app.loginService;
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
@@ -118,9 +113,10 @@ namespace BarBot.UWP.UserControls.AppBar
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new DrillInNavigationTransitionInfo());
         }
 
-        private void Open_Search(object sender, RoutedEventArgs e)
+        private async void Open_Search(object sender, RoutedEventArgs e)
         {
-
+            var searchDialog = new SearchContentDialog();
+            await searchDialog.ShowAsync();
         }
 
         private void Open_Filter(object sender, RoutedEventArgs e)
@@ -128,65 +124,10 @@ namespace BarBot.UWP.UserControls.AppBar
 
         }
 
-        private void Open_Settings(object sender, RoutedEventArgs e)
+        private async void Open_Settings(object sender, RoutedEventArgs e)
         {
-            DisplayPasswordDialog(false);
-        }
-
-        private async void DisplayPasswordDialog(bool showHeader)
-        {
-            var passwordDialog = new ContentDialog()
-            {
-                MaxWidth = 1280,
-                Content = new PasswordBox()
-                {
-                    Width = 500,
-                    PlaceholderText = "Password",
-                    PasswordRevealMode = PasswordRevealMode.Hidden,
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    FontSize = 40,
-                    MaxLength = 25,
-                    Header = (showHeader ? "Incorrect Password" : "")
-                },
-                Background = new SolidColorBrush(Color.FromArgb(255, 22, 22, 22)),
-                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
-                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
-                FontFamily = new FontFamily("Microsoft Yi Baiti"),
-                IsPrimaryButtonEnabled = true,
-                IsSecondaryButtonEnabled = true,
-                PrimaryButtonText = "LOGIN",
-                SecondaryButtonText = "CANCEL"
-            };
-
-            passwordDialog.PrimaryButtonClick += PasswordDialog_PrimaryButtonClick;
-            passwordDialog.SecondaryButtonClick += PasswordDialog_SecondaryButtonClick;
+            var passwordDialog = new PasswordContentDialog();
             await passwordDialog.ShowAsync();
-        }
-
-        private async void PasswordDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            var passwordBox = sender.Content as PasswordBox;
-            var password = passwordBox.Password;
-
-            // use barbot name & password to login via HTTP Client
-            var success = await this.loginService.LoginUser("barbot", app.barbotName, password);
-
-            if (success)
-            {
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.ContainerPanel), null, new DrillInNavigationTransitionInfo());
-            }
-            else
-            {
-                DisplayPasswordDialog(true);
-            }
-            sender.Hide();
-        }
-
-        private void PasswordDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            // Dismiss Dialog
-            sender.Hide();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

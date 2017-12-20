@@ -173,6 +173,12 @@
     <Compile Include="UserControls\AppBar\AppBar.xaml.cs">
       <DependentUpon>AppBar.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AppBar\Settings\PasswordContentDialog.xaml.cs">
+      <DependentUpon>PasswordContentDialog.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserControls\AppBar\Search\SearchContentDialog.xaml.cs">
+      <DependentUpon>SearchContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\CategoryList\Uc_CategoryTile.xaml.cs">
       <DependentUpon>Uc_CategoryTile.xaml</DependentUpon>
     </Compile>
@@ -298,6 +304,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\AppBar\Settings\PasswordContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AppBar\Search\SearchContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\CategoryList\CategoryListStyles.xaml">
       <SubType>Designer</SubType>
