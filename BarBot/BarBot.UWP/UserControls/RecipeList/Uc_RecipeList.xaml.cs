@@ -8,33 +8,29 @@ using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.UWP.Websocket;
 using BarBot.UWP.Utils;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
+using System.Collections.ObjectModel;
 
 namespace BarBot.UWP.UserControls.RecipeList
 {
     public sealed partial class Uc_RecipeList : UserControl
     {
-        private UWPWebSocketService webSocketService;
-        private List<Recipe> recipes;
         private App app;
-
+        private UWPWebSocketService webSocketService;
+        private ObservableCollection<Recipe> recipes;
+        
         private int page = 0;
         private int itemsPerPage = 10;
         private int pages = 1;
 
-        public List<Recipe> Recipes
+        public ObservableCollection<Recipe> Recipes
         {
             get { return recipes; }
             set
             {
                 // set recipes
                 recipes = value;
-                
-                if (recipes.Count == 0)
-                {
-                    NoRecipesFoundTextBlock.Visibility = Visibility.Visible;
-                }
+
+                DisplayNoCocktailsFound(recipes);
                 
                 // calculate page count, and reset current page to 0
                 pages = (recipes.Count + itemsPerPage - 1) / itemsPerPage;
@@ -58,6 +54,8 @@ namespace BarBot.UWP.UserControls.RecipeList
 
             app = Application.Current as App;
             webSocketService = app.webSocketService;
+
+            app.FilterApplied += App_FilterApplied;
         }
 
         private void displayPage(int page)
@@ -69,7 +67,7 @@ namespace BarBot.UWP.UserControls.RecipeList
             // clear out the current recipe tiles
             recipeTileCanvas.Children.Clear();
 
-            for(int i = 0 + (itemsPerPage * page); i < Math.Min((itemsPerPage * page) + itemsPerPage, recipes.Count); i++)
+            for (int i = 0 + (itemsPerPage * page); i < Math.Min((itemsPerPage * page) + itemsPerPage, recipes.Count); i++)
             {
                 Uc_RecipeTile tile = new Uc_RecipeTile();
                 tile.Recipe = recipes[i];
@@ -77,6 +75,18 @@ namespace BarBot.UWP.UserControls.RecipeList
                 Canvas.SetLeft(tile, pos.X);
                 Canvas.SetTop(tile, pos.Y);
                 recipeTileCanvas.Children.Add(tile);
+            }
+        }
+
+        private void DisplayNoCocktailsFound(ObservableCollection<Recipe> recipes)
+        {
+            if (recipes.Count == 0)
+            {
+                NoRecipesFoundTextBlock.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                NoRecipesFoundTextBlock.Visibility = Visibility.Collapsed;
             }
         }
 
@@ -90,6 +100,46 @@ namespace BarBot.UWP.UserControls.RecipeList
         {
             page--;
             displayPage(page);
+        }
+
+        private async void App_FilterApplied(object sender, App.FilterAppliedEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                var filteredRecipes = ApplyFilter(args.FilteredIngredients);
+                Recipes = new ObservableCollection<Recipe>(filteredRecipes);
+            });
+        }
+
+        // Accept a list of Ingredients, and return all Recipes in the current List
+        // that have ALL of those Ingredients
+        private List<Recipe> ApplyFilter(List<Ingredient> filteredIngredients)
+        {
+            List<Recipe> filteredRecipes = new List<Recipe>();
+            List<string> filteredIngredientIds = filteredIngredients.Select(i => i.IngredientId).ToList();
+
+            foreach (Recipe r in app.RecipesToFilter)
+            {
+                List<string> recipeIngredientIds = r.Ingredients.Select(i => i.IngredientId).ToList();
+                bool ingredientsMatch = true;
+
+                foreach (string id in filteredIngredientIds)
+                {
+                    if (!recipeIngredientIds.Contains(id))
+                    {
+                        ingredientsMatch = false;
+                        break;
+                    }
+                }
+
+                if (ingredientsMatch)
+                {
+                    filteredRecipes.Add(r);
+                }
+            }
+
+            return filteredRecipes;
         }
     }
 }

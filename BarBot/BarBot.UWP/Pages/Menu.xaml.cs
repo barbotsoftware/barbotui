@@ -4,20 +4,18 @@ using BarBot.Core.WebSocket;
 using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace BarBot.UWP.Pages
 {
-    /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
-    /// </summary>
+
     public sealed partial class Menu : Page
     {
+        private App app;
         private UWPWebSocketService webSocketService;
         private List<Category> categories = new List<Category>();
         private List<Recipe> recipes = new List<Recipe>();
@@ -38,14 +36,16 @@ namespace BarBot.UWP.Pages
             set
             {
                 recipes = value;
-                RecipeList.Recipes = recipes;
+                app.RecipesToFilter = recipes;
+                RecipeList.Recipes = new ObservableCollection<Recipe>(recipes);
             }
         }
 
         public Menu()
         {
             this.InitializeComponent();
-            webSocketService = (Application.Current as App).webSocketService;
+            this.app = Application.Current as App;
+            webSocketService = app.webSocketService;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -55,6 +55,9 @@ namespace BarBot.UWP.Pages
             CategoryList.Visibility = Visibility.Collapsed;
             RecipeList.Visibility = Visibility.Collapsed;
             AppBar.BackButtonVisible = false;
+
+            // Clear filters
+            this.app.ClearFilters();
 
             if (e.Parameter == null)
             {
@@ -91,6 +94,10 @@ namespace BarBot.UWP.Pages
                     AppBar.SearchButtonVisible = false;
                     AppBar.FilterButtonVisible = false;
                     AppBar.SettingsButtonVisible = false;
+                }
+                else
+                {
+                    AppBar.FilterButtonVisible = true;
                 }
 
                 Recipes = dictionary[categoryName] as List<Recipe>;

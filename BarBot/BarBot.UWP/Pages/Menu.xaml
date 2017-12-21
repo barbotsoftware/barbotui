@@ -24,7 +24,7 @@
         <ab:AppBar x:Name="AppBar" 
                    Title="Menu"
                    BackButtonVisible="False"
-                   FilterButtonVisible="True"
+                   FilterButtonVisible="False"
                    SearchButtonVisible="True"
                    SettingsButtonVisible="True"></ab:AppBar>
         <rl:Uc_RecipeList x:Name="RecipeList" Visibility="Visible"></rl:Uc_RecipeList>

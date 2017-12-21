@@ -1,5 +1,7 @@
 ﻿using BarBot.Core.Model;
+using BarBot.UWP.UserControls.RecipeList;
 using BarBot.UWP.Utils;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -7,6 +9,7 @@ using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.AppBar.Filter
 {
@@ -57,9 +60,18 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
             }
         }
 
+        public FilterContentDialog()
+        {
+            this.InitializeComponent();
+            this.app = Application.Current as App;
+            this.buttons = new List<Button>();
+            this.filterIngredients = new List<Ingredient>(app.FilterIngredients);
+            this.Ingredients = app.IngredientsInBarbot.Values.ToList();
+        }
+
         private void FilterButton_Click(object sender, RoutedEventArgs e)
         {
-            var button = sender as Button; 
+            var button = sender as Button;
 
             // Add Ingredient to filterIngredients local list
             var ingredient = app.IngredientsInBarbot[button.Name];
@@ -75,19 +87,10 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
             }
         }
 
-        public FilterContentDialog()
-        {
-            this.InitializeComponent();
-            this.app = Application.Current as App;
-            this.buttons = new List<Button>();
-            this.filterIngredients = new List<Ingredient>(app.FilterIngredients);
-            this.Ingredients = app.IngredientsInBarbot.Values.ToList();
-        }
-
         private void FilterDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            app.FilterIngredients.Clear();
-            app.FilterIngredients.AddRange(this.filterIngredients);
+            app.ClearFilters();
+            app.ApplyFilters(this.filterIngredients);
 
             // Dismiss Modal
             sender.Hide();
@@ -98,16 +101,9 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
         {
             // Clear both filter lists
             this.filterIngredients.Clear();
-            app.FilterIngredients.Clear();
+            app.ClearFilters();
 
-            // Reset Colors
-            foreach (Button b in this.buttons)
-            {
-                b.Background = DarkGray;
-            }
-
-            // Don't dismiss modal
-            args.Cancel = true;
+            sender.Hide();
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

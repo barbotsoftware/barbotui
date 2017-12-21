@@ -118,7 +118,7 @@ namespace BarBot.UWP.UserControls.AppBar
             this.InitializeComponent();
             this.DataContext = this;
 
-            SetFilterIcon();
+            //SetFilterIcon();
         }
 
         // Sets Filter Icon Image according to Filter Ingredients List:
@@ -150,7 +150,7 @@ namespace BarBot.UWP.UserControls.AppBar
         {
             var filterDialog = new FilterContentDialog();
             await filterDialog.ShowAsync();
-            SetFilterIcon();
+            //SetFilterIcon();
         }
 
         private async void Open_Settings(object sender, RoutedEventArgs e)

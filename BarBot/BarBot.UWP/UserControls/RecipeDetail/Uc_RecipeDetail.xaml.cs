@@ -345,7 +345,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
 
             sender.Hide();
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new PartyMode();
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Menu();
         }
 
         private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

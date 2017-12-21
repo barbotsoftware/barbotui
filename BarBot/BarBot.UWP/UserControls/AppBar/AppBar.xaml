@@ -68,7 +68,7 @@
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Image Style="{StaticResource AppBarIconImageStyle}" 
-                               Source="{Binding FilterIconSource}" />
+                               Source="ms-appx:///Assets/filter-white.png" />
                     </ControlTemplate>
                 </Button.Template>
             </Button>

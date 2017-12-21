@@ -48,6 +48,8 @@ namespace BarBot.UWP
 
         public List<Recipe> AllRecipes { get; set; }
 
+        public List<Recipe> RecipesToFilter { get; set; }
+
         public List<Ingredient> FilterIngredients { get; set; }
 
         public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
@@ -74,6 +76,25 @@ namespace BarBot.UWP
             public Core.Model.DrinkOrder DrinkOrder
             {
                 get { return drinkOrder; }
+            }
+        }
+
+        public event FilterAppliedHandler FilterApplied = delegate { };
+
+        public delegate void FilterAppliedHandler(object sender, FilterAppliedEventArgs args);
+
+        public class FilterAppliedEventArgs : EventArgs
+        {
+            private List<Ingredient> filteredIngredients;
+
+            public FilterAppliedEventArgs(List<Ingredient> filteredIngredients)
+            {
+                this.filteredIngredients = filteredIngredients;
+            }
+
+            public List<Ingredient> FilteredIngredients
+            {
+                get { return filteredIngredients; }
             }
         }
 
@@ -148,6 +169,9 @@ namespace BarBot.UWP
                 Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
 
+            // Initialize List of Recipes to Filter
+            RecipesToFilter = new List<Recipe>();
+
             // Initialize Filter Ingredients List
             FilterIngredients = new List<Ingredient>();
 
@@ -176,6 +200,27 @@ namespace BarBot.UWP
             webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
             Status = Constants.BarbotStatus.READY;
+        }
+
+        // Filter Methods
+
+        public void ApplyFilters(List<Ingredient> ingredients)
+        {
+            this.FilterIngredients.AddRange(ingredients);
+            
+            FilterApplied(this, new FilterAppliedEventArgs(this.FilterIngredients));
+        }
+
+        public Boolean IsFilterOn()
+        {
+            return this.FilterIngredients.Count > 0;
+        }
+
+        public void ClearFilters()
+        {
+            this.FilterIngredients.Clear();
+
+            FilterApplied(this, new FilterAppliedEventArgs(this.FilterIngredients));
         }
 
         public BitmapImage getCachedImage(Recipe recipe)
