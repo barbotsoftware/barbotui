@@ -4,5 +4,19 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BarBot.UWP"
     RequestedTheme="Dark">
-
+    <Application.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.ThemeDictionaries>
+                <ResourceDictionary x:Key="Dark">
+                    <!-- Button Styles -->
+                    <SolidColorBrush x:Key="ButtonForeground" Color="White"/>
+                    <SolidColorBrush x:Key="ButtonBackground" Color="#FF004B99"/>
+                    <SolidColorBrush x:Key="ButtonBackgroundPointerOver" Color="#FF0064CB" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPointerOver" Color="#FF0064CB" />
+                    <SolidColorBrush x:Key="ButtonBackgroundPressed" Color="#FF003C7B" />
+                    <SolidColorBrush x:Key="ButtonBorderBrushPressed" Color="#FF003C7B" />
+                </ResourceDictionary>
+            </ResourceDictionary.ThemeDictionaries>
+        </ResourceDictionary>
+    </Application.Resources>
 </Application>

@@ -148,9 +148,9 @@
     <Style x:Key="PourButtonStyle"
            TargetType="Button">
         <Setter Property="Margin"
-                Value="800,575,0,0" />
+                Value="800,550,0,0" />
         <Setter Property="Width"
-                Value="425" />
+                Value="400" />
         <Setter Property="Height"
                 Value="100" />
         <Setter Property="HorizontalAlignment"
@@ -162,15 +162,11 @@
         <Setter Property="FontFamily"
                 Value="{StaticResource AppFont}" />
         <Setter Property="Background"
-                Value="#FF0067D2" />
+                Value="#FF004B99" />
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="BorderThickness"
                 Value="0" />
-        <Setter Property="FocusVisualPrimaryBrush"
-                Value="#FF0067D2" />
-        <Setter Property="FocusVisualSecondaryBrush"
-                Value="#FDFFFFFF" />
     </Style>
 
 </ResourceDictionary>
