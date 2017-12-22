@@ -32,18 +32,20 @@
                    SettingsButtonVisible="False"></ab:AppBar>
         
         <!-- Recipe Image -->
-        
-        <Image x:Name="HexBackground"
-               Stretch="Uniform" 
-               Source="ms-appx:///Assets/HexagonTile.png" 
-               Margin="70,125,750,550" />
-        <Image x:Name="RecipeImage"
-               Stretch="Uniform" 
-               Margin="70,105,750,570">
-            <Image.Source>
+        <Grid x:Name="RecipeImageGrid"
+              Style="{StaticResource RecipeImageGridStyle}">
+            <Image x:Name="HexBackgroundImage"
+               Source="ms-appx:///Assets/HexagonTile.png"
+               Style="{StaticResource HexBackgroundImageStyle}" />
+            <Image x:Name="RecipeImage"
+               Source="ms-appx:///Assets/custom_recipe.png"
+               Style="{StaticResource HexBackgroundImageStyle}">
+                <!--<Image.Source>
                 <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
-            </Image.Source>
-        </Image>
+            </Image.Source>-->
+            </Image>
+        </Grid>
+        
         
         <!-- Volume Display -->
 
@@ -117,7 +119,7 @@
         
         <!-- Pour Button -->
         <Button x:Name="PourButton"
-                Content="Pour Drink"
+                Content="Pour"
                 Click="Pour_Drink"
                 Style="{StaticResource PourButtonStyle}" />
     </Grid>

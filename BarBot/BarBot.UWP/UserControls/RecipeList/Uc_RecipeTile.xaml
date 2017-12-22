@@ -27,11 +27,10 @@
         <Button x:Name="imageButton" Click="Drink_Detail" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image x:Name="recipeImage" Stretch="Uniform" Height="210" Width="210"
-                           Source="ms-appx:///Assets/custom_recipe.png">
-                        <!--<Image.Source>
+                    <Image x:Name="recipeImage" Stretch="Uniform" Height="210" Width="210">
+                        <Image.Source>
                             <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
-                        </Image.Source>-->
+                        </Image.Source>
                     </Image>
                 </ControlTemplate>
             </Button.Template>

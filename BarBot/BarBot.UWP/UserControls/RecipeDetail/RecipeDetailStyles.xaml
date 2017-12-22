@@ -7,6 +7,9 @@
     <x:Double x:Key="PageWidth">1280</x:Double>
     <x:Double x:Key="PageHeight">720</x:Double>
     
+    <x:Double x:Key="TileWidth">400</x:Double>
+    <x:Double x:Key="TileHeight">400</x:Double>
+
     <!-- Font -->
     <x:String x:Key="AppFont">Microsoft Yi Baiti</x:String>
     <x:Double x:Key="VolumeFontSize">90</x:Double>
@@ -17,6 +20,44 @@
                 Value="{StaticResource PageHeight}" />
         <Setter Property="Width"
                 Value="{StaticResource PageWidth}" />
+    </Style>
+
+    <Style x:Key="RecipeImageGridStyle"
+           TargetType="Grid">
+        <Setter Property="Margin"
+                Value="20,100,0,0" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="Height"
+                Value="{StaticResource TileHeight}" />
+        <Setter Property="Width"
+                Value="{StaticResource TileWidth}" />
+    </Style>
+
+    <Style x:Key="HexBackgroundImageStyle"
+           TargetType="Image">
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="Stretch"
+                Value="Uniform" />
+        <Setter Property="Height"
+                Value="{StaticResource TileHeight}" />
+        <Setter Property="Width"
+                Value="{StaticResource TileWidth}" />
+    </Style>
+
+    <Style x:Key="RecipeImageStyle"
+           TargetType="Image">
+        <Setter Property="VerticalAlignment"
+                Value="Center" />
+        <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="Stretch"
+                Value="Uniform" />
     </Style>
 
     <Style x:Key="TotalVolumeTextBlockStyle"
@@ -152,13 +193,13 @@
         <Setter Property="Width"
                 Value="400" />
         <Setter Property="Height"
-                Value="100" />
+                Value="auto" />
         <Setter Property="HorizontalAlignment"
                 Value="Center" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="FontSize"
-                Value="75" />
+                Value="90" />
         <Setter Property="FontFamily"
                 Value="{StaticResource AppFont}" />
         <Setter Property="Background"
