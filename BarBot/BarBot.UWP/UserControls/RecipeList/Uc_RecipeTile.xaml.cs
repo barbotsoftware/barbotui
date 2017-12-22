@@ -1,5 +1,5 @@
-﻿using BarBot.Core.Model;
-using BarBot.Core.ViewModel;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.UWP.Utils;
 using System;
 using System.ComponentModel;
@@ -7,8 +7,6 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls.RecipeList
 {
@@ -56,7 +54,7 @@ namespace BarBot.UWP.UserControls.RecipeList
                 if (value.Name != null)
                 {
                     recipe.Name = Helpers.UppercaseWords(value.Name);
-                    if (value.Name.Equals("Custom Recipe"))
+                    if (value.Name.Equals(Constants.CustomRecipeName))
                     {
                         var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
                         var recipeImage = new BitmapImage(imageUri);
@@ -80,7 +78,7 @@ namespace BarBot.UWP.UserControls.RecipeList
 
         private void Drink_Detail(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), new RecipeDetailViewModel(null, Recipe), new SlideNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), Recipe, new DrillInNavigationTransitionInfo());
         }
     }
 }

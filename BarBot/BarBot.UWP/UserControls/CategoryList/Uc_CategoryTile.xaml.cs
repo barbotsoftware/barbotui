@@ -58,7 +58,7 @@ namespace BarBot.UWP.UserControls.CategoryList
             else if (category.Name.Equals(Constants.CustomCategoryName))
             {
                 var customRecipe = Recipe.CustomRecipe();
-                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), new RecipeDetailViewModel(null, customRecipe), new SlideNavigationTransitionInfo());
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Pages.RecipeDetail), customRecipe, new DrillInNavigationTransitionInfo());
             }
             // Get Category, Event handler deals with displaying Recipes for a Category
             else

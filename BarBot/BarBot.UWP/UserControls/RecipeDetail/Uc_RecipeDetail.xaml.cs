@@ -1,6 +1,5 @@
 ﻿using BarBot.Core;
 using BarBot.Core.Model;
-using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.IO;
 using BarBot.UWP.Pages;
@@ -16,22 +15,12 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
-
 namespace BarBot.UWP.UserControls.RecipeDetail
 {
     public sealed partial class Uc_RecipeDetail : UserControl, INotifyPropertyChanged
     {
         private UWPWebSocketService webSocketService;
         private BarbotIOController barbotIOController;
-
-        public RecipeDetailViewModel ViewModel
-        {
-            get
-            {
-                return (RecipeDetailViewModel)DataContext;
-            }
-        }
 
         private BitmapImage _cachedImage;
         public BitmapImage CachedImage
@@ -55,14 +44,14 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         
         private double _totalVolume;
 
-        public Uc_RecipeDetail(RecipeDetailViewModel ViewModel)
+        public Uc_RecipeDetail(Recipe recipe)
         {
             this.InitializeComponent();
-            this.DataContext = ViewModel;
+            this.DataContext = this;
 
             this.webSocketService = (Application.Current as App).webSocketService;
             this.barbotIOController = (Application.Current as App).barbotIOController;
-            this.Recipe = ViewModel.Recipe;
+            this.Recipe = recipe;
 
             this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
         }
@@ -92,7 +81,10 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             {
                 recipe = value;
                 TotalVolume = 0;
-                if (Recipe.Name != "Custom Recipe")
+
+                AppBar.Title = Recipe.Name;
+
+                if (!Recipe.Name.Equals(Constants.CustomRecipeName))
                 {
                     // Attach event handler and then call GetRecipeDetails
                     webSocketService.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);

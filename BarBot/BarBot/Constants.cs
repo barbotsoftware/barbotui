@@ -46,7 +46,7 @@ namespace BarBot.Core
 
 		public const double MaxVolume = 12.0;
 
-        public const string CustomRecipeName = "Custom Recipe";
+        public const string CustomRecipeName = "Custom Cocktail";
 
         public const string CustomCategoryName = "Custom Cocktail";
 
