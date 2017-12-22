@@ -2,16 +2,14 @@
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.IO;
-using BarBot.UWP.Pages;
+using BarBot.UWP.UserControls.RecipeDetail.Dialogs;
 using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -267,91 +265,34 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         private async void Pour_Drink(object sender, RoutedEventArgs e)
         {
-            if (barbotIOController.CupCount == 0)
+            if (barbotIOController != null)
             {
-                var cupDialog = new ContentDialog()
+                if (barbotIOController.CupCount == 0)
                 {
-                    MaxWidth = ActualWidth,
-                    Content = new TextBlock()
-                    {
-                        Text = "There are no cups left! Please place a cup or reset the cup dispenser.",
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        FontSize = 45
-                    },
-                    Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 56, 114)),
-                    Foreground = new SolidColorBrush(Windows.UI.Colors.White),
-                    BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34)),
-                    IsPrimaryButtonEnabled = true,
-                    IsSecondaryButtonEnabled = true,
-                    PrimaryButtonText = "OK",
-                    SecondaryButtonText = "RESET"
-                };
+                    var cupDialog = new CupContentDialog();
+                    await cupDialog.ShowAsync();
+                }
 
-                cupDialog.PrimaryButtonClick += CupDialog_PrimaryButtonClick;
-                cupDialog.SecondaryButtonClick += CupDialog_SecondaryButtonClick;
-                await cupDialog.ShowAsync();
-            }
+                // Can snag ingredients from _ingredientElementList[x]._ingredient
+                System.Diagnostics.Debug.WriteLine(_ingredientElementList);
 
-            // Can snag ingredients from _ingredientElementList[x]._ingredient
-            Console.WriteLine(_ingredientElementList);
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(PartyMode));
+                OrderRecipe = new Recipe();
+                OrderRecipe.Name = Recipe.Name;
+                OrderRecipe.Ingredients = new List<Ingredient>();
 
-            OrderRecipe = new Recipe();
-            OrderRecipe.Name = Recipe.Name;
-            OrderRecipe.Ingredients = new List<Ingredient>();
-
-            for (int i = 0; i < _ingredientElementList.Count; i++)
-            {
-                OrderRecipe.Ingredients.Add(_ingredientElementList[i]._ingredient);
-            }
-
-            var dialog = new ContentDialog()
-            {
-                //MaxWidth = this.ActualWidth,
-                Content = new TextBlock()
+                for (int i = 0; i < _ingredientElementList.Count; i++)
                 {
-                    Text = string.Format("Your {0} Is Pouring!", OrderRecipe.Name),
-                    VerticalAlignment = VerticalAlignment.Center,
-                    HorizontalAlignment = HorizontalAlignment.Center,
-                    TextWrapping = TextWrapping.WrapWholeWords,
-                    //Width = 1200,
-                    FontSize = 45
-                },
-                Width = 1200,
-                Background = new SolidColorBrush(Windows.UI.Color.FromArgb(255, 0, 56, 114)),
-                Foreground = new SolidColorBrush(Windows.UI.Colors.White),
-                BorderBrush = new SolidColorBrush(Windows.UI.Color.FromArgb(100, 34, 34, 34))
-            };
+                    OrderRecipe.Ingredients.Add(_ingredientElementList[i]._ingredient);
+                }
 
-            dialog.Opened += (s, a) => Dialog_Opened(s, a, OrderRecipe);
-            await dialog.ShowAsync();
-        }
-
-        private async void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
-        {
-            await Task.Delay(1);
-
-            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(OrderRecipe, barbotIOController.Containers);
-
-            barbotIOController.PourDrinkSync(ingredients, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
-
-            sender.Hide();
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Content = new Menu();
-        }
-
-        private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            barbotIOController.CupCount = 25;
-
-            sender.Hide();
-        }
-
-        private void CupDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
-        {
-            barbotIOController.CupCount = 1;
-
-            sender.Hide();
+                // show pouring dialog
+                var dialog = new PouringContentDialog(OrderRecipe, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
+                await dialog.ShowAsync();
+            }
+            else
+            {
+                System.Diagnostics.Debug.WriteLine("BarbotIOController is null");
+            }
         }
 
         //private Recipe FuckMeUp()
