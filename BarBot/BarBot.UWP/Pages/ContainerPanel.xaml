@@ -15,6 +15,7 @@
         <ab:AppBar x:Name="AppBar" 
                    Title="Containers"
                    BackButtonVisible="True"
+                   HomeButtonVisible="False"
                    FilterButtonVisible="False"
                    SearchButtonVisible="False"
                    SettingsButtonVisible="False"></ab:AppBar>

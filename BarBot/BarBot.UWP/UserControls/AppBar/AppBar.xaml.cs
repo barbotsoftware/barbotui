@@ -1,4 +1,5 @@
-﻿using BarBot.UWP.UserControls.AppBar.Filter;
+﻿using BarBot.UWP.Pages;
+using BarBot.UWP.UserControls.AppBar.Filter;
 using BarBot.UWP.UserControls.AppBar.Search;
 using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
@@ -62,6 +63,24 @@ namespace BarBot.UWP.UserControls.AppBar
             {
                 SetValue(SearchButtonVisibleProperty, value);
                 OnPropertyChanged("SearchButtonVisible");
+            }
+        }
+
+        public static readonly DependencyProperty HomeButtonVisibleProperty = DependencyProperty.Register
+        (
+            "HomeButtonVisible",
+            typeof(bool),
+            typeof(AppBar),
+            new PropertyMetadata(false)
+        );
+
+        public bool HomeButtonVisible
+        {
+            get { return (bool)GetValue(HomeButtonVisibleProperty); }
+            set
+            {
+                SetValue(HomeButtonVisibleProperty, value);
+                OnPropertyChanged("HomeButtonVisible");
             }
         }
 
@@ -144,6 +163,11 @@ namespace BarBot.UWP.UserControls.AppBar
         {
             var searchDialog = new SearchContentDialog();
             await searchDialog.ShowAsync();
+        }
+
+        private void Open_Home(object sender, RoutedEventArgs e)
+        {
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu));
         }
 
         private async void Open_Filter(object sender, RoutedEventArgs e)

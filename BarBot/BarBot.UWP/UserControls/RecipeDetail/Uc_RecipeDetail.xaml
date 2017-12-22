@@ -27,6 +27,7 @@
           Style="{StaticResource RecipeDetailGridStyle}">
         <ab:AppBar x:Name="AppBar"
                    BackButtonVisible="True"
+                   HomeButtonVisible="True"
                    FilterButtonVisible="False"
                    SearchButtonVisible="False"
                    SettingsButtonVisible="False"></ab:AppBar>

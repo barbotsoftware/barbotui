@@ -61,6 +61,18 @@
                 </Button.Template>
             </Button>
 
+            <Button x:Name="AppBarHomeButton"
+                Style="{StaticResource AppBarIconButtonStyle}"
+                Click="Open_Home" 
+                Visibility="{Binding Path=HomeButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Style="{StaticResource AppBarIconImageStyle}" 
+                               Source="ms-appx:///Assets/home.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
             <Button x:Name="AppBarFilterButton"
                 Style="{StaticResource AppBarIconButtonStyle}"
                 Click="Open_Filter" 

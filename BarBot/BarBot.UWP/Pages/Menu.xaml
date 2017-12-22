@@ -24,6 +24,7 @@
         <ab:AppBar x:Name="AppBar" 
                    Title="Menu"
                    BackButtonVisible="False"
+                   HomeButtonVisible="False"
                    FilterButtonVisible="False"
                    SearchButtonVisible="True"
                    SettingsButtonVisible="True"></ab:AppBar>

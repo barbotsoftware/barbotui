@@ -246,6 +246,7 @@
     <Content Include="Assets\filter-white.png" />
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\HexagonTileGradient.png" />
+    <Content Include="Assets\home.png" />
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
