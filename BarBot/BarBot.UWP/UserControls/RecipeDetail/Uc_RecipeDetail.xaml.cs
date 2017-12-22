@@ -32,6 +32,17 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             }
         }
 
+        private string maxVolumeLabel;
+        public string MaxVolumeLabel
+        {
+            get { return maxVolumeLabel; }
+            set
+            {
+                maxVolumeLabel = value;
+                OnPropertyChanged("MaxVolumeLabel");
+            }
+        }
+
         private Recipe recipe;
 
         private Recipe OrderRecipe;
@@ -53,6 +64,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             this.Recipe = recipe;
 
             this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
+
+            this.MaxVolumeLabel = string.Format("/{0}oz", Constants.MaxVolume);
         }
 
         public double TotalVolume

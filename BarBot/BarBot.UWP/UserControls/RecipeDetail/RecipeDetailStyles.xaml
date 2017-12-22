@@ -22,9 +22,9 @@
     <Style x:Key="TotalVolumeTextBlockStyle"
            TargetType="TextBlock">
         <Setter Property="Margin"
-                Value="30,525,0,0" />
+                Value="30,515,0,0" />
         <Setter Property="FontSize"
-                Value="64" />
+                Value="60" />
         <Setter Property="FontFamily"
                 Value="{StaticResource AppFont}" />
         <Setter Property="Foreground"
@@ -40,9 +40,9 @@
     <Style x:Key="VolumeSeparatorRectangleStyle"
            TargetType="Rectangle">
         <Setter Property="Margin"
-                Value="25,600,0,0" />
+                Value="25,590,0,0" />
         <Setter Property="Width"
-                Value="375" />
+                Value="350" />
         <Setter Property="Height"
                 Value="5" />
         <Setter Property="Fill"
@@ -64,7 +64,7 @@
         <Setter Property="HorizontalAlignment"
                 Value="Left" />
         <Setter Property="Margin"
-                Value="50,610,0,0" />
+                Value="50,600,0,0" />
     </Style>
 
     <Style x:Key="RecipeVolumeTextBlockStyle"
@@ -130,11 +130,11 @@
     <Style x:Key="RecipeOptionsTextBlockStyle"
            TargetType="TextBlock">
         <Setter Property="FontSize"
-                Value="40" />
+                Value="43" />
         <Setter Property="FontFamily"
                 Value="{StaticResource AppFont}" />
         <Setter Property="Margin"
-                Value="450,550,0,0" />
+                Value="425,550,0,0" />
         <Setter Property="Foreground"
                 Value="White" />
         <Setter Property="HorizontalAlignment"
@@ -148,7 +148,7 @@
     <Style x:Key="PourButtonStyle"
            TargetType="Button">
         <Setter Property="Margin"
-                Value="800,550,0,0" />
+                Value="800,535,0,0" />
         <Setter Property="Width"
                 Value="400" />
         <Setter Property="Height"

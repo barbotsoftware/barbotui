@@ -58,7 +58,7 @@
                    Text="{Binding Path=TotalVolume}"
                    Style="{StaticResource RecipeVolumeTextBlockStyle}" />
             <TextBlock x:Name="MaxVolumeTextBlock"
-                   Text="/12 oz"
+                   Text="{Binding Path=MaxVolumeLabel}"
                    Style="{StaticResource MaxVolumeTextBlockStyle}" />
         </StackPanel>
 
@@ -79,17 +79,16 @@
                   Content="Ice" 
                   HorizontalAlignment="Left" 
                   Height="69" 
-                  Margin="863,1015,0,-4" 
+                  Margin="560,665,0,0" 
                   VerticalAlignment="Top" 
                   Width="178" 
-                  FontFamily="Microsoft Yi Baiti" 
-                  FontSize="24" 
+                  FontFamily="Microsoft Yi Baiti"
+                  FontSize="24"
                   FocusVisualPrimaryBrush="White" 
                   RenderTransformOrigin="0.5,0.5" 
                   Padding="8,3,0,5" 
                   UseLayoutRounding="False" 
                   Foreground="White" 
-                  BorderBrush="Red" 
                   FocusVisualSecondaryBrush="#99FFFFFF">
             <CheckBox.RenderTransform>
                 <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
@@ -99,18 +98,17 @@
                   Style="{StaticResource ResourceKey=CustomCheckbox}" 
                   Content="Garnish" 
                   HorizontalAlignment="Left" 
-                  Margin="1155,1014,0,-3" 
+                  Margin="710,665,0,0" 
                   VerticalAlignment="Top" 
                   Height="69" 
                   Width="178" 
-                  FontFamily="Microsoft Yi Baiti" 
-                  FontSize="24" 
+                  FontFamily="Microsoft Yi Baiti"
+                  FontSize="24"
                   FocusVisualPrimaryBrush="White" 
                   RenderTransformOrigin="0.5,0.5" 
                   Padding="8,3,0,5" 
                   UseLayoutRounding="False" 
                   Foreground="White" 
-                  BorderBrush="Red" 
                   FocusVisualSecondaryBrush="#99FFFFFF">
             <CheckBox.RenderTransform>
                 <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
