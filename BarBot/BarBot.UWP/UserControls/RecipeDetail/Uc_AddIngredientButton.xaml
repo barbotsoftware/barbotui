@@ -11,6 +11,6 @@
 
     <Grid Background="#535353" Margin="5">
         <Image Width="81" Source="ms-appx:///Assets/plus_icon.png" Margin="36,20,0,12" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="266,-7,-20,5" Text="ADD INGREDIENT" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False"/>
+        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="266,-7,-20,5" Text="Add Ingredient" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False"/>
     </Grid>
 </UserControl>

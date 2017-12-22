@@ -3,6 +3,7 @@ using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.IO;
 using BarBot.UWP.UserControls.RecipeDetail.Dialogs;
+using BarBot.UWP.Utils;
 using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
@@ -80,7 +81,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 recipe = value;
                 TotalVolume = 0;
 
-                AppBar.Title = Recipe.Name;
+                AppBar.Title = Helpers.UppercaseWords(Recipe.Name);
 
                 if (!Recipe.Name.Equals(Constants.CustomRecipeName))
                 {

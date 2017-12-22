@@ -30,13 +30,13 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         private void PopulateVolumeSelector()
         {
-            /*VolumeChangeInProgress = true;
+            VolumeChangeInProgress = true;
             ingredientVolume.Items.Clear();
 
 
-            if (Ingredient.Quantity >= 0.5)
+            if (Ingredient.Amount >= 0.5)
             {
-                for (var i = 0.5; i <= VolumeAvailable + Ingredient.Quantity; i += 0.5)
+                for (var i = 0.5; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
                 {
                     ingredientVolume.Items.Add(i);
                 }
@@ -46,15 +46,15 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 ingredientVolume.Items.Add((double)0);
                 ingredientVolume.SelectedIndex = 0;
 
-                for (double i = 0; i <= VolumeAvailable + Ingredient.Quantity; i += 0.5)
+                for (double i = 0; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
                 {
                     ingredientVolume.Items.Add(i);
                 }
             }
 
-            if (ingredientVolume.Items.IndexOf(Ingredient.Quantity) > -1)
+            if (ingredientVolume.Items.IndexOf(Ingredient.Amount) > -1)
             {
-                ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Ingredient.Quantity);
+                ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Ingredient.Amount);
             }
             else
             {
@@ -64,7 +64,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
             }
 
-            VolumeChangeInProgress = false;*/
+            VolumeChangeInProgress = false;
         }
 
         public double VolumeAvailable

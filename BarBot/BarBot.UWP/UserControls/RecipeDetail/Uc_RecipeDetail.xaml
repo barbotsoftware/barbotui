@@ -64,12 +64,8 @@
 
         <!-- Ingredient List -->
         
-        <ScrollViewer VerticalScrollBarVisibility="Auto" 
-                      HorizontalAlignment="Left" 
-                      Height="736" 
-                      Margin="595,125,0,0" 
-                      VerticalAlignment="Top" 
-                      Width="1290">
+        <ScrollViewer x:Name="IngredientListScrollViewer"
+                      Style="{StaticResource IngredientListScrollViewerStyle}">
             <StackPanel x:Name="ingredientList"/>
         </ScrollViewer>
         

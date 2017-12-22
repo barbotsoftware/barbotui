@@ -108,6 +108,24 @@
         <Setter Property="FontFamily"
                 Value="{StaticResource AppFont}" />
     </Style>
+    
+    <!-- Ingredient List -->
+
+    <Style x:Key="IngredientListScrollViewerStyle"
+           TargetType="ScrollViewer">
+        <Setter Property="Margin"
+                Value="445,100,0,0" />
+        <Setter Property="Width"
+                Value="800" />
+        <Setter Property="Height"
+                Value="500" />
+        <Setter Property="HorizontalAlignment"
+                Value="Left" />
+        <Setter Property="VerticalAlignment"
+                Value="Top" />
+        <Setter Property="VerticalScrollBarVisibility"
+                Value="Auto" />
+    </Style>
 
     <Style x:Key="RecipeOptionsTextBlockStyle"
            TargetType="TextBlock">
