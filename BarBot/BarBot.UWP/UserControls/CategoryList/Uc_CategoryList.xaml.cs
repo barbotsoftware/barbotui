@@ -1,11 +1,9 @@
 ﻿using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.UWP.Utils;
-using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -71,7 +69,7 @@ namespace BarBot.UWP.UserControls.CategoryList
 
             for (int i = 0 + (itemsPerPage * page); i < Math.Min((itemsPerPage * page) + itemsPerPage, categories.Count); i++)
             {
-                Uc_CategoryTile tile = new Uc_CategoryTile();
+                Tc_CategoryTile tile = new Tc_CategoryTile();
                 tile.Category = categories[i];
                 Point pos = Helpers.GetPoint(i % itemsPerPage, Constants.HexagonWidth);
                 Canvas.SetLeft(tile, pos.X);

@@ -1,19 +1,18 @@
-﻿using BarBot.Core.Model;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
 using BarBot.UWP.Pages;
+using BarBot.UWP.Utils;
 using BarBot.UWP.Websocket;
 using System;
-using System.ComponentModel;
 using System.Collections.Generic;
+using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
-using BarBot.Core;
-using BarBot.Core.ViewModel;
-using BarBot.UWP.Utils;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
-    public sealed partial class Uc_CategoryTile : UserControl, INotifyPropertyChanged
+    public sealed class Tc_CategoryTile : Control, INotifyPropertyChanged
     {
         private App app;
         private Category category;
@@ -30,13 +29,26 @@ namespace BarBot.UWP.UserControls.CategoryList
             }
         }
 
-        public Uc_CategoryTile()
+        public Tc_CategoryTile()
         {
-            this.InitializeComponent();
+            this.DefaultStyleKey = typeof(Tc_CategoryTile);
             this.DataContext = this;
 
             this.app = Application.Current as App;
             webSocketService = app.webSocketService;
+        }
+
+        protected override void OnApplyTemplate()
+        {
+            var hexButton = GetTemplateChild("HexagonButton") as Button;
+            var imageButton = GetTemplateChild("CategoryImageButton") as Button;
+            var hexGradient = GetTemplateChild("HexagonGradientButton") as Button;
+            var recipeName = GetTemplateChild("CategoryNameButton") as Button;
+
+            hexButton.Click += Category_Click;
+            imageButton.Click += Category_Click;
+            hexGradient.Click += Category_Click;
+            recipeName.Click += Category_Click;
         }
 
         private void Category_Click(object sender, RoutedEventArgs e)

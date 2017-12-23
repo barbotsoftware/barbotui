@@ -69,7 +69,7 @@ namespace BarBot.UWP.UserControls.RecipeList
 
             for (int i = 0 + (itemsPerPage * page); i < Math.Min((itemsPerPage * page) + itemsPerPage, recipes.Count); i++)
             {
-                Uc_RecipeTile tile = new Uc_RecipeTile();
+                Tc_RecipeTile tile = new Tc_RecipeTile();
                 tile.Recipe = recipes[i];
                 Point pos = Helpers.GetPoint(i % itemsPerPage, Constants.HexagonWidth);
                 Canvas.SetLeft(tile, pos.X);

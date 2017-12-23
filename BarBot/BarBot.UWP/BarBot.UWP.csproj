@@ -183,9 +183,7 @@
     <Compile Include="UserControls\AppBar\Search\SearchContentDialog.xaml.cs">
       <DependentUpon>SearchContentDialog.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserControls\CategoryList\Uc_CategoryTile.xaml.cs">
-      <DependentUpon>Uc_CategoryTile.xaml</DependentUpon>
-    </Compile>
+    <Compile Include="UserControls\CategoryList\Tc_CategoryTile.cs" />
     <Compile Include="UserControls\CategoryList\Uc_CategoryList.xaml.cs">
       <DependentUpon>Uc_CategoryList.xaml</DependentUpon>
     </Compile>
@@ -199,6 +197,7 @@
     <Compile Include="UserControls\RecipeDetail\Dialogs\PouringContentDialog.xaml.cs">
       <DependentUpon>PouringContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RecipeList\Tc_RecipeTile.cs" />
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml.cs">
       <DependentUpon>Uc_AddIngredientButton.xaml</DependentUpon>
@@ -223,9 +222,6 @@
     </Compile>
     <Compile Include="Pages\PartyMode.xaml.cs">
       <DependentUpon>PartyMode.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\RecipeList\Uc_RecipeTile.xaml.cs">
-      <DependentUpon>Uc_RecipeTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Helpers.cs" />
     <Compile Include="Websocket\UWPWebsocketHandler.cs" />
@@ -317,6 +313,11 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Styles\MenuTileStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
     <Page Include="Themes\Generic.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -370,10 +371,6 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
-    <Page Include="UserControls\CategoryList\Uc_CategoryTile.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="UserControls\CategoryList\Uc_CategoryList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -422,10 +419,6 @@
     <Page Include="Pages\PartyMode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\RecipeList\Uc_RecipeTile.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

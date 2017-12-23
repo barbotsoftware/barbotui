@@ -2,22 +2,25 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BarBot.UWP"
-    xmlns:local2="using:BarBot.UWP.UserControls.ContainerPanel">
+    xmlns:cl="using:BarBot.UWP.UserControls.CategoryList" 
+    xmlns:cp="using:BarBot.UWP.UserControls.ContainerPanel"
+    xmlns:rl="using:BarBot.UWP.UserControls.RecipeList">
 
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="ms-appx:///Styles/ContainerTileStyles.xaml" />
+        <ResourceDictionary Source="ms-appx:///Styles/MenuTileStyles.xaml" />
     </ResourceDictionary.MergedDictionaries>
 
     <!-- Container Tile Template Control -->
 
-    <Style TargetType="local2:Tc_ContainerTile">
+    <Style TargetType="cp:Tc_ContainerTile">
         <Setter Property="Margin"
                     Value="5,5,5,5" />
         <Setter Property="HorizontalAlignment"
                     Value="Center" />
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="local2:Tc_ContainerTile">
+                <ControlTemplate TargetType="cp:Tc_ContainerTile">
                     <StackPanel x:Name="ContainerTileStackPanel"
                             Style="{StaticResource ContainerTileStackPanelStyle}">
                         <TextBlock x:Name="ContainerNumberTextBlock"
@@ -37,6 +40,124 @@
                                    Style="{StaticResource ContainerMaxVolumeTextBlockStyle}" />
                         </StackPanel>
                     </StackPanel>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Recipe Tile Template Control -->
+
+    <Style TargetType="rl:Tc_RecipeTile">
+        <Setter Property="Height"
+                Value="240" />
+        <Setter Property="Width"
+                Value="260" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="rl:Tc_RecipeTile">
+                    <Grid>
+                        <Button x:Name="HexagonButton">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="HexBackground" 
+                                           Style="{StaticResource MenuHexagonImageStyle}"
+                                           Source="ms-appx:///Assets/HexagonTile.png"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="RecipeImageButton"
+                                Style="{StaticResource MenuImageButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="RecipeImage" 
+                                           Style="{StaticResource MenuImageStyle}">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="HexagonGradientButton"
+                                Style="{StaticResource MenuHexagonGradientButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="HexagonGradientImage"
+                                           Style="{StaticResource MenuImageStyle}"
+                                           Source="ms-appx:///Assets/HexagonTileGradient.png" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="RecipeNameButton"
+                                Style="{StaticResource MenuNameButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock x:Name="RecipeNameTextBlock"
+                                               Style="{StaticResource MenuNameTextBlockStyle}"
+                                               Text="{Binding Path=Recipe.Name}" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Category Tile Template Control -->
+
+    <Style TargetType="cl:Tc_CategoryTile">
+        <Setter Property="Height"
+                Value="240" />
+        <Setter Property="Width"
+                Value="260" />
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="cl:Tc_CategoryTile">
+                    <Grid>
+                        <Button x:Name="HexagonButton">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="HexBackground" 
+                                           Style="{StaticResource MenuHexagonImageStyle}"
+                                           Source="ms-appx:///Assets/HexagonTile.png"/>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="CategoryImageButton"
+                                Style="{StaticResource MenuImageButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="CategoryImage"
+                                           Style="{StaticResource MenuImageStyle}">
+                                        <Image.Source>
+                                            <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+                                        </Image.Source>
+                                    </Image>
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="HexagonGradientButton"
+                                Style="{StaticResource MenuHexagonGradientButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Image x:Name="HexagonGradientImage"
+                                           Style="{StaticResource MenuImageStyle}"
+                                           Source="ms-appx:///Assets/HexagonTileGradient.png" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                        <Button x:Name="CategoryNameButton" 
+                                Style="{StaticResource MenuNameButtonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <TextBlock x:Name="CategoryNameTextBlock"
+                                               Text="{Binding Path=Category.Name}"
+                                               Style="{StaticResource MenuNameTextBlockStyle}" />
+                                </ControlTemplate>
+                            </Button.Template>
+                        </Button>
+                    </Grid>
                 </ControlTemplate>
             </Setter.Value>
         </Setter>
