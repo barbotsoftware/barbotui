@@ -11,6 +11,14 @@
     Width="1280"
     Height="720">
 
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ProgressRingStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Page.Resources>
+
     <Grid>
         <ab:AppBar x:Name="AppBar" 
                    Title="Containers"
@@ -19,6 +27,8 @@
                    FilterButtonVisible="False"
                    SearchButtonVisible="False"
                    SettingsButtonVisible="False"></ab:AppBar>
+        <ProgressRing x:Name="ProgressRing"
+                      Style="{StaticResource ProgressRingStyle}" />
         <uc:Uc_ContainerList x:Name="ContainerList"></uc:Uc_ContainerList>
     </Grid>
 </Page>

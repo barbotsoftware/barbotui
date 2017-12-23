@@ -73,7 +73,9 @@ namespace BarBot.UWP.Pages
 
                 var dictionary = e.Parameter as Dictionary<string, List<Category>>;
                 var categoryName = dictionary.Keys.First();
-                
+
+                HideProgressRing();
+
                 Categories = dictionary[categoryName] as List<Category>;
                 CategoryList.Visibility = Visibility.Visible;
 
@@ -100,6 +102,8 @@ namespace BarBot.UWP.Pages
                     AppBar.FilterButtonVisible = true;
                 }
 
+                HideProgressRing();
+
                 Recipes = dictionary[categoryName] as List<Recipe>;
                 RecipeList.Visibility = Visibility.Visible;
 
@@ -113,11 +117,21 @@ namespace BarBot.UWP.Pages
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
+                HideProgressRing();
                 args.Categories.Insert(0, Category.AllRecipes());
                 Categories = args.Categories;
             });
 
             webSocketService.Socket.GetCategoriesEvent -= Socket_GetCategoriesEvent;
         }
-    }
+
+        private void HideProgressRing()
+        {
+            if (ProgressRing.IsActive)
+            {
+                ProgressRing.IsActive = false;
+                ProgressRing.Visibility = Visibility.Collapsed;
+            }
+        }
+     }
 }

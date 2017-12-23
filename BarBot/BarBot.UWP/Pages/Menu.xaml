@@ -15,7 +15,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Textbox.xaml"/>
+                <ResourceDictionary Source="ProgressRingStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>
@@ -28,6 +28,8 @@
                    FilterButtonVisible="False"
                    SearchButtonVisible="True"
                    SettingsButtonVisible="True"></ab:AppBar>
+        <ProgressRing x:Name="ProgressRing"
+                      Style="{StaticResource ProgressRingStyle}" />
         <rl:Uc_RecipeList x:Name="RecipeList" Visibility="Visible"></rl:Uc_RecipeList>
         <cl:Uc_CategoryList x:Name="CategoryList"></cl:Uc_CategoryList>
     </Grid>

@@ -52,6 +52,12 @@ namespace BarBot.UWP.Pages
             await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
             () =>
             {
+                if (ProgressRing.IsActive)
+                {
+                    ProgressRing.IsActive = false;
+                    ProgressRing.Visibility = Visibility.Collapsed;
+                }
+
                 Containers = args.Containers;
                 ContainerList.Visibility = Visibility.Visible;
             });
