@@ -14,7 +14,7 @@
     <Page.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
-                <ResourceDictionary Source="ProgressRingStyles.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/ProgressRingStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Page.Resources>

@@ -18,7 +18,7 @@
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Combobox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
-                <ResourceDictionary Source="RecipeDetailStyles.xaml" />
+                <ResourceDictionary Source="ms-appx:///Styles/RecipeDetailStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
@@ -46,7 +46,6 @@
             </Image.Source>-->
             </Image>
         </Grid>
-        
         
         <!-- Volume Display -->
 
