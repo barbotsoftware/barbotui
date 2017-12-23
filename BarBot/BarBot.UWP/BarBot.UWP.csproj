@@ -192,6 +192,7 @@
     <Compile Include="UserControls\ContainerPanel\ContainerLoadContentDialog.xaml.cs">
       <DependentUpon>ContainerLoadContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\ContainerPanel\Tc_ContainerTile.cs" />
     <Compile Include="UserControls\RecipeDetail\Dialogs\CupContentDialog.xaml.cs">
       <DependentUpon>CupContentDialog.xaml</DependentUpon>
     </Compile>
@@ -204,9 +205,6 @@
     </Compile>
     <Compile Include="UserControls\ContainerPanel\Uc_ContainerList.xaml.cs">
       <DependentUpon>Uc_ContainerList.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\ContainerPanel\Uc_ContainerTile.xaml.cs">
-      <DependentUpon>Uc_ContainerTile.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\RecipeDetail\Uc_RecipeDetail.xaml.cs">
       <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
@@ -309,6 +307,10 @@
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
+    <Page Include="Themes\Generic.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserControls\AppBar\AppBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -384,10 +386,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\ContainerPanel\Uc_ContainerList.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="UserControls\ContainerPanel\Uc_ContainerTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

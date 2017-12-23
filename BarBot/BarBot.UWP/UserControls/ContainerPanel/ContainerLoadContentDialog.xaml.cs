@@ -12,7 +12,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
         private UWPWebSocketService webSocketService;
         private Container container;
         private Ingredient ingredient;
-        private Uc_ContainerTile containerTile;
+        private Tc_ContainerTile containerTile;
         private string text;
 
         public string Text
@@ -29,7 +29,7 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        public ContainerLoadContentDialog(Container container, Ingredient ingredient, Uc_ContainerTile containerTile)
+        public ContainerLoadContentDialog(Container container, Ingredient ingredient, Tc_ContainerTile containerTile)
         {
             this.InitializeComponent();
             this.DataContext = this;

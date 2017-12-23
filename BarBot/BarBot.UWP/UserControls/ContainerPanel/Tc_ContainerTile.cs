@@ -10,7 +10,7 @@ using Windows.UI.Xaml.Media;
 
 namespace BarBot.UWP.UserControls.ContainerPanel
 {
-    public sealed partial class Uc_ContainerTile : UserControl, INotifyPropertyChanged
+    public sealed class Tc_ContainerTile : Button, INotifyPropertyChanged
     {
         private UWPWebSocketService webSocketService;
         private Container container;
@@ -61,18 +61,19 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        public Uc_ContainerTile()
+        public Tc_ContainerTile()
         {
-            this.InitializeComponent();
+            this.DefaultStyleKey = typeof(Tc_ContainerTile);
             this.DataContext = this;
             webSocketService = (Application.Current as App).webSocketService;
+
+            this.Click += Container_Click;
         }
 
         private void SetMaxVolumeLabel()
         {
             MaxVolumeLabel = "/" + Container.MaxVolume + " oz";
         }
-
 
         public void SetTextBlockColor(Container container)
         {

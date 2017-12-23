@@ -21,10 +21,10 @@ namespace BarBot.UWP.UserControls.ContainerPanel
                 // Sort Containers by Number
                 containers.Sort((x, y) => x.Number.CompareTo(y.Number));
 
-                List<Uc_ContainerTile> tiles = new List<Uc_ContainerTile>();
+                List<Tc_ContainerTile> tiles = new List<Tc_ContainerTile>();
                 for (int i = 0; i < containers.Count; i++)
                 {
-                    Uc_ContainerTile tile = new Uc_ContainerTile();
+                    Tc_ContainerTile tile = new Tc_ContainerTile();
                     tile.SetValue(Grid.ColumnProperty, i % 4);
                     tile.SetValue(Grid.RowProperty, i / 4);
                     tile.Container = containers[i];
