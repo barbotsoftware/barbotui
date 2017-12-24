@@ -52,12 +52,16 @@
 
     <Style x:Key="RecipeImageStyle"
            TargetType="Image">
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
+        <Setter Property="Margin"
+                Value="0,0,0,40" />
         <Setter Property="HorizontalAlignment"
                 Value="Center" />
         <Setter Property="Stretch"
                 Value="Uniform" />
+        <Setter Property="Height"
+                Value="350" />
+        <Setter Property="Width"
+                Value="350" />
     </Style>
 
     <Style x:Key="TotalVolumeTextBlockStyle"

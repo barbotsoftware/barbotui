@@ -39,11 +39,10 @@
                Source="ms-appx:///Assets/HexagonTile.png"
                Style="{StaticResource HexBackgroundImageStyle}" />
             <Image x:Name="RecipeImage"
-               Source="ms-appx:///Assets/custom_recipe.png"
-               Style="{StaticResource HexBackgroundImageStyle}">
-                <!--<Image.Source>
-                <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
-            </Image.Source>-->
+                   Style="{StaticResource RecipeImageStyle}">
+                <Image.Source>
+                    <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+                </Image.Source>
             </Image>
         </Grid>
         
