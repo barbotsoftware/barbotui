@@ -40,7 +40,7 @@
         <Setter Property="Height"
                 Value="240" />
         <Setter Property="Width"
-                Value="250" />
+                Value="260" />
     </Style>
 
     <Style x:Key="MenuNameTextBlockStyle"
@@ -49,8 +49,6 @@
                 Value="auto" />
         <Setter Property="Width"
                 Value="auto" />
-        <Setter Property="MaxHeight"
-                Value="200" />
         <Setter Property="MaxWidth"
                 Value="240" />
         <Setter Property="Foreground"
@@ -58,6 +56,8 @@
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="HorizontalAlignment"
+                Value="Center" />
+        <Setter Property="TextAlignment"
                 Value="Center" />
         <Setter Property="FontSize"
                 Value="35" />
