@@ -42,9 +42,12 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
         private async void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)
         {
-            Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, barbotIOController.Containers);
+            if (barbotIOController != null)
+            {
+                Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, barbotIOController.Containers);
 
-            barbotIOController.PourDrinkSync(ingredients, ice, garnish);
+                barbotIOController.PourDrinkSync(ingredients, ice, garnish);
+            }
 
             // TODO: Update with how many seconds it takes to pour a drink
             await Task.Delay(3000);

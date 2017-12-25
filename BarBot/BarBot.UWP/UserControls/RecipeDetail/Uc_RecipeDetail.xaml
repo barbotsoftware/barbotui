@@ -67,7 +67,7 @@
         
         <ScrollViewer x:Name="IngredientListScrollViewer"
                       Style="{StaticResource IngredientListScrollViewerStyle}">
-            <StackPanel x:Name="ingredientList"/>
+            <StackPanel x:Name="IngredientRowStackPanel"/>
         </ScrollViewer>
         
         <!-- Recipe Options -->
