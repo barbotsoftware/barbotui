@@ -197,6 +197,7 @@
     <Compile Include="UserControls\RecipeDetail\Dialogs\PouringContentDialog.xaml.cs">
       <DependentUpon>PouringContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RecipeDetail\Tc_IngredientRow.cs" />
     <Compile Include="UserControls\RecipeList\Tc_RecipeTile.cs" />
     <Compile Include="UserControls\ToUpperConverter.cs" />
     <Compile Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml.cs">
@@ -207,9 +208,6 @@
     </Compile>
     <Compile Include="UserControls\RecipeDetail\Uc_RecipeDetail.xaml.cs">
       <DependentUpon>Uc_RecipeDetail.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="UserControls\RecipeDetail\Uc_IngredientElement.xaml.cs">
-      <DependentUpon>Uc_IngredientElement.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\RecipeDetail\Uc_IngredientPicker.xaml.cs">
       <DependentUpon>Uc_IngredientPicker.xaml</DependentUpon>
@@ -224,6 +222,7 @@
       <DependentUpon>PartyMode.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utils\Helpers.cs" />
+    <Compile Include="Utils\V2_FkMeUp.cs" />
     <Compile Include="Websocket\UWPWebsocketHandler.cs" />
     <Compile Include="Websocket\UWPWebSocketService.cs" />
   </ItemGroup>
@@ -407,10 +406,6 @@
     <Page Include="UserControls\RecipeDetail\Uc_RecipeDetail.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="UserControls\RecipeDetail\Uc_IngredientElement.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\RecipeDetail\Uc_IngredientPicker.xaml">
       <SubType>Designer</SubType>

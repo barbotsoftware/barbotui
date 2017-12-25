@@ -21,66 +21,19 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         private UWPWebSocketService webSocketService;
         private BarbotIOController barbotIOController;
 
-        private BitmapImage _cachedImage;
-        public BitmapImage CachedImage
-        {
-            get { return _cachedImage; }
-            set
-            {
-                _cachedImage = value;
-                OnPropertyChanged("CachedImage");
-            }
-        }
-
-        private string maxVolumeLabel;
-        public string MaxVolumeLabel
-        {
-            get { return maxVolumeLabel; }
-            set
-            {
-                maxVolumeLabel = value;
-                OnPropertyChanged("MaxVolumeLabel");
-            }
-        }
-
         private Recipe recipe;
+        private double totalVolume;
+        private double volumeAvailable;
 
         private Recipe OrderRecipe;
-        private List<Uc_IngredientElement> _ingredientElementList;
+        private List<Tc_IngredientRow> ingredientRows;
         private Dictionary<string, Ingredient> AvailableIngredientList;
-        
+
         private Uc_AddIngredientButton addIngredientBtn;
         private Uc_IngredientPicker ingredientPicker;
-        
-        private double _totalVolume;
+        private string maxVolumeLabel;
 
-        public Uc_RecipeDetail(Recipe recipe)
-        {
-            this.InitializeComponent();
-            this.DataContext = this;
-
-            this.webSocketService = (Application.Current as App).webSocketService;
-            this.barbotIOController = (Application.Current as App).barbotIOController;
-            this.Recipe = recipe;
-
-            this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
-
-            this.MaxVolumeLabel = string.Format("/{0} oz", Constants.MaxVolume);
-        }
-
-        public double TotalVolume
-        {
-            get
-            {
-                return _totalVolume;
-            }
-
-            set
-            {
-                _totalVolume = value;
-                OnPropertyChanged("TotalVolume");
-            }
-        }
+        private BitmapImage _cachedImage;
 
         public Recipe Recipe
         {
@@ -92,7 +45,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             set
             {
                 recipe = value;
-                TotalVolume = 0;
+                TotalVolume = recipe.GetVolume();
+                VolumeAvailable = Constants.MaxVolume - TotalVolume;
 
                 AppBar.Title = Helpers.UppercaseWords(Recipe.Name);
 
@@ -111,6 +65,68 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
                 OnPropertyChanged("Recipe");
             }
+        }
+
+        public BitmapImage CachedImage
+        {
+            get { return _cachedImage; }
+            set
+            {
+                _cachedImage = value;
+                OnPropertyChanged("CachedImage");
+            }
+        }
+
+        public double TotalVolume
+        {
+            get
+            {
+                return totalVolume;
+            }
+
+            set
+            {
+                totalVolume = value;
+                OnPropertyChanged("TotalVolume");
+            }
+        }
+
+        public double VolumeAvailable
+        {
+            get
+            {
+                return volumeAvailable;
+            }
+
+            set
+            {
+                volumeAvailable = value;
+                OnPropertyChanged("VolumeAvailable");
+            }
+        }
+
+        public string MaxVolumeLabel
+        {
+            get { return maxVolumeLabel; }
+            set
+            {
+                maxVolumeLabel = value;
+                OnPropertyChanged("MaxVolumeLabel");
+            }
+        }
+
+        public Uc_RecipeDetail(Recipe recipe)
+        {
+            this.InitializeComponent();
+            this.DataContext = this;
+
+            this.webSocketService = (Application.Current as App).webSocketService;
+            this.barbotIOController = (Application.Current as App).barbotIOController;
+            this.Recipe = recipe;
+
+            this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
+
+            this.MaxVolumeLabel = string.Format("/{0} oz", Constants.MaxVolume);
         }
 
         private void Back_To_Menu(object sender, RoutedEventArgs e)
@@ -135,32 +151,29 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             webSocketService.Socket.GetRecipeDetailsEvent -= Socket_GetRecipeDetailEvent;
         }
 
+        private void UpdateVolumes()
+        {
+            TotalVolume = Recipe.GetVolume();
+            VolumeAvailable = Constants.MaxVolume - TotalVolume;
+        }
+
         private void DisplayIngredients()
         {
             ingredientList.Children.Clear();
-            _ingredientElementList = new List<Uc_IngredientElement>();
+            ingredientRows = new List<Tc_IngredientRow>();
 
-            TotalVolume = 0;
-            for (int i = 0; i < Recipe.Ingredients.Count; i++)
-            {
-                TotalVolume += Recipe.Ingredients[i].Amount;
-            }
-
-            double volumeAvailable = Constants.MaxVolume - TotalVolume;
-
+            UpdateVolumes();
 
             for (int i = 0; i < Recipe.Ingredients.Count; i++)
             {
                 if (Recipe.Ingredients[i] != null)
                 {
-                    var ingredientElement = new Uc_IngredientElement(Recipe.Ingredients[i], volumeAvailable);
-                    ingredientElement.VolumeAvailable = volumeAvailable;
-                    ingredientElement.RemoveIngredientButton.Click += IngredientElement_RemoveIngredient;
-                    _ingredientElementList.Add(ingredientElement);
-                    ingredientList.Children.Add(ingredientElement);
-                    //TotalVolume += (double)ingredientElement.ingredientVolume.Items[ingredientElement.ingredientVolume.SelectedIndex];
-                    // Event for when volume is changed. Used for tracking total volume
-                    //ingredientElement.ingredientVolume.SelectionChanged += IngredientElement_SelectionChangeEvent;
+                    var ingredientRow = new Tc_IngredientRow(Recipe.Ingredients[i],
+                                                             IngredientRow_DecrementVolume,
+                                                             IngredientRow_IncrementVolume,
+                                                             IngredientRow_RemoveIngredient);
+                    ingredientRows.Add(ingredientRow);
+                    ingredientList.Children.Add(ingredientRow);
                 }
             }
 
@@ -182,37 +195,49 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         }
 
-        private void IngredientElement_SelectionChangeEvent(object sender, SelectionChangedEventArgs e)
+        private void IngredientRow_DecrementVolume(object sender, RoutedEventArgs e)
         {
-            var senderComboBox = (ComboBox)sender;
-            var ingredientElement = (Uc_IngredientElement)senderComboBox.DataContext;
+            var senderButton = sender as Button;
+            var ingredientRow = (Tc_IngredientRow)senderButton.DataContext;
+            var ingredient = ingredientRow.Ingredient;
 
-            // Boolean VolumeChangeInProgress is true when the ingredientElements is re-populating combobox
-            if (ingredientElement.VolumeChangeInProgress != true)
+            if (ingredient.Amount > 0.5)
             {
-                // Re-count totals
-                TotalVolume = 0;
-                for (int i = 0; i < _ingredientElementList.Count; i++)
-                {
-                    TotalVolume += _ingredientElementList[i].Ingredient.Amount;
-                }
+                var newIngredient = new Ingredient(ingredient.IngredientId, ingredient.Name, ingredient.Amount - 0.5);
+                ingredientRow.Ingredient = newIngredient;
 
-                // Now that we have the new total, we need to limit ingredientElements to a value
-                double volumeAvailable = Constants.MaxVolume - TotalVolume;
+                Recipe.Ingredients.RemoveAll(i => i.IngredientId == newIngredient.IngredientId);
+                Recipe.Ingredients.Add(newIngredient);
 
-                for (int i = 0; i < _ingredientElementList.Count; i++)
-                {
-                    _ingredientElementList[i].VolumeAvailable = volumeAvailable;
-                }
-            };
+                UpdateVolumes();
+            }
         }
 
-        private void IngredientElement_RemoveIngredient(object sender, RoutedEventArgs e)
+        private void IngredientRow_IncrementVolume(object sender, RoutedEventArgs e)
         {
-            var senderButton = (Button)sender;
-            var ingredientElement = (Uc_IngredientElement)senderButton.DataContext;
+            var senderButton = sender as Button;
+            var ingredientRow = (Tc_IngredientRow)senderButton.DataContext;
+            var ingredient = ingredientRow.Ingredient;
+
+            if (VolumeAvailable >= 0.5)
+            {
+                var newIngredient = new Ingredient(ingredient.IngredientId, ingredient.Name, ingredient.Amount + 0.5);
+                ingredientRow.Ingredient = newIngredient;
+
+                Recipe.Ingredients.RemoveAll(i => i.IngredientId == newIngredient.IngredientId);
+                Recipe.Ingredients.Add(newIngredient);
+
+                UpdateVolumes();
+            }
+        }
+
+        private void IngredientRow_RemoveIngredient(object sender, RoutedEventArgs e)
+        {
+            var senderButton = sender as Button;
+            var ingredientRow = (Tc_IngredientRow)senderButton.DataContext;
+
             // keep ingredient element list up to date
-            Recipe.Ingredients.RemoveAll(i => i.Name == ingredientElement.ingredient.Name);
+            Recipe.Ingredients.RemoveAll(i => i.IngredientId == ingredientRow.Ingredient.IngredientId);
 
             DisplayIngredients();
         }
@@ -288,15 +313,15 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
 
                 // Can snag ingredients from _ingredientElementList[x]._ingredient
-                System.Diagnostics.Debug.WriteLine(_ingredientElementList);
+                System.Diagnostics.Debug.WriteLine(ingredientRows);
 
                 OrderRecipe = new Recipe();
                 OrderRecipe.Name = Recipe.Name;
                 OrderRecipe.Ingredients = new List<Ingredient>();
 
-                for (int i = 0; i < _ingredientElementList.Count; i++)
+                for (int i = 0; i < ingredientRows.Count; i++)
                 {
-                    OrderRecipe.Ingredients.Add(_ingredientElementList[i].ingredient);
+                    OrderRecipe.Ingredients.Add(ingredientRows[i].Ingredient);
                 }
 
                 // show pouring dialog
@@ -308,55 +333,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 System.Diagnostics.Debug.WriteLine("BarbotIOController is null");
             }
         }
-
-        //private Recipe FuckMeUp()
-        //{
-        //    Recipe FuckMeUp = new Recipe();
-        //    FuckMeUp.Name = "Fuck Me Up";
-        //    FuckMeUp.Img = "barbotweb/public/img/recipe_images/dickbutt.png";
-        //    FuckMeUp.Ingredients = new List<Ingredient>();
-
-        //    return FuckMeUp;
-        //}
-
-        //private List<Ingredient> LoadEmUpBoiz()
-        //{
-        //    List<Ingredient> demIngredients = new List<Ingredient>();
-        //    double totalQuantity = 0;
-        //    if (AvailableIngredientList != null)
-        //    {
-        //        List<int> usedIngredients = new List<int>();
-        //        Random r = new Random();
-        //        int ingredientCount = r.Next(3, AvailableIngredientList.Count);
-        //        for (int i = 0; i < ingredientCount; i++)
-        //        {
-        //            bool ingredientChosen = false;
-        //            while (!ingredientChosen)
-        //            {
-        //                int ingredientID = r.Next(0, AvailableIngredientList.Count);
-        //                if (usedIngredients.IndexOf(ingredientID) < 0)
-        //                {
-        //                    usedIngredients.Add(ingredientID);
-        //                    Ingredient ingy = AvailableIngredientList[ingredientID];
-        //                    double quant = r.Next(1, (int)Constants.MaxVolume / 2);
-        //                    if (totalQuantity + quant > Constants.MaxVolume)
-        //                    {
-        //                        quant = Constants.MaxVolume - totalQuantity;
-        //                    }
-        //                    totalQuantity += quant;
-        //                    ingy.Amount = quant;
-        //                    demIngredients.Add(AvailableIngredientList[ingredientID]);
-        //                    ingredientChosen = true;
-        //                }
-        //            }
-        //            if(totalQuantity >= Constants.MaxVolume)
-        //            {
-        //                break;
-        //            }
-        //        }
-        //    }
-        //    return demIngredients;
-        //}
 
         public event PropertyChangedEventHandler PropertyChanged;
 
