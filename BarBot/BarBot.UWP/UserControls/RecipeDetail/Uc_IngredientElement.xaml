@@ -5,33 +5,68 @@
     xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Height="100"
-    Width="auto">
+    mc:Ignorable="d">
 
     <UserControl.Resources>
-
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_Combobox.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ComboBoxItem.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollViewer.xaml"/>
                 <ResourceDictionary Source="ms-appx:///ResourceDefinitions/Rd_ScrollBar.xaml"/>
+                <ResourceDictionary Source="ms-appx:///Styles/IngredientRowStyles.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </UserControl.Resources>
 
-    <Grid Background="#FF222222" Margin="5" VerticalAlignment="Bottom">
-        <ComboBox x:Name="ingredientVolume" x:FieldModifier="public" SelectionChanged="Volume_Changed"  FontSize="60" Width="155" BorderBrush="{x:Null}" Background="{x:Null}" Foreground="White" FocusVisualPrimaryBrush="Black" Height="90" HorizontalAlignment="Left" HorizontalContentAlignment="Right" VerticalContentAlignment="Top"/>
-        <TextBox Width="126"  BorderBrush="{x:Null}" Text="Oz" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="72" Margin="146,0,0,1" VerticalAlignment="Bottom" IsReadOnly="True" IsHitTestVisible="False"/>
-        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="286,-7,-20,5" Text="Name" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False" VerticalContentAlignment="Top"/>
-        <!--<Button x:Name="removeIngredientButton" Content="X" x:FieldModifier="public" Margin="0,10, 10,8" HorizontalAlignment="Right" Width="100" Height="72" FontFamily="Microsoft Yi Baiti" FontSize="64" Foreground="White" Background="#FF222222"/>-->
-        <Button x:Name="removeIngredientButton" x:FieldModifier="public" Margin="0,10, 10,8" HorizontalAlignment="Right" Width="100" Height="72" Foreground="White" Background="#FF222222">
-            <Button.Template>
-                <ControlTemplate TargetType="Button">
-                    <TextBlock Text="X" Width="55" Height="72" FontFamily="Microsoft Yi Baiti" FontSize="64"  FontWeight="Bold" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="45,0,0,0" FocusVisualPrimaryBrush="{x:Null}" Foreground="White"/>
-                </ControlTemplate>
-            </Button.Template>
-        </Button>
+    <Grid x:Name="IngredientRowGrid"
+          Style="{StaticResource IngredientRowGridStyle}"
+          Background="#222222">
+        <StackPanel x:Name="IngredientTextStackPanel"
+                    Style="{StaticResource IngredientTextStackPanelStyle}">
+            <TextBlock x:Name="IngredientNameTextBlock"
+                       Text="{Binding Path=Ingredient.Name}"
+                       Style="{StaticResource IngredientNameTextBlockStyle}" />
+            <TextBlock x:Name="IngredientVolumeTextBlock"
+                       Text="{Binding Path=VolumeText}"
+                       Style="{StaticResource IngredientVolumeTextBlockStyle}" />
+        </StackPanel>
+        
+        <StackPanel x:Name="IngredientActionStackPanel"
+                    Style="{StaticResource IngredientActionStackPanelStyle}">
+            <Button x:Name="DecrementVolumeButton"
+                x:FieldModifier="public"
+                Style="{StaticResource ActionButtonStyle}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image x:Name="MinusImage" 
+                           Source="ms-appx:///Assets/minus.png"
+                           Style="{StaticResource ActionImageStyle}" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="IncrementVolumeButton"
+                x:FieldModifier="public"
+                Style="{StaticResource ActionButtonStyle}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image x:Name="PlusImage" 
+                           Source="ms-appx:///Assets/plus.png"
+                           Style="{StaticResource ActionImageStyle}" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+            <Button x:Name="RemoveIngredientButton"
+                x:FieldModifier="public"
+                Style="{StaticResource ActionButtonStyle}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image x:Name="RemoveImage" 
+                           Source="ms-appx:///Assets/remove.png"
+                           Style="{StaticResource RemoveImageStyle}" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+        </StackPanel>
     </Grid>
 </UserControl>

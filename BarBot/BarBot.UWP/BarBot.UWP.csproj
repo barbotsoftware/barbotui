@@ -234,6 +234,7 @@
     <None Include="BarBot_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Assets\add.png" />
     <Content Include="Assets\BackButton.png" />
     <Content Include="Assets\back_arrow.png" />
     <Content Include="Assets\custom_recipe.png" />
@@ -241,10 +242,12 @@
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\HexagonTileGradient.png" />
     <Content Include="Assets\home.png" />
+    <Content Include="Assets\minus.png" />
     <Content Include="Assets\NextButton.png" />
     <Content Include="Assets\Drink_Menu_Image.png" />
     <Content Include="Assets\Order_Queue_Image.png" />
-    <Content Include="Assets\Plus_Icon.png" />
+    <Content Include="Assets\plus.png" />
+    <Content Include="Assets\remove.png" />
     <Content Include="Assets\search.png" />
     <Content Include="Assets\settings.png" />
     <Content Include="Assets\SplashScreen.scale-200.png" />
@@ -272,6 +275,11 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Styles\ContainerTileStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="Styles\IngredientRowStyles.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

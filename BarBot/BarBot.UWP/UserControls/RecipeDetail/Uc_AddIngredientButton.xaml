@@ -5,12 +5,24 @@
     xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    Width="auto"
-    Height="100">
+    mc:Ignorable="d">
 
-    <Grid Background="#535353" Margin="5">
-        <Image Width="81" Source="ms-appx:///Assets/plus_icon.png" Margin="36,20,0,12" HorizontalAlignment="Left"/>
-        <TextBox x:Name="ingredientName" BorderBrush="{x:Null}" Margin="266,-7,-20,5" Text="Add Ingredient" HorizontalAlignment="Left" Background="{x:Null}" Foreground="White" FontFamily="Microsoft Yi Baiti" FontSize="86" IsReadOnly="True" IsHitTestVisible="False"/>
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/IngredientRowStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </UserControl.Resources>
+
+    <Grid x:Name="AddIngredientButtonGrid"
+          Style="{StaticResource IngredientRowGridStyle}"
+          Background="#535353">
+        <TextBlock x:Name="AddIngredientTextBlock"
+                   Text="Add Ingredient"
+                   Style="{StaticResource AddIngredientTextBlockStyle}" />
+        <Image x:Name="PlusIconImage" 
+               Source="ms-appx:///Assets/add.png"
+               Style="{StaticResource AddImageStyle}" />
     </Grid>
 </UserControl>

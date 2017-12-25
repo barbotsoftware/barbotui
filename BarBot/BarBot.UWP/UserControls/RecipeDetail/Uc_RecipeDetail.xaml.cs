@@ -65,7 +65,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
             this.AvailableIngredientList = (Application.Current as App).IngredientsInBarbot;
 
-            this.MaxVolumeLabel = string.Format("/{0}oz", Constants.MaxVolume);
+            this.MaxVolumeLabel = string.Format("/{0} oz", Constants.MaxVolume);
         }
 
         public double TotalVolume
@@ -155,12 +155,12 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 {
                     var ingredientElement = new Uc_IngredientElement(Recipe.Ingredients[i], volumeAvailable);
                     ingredientElement.VolumeAvailable = volumeAvailable;
-                    ingredientElement.removeIngredientButton.Click += IngredientElement_RemoveIngredient;
+                    ingredientElement.RemoveIngredientButton.Click += IngredientElement_RemoveIngredient;
                     _ingredientElementList.Add(ingredientElement);
                     ingredientList.Children.Add(ingredientElement);
                     //TotalVolume += (double)ingredientElement.ingredientVolume.Items[ingredientElement.ingredientVolume.SelectedIndex];
                     // Event for when volume is changed. Used for tracking total volume
-                    ingredientElement.ingredientVolume.SelectionChanged += IngredientElement_SelectionChangeEvent;
+                    //ingredientElement.ingredientVolume.SelectionChanged += IngredientElement_SelectionChangeEvent;
                 }
             }
 
@@ -212,7 +212,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             var senderButton = (Button)sender;
             var ingredientElement = (Uc_IngredientElement)senderButton.DataContext;
             // keep ingredient element list up to date
-            Recipe.Ingredients.RemoveAll(i => i.Name == ingredientElement._ingredient.Name);
+            Recipe.Ingredients.RemoveAll(i => i.Name == ingredientElement.ingredient.Name);
 
             DisplayIngredients();
         }
@@ -296,7 +296,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
                 for (int i = 0; i < _ingredientElementList.Count; i++)
                 {
-                    OrderRecipe.Ingredients.Add(_ingredientElementList[i]._ingredient);
+                    OrderRecipe.Ingredients.Add(_ingredientElementList[i].ingredient);
                 }
 
                 // show pouring dialog

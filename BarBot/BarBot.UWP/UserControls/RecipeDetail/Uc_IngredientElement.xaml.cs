@@ -1,98 +1,107 @@
 ﻿using BarBot.Core.Model;
+using BarBot.UWP.Utils;
 using System.ComponentModel;
 using Windows.UI.Xaml.Controls;
-
-// The User Control item template is documented at http://go.microsoft.com/fwlink/?LinkId=234236
 
 namespace BarBot.UWP.UserControls.RecipeDetail
 {
     public sealed partial class Uc_IngredientElement : UserControl, INotifyPropertyChanged
     {
-        private double _volumeAvailable;
+        public Ingredient ingredient;
+        private string volumeText;
+        private double volumeAvailable;
         public bool VolumeChangeInProgress = false;
-        public Ingredient _ingredient;
-        public Uc_IngredientElement(Ingredient ingredient, double volumeAvailable)
-        {
-            this.InitializeComponent();
 
-            this.DataContext = this;
-            Ingredient = ingredient;
-            VolumeAvailable = volumeAvailable;
-            init();
+        public Ingredient Ingredient
+        {
+            get
+            {
+                return ingredient;
+            }
+
+            set
+            {
+                ingredient = value;
+                ingredient.Name = Helpers.UppercaseWords(ingredient.Name);
+                VolumeText = ingredient.Amount.ToString() + " oz";
+                OnPropertyChanged("Ingredient");
+            }
         }
 
-        public void init()
+        public string VolumeText
         {
-            // Populate combobox w/ shit
-            PopulateVolumeSelector();
-            ingredientName.Text = Ingredient.Name.ToUpper();
-        }
-
-        private void PopulateVolumeSelector()
-        {
-            VolumeChangeInProgress = true;
-            ingredientVolume.Items.Clear();
-
-
-            if (Ingredient.Amount >= 0.5)
+            get
             {
-                for (var i = 0.5; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
-                {
-                    ingredientVolume.Items.Add(i);
-                }
-            }
-            else
-            {
-                ingredientVolume.Items.Add((double)0);
-                ingredientVolume.SelectedIndex = 0;
-
-                for (double i = 0; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
-                {
-                    ingredientVolume.Items.Add(i);
-                }
+                return volumeText;
             }
 
-            if (ingredientVolume.Items.IndexOf(Ingredient.Amount) > -1)
+            set
             {
-                ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Ingredient.Amount);
+                volumeText = value;
+                OnPropertyChanged("VolumeText");
             }
-            else
-            {
-                if(ingredientVolume.Items.Count > 0)
-                {
-                    ingredientVolume.SelectedIndex = 0;
-                }
-            }
-
-            VolumeChangeInProgress = false;
         }
 
         public double VolumeAvailable
         {
             get
             {
-                return _volumeAvailable;
+                return volumeAvailable;
             }
             set
             {
-                _volumeAvailable = value;
+                volumeAvailable = value;
                 OnPropertyChanged("VolumeAvailable");
                 PopulateVolumeSelector();
             }
         }
 
-        public Ingredient Ingredient
+        public Uc_IngredientElement(Ingredient ingredient, double volumeAvailable)
         {
-            get
-            {
-                return _ingredient;
-            }
+            this.InitializeComponent();
+            this.DataContext = this;
 
-            set
-            {
-                _ingredient = value;
-                OnPropertyChanged("Ingredient");
-            }
+            Ingredient = ingredient;
+            VolumeAvailable = volumeAvailable;
+        }
+
+        private void PopulateVolumeSelector()
+        {
+            VolumeChangeInProgress = true;
+            //ingredientVolume.Items.Clear();
+
+
+            //if (Ingredient.Amount >= 0.5)
+            //{
+            //    for (var i = 0.5; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
+            //    {
+            //        ingredientVolume.Items.Add(i);
+            //    }
+            //}
+            //else
+            //{
+            //    ingredientVolume.Items.Add((double)0);
+            //    ingredientVolume.SelectedIndex = 0;
+
+            //    for (double i = 0; i <= VolumeAvailable + Ingredient.Amount; i += 0.5)
+            //    {
+            //        ingredientVolume.Items.Add(i);
+            //    }
+            //}
+
+            //if (ingredientVolume.Items.IndexOf(Ingredient.Amount) > -1)
+            //{
+            //    ingredientVolume.SelectedIndex = ingredientVolume.Items.IndexOf(Ingredient.Amount);
+            //}
+            //else
+            //{
+            //    if(ingredientVolume.Items.Count > 0)
+            //    {
+            //        ingredientVolume.SelectedIndex = 0;
+            //    }
+            //}
+
+            VolumeChangeInProgress = false;
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -100,14 +109,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         public void OnPropertyChanged(string name)
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-
-        private void Volume_Changed(object sender, SelectionChangedEventArgs e)
-        {
-            if (ingredientVolume.SelectedIndex >= 0)
-            {
-                //Ingredient.Quantity = (double)ingredientVolume.Items[ingredientVolume.SelectedIndex];
-            }
         }
     }
 }
