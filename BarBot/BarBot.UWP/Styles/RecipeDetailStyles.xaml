@@ -12,7 +12,7 @@
 
     <!-- Font -->
     <x:String x:Key="AppFont">Microsoft Yi Baiti</x:String>
-    <x:Double x:Key="VolumeFontSize">90</x:Double>
+    <x:Double x:Key="VolumeFontSize">85</x:Double>
 
     <Style x:Key="RecipeDetailGridStyle"
            TargetType="Grid">

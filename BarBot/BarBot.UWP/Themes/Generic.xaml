@@ -176,9 +176,8 @@
                           Background="#222222">
                         <StackPanel x:Name="IngredientTextStackPanel"
                                     Style="{StaticResource IngredientTextStackPanelStyle}">
-                            <TextBlock x:Name="IngredientNameTextBlock"
-                                       Text="{Binding Path=Ingredient.Name}"
-                                       Style="{StaticResource IngredientNameTextBlockStyle}" />
+                            <ComboBox x:Name="IngredientComboBox"
+                                      Style="{StaticResource IngredientComboBoxStyle}" />
                             <TextBlock x:Name="IngredientVolumeTextBlock"
                                        Text="{Binding Path=VolumeText}"
                                        Style="{StaticResource IngredientVolumeTextBlockStyle}" />       

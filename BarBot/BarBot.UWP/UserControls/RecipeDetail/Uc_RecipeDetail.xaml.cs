@@ -17,7 +17,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
     public sealed partial class Uc_RecipeDetail : UserControl, INotifyPropertyChanged
     {
         private App app;
-        private Dictionary<string, Ingredient> AvailableIngredients;
+        private List<Ingredient> AvailableIngredients;
 
         private Recipe recipe;
         private double totalVolume;
@@ -141,20 +141,52 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             VolumeAvailable = Constants.MaxVolume - TotalVolume;
         }
 
+        // Clears AvailableIngredients, finds all IngredientIds for
+        // the Recipe, then adds all Ingredients that are NOT in the
+        // Recipe to AvailableIngredients from all the Ingredients
+        // in the BarBot. Then sort AvailableIngredients by Name.
         private void UpdateAvailableIngredients()
         {
-            AvailableIngredients = new Dictionary<string, Ingredient>();
+            if (AvailableIngredients != null)
+            {
+                AvailableIngredients.Clear();
+            }
+            else
+            {
+                AvailableIngredients = new List<Ingredient>();
+            }
             var recipeIngredientIds = Recipe.Ingredients.Select(i => i.IngredientId).ToList();
 
             foreach (var ingredient in app.IngredientsInBarbot)
             {
                 if (!recipeIngredientIds.Contains(ingredient.Key))
                 {
-                    AvailableIngredients.Add(ingredient.Key, ingredient.Value);
-                }   
+                    // Take copy to avoid modifying app's IngredientsInBarBot list
+                    Ingredient ingredientCopy = new Ingredient(ingredient.Key,
+                                                               ingredient.Value.Name,
+                                                               ingredient.Value.Amount);
+                    AvailableIngredients.Add(ingredientCopy);
+                }
+            }
+
+            AvailableIngredients.Sort((x, y) => x.Name.CompareTo(y.Name));
+        }
+
+        // Update Ingredient Row Name Combo Boxes
+        // for all Rows
+        private void UpdateIngredientComboBoxes()
+        {
+            foreach (var ingredientRow in IngredientRowStackPanel.Children)
+            {
+                if (ingredientRow != AddIngredientButton)
+                {
+                    (ingredientRow as Tc_IngredientRow).AvailableIngredients = AvailableIngredients.ToList();
+                    (ingredientRow as Tc_IngredientRow).PopulateComboBox();
+                }
             }
         }
 
+        // Display all Ingredient Rows
         private void DisplayIngredients()
         {
             IngredientRowStackPanel.Children.Clear();
@@ -167,6 +199,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 if (Recipe.Ingredients[i] != null)
                 {
                     var ingredientRow = new Tc_IngredientRow(Recipe.Ingredients[i],
+                                                             AvailableIngredients.ToList(),
+                                                             IngredientRow_IngredientChanged,
                                                              IngredientRow_DecrementVolume,
                                                              IngredientRow_IncrementVolume,
                                                              IngredientRow_RemoveIngredient);
@@ -178,6 +212,28 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         }
 
         // Ingredient Row Button Event Handlers
+
+        private void IngredientRow_IngredientChanged(object sender, SelectionChangedEventArgs e)
+        {
+            var senderComboBox = sender as ComboBox;
+            
+            if (senderComboBox.SelectedIndex > 0)
+            {
+                var ingredientRow = (Tc_IngredientRow)senderComboBox.DataContext;
+                var newIngredient = senderComboBox.Items[senderComboBox.SelectedIndex] as Ingredient;
+
+                if (newIngredient != null)
+                {
+                    // update Ingredient Row
+                    ingredientRow.Ingredient.IngredientId = newIngredient.IngredientId;
+                    ingredientRow.Ingredient.Name = newIngredient.Name;
+
+                    // Update Available Ingredients
+                    UpdateAvailableIngredients();
+                    UpdateIngredientComboBoxes();
+                }
+            }            
+        }
 
         private void IngredientRow_DecrementVolume(object sender, RoutedEventArgs e)
         {
@@ -260,16 +316,18 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         private void AddIngredientBtn_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            var newIngredient = AvailableIngredients.Values.First();
+            var newIngredient = AvailableIngredients.First();
             newIngredient.Amount = 0.5;
             Recipe.Ingredients.Add(newIngredient);
 
             UpdateVolumes();
             UpdateAvailableIngredients();
-
+            UpdateIngredientComboBoxes();
             HideAddIngredientButton();
 
             var newIngredientRow = new Tc_IngredientRow(newIngredient,
+                                                        AvailableIngredients,
+                                                        IngredientRow_IngredientChanged,
                                                         IngredientRow_DecrementVolume,
                                                         IngredientRow_IncrementVolume,
                                                         IngredientRow_RemoveIngredient);

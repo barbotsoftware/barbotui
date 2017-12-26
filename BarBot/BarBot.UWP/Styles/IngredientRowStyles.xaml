@@ -5,7 +5,7 @@
 
     <x:Double x:Key="RowHeight">75</x:Double>
     
-    <x:Double x:Key="FontSize">65</x:Double>
+    <x:Double x:Key="FontSize">62</x:Double>
 
     <Style x:Key="IngredientRowGridStyle"
            TargetType="Grid">
@@ -22,7 +22,7 @@
         <Setter Property="Orientation"
                 Value="Horizontal" />
         <Setter Property="Margin"
-                Value="15,0,0,0" />
+                Value="0,0,0,0" />
         <Setter Property="Height"
                 Value="{StaticResource RowHeight}"/>
         <Setter Property="Width"
@@ -31,12 +31,12 @@
                 Value="Left" />
     </Style>
 
-    <Style x:Key="IngredientNameTextBlockStyle"
-           TargetType="TextBlock">
+    <Style x:Key="IngredientComboBoxStyle"
+           TargetType="ComboBox">
         <Setter Property="Height"
                 Value="{StaticResource RowHeight}" />
         <Setter Property="Width"
-                Value="375" />
+                Value="385" />
         <Setter Property="VerticalAlignment"
                 Value="Center" />
         <Setter Property="HorizontalAlignment"
@@ -47,6 +47,10 @@
                 Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize"
                 Value="{StaticResource FontSize}" />
+        <Setter Property="Background"
+                Value="{x:Null}" />
+        <Setter Property="BorderBrush"
+                Value="{x:Null}" />
     </Style>
 
     <Style x:Key="AddIngredientTextBlockStyle"
