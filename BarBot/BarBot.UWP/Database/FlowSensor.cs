@@ -27,6 +27,6 @@ namespace BarBot.UWP.Database
         /// <summary>
         /// Number of ticks per ounce for this sensor (default = 32)
         /// </summary>
-        public int calibrationFactor { get; set; }
+        public double calibrationFactor { get; set; }
     }
 }

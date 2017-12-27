@@ -11,7 +11,7 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class FlowSensor : IFlowSensor
     {
-        public FlowSensor(IOPort ioPort, int calibrationFactor)
+        public FlowSensor(IOPort ioPort, double calibrationFactor)
         {
             IoPort = ioPort;
             CalibrationFactor = calibrationFactor;
@@ -19,6 +19,6 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public IOPort IoPort;
         public Pump Pump;
-        public int CalibrationFactor { get; set; }
+        public double CalibrationFactor { get; set; }
     }
 }

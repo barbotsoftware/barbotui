@@ -8,6 +8,6 @@ namespace BarBot.UWP.IO.Devices
 {
     public interface IFlowSensor
     {
-        int CalibrationFactor { get; set; }
+        double CalibrationFactor { get; set; }
     }
 }

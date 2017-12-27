@@ -6,12 +6,12 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
-    d:DesignWidth="400">
+    d:DesignHeight="720"
+    d:DesignWidth="1280">
 
     <Grid>
-        <StackPanel Name="ContainersPanel" HorizontalAlignment="Left" Height="800" Margin="0,38,0,0" VerticalAlignment="Top" Width="400"/>
-        <StackPanel Name="DevicesPanel" HorizontalAlignment="Right" Height="800" Margin="0, 38, 0, 0" VerticalAlignment="Top" Width="400">
+        <StackPanel Name="ContainersPanel" HorizontalAlignment="Left" Height="720" Margin="0,38,0,0" VerticalAlignment="Top" Width="640"/>
+        <StackPanel Name="DevicesPanel" HorizontalAlignment="Right" Height="720" Margin="0, 38, 0, 0" VerticalAlignment="Top" Width="640">
             <Button x:Name="button" Content="Run Ice Hopper" HorizontalAlignment="Left" Margin="233,38,0,0" VerticalAlignment="Top" Width="157" Click="button_Click" FontSize="35" Foreground="White" Background="#33000000" BorderBrush="White"/>
             <Button x:Name="button1" Content="Run Cup Dispenser" HorizontalAlignment="Left" Margin="233,75,0,0" VerticalAlignment="Top" Width="157" FontSize="35" Click="button1_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
             <Button x:Name="ReadSensorButton" Content="Run Garnish Dispenser" HorizontalAlignment="Left" Margin="233,105,0,0" VerticalAlignment="Top" Width="157" FontSize="35" Click="ReadSensorButton_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
