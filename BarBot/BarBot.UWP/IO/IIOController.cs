@@ -9,8 +9,8 @@ namespace BarBot.UWP.IO
 {
     interface IIOController
     {
-        void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = false);
+        void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, int garnish = 0, bool cup = false);
         void AddIce();
-        void AddGarnish();
+        void AddGarnish(int garnishType = 0);
     }
 }

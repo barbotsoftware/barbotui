@@ -37,7 +37,9 @@ namespace BarBot.UWP.IO
 
         private MCP23017 mcp2;
 
-        private const int MIXER_PUMP_FLUSH_TIME = 8000;
+        private MCP3008 mcp3008 = new MCP3008();
+
+        private const int MIXER_PUMP_FLUSH_TIME = 8;
 
         private IOPort ledPort;
 
@@ -51,24 +53,25 @@ namespace BarBot.UWP.IO
             gpio = GpioController.GetDefault();
 
             // Initialize i2c controllers
-            mcp1 = new MCP23017();
+            mcp1 = new MCP23017(1);
             mcp2 = new MCP23017(2);
 
             // Initialize I2C Controllers
             initI2C();
 
+            // Connect to MCP3008 analog to digital converter (for force sensor and temperature sensor)
+            mcp3008.connect();
+
             // Create ice hopper
-            GpioPin FSR2Pin = gpio.OpenPin(iceHopper.fsr.address);
-            IOPort FSR2 = new IOPort(FSR2Pin, GpioPinDriveMode.InputPullDown);
-            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), FSR2);
+            GpioPin AugerPin = gpio.OpenPin(iceHopper.fsr.address);
+            IOPort AugerIOPort = new IOPort(AugerPin, GpioPinDriveMode.InputPullDown);
+            IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), AugerIOPort, mcp3008);
 
             // Create garnish dispenser
             GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4));
 
             // Create cup dispenser
-            GpioPin FSR1Pin = gpio.OpenPin(cupDispenser.fsr.address);
-            IOPort FSR1 = new IOPort(FSR1Pin, GpioPinDriveMode.InputPullDown);
-            CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4), FSR1);
+            CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4), mcp3008);
 
             Pumps = new List<Pump>();
             foreach(Database.Pump pump in pumps)
@@ -120,7 +123,7 @@ namespace BarBot.UWP.IO
             Initialized = true;
         }
 
-        public void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, bool garnish = false, bool cup = true)
+        public void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, int garnish = 0, bool cup = true)
         {
             // Turn on LED
             LEDOn();
@@ -137,9 +140,9 @@ namespace BarBot.UWP.IO
                 AddIce();
             }
 
-            if(garnish)
+            if(garnish > 0)
             {
-                AddGarnish();
+                AddGarnish(garnish);
             }
 
             // Start the udder pump
@@ -155,8 +158,6 @@ namespace BarBot.UWP.IO
 
                 // Start pouring the ingredient
                 container.Pump.StartPump();
-
-                Debug.WriteLine(string.Format("Started pump {0}", container.Pump.IOPort.Name));
 
                 // Wait for it to finish, shutting it down if the sensor times out
                 Timeout((long)(TimeSpan.TicksPerSecond * (amount * container.FlowSensor.CalibrationFactor)), container.Pump);
@@ -197,9 +198,9 @@ namespace BarBot.UWP.IO
             IceHopper.AddIce();
         }
 
-        public void AddGarnish()
+        public void AddGarnish(int garnishType)
         {
-            GarnishDispenser.AddGarnish();
+            GarnishDispenser.AddGarnish(garnishType);
         }
 
         public void DispenseCup()

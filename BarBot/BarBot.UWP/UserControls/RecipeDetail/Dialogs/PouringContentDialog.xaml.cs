@@ -13,7 +13,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
     {
         private BarbotIOController barbotIOController;
         private bool ice;
-        private bool garnish;
+        private int garnish = 0;
         private string text;
 
         public string Text
@@ -26,7 +26,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             }
         }
 
-        public PouringContentDialog(Recipe orderedRecipe, bool ice, bool garnish)
+        public PouringContentDialog(Recipe orderedRecipe, bool ice, int garnish)
         {
             this.InitializeComponent();
             this.DataContext = this;

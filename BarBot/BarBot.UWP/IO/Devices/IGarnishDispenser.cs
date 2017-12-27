@@ -8,6 +8,6 @@ namespace BarBot.UWP.IO.Devices
 {
     public interface IGarnishDispenser
     {
-        void AddGarnish();
+        void AddGarnish(int garnishType);
     }
 }

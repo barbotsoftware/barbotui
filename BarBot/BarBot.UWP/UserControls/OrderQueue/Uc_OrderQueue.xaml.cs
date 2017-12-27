@@ -117,7 +117,7 @@ namespace BarBot.UWP.UserControls.OrderQueue
             DrinkOrders.Remove(drinkorder);
             app.DrinkOrders.Remove(drinkorder);
 
-            app.barbotIOController.PourDrinkSync(ingredients, drinkorder.Ice, drinkorder.Garnish);
+            app.barbotIOController.PourDrinkSync(ingredients, drinkorder.Ice, 0 /*drinkorder.Garnish*/); // TODO: use int value for garnish type
 
             sender.Hide();
         }
