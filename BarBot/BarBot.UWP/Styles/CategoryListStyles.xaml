@@ -14,64 +14,38 @@
     <x:Double x:Key="TileHeight">240</x:Double>
 
     <!-- Colors -->
-    <SolidColorBrush x:Key="BorderColor"
-                     Color="#222222" />
-    <SolidColorBrush x:Key="TextColor"
-                     Color="White" />
-    <SolidColorBrush x:Key="TileColor"
-                     Color="Black" />
+    <SolidColorBrush x:Key="BorderColor" Color="#222222" />
+    <SolidColorBrush x:Key="TextColor" Color="White" />
+    <SolidColorBrush x:Key="TileColor" Color="Black" />
 
-    <Style x:Key="CategoryListMainGridStyle"
-           TargetType="Grid">
-        <Setter Property="Width"
-                Value="{StaticResource PageWidth}" />
-        <Setter Property="Height"
-                Value="{StaticResource PageHeight}" />
+    <Style x:Key="CategoryListMainGridStyle" TargetType="Grid">
+        <Setter Property="Width" Value="{StaticResource PageWidth}" />
+        <Setter Property="Height" Value="{StaticResource PageHeight}" />
     </Style>
 
-    <Style x:Key="CategoryListCanvasStyle"
-           TargetType="Canvas">
-        <Setter Property="Height"
-                Value="650" />
-        <Setter Property="Width"
-                Value="1100" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Margin"
-                Value="0,100,0,0" />
+    <Style x:Key="CategoryListCanvasStyle" TargetType="Canvas">
+        <Setter Property="Height" Value="650" />
+        <Setter Property="Width" Value="1100" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,100,0,0" />
     </Style>
 
-    <Style x:Key="CategoryListBackButtonStyle"
-           TargetType="Button">
-        <Setter Property="Height"
-                Value="230" />
-        <Setter Property="Width"
-                Value="120" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Margin"
-                Value="0,240,20,200" />
-        <Setter Property="Visibility"
-                Value="Collapsed" />
+    <Style x:Key="CategoryListBackButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="230" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0,240,20,200" />
+        <Setter Property="Visibility" Value="Collapsed" />
     </Style>
 
-    <Style x:Key="CategoryListNextButtonStyle"
-           TargetType="Button">
-        <Setter Property="Height"
-                Value="230" />
-        <Setter Property="Width"
-                Value="120" />
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Margin"
-                Value="0,240,20,200" />
-        <Setter Property="Visibility"
-                Value="Collapsed" />
+    <Style x:Key="CategoryListNextButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="230" />
+        <Setter Property="Width" Value="120" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Margin" Value="0,240,20,200" />
+        <Setter Property="Visibility" Value="Collapsed" />
     </Style>
 </ResourceDictionary>

@@ -7,125 +7,74 @@
     
     <x:Double x:Key="FontSize">62</x:Double>
 
-    <Style x:Key="IngredientRowGridStyle"
-           TargetType="Grid">
-        <Setter Property="Width"
-                Value="Auto" />
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}" />
-        <Setter Property="Margin"
-                Value="5" />
+    <Style x:Key="IngredientRowGridStyle" TargetType="Grid">
+        <Setter Property="Width" Value="Auto" />
+        <Setter Property="Height" Value="{StaticResource RowHeight}" />
+        <Setter Property="Margin" Value="5" />
     </Style>
 
-    <Style x:Key="IngredientTextStackPanelStyle"
-           TargetType="StackPanel">
-        <Setter Property="Orientation"
-                Value="Horizontal" />
-        <Setter Property="Margin"
-                Value="0,0,0,0" />
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}"/>
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
+    <Style x:Key="IngredientTextStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,0,0,0" />
+        <Setter Property="Height" Value="{StaticResource RowHeight}"/>
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
     </Style>
 
-    <Style x:Key="IngredientComboBoxStyle"
-           TargetType="ComboBox">
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}" />
-        <Setter Property="Width"
-                Value="385" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource FontSize}" />
-        <Setter Property="Background"
-                Value="{x:Null}" />
-        <Setter Property="BorderBrush"
-                Value="{x:Null}" />
+    <Style x:Key="IngredientComboBoxStyle" TargetType="ComboBox">
+        <Setter Property="Height" Value="{StaticResource RowHeight}" />
+        <Setter Property="Width" Value="385" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="BorderBrush" Value="{x:Null}" />
     </Style>
 
-    <Style x:Key="AddIngredientTextBlockStyle"
-           TargetType="TextBlock">
-        <Setter Property="Margin"
-                Value="15,0,0,0" />
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource FontSize}" />
+    <Style x:Key="AddIngredientTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Margin" Value="15,0,0,0" />
+        <Setter Property="Height" Value="{StaticResource RowHeight}" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
     </Style>
 
-    <Style x:Key="IngredientVolumeTextBlockStyle"
-           TargetType="TextBlock">
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource FontSize}" />
+    <Style x:Key="IngredientVolumeTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Height" Value="{StaticResource RowHeight}" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
     </Style>
 
-    <Style x:Key="IngredientActionStackPanelStyle"
-           TargetType="StackPanel">
-        <Setter Property="Orientation"
-                Value="Horizontal" />
-        <Setter Property="Margin"
-                Value="0,0,4,0" />
-        <Setter Property="Height"
-                Value="{StaticResource RowHeight}"/>
-        <Setter Property="Width"
-                Value="218" />
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
+    <Style x:Key="IngredientActionStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="Margin" Value="0,0,4,0" />
+        <Setter Property="Height" Value="{StaticResource RowHeight}"/>
+        <Setter Property="Width" Value="218" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
     </Style>
 
-    <Style x:Key="ActionButtonStyle"
-           TargetType="Button">
-        <Setter Property="Margin"
-                Value="7,0,7,0" />
+    <Style x:Key="ActionButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="7,0,7,0" />
     </Style>
 
-    <Style x:Key="ActionImageStyle"
-           TargetType="Image">
-        <Setter Property="Width"
-                Value="56" />
+    <Style x:Key="ActionImageStyle" TargetType="Image">
+        <Setter Property="Width" Value="56" />
     </Style>
 
-    <Style x:Key="RemoveImageStyle"
-           TargetType="Image">
-        <Setter Property="Width"
-                Value="59" />
+    <Style x:Key="RemoveImageStyle" TargetType="Image">
+        <Setter Property="Width" Value="59" />
     </Style>
 
-    <Style x:Key="AddImageStyle"
-           TargetType="Image">
-        <Setter Property="Width"
-                Value="64" />
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
-        <Setter Property="Margin"
-                Value="0,0,15,0" />
+    <Style x:Key="AddImageStyle" TargetType="Image">
+        <Setter Property="Width" Value="64" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="Margin" Value="0,0,15,0" />
     </Style>
 </ResourceDictionary>

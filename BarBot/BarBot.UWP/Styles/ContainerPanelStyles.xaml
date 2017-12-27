@@ -11,31 +11,20 @@
     <x:Double x:Key="WrapperHeight">620</x:Double>
 
     <!-- Container List -->
-    <Style x:Key="ContainerListMainGridStyle"
-           TargetType="Grid">
-        <Setter Property="Height"
-                Value="{StaticResource PageHeight}" />
-        <Setter Property="Width"
-                Value="{StaticResource PageWidth}" />
+    <Style x:Key="ContainerListMainGridStyle" TargetType="Grid">
+        <Setter Property="Height" Value="{StaticResource PageHeight}" />
+        <Setter Property="Width" Value="{StaticResource PageWidth}" />
     </Style>
 
-    <Style x:Key="ContainerListWrapperGridStyle"
-           TargetType="Grid">
-        <Setter Property="Width"
-                Value="{StaticResource WrapperWidth}" />
-        <Setter Property="Height" 
-                Value="{StaticResource WrapperHeight}" />
-        <Setter Property="HorizontalAlignment" 
-                Value="Center" />
-        <Setter Property="VerticalAlignment" 
-                Value="Center" />
-        <Setter Property="Margin"
-                Value="20,20,20,20" />
+    <Style x:Key="ContainerListWrapperGridStyle" TargetType="Grid">
+        <Setter Property="Width" Value="{StaticResource WrapperWidth}" />
+        <Setter Property="Height" Value="{StaticResource WrapperHeight}" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="20,20,20,20" />
     </Style>
 
-    <Style x:Key="ContainerListIcGridStyle"
-           TargetType="Grid">
-        <Setter Property="Margin"
-                Value="0,40,0,0" />
+    <Style x:Key="ContainerListIcGridStyle" TargetType="Grid">
+        <Setter Property="Margin" Value="0,40,0,0" />
     </Style>
 </ResourceDictionary>

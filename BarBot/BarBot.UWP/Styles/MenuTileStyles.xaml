@@ -3,71 +3,43 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BarBot.UWP.Styles">
 
-    <Style x:Key="MenuHexagonImageStyle"
-           TargetType="Image">
-        <Setter Property="Stretch"
-                Value="Uniform" />
+    <Style x:Key="MenuHexagonImageStyle" TargetType="Image">
+        <Setter Property="Stretch" Value="Uniform" />
     </Style>
 
-    <Style x:Key="MenuImageButtonStyle"
-           TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
+    <Style x:Key="MenuImageButtonStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="MenuImageStyle"
-           TargetType="Image">
-        <Setter Property="Stretch"
-                Value="Uniform" />
-        <Setter Property="Height"
-                Value="210" />
-        <Setter Property="Width"
-                Value="210" />
+    <Style x:Key="MenuImageStyle" TargetType="Image">
+        <Setter Property="Stretch" Value="Uniform" />
+        <Setter Property="Height" Value="210" />
+        <Setter Property="Width" Value="210" />
     </Style>
 
-    <Style x:Key="MenuHexagonGradientButtonStyle"
-           TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
+    <Style x:Key="MenuHexagonGradientButtonStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="MenuNameButtonStyle"
-           TargetType="Button">
-        <Setter Property="Height"
-                Value="240" />
-        <Setter Property="Width"
-                Value="260" />
+    <Style x:Key="MenuNameButtonStyle" TargetType="Button">
+        <Setter Property="Height" Value="240" />
+        <Setter Property="Width" Value="260" />
     </Style>
 
-    <Style x:Key="MenuNameTextBlockStyle"
-           TargetType="TextBlock">
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="MaxWidth"
-                Value="240" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="VerticalAlignment"
-                Value="Center" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="FontSize"
-                Value="35" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="Canvas.ZIndex"
-                Value="999" />
-        <Setter Property="TextWrapping"
-                Value="WrapWholeWords" />
-        <Setter Property="TextTrimming"
-                Value="CharacterEllipsis" />
+    <Style x:Key="MenuNameTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="MaxWidth" Value="240" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="FontSize" Value="35" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="Canvas.ZIndex" Value="999" />
+        <Setter Property="TextWrapping" Value="WrapWholeWords" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
     </Style>
 </ResourceDictionary>

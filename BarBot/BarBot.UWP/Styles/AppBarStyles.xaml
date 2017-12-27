@@ -4,9 +4,6 @@
     xmlns:local="using:BarBot.UWP.Styles"
     xmlns:usercontrols="using:BarBot.UWP.UserControls">
 
-    <!-- ToUpperConverter -->
-    <usercontrols:ToUpperConverter x:Name="ToUpperConverter" />
-    
     <!-- Dimensions -->
     <x:Double x:Key="AppBarWidth">1280</x:Double>
     <x:Double x:Key="AppBarHeight">720</x:Double>
@@ -14,149 +11,86 @@
     <!-- Font -->
     <x:Double x:Key="FontSize">68</x:Double>
 
-    <Style x:Key="AppBarGridStyle"
-           TargetType="Grid">
-        <Setter Property="Width"
-                Value="{StaticResource AppBarWidth}" />
-        <Setter Property="Height"
-                Value="{StaticResource AppBarHeight}" />
+    <Style x:Key="AppBarGridStyle" TargetType="Grid">
+        <Setter Property="Width" Value="{StaticResource AppBarWidth}" />
+        <Setter Property="Height" Value="{StaticResource AppBarHeight}" />
     </Style>
     
-    <Style x:Key="AppBarBorderStyle"
-           TargetType="Border">
-        <Setter Property="BorderBrush"
-                Value="#004b99" />
-        <Setter Property="BorderThickness"
-                Value="0,0,0,5" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
+    <Style x:Key="AppBarBorderStyle" TargetType="Border">
+        <Setter Property="BorderBrush" Value="#004b99" />
+        <Setter Property="BorderThickness" Value="0,0,0,5" />
+        <Setter Property="VerticalAlignment" Value="Top" />
     </Style>
 
-    <Style x:Key="AppBarRectangleStyle"
-           TargetType="Rectangle">
-        <Setter Property="Fill"
-                Value="#222222" />
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Width"
-                Value="1280" />
-        <Setter Property="Height"
-                Value="70" />
+    <Style x:Key="AppBarRectangleStyle" TargetType="Rectangle">
+        <Setter Property="Fill" Value="#222222" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="1280" />
+        <Setter Property="Height" Value="70" />
     </Style>
 
-    <Style x:Key="AppBarBackButtonStyle"
-           TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Height"
-                Value="50" />
-        <Setter Property="Margin"
-                Value="10,10,0,0" />
-        <Setter Property="Background"
-                Value="{x:Null}" />
-        <Setter Property="ExitDisplayModeOnAccessKeyInvoked"
-                Value="False" />
-        <Setter Property="UseSystemFocusVisuals"
-                Value="False" />
-        <Setter Property="AllowFocusOnInteraction"
-                Value="False" />
+    <Style x:Key="AppBarBackButtonStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Height" Value="50" />
+        <Setter Property="Margin" Value="10,10,0,0" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="ExitDisplayModeOnAccessKeyInvoked" Value="False" />
+        <Setter Property="UseSystemFocusVisuals" Value="False" />
+        <Setter Property="AllowFocusOnInteraction" Value="False" />
     </Style>
 
-    <Style x:Key="AppBarBackButtonImageStyle"
-           TargetType="Image">
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Height"
-                Value="50" />
+    <Style x:Key="AppBarBackButtonImageStyle" TargetType="Image">
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Height" Value="50" />
     </Style>
 
-    <Style x:Key="AppBarBackLabelStyle"
-           TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Left" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Margin"
-                Value="50,-5,0,0" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource FontSize}" />
+    <Style x:Key="AppBarBackLabelStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Margin" Value="50,-5,0,0" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
     </Style>
 
-    <Style x:Key="AppBarBackTextBlockStyle"
-           TargetType="TextBlock">
-        <Setter Property="Text"
-                Value="Back" />
-        <Setter Property="TextWrapping"
-                Value="Wrap" />
-        <Setter Property="SelectionHighlightColor"
-                Value="{x:Null}" />
+    <Style x:Key="AppBarBackTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Text" Value="Back" />
+        <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="SelectionHighlightColor" Value="{x:Null}" />
     </Style>
 
-    <Style x:Key="AppBarTitleTextBlockStyle"
-           TargetType="TextBlock">
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Margin"
-                Value="0,-5,0,0" />
-        <Setter Property="Foreground"
-                Value="White" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource FontSize}" />
-        <Setter Property="SelectionHighlightColor"
-                Value="{x:Null}" />
+    <Style x:Key="AppBarTitleTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Margin" Value="0,-5,0,0" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="SelectionHighlightColor" Value="{x:Null}" />
     </Style>
 
-    <Style x:Key="AppBarIconButtonStyle"
-           TargetType="Button">
-        <Setter Property="HorizontalAlignment"
-                Value="Right" />
-        <Setter Property="VerticalAlignment"
-                Value="Top" />
-        <Setter Property="Height"
-                Value="64" />
-        <Setter Property="Width"
-                Value="64" />
-        <Setter Property="Margin"
-                Value="10,5,15,0" />
-        <Setter Property="Background"
-                Value="{x:Null}" />
-        <Setter Property="ExitDisplayModeOnAccessKeyInvoked"
-                Value="False" />
-        <Setter Property="UseSystemFocusVisuals"
-                Value="False" />
-        <Setter Property="AllowFocusOnInteraction"
-                Value="False" />
+    <Style x:Key="AppBarIconButtonStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Right" />
+        <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Height" Value="64" />
+        <Setter Property="Width" Value="64" />
+        <Setter Property="Margin" Value="10,5,15,0" />
+        <Setter Property="Background" Value="{x:Null}" />
+        <Setter Property="ExitDisplayModeOnAccessKeyInvoked" Value="False" />
+        <Setter Property="UseSystemFocusVisuals" Value="False" />
+        <Setter Property="AllowFocusOnInteraction" Value="False" />
     </Style>
 
-    <Style x:Key="AppBarIconImageStyle"
-           TargetType="Image">
-        <Setter Property="Height"
-                Value="64" />
-        <Setter Property="Width"
-                Value="64" />
-        <Setter Property="Margin"
-                Value="0,0,0,0" />
+    <Style x:Key="AppBarIconImageStyle" TargetType="Image">
+        <Setter Property="Height" Value="64" />
+        <Setter Property="Width" Value="64" />
+        <Setter Property="Margin" Value="0,0,0,0" />
     </Style>
 </ResourceDictionary>

@@ -8,10 +8,8 @@
     <x:Double x:Key="TileHeight">145</x:Double>
 
     <!-- Colors -->
-    <SolidColorBrush x:Key="TileColor"
-                        Color="#222222" />
-    <SolidColorBrush x:Key="TextColor"
-                        Color="White" />
+    <SolidColorBrush x:Key="TileColor" Color="#222222" />
+    <SolidColorBrush x:Key="TextColor" Color="White" />
 
     <!-- Font -->
     <x:Double x:Key="ContainerNumberFontSize">28</x:Double>
@@ -20,103 +18,60 @@
     
     <!-- Container Tile -->
 
-    <Style x:Key="ContainerTileButtonStyle"
-               TargetType="Button">
-        <Setter Property="Margin"
-                    Value="5,5,5,5" />
-        <Setter Property="HorizontalAlignment"
-                    Value="Center" />
+    <Style x:Key="ContainerTileButtonStyle" TargetType="Button">
+        <Setter Property="Margin" Value="5,5,5,5" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
 
-    <Style x:Key="ContainerTileStackPanelStyle"
-           TargetType="StackPanel">
-        <Setter Property="Background"
-                Value="{StaticResource TileColor}" />
-        <Setter Property="Width"
-                Value="{StaticResource TileWidth}" />
-        <Setter Property="Height"
-                Value="{StaticResource TileHeight}"/>
+    <Style x:Key="ContainerTileStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Background" Value="{StaticResource TileColor}" />
+        <Setter Property="Width" Value="{StaticResource TileWidth}" />
+        <Setter Property="Height" Value="{StaticResource TileHeight}"/>
     </Style>
 
-    <Style x:Key="ContainerNumberTextBlockStyle"
-               TargetType="TextBlock">
-        <Setter Property="Foreground"
-                Value="{StaticResource TextColor}" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource ContainerNumberFontSize}" />
-        <Setter Property="Margin"
-                Value="5,0,0,0" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="TextAlignment"
-                Value="Left" />
+    <Style x:Key="ContainerNumberTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource ContainerNumberFontSize}" />
+        <Setter Property="Margin" Value="5,0,0,0" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="TextAlignment" Value="Left" />
     </Style>
 
-    <Style x:Key="IngredientNameTextBlockStyle"
-               TargetType="TextBlock">
-        <Setter Property="Foreground"
-                Value="{StaticResource TextColor}" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource IngredientFontSize}" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Margin"
-                Value="0,10,0,0" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
-        <Setter Property="TextTrimming"
-                Value="CharacterEllipsis" />
-        <Setter Property="TextWrapping"
-                Value="WrapWholeWords" />
+    <Style x:Key="IngredientNameTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource IngredientFontSize}" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Margin" Value="0,10,0,0" />
+        <Setter Property="TextAlignment" Value="Center" />
+        <Setter Property="TextTrimming" Value="CharacterEllipsis" />
+        <Setter Property="TextWrapping" Value="WrapWholeWords" />
     </Style>
 
-    <Style x:Key="ContainerVolumeStackPanelStyle"
-           TargetType="StackPanel">
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="Orientation"
-                Value="Horizontal" />
-        <Setter Property="HorizontalAlignment"
-                Value="Center" />
-        <Setter Property="Margin"
-                Value="0,10,0,0" />
+    <Style x:Key="ContainerVolumeStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="Margin" Value="0,10,0,0" />
     </Style>
 
-    <Style x:Key="ContainerCurrentVolumeTextBlockStyle"
-               TargetType="TextBlock">
-        <Setter Property="Foreground"
-                Value="{StaticResource TextColor}" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource VolumeFontSize}" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="TextAlignment"
-                Value="Right" />
+    <Style x:Key="ContainerCurrentVolumeTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource VolumeFontSize}" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="TextAlignment" Value="Right" />
     </Style>
 
-    <Style x:Key="ContainerMaxVolumeTextBlockStyle"
-               TargetType="TextBlock">
-        <Setter Property="Foreground"
-                Value="{StaticResource TextColor}" />
-        <Setter Property="FontFamily"
-                Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize"
-                Value="{StaticResource VolumeFontSize}" />
-        <Setter Property="Height"
-                Value="auto" />
-        <Setter Property="Width"
-                Value="auto" />
-        <Setter Property="TextAlignment"
-                Value="Center" />
+    <Style x:Key="ContainerMaxVolumeTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="Foreground" Value="{StaticResource TextColor}" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="FontSize" Value="{StaticResource VolumeFontSize}" />
+        <Setter Property="Height" Value="auto" />
+        <Setter Property="Width" Value="auto" />
+        <Setter Property="TextAlignment" Value="Center" />
     </Style>
 </ResourceDictionary>
