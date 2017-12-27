@@ -18,18 +18,17 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public L298NDriver stepperDriver;
 
-        public IOPort fsr1;
-
-        public MCP3008 mcp3008 = new MCP3008();
+        public MCP3008 mcp3008;
 
         public CupDispenser() { }
 
-        //TODO: Don't use hard coded channel number for analog to digital converted
-        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort fsr1)
+        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, MCP3008 mcp3008)
         {
+            // initialize a new stepper driver
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
-            this.fsr1 = fsr1;
-            //mcp3008.connect();
+
+            // set the analog to digital converter for the force sensor
+            this.mcp3008 = mcp3008;
         }
 
         public void DispenseCup()

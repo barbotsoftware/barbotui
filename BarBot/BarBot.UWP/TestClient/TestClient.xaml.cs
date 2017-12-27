@@ -90,7 +90,7 @@ namespace BarBot.UWP.TestClient
             Dictionary<IO.Devices.IContainer, double> recipe = new Dictionary<IO.Devices.IContainer, double>();
             recipe.Add(c, 1);
             
-            ioController.PourDrinkSync(recipe, false, false, false);
+            ioController.PourDrinkSync(recipe, false, 0, false);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)

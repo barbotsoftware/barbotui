@@ -13,46 +13,70 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class IceHopper : IIceHopper
     {
-        private const int THRESHOLD_EMPTY = 300;
         private const int THRESHOLD_FULL = 500;
 
         public L298NDriver stepperDriver;
 
         public L298NDriver stepperDriver2;
 
-        public IOPort FSR2;
-
         public MCP3008 mcp3008 = new MCP3008();
+
+        IOPort augerMotor;
+
+        private double runLength = 1.5; // run ice hopper in 1.5 second increments
 
         public IceHopper() { }
 
-        public IceHopper(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort fsr2)
+        public IceHopper(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort augerMotor, MCP3008 mcp3008)
         {
-            // Create stepper drivers for both stepper motors
+            // Create stepper drivers for the stepper motor for the door
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4);
-            //mcp3008.connect();
 
-            FSR2 = fsr2;
+            // set the analog to digital converter for the force sensor
+            this.mcp3008 = mcp3008;
+
+            // set the IO port to use for the auger
+            this.augerMotor = augerMotor;
         }
 
         public void AddIce()
         {
             Debug.WriteLine(string.Format("Running ice hopper"));
 
-            bool forward = true;
-            bool triggered = mcp3008.read(0) >= THRESHOLD_EMPTY;
-            while (!triggered)
+            while (mcp3008.read(0) <= THRESHOLD_FULL)
             {
-                if (forward)
-                    stepperDriver.run(1);
-                else
-                    stepperDriver.runBackwards(1);
+                // Open the door (1/4 rev)
+                stepperDriver.run(0.25);
 
-                forward = !forward;
-                triggered = mcp3008.read(0) >= THRESHOLD_FULL;
+                // Start the auger motor
+                augerMotor.write(GpioPinValue.High);
+
+                // Wait for the auger to run for a bit
+                delay(runLength);
+
+                // Stop the auger motor
+                augerMotor.write(GpioPinValue.Low);
+
+                // Close the door (1/4 rev)
+                stepperDriver.runBackwards(0.25);
+
+                // wait for it to settle
+                delay(1);
             }
 
             Debug.WriteLine("Finished adding ice");
+        }
+
+        private void delay(double seconds)
+        {
+            long start = DateTime.Now.Ticks;
+            while (true)
+            {
+                if (DateTime.Now.Ticks - start > TimeSpan.TicksPerSecond * seconds)
+                {
+                    break;
+                }
+            }
         }
     }
 }

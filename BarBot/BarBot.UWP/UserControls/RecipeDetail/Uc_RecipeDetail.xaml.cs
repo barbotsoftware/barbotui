@@ -352,7 +352,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
 
                 // show pouring dialog
-                var dialog = new PouringContentDialog(Recipe, AddIce.IsChecked.Value, AddGarnish.IsChecked.Value);
+                var dialog = new PouringContentDialog(Recipe, AddIce.IsChecked.Value, /*AddGarnish.IsChecked.Value*/ 0); // TODO: update this to use int value for garnish type
                 await dialog.ShowAsync();
             }
             else
