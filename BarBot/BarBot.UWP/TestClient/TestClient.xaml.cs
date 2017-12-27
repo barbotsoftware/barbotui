@@ -30,15 +30,6 @@ namespace BarBot.UWP.TestClient
 
         private List<IO.Devices.V1.Container> containers = new List<IO.Devices.V1.Container>();
 
-        //HX711 weightSensor;
-
-        private int CALIBRATION_FACTOR = 0;
-        private int MAX_WEIGHT = 100;
-
-        private bool isOpen = false;
-
-        GpioPin pin;
-
         MCP3008 mcp3008 = new MCP3008();
 
         public TestClient()
@@ -74,13 +65,6 @@ namespace BarBot.UWP.TestClient
                 i++;
             }
 
-            //GpioPin dt = ioController.gpio.OpenPin(6);
-            //GpioPin clk = ioController.gpio.OpenPin(13);
-            //weightSensor = new HX711(clk, dt);
-            //weightSensor.PowerOn();
-
-            //calibrate();
-
             mcp3008.connect();
         }
 
@@ -108,15 +92,14 @@ namespace BarBot.UWP.TestClient
             Debug.WriteLine("MCP3008: " + mcp3008.read(0));
         }
 
-        private void calibrate()
+        private void RunGarnish1Button_Click(object sender, RoutedEventArgs e)
         {
-            /*CALIBRATION_FACTOR = weightSensor.Read();
-            for(int i = 0; i < 10; i++)
-            {
-                CALIBRATION_FACTOR = (CALIBRATION_FACTOR + weightSensor.Read()) / 2;
-            }
+            ioController.AddGarnish(1);
+        }
 
-            Debug.WriteLine("Calibration factor set to " + CALIBRATION_FACTOR / 1000 + " grams.");*/
+        private void RunGarnish2Button_Click(object sender, RoutedEventArgs e)
+        {
+            ioController.AddGarnish(2);
         }
     }
 }

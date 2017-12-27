@@ -149,6 +149,8 @@ namespace BarBot.UWP
                 Debug.WriteLine(string.Format("Failed to retrieve barbot configuration settings: {0}.", e.Message));
             }
 
+            Debug.WriteLine("Using websocket address: " + endpoint);
+
             // Initialize IO Controller
             try
             {
@@ -190,11 +192,15 @@ namespace BarBot.UWP
             // Opening websocket, with barbID/password
             webSocketService.OpenWebSocket("password");
 
+            Debug.WriteLine("Attempted to open websocket...");
+
             // Wait until the websocket connection is open
             while (!webSocketService.Socket.IsOpen)
             {
                 Task.Delay(10).Wait();
             }
+
+            Debug.WriteLine("Opened websocket successfully!");
 
             DrinkOrders = new List<Core.Model.DrinkOrder>();
             webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
@@ -304,7 +310,7 @@ namespace BarBot.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
-                Window.Current.CoreWindow.PointerCursor = null;
+                //Window.Current.CoreWindow.PointerCursor = null;
             }
 
             if (e.PrelaunchActivated == false)

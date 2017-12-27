@@ -49,6 +49,8 @@ namespace BarBot.UWP.IO
             Database.CupDispenser cupDispenser,
             List<Database.Pump> pumps)
         {
+            Debug.WriteLine("Initializing IO controller");
+
             // Initialize gpio controller
             gpio = GpioController.GetDefault();
 
@@ -66,6 +68,8 @@ namespace BarBot.UWP.IO
             GpioPin AugerPin = gpio.OpenPin(iceHopper.fsr.address);
             IOPort AugerIOPort = new IOPort(AugerPin);
             IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), AugerIOPort, mcp3008);
+
+            Debug.WriteLine("Auger motor is running on pin " + iceHopper.fsr.address + " board type " + iceHopper.fsr.type);
 
             // Create garnish dispenser
             GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4));
@@ -89,14 +93,10 @@ namespace BarBot.UWP.IO
                     // Create IO Port for the pump
                     IIOPort pumpPort = createIOPort(c.pump.ioPort);
 
-                    // Create IO port for the sensor. Sensors will always be on the main GPIO board (for now)
-                    IOPort sensorPort = createIOPort(c.flowSensor.ioPort, GpioPinDriveMode.InputPullDown) as IOPort;
-
                     // Create the flow sensor and pump
-                    FlowSensor flowSensor = new FlowSensor(sensorPort, c.flowSensor.calibrationFactor);
+                    FlowSensor flowSensor = new FlowSensor(null, c.flowSensor.calibrationFactor);
                     Pump pump = new Pump(pumpPort);
                     pump.IOPort.Name = c.pump.ioPort.name;
-                    flowSensor.IoPort.Name = c.flowSensor.ioPort.name;
                     pump.FlowSensor = flowSensor;
                     flowSensor.Pump = pump;
 
@@ -224,6 +224,7 @@ namespace BarBot.UWP.IO
             {
                 try
                 {
+                    Debug.WriteLine("Creating IO port for " + IOPort.name + " on RPi pin " + IOPort.address);
                     GpioPin pumpPin = gpio.OpenPin(IOPort.address);
                     return new IOPort(pumpPin, driveMode);
                 }
@@ -234,10 +235,12 @@ namespace BarBot.UWP.IO
             }
             else if(IOPort.type == 2)
             {
+                Debug.WriteLine("Creating IO port for " + IOPort.name + " on extender 1 pin " + IOPort.address);
                 return new I2CPort(mcp1, IOPort.address);
             }
             else if (IOPort.type == 3)
             {
+                Debug.WriteLine("Creating IO port for " + IOPort.name + " on extender 2 pin " + IOPort.address);
                 return new I2CPort(mcp2, IOPort.address);
             }
 

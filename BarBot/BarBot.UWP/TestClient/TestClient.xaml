@@ -10,11 +10,13 @@
     d:DesignWidth="1280">
 
     <Grid>
-        <StackPanel Name="ContainersPanel" HorizontalAlignment="Left" Height="720" Margin="0,38,0,0" VerticalAlignment="Top" Width="640"/>
-        <StackPanel Name="DevicesPanel" HorizontalAlignment="Right" Height="720" Margin="0, 38, 0, 0" VerticalAlignment="Top" Width="640">
-            <Button x:Name="button" Content="Run Ice Hopper" HorizontalAlignment="Left" Margin="233,38,0,0" VerticalAlignment="Top" Width="325" Click="button_Click" FontSize="35" Foreground="White" Background="#33000000" BorderBrush="White"/>
-            <Button x:Name="button1" Content="Run Cup Dispenser" HorizontalAlignment="Left" Margin="233,75,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Click="button1_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
-			<Button x:Name="ReadSensorButton" Content="Read Sensor" HorizontalAlignment="Left" Margin="233,105,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Click="ReadSensorButton_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
+        <StackPanel Name="ContainersPanel" HorizontalAlignment="Left" Height="720" Margin="0" VerticalAlignment="Top" Width="640"/>
+        <StackPanel Name="DevicesPanel" HorizontalAlignment="Right" Height="720" Margin="0" VerticalAlignment="Top" Width="640">
+            <Button x:Name="button" Content="Run Ice Hopper" HorizontalAlignment="Left" Margin="188,38,0,0" VerticalAlignment="Top" Width="325" Click="button_Click" FontSize="35" Foreground="White" Background="#33000000" BorderBrush="White"/>
+            <Button x:Name="button1" Content="Run Cup Dispenser" HorizontalAlignment="Left" Margin="188,65,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Click="button1_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
+			<Button x:Name="RunGarnish1Button" Content="Run Garnish 1"  HorizontalAlignment="Left" Margin="188,65,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Background="#33000000" BorderBrush="White" Foreground="White" Click="RunGarnish1Button_Click" />
+			<Button x:Name="RunGarnish2Button" Content="Run Garnish 2"  HorizontalAlignment="Left" Margin="188,65,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Background="#33000000" BorderBrush="White" Foreground="White" Click="RunGarnish2Button_Click" />
+			<Button x:Name="ReadSensorButton" Content="Read Sensor" HorizontalAlignment="Left" Margin="183,65,0,0" VerticalAlignment="Top" Width="325" FontSize="35" Click="ReadSensorButton_Click" Background="#33000000" BorderBrush="White" Foreground="White"/>
 		</StackPanel>
     </Grid>
 </UserControl>
