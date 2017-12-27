@@ -96,8 +96,9 @@
     <!-- Ingredient List -->
 
     <Style x:Key="IngredientListScrollViewerStyle" TargetType="ScrollViewer">
-        <Setter Property="Margin" Value="445,100,0,0" />
-        <Setter Property="Width" Value="800" />
+        <Setter Property="Margin" Value="440,100,0,0" />
+        <Setter Property="Padding" Value="0,0,25,0" />
+        <Setter Property="Width" Value="825" />
         <Setter Property="Height" Value="450" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
@@ -115,9 +116,9 @@
     </Style>
 
     <Style x:Key="PourButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="450,535,0,0" />
+        <Setter Property="Margin" Value="445,535,0,0" />
         <Setter Property="Width" Value="795" />
-        <Setter Property="Height" Value="auto" />
+        <Setter Property="Height" Value="110" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="90" />
