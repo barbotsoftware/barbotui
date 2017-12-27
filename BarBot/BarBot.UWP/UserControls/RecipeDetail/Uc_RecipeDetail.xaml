@@ -72,7 +72,7 @@
         
         <!-- Recipe Options -->
         
-        <TextBlock x:Name="RecipeOptionsTextBlock"
+        <!--<TextBlock x:Name="RecipeOptionsTextBlock"
                    Style="{StaticResource RecipeOptionsTextBlockStyle}"
                    Text="Would you like to add: " />
         <CheckBox x:Name="AddIce" 
@@ -114,11 +114,11 @@
             <CheckBox.RenderTransform>
                 <CompositeTransform ScaleY="2.5" ScaleX="2.5"/>
             </CheckBox.RenderTransform>
-        </CheckBox>
+        </CheckBox>-->
         
         <!-- Pour Button -->
         <Button x:Name="PourButton"
-                Content="Pour"
+                Content="{Binding Path=PourButtonDisplayText}"
                 Click="Pour_Drink"
                 Style="{StaticResource PourButtonStyle}" />
     </Grid>

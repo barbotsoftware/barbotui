@@ -194,6 +194,9 @@
     <Compile Include="UserControls\RecipeDetail\Dialogs\CupContentDialog.xaml.cs">
       <DependentUpon>CupContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RecipeDetail\Dialogs\IceContentDialog.xaml.cs">
+      <DependentUpon>IceContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RecipeDetail\Dialogs\PouringContentDialog.xaml.cs">
       <DependentUpon>PouringContentDialog.xaml</DependentUpon>
     </Compile>
@@ -385,6 +388,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\RecipeDetail\Dialogs\CupContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\RecipeDetail\Dialogs\IceContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

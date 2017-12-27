@@ -115,10 +115,10 @@
     </Style>
 
     <Style x:Key="PourButtonStyle" TargetType="Button">
-        <Setter Property="Margin" Value="800,535,0,0" />
-        <Setter Property="Width" Value="400" />
+        <Setter Property="Margin" Value="450,535,0,0" />
+        <Setter Property="Width" Value="795" />
         <Setter Property="Height" Value="auto" />
-        <Setter Property="HorizontalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="90" />
         <Setter Property="FontFamily" Value="{StaticResource AppFont}" />

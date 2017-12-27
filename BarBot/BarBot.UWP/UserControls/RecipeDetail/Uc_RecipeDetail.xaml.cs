@@ -23,10 +23,12 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         private double totalVolume;
         private double volumeAvailable;
         private string maxVolumeLabel;
+        private string pourButtonDisplayText;
+        private bool ice;
 
         private Uc_AddIngredientButton AddIngredientButton;
 
-        private BitmapImage _cachedImage;
+        private BitmapImage cachedImage;
 
         public Recipe Recipe
         {
@@ -38,10 +40,11 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             set
             {
                 recipe = value;
+                recipe.Name = Helpers.UppercaseWords(recipe.Name);
                 TotalVolume = recipe.GetVolume();
                 VolumeAvailable = Constants.MaxVolume - TotalVolume;
 
-                AppBar.Title = Helpers.UppercaseWords(Recipe.Name);
+                AppBar.Title = Recipe.Name;
 
                 if (!Recipe.Name.Equals(Constants.CustomRecipeName))
                 {
@@ -60,12 +63,22 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             }
         }
 
-        public BitmapImage CachedImage
+        public Boolean Ice
         {
-            get { return _cachedImage; }
+            get { return ice; }
             set
             {
-                _cachedImage = value;
+                ice = value;
+                OnPropertyChanged("Ice");
+            }
+        }
+
+        public BitmapImage CachedImage
+        {
+            get { return cachedImage; }
+            set
+            {
+                cachedImage = value;
                 OnPropertyChanged("CachedImage");
             }
         }
@@ -108,6 +121,16 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             }
         }
 
+        public string PourButtonDisplayText
+        {
+            get { return pourButtonDisplayText; }
+            set
+            {
+                pourButtonDisplayText = value;
+                OnPropertyChanged("PourButtonDisplayText");
+            }
+        }
+
         public Uc_RecipeDetail(Recipe recipe)
         {
             this.InitializeComponent();
@@ -115,7 +138,9 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
             this.app = (Application.Current as App);
             this.Recipe = recipe;
+            this.PourButtonDisplayText = string.Format("Pour {0}", Recipe.Name);
             this.MaxVolumeLabel = string.Format("/{0} oz", Constants.MaxVolume);
+            this.ice = false;
         }
 
         private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -347,12 +372,30 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             {
                 if (app.barbotIOController.CupCount == 0)
                 {
+                    // show cup dialog
                     var cupDialog = new CupContentDialog();
                     await cupDialog.ShowAsync();
+
+                    if (!cupDialog.ShouldProceed)
+                    {
+                        return;
+                    }
                 }
 
+                // show ice dialog
+                var iceDialog = new IceContentDialog(this);
+                await iceDialog.ShowAsync();
+
+                if (!iceDialog.ShouldProceed)
+                {
+                    return;
+                }
+
+                // show garnish dialog
+
+                
                 // show pouring dialog
-                var dialog = new PouringContentDialog(Recipe, AddIce.IsChecked.Value, /*AddGarnish.IsChecked.Value*/ 0); // TODO: update this to use int value for garnish type
+                var dialog = new PouringContentDialog(Recipe, Ice, /*AddGarnish.IsChecked.Value*/ 0); // TODO: update this to use int value for garnish type
                 await dialog.ShowAsync();
             }
             else

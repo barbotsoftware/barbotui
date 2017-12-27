@@ -37,7 +37,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             this.Opened += (s, a) => Dialog_Opened(s, a, orderedRecipe);
 
-            this.Text = string.Format("Your {0} Is Pouring!", orderedRecipe.Name);
+            this.Text = string.Format("Your {0} is pouring!", orderedRecipe.Name);
         }
 
         private async void Dialog_Opened(ContentDialog sender, ContentDialogOpenedEventArgs args, Recipe recipe)

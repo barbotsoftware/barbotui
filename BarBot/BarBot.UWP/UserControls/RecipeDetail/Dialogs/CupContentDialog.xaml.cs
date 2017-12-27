@@ -7,31 +7,40 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
     public sealed partial class CupContentDialog : ContentDialog
     {
         private BarbotIOController barbotIOController;
+        public bool ShouldProceed { get; set; }
 
         public CupContentDialog()
         {
             this.InitializeComponent();
 
             this.barbotIOController = (Application.Current as App).barbotIOController;
+            this.ShouldProceed = false;
         }
 
         private void CupDialog_SecondaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            barbotIOController.CupCount = 25;
-
+            if (barbotIOController != null)
+            {
+                barbotIOController.CupCount = 25;
+            }
+            ShouldProceed = true;
             sender.Hide();
         }
 
         private void CupDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            barbotIOController.CupCount = 1;
-
+            if (barbotIOController != null)
+            {
+                barbotIOController.CupCount = 1;
+            }
+            ShouldProceed = true;
             sender.Hide();
         }
 
         private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            // TODO: Attach event handler to close button click to dismiss on cancel and not pour
+            args.Cancel = true;
+            ShouldProceed = false;
             sender.Hide();
         }
     }
