@@ -44,7 +44,7 @@ namespace BarBot.UWP.UserControls.RecipeList
                     recipe.Name = Helpers.UppercaseWords(value.Name);
                     if (value.Name.Equals(Constants.CustomRecipeName))
                     {
-                        var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
+                        var imageUri = new Uri("http://" + webserverUrl + ":" + Constants.PortNumber + "/img/custom_recipe.png");
                         var recipeImage = new BitmapImage(imageUri);
                         CachedImage = recipeImage;
                     }

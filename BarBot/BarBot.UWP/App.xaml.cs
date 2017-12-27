@@ -231,7 +231,7 @@ namespace BarBot.UWP
                 return _ImageCache[recipe.Name];
             } else
             {
-                UriBuilder uriBuilder = new UriBuilder("http", webserverUrl, Int32.Parse(Constants.PortNumber), recipe.Img);
+                UriBuilder uriBuilder = new UriBuilder("http", webserverUrl, Int32.Parse(Constants.PortNumber), "/img/" + recipe.Img);
                 BitmapImage recipeImage = new BitmapImage(uriBuilder.Uri);
                 if (recipeImage != null)
                 {

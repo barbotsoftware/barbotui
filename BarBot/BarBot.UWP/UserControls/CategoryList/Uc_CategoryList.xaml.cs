@@ -26,7 +26,7 @@ namespace BarBot.UWP.UserControls.CategoryList
                 categories = value;
 
                 // Add Custom Cocktail 'Category'. Clicking this goes to Recipe Detail
-                Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, null, null);
+                Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, "custom_recipe.png", null, null);
 
                 if (categories.Count == 0)
                 {

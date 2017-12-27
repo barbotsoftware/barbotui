@@ -100,7 +100,7 @@ namespace BarBot.Core.Model
             var customRecipe = new Recipe();
             customRecipe.Name = Constants.CustomRecipeName;
             customRecipe.Ingredients = new List<Ingredient>();
-            customRecipe.Img = "barbotweb/public/img/recipe_images/custom_recipe.png";
+            customRecipe.Img = "custom_recipe.png";
             return customRecipe;
         }
     }
