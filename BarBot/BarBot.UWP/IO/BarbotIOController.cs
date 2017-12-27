@@ -39,7 +39,7 @@ namespace BarBot.UWP.IO
 
         private MCP3008 mcp3008 = new MCP3008();
 
-        private const int MIXER_PUMP_FLUSH_TIME = 8;
+        private const int UDDER_VALVE_FLUSH_TIME = 2; // Hold the valve open for 2 seconds after all pumps are finished
 
         private IOPort ledPort;
 
@@ -64,7 +64,7 @@ namespace BarBot.UWP.IO
 
             // Create ice hopper
             GpioPin AugerPin = gpio.OpenPin(iceHopper.fsr.address);
-            IOPort AugerIOPort = new IOPort(AugerPin, GpioPinDriveMode.InputPullDown);
+            IOPort AugerIOPort = new IOPort(AugerPin);
             IceHopper = new IceHopper(createIOPort(iceHopper.stepper1), createIOPort(iceHopper.stepper2), createIOPort(iceHopper.stepper3), createIOPort(iceHopper.stepper4), AugerIOPort, mcp3008);
 
             // Create garnish dispenser
@@ -145,9 +145,9 @@ namespace BarBot.UWP.IO
                 AddGarnish(garnish);
             }
 
-            // Start the udder pump
-            Pump pump = Pumps.Where(x => x.IOPort.Name.Equals("mixer pump")).First();
-            pump.StartPump();
+            // Open the udder valve -- using it as a "pump" type because the IO logic is the same
+            Pump udder = Pumps.Where(x => x.IOPort.Name.Equals("udder valve")).First();
+            udder.StartPump();
 
             // Start pouring each ingredient
             for (int i = 0; i < ingredients.Count; i++)
@@ -167,10 +167,10 @@ namespace BarBot.UWP.IO
             long start = DateTime.Now.Ticks;
             while (true)
             {
-                if (DateTime.Now.Ticks - start > TimeSpan.TicksPerSecond * MIXER_PUMP_FLUSH_TIME)
+                if (DateTime.Now.Ticks - start > TimeSpan.TicksPerSecond * UDDER_VALVE_FLUSH_TIME)
                 {
                     // Stop the udder
-                    pump.StopPump();
+                    udder.StopPump();
                     break;
                 }
             }
