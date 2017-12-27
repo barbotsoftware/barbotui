@@ -9,6 +9,7 @@ using BarBot.UWP.IO.Devices;
 using BarBot.UWP.IO.Devices.V1;
 using Windows.Devices.I2c;
 using System.Diagnostics;
+using static BarBot.Core.Constants;
 
 namespace BarBot.UWP.IO
 {
@@ -123,11 +124,12 @@ namespace BarBot.UWP.IO
             Initialized = true;
         }
 
-        public void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, int garnish = 0, bool cup = true)
+        public void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, GarnishType garnish = GarnishType.NONE, bool cup = true)
         {
             // Turn on LED
             LEDOn();
 
+            // Add cup and decrement cup count
             if (cup)
             {
                 DispenseCup();
@@ -135,15 +137,14 @@ namespace BarBot.UWP.IO
                 CupCount--;
             }
 
+            // Add ice
             if (ice)
             {
                 AddIce();
             }
 
-            if(garnish > 0)
-            {
-                AddGarnish(garnish);
-            }
+            // Add garnish
+            AddGarnish(garnish);
 
             // Open the udder valve -- using it as a "pump" type because the IO logic is the same
             Pump udder = Pumps.Where(x => x.IOPort.Name.Equals("udder valve")).First();
@@ -186,8 +187,8 @@ namespace BarBot.UWP.IO
             {
                 if(DateTime.Now.Ticks - start > ticks)
                 {
+                    Debug.WriteLine(string.Format("stopping {0} after {1} seconds...", pump.IOPort.Name, ticks / 10000000.0));
                     pump.StopPump();
-                    Debug.WriteLine(string.Format("stopping pump after {0} seconds", ticks / 10000000.0));
                     return;
                 }
             }
@@ -198,9 +199,20 @@ namespace BarBot.UWP.IO
             IceHopper.AddIce();
         }
 
-        public void AddGarnish(int garnishType)
+        public void AddGarnish(GarnishType garnishType)
         {
-            GarnishDispenser.AddGarnish(garnishType);
+            switch (garnishType) {
+                case GarnishType.GARNISH1:
+                    GarnishDispenser.AddGarnish(1);
+                    break;
+                case GarnishType.GARNISH2:
+                    GarnishDispenser.AddGarnish(2);
+                    break;
+                case GarnishType.BOTH:
+                    GarnishDispenser.AddGarnish(1);
+                    GarnishDispenser.AddGarnish(2);
+                    break;
+            }
         }
 
         public void DispenseCup()

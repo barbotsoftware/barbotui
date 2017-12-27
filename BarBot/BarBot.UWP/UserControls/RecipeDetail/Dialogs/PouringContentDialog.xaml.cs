@@ -46,7 +46,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             {
                 Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, barbotIOController.Containers);
 
-                barbotIOController.PourDrinkSync(ingredients, ice, garnish);
+                barbotIOController.PourDrinkSync(ingredients, ice, Core.Constants.GarnishType.NONE);
             }
 
             // TODO: Update with how many seconds it takes to pour a drink

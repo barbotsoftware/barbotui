@@ -4,13 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using BarBot.UWP.IO.Devices;
+using static BarBot.Core.Constants;
 
 namespace BarBot.UWP.IO
 {
     interface IIOController
     {
-        void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, int garnish = 0, bool cup = false);
+        void PourDrinkSync(Dictionary<IContainer, double> ingredients, bool ice = false, GarnishType garnish = GarnishType.NONE, bool cup = false);
         void AddIce();
-        void AddGarnish(int garnishType = 0);
+        void AddGarnish(GarnishType garnishType);
     }
 }

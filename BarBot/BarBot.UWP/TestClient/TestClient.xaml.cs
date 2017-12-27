@@ -74,7 +74,7 @@ namespace BarBot.UWP.TestClient
             Dictionary<IO.Devices.IContainer, double> recipe = new Dictionary<IO.Devices.IContainer, double>();
             recipe.Add(c, 1);
             
-            ioController.PourDrinkSync(recipe, false, 0, false);
+            ioController.PourDrinkSync(recipe, false, Core.Constants.GarnishType.NONE, false);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -94,12 +94,12 @@ namespace BarBot.UWP.TestClient
 
         private void RunGarnish1Button_Click(object sender, RoutedEventArgs e)
         {
-            ioController.AddGarnish(1);
+            ioController.AddGarnish(Core.Constants.GarnishType.GARNISH1);
         }
 
         private void RunGarnish2Button_Click(object sender, RoutedEventArgs e)
         {
-            ioController.AddGarnish(2);
+            ioController.AddGarnish(Core.Constants.GarnishType.GARNISH2);
         }
     }
 }

@@ -65,5 +65,13 @@ namespace BarBot.Core
 			READY,
 			BUSY
 		}
+
+        public enum GarnishType
+        {
+            NONE,
+            GARNISH1,
+            GARNISH2,
+            BOTH
+        }
 	}
 }
