@@ -9,6 +9,7 @@ using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
@@ -26,6 +27,18 @@ namespace BarBot.UWP.UserControls.CategoryList
                 category = value;
                 category.Name = Helpers.UppercaseWords(category.Name);
                 OnPropertyChanged("Category");
+            }
+        }
+
+        private BitmapImage cachedImage;
+
+        public BitmapImage CachedImage
+        {
+            get { return cachedImage; }
+            set
+            {
+                cachedImage = value;
+                OnPropertyChanged("CachedImage");
             }
         }
 

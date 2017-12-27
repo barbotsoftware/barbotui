@@ -12,33 +12,26 @@
     SecondaryButtonText="Clear"
     CloseButtonText="Cancel"
     PrimaryButtonClick="FilterDialog_PrimaryButtonClick"
-    SecondaryButtonClick="FilterDialog_SecondaryButtonClick"
-    MaxWidth="1280"
-    Background="#161616"
-    Foreground="White"
-    BorderBrush="#222222"
-    FontSize="50">
+    SecondaryButtonClick="FilterDialog_SecondaryButtonClick">
+
     <ContentDialog.Resources>
         <ResourceDictionary>
-            <Style TargetType="Button" x:Key="ButtonStyle">
-                <Setter Property="FontSize"
-                        Value="38" />
-                <Setter Property="FontFamily"
-                        Value="Microsoft Yi Baiti" />
-            </Style>
-            <Style TargetType="TextBlock" x:Key="TitleStyle">
-                <Setter Property="FontSize"
-                        Value="45" />
-                <Setter Property="FontFamily"
-                        Value="Microsoft Yi Baiti" />
-            </Style>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentDialog.Resources>
+    
     <ContentDialog.Style>
         <Style TargetType="ContentDialog">
             <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
             <Setter Property="SecondaryButtonStyle" Value="{StaticResource ButtonStyle}" />
-            <Setter Property="CloseButtonStyle" Value="{StaticResource ButtonStyle}" />
+            <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontSize" Value="50" />
         </Style>
     </ContentDialog.Style>
     <ContentDialog.TitleTemplate>

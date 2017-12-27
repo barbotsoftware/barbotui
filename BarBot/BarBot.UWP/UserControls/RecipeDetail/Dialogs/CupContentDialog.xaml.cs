@@ -28,5 +28,11 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             sender.Hide();
         }
+
+        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // TODO: Attach event handler to close button click to dismiss on cancel and not pour
+            sender.Hide();
+        }
     }
 }

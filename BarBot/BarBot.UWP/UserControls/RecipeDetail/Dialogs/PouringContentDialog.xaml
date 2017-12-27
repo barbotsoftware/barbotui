@@ -6,22 +6,28 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    x:Name="ContentDialog"
-    Width="900"
-    MaxWidth="1280"
-    Background="#161616"
-    Foreground="White"
-    BorderBrush="#222222"
-    FontFamily="Microsoft Yi Baiti">
+    x:Name="ContentDialog">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <ContentDialog.Style>
+        <Style TargetType="ContentDialog">
+            <Setter Property="Width" Value="900" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        </Style>
+    </ContentDialog.Style>
 
     <TextBlock x:Name="TextBlock"
-               VerticalAlignment="Center"
-               HorizontalAlignment="Center"
-               TextAlignment="Center" 
-               TextWrapping="WrapWholeWords"
-               FontSize="45"
-               FontFamily="Microsoft Yi Baiti"
-               Foreground="White"
                Text="{Binding Path=Text}"
-               Width="auto" />
+               Style="{StaticResource TextBlockStyle}" />
 </ContentDialog>

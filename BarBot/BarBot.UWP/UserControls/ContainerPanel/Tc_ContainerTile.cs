@@ -77,19 +77,19 @@ namespace BarBot.UWP.UserControls.ContainerPanel
 
         public void SetTextBlockColor(Container container)
         {
-            if (container.CurrentVolume > 80)
+            if (container.CurrentVolume > (container.MaxVolume * .8))
             {
                 VolumeColor = new SolidColorBrush(Colors.Green);
             }
-            else if (container.CurrentVolume > 60)
+            else if (container.CurrentVolume > (container.MaxVolume * .6))
             {
                 VolumeColor = new SolidColorBrush(Colors.YellowGreen);
             }
-            else if (container.CurrentVolume > 40)
+            else if (container.CurrentVolume > (container.MaxVolume * .4))
             {
                 VolumeColor = new SolidColorBrush(Colors.DarkOrange);
             }
-            else if (container.CurrentVolume > 20)
+            else if (container.CurrentVolume > (container.MaxVolume * .2))
             {
                 VolumeColor = new SolidColorBrush(Colors.OrangeRed);
             }
