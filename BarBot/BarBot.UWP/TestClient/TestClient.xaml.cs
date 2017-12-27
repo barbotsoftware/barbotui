@@ -28,7 +28,7 @@ namespace BarBot.UWP.TestClient
 
         public BarbotIOController ioController;
 
-        private List<IO.Devices.V1.Container> containers;
+        private List<IO.Devices.V1.Container> containers = new List<IO.Devices.V1.Container>();
 
         //HX711 weightSensor;
 
@@ -38,6 +38,8 @@ namespace BarBot.UWP.TestClient
         private bool isOpen = false;
 
         GpioPin pin;
+
+        MCP3008 mcp3008 = new MCP3008();
 
         public TestClient()
         {
@@ -78,11 +80,8 @@ namespace BarBot.UWP.TestClient
             //weightSensor.PowerOn();
 
             //calibrate();
-        }
 
-        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
-        {
-            isOpen = args.Edge.Equals(GpioPinEdge.RisingEdge);
+            mcp3008.connect();
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -106,7 +105,7 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            ioController.AddGarnish();
+            Debug.WriteLine("MCP3008: " + mcp3008.read(0));
         }
 
         private void calibrate()

@@ -13,11 +13,16 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class IceHopper : IIceHopper
     {
+        private const int THRESHOLD_EMPTY = 300;
+        private const int THRESHOLD_FULL = 500;
+
         public L298NDriver stepperDriver;
 
         public L298NDriver stepperDriver2;
 
         public IOPort FSR2;
+
+        public MCP3008 mcp3008 = new MCP3008();
 
         public IceHopper() { }
 
@@ -25,6 +30,7 @@ namespace BarBot.UWP.IO.Devices.V1
         {
             // Create stepper drivers for both stepper motors
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4);
+            //mcp3008.connect();
 
             FSR2 = fsr2;
         }
@@ -34,7 +40,7 @@ namespace BarBot.UWP.IO.Devices.V1
             Debug.WriteLine(string.Format("Running ice hopper"));
 
             bool forward = true;
-            bool triggered = FSR2.GpioPin.Read().Equals(GpioPinValue.High);
+            bool triggered = mcp3008.read(0) >= THRESHOLD_EMPTY;
             while (!triggered)
             {
                 if (forward)
@@ -43,7 +49,7 @@ namespace BarBot.UWP.IO.Devices.V1
                     stepperDriver.runBackwards(1);
 
                 forward = !forward;
-                triggered = FSR2.GpioPin.Read().Equals(GpioPinValue.High);
+                triggered = mcp3008.read(0) >= THRESHOLD_FULL;
             }
 
             Debug.WriteLine("Finished adding ice");
