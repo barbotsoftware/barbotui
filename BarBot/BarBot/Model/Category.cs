@@ -12,6 +12,7 @@ namespace BarBot.Core.Model
     {
         string categoryId;
         string name;
+        string img;
         List<Recipe> recipes;
         List<Category> subCategories;
 
@@ -34,6 +35,17 @@ namespace BarBot.Core.Model
             {
                 name = value;
                 OnPropertyChanged("Name");
+            }
+        }
+
+        [JsonProperty("img")]
+        public string Img
+        {
+            get { return img; }
+            set
+            {
+                img = value;
+                OnPropertyChanged("Img");
             }
         }
 
@@ -61,10 +73,11 @@ namespace BarBot.Core.Model
 
         public Category() { }
 
-        public Category(string categoryId, string name, List<Category> subCategories, List<Recipe> recipes)
+        public Category(string categoryId, string name, string img, List<Category> subCategories, List<Recipe> recipes)
         {
             CategoryId = categoryId;
             Name = name;
+            Img = img;
             SubCategories = subCategories;
             Recipes = recipes;
         }
@@ -74,6 +87,7 @@ namespace BarBot.Core.Model
             var c = (Category)parseJSON(json, typeof(Category));
             CategoryId = c.CategoryId;
             Name = c.Name;
+            Img = c.Img;
             SubCategories = c.SubCategories;
             Recipes = c.Recipes;
         }

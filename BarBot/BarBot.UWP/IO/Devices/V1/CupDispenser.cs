@@ -20,7 +20,7 @@ namespace BarBot.UWP.IO.Devices.V1
 
         public IOPort fsr1;
 
-        public MCP3008 mcp3008;
+        public MCP3008 mcp3008 = new MCP3008();
 
         public CupDispenser() { }
 
@@ -29,7 +29,7 @@ namespace BarBot.UWP.IO.Devices.V1
         {
             stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
             this.fsr1 = fsr1;
-            mcp3008.connect();
+            //mcp3008.connect();
         }
 
         public void DispenseCup()

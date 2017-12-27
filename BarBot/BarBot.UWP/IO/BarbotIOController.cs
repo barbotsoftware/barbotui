@@ -37,7 +37,7 @@ namespace BarBot.UWP.IO
 
         private MCP23017 mcp2;
 
-        private const int MIXER_PUMP_FLUSH_TIME = 8000;
+        private const int MIXER_PUMP_FLUSH_TIME = 8;
 
         private IOPort ledPort;
 
@@ -51,7 +51,7 @@ namespace BarBot.UWP.IO
             gpio = GpioController.GetDefault();
 
             // Initialize i2c controllers
-            mcp1 = new MCP23017();
+            mcp1 = new MCP23017(1);
             mcp2 = new MCP23017(2);
 
             // Initialize I2C Controllers
@@ -155,8 +155,6 @@ namespace BarBot.UWP.IO
 
                 // Start pouring the ingredient
                 container.Pump.StartPump();
-
-                Debug.WriteLine(string.Format("Started pump {0}", container.Pump.IOPort.Name));
 
                 // Wait for it to finish, shutting it down if the sensor times out
                 Timeout((long)(TimeSpan.TicksPerSecond * (amount * container.FlowSensor.CalibrationFactor)), container.Pump);
