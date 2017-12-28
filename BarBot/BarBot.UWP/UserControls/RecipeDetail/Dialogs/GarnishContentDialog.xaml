@@ -1,0 +1,42 @@
+﻿<ContentDialog
+    x:Class="BarBot.UWP.UserControls.RecipeDetail.Dialogs.GarnishContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    PrimaryButtonText="Continue"
+    CloseButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    CloseButtonClick="ContentDialog_CloseButtonClick">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <ContentDialog.Style>
+        <Style TargetType="ContentDialog">
+            <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
+            <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontSize" Value="50" />
+        </Style>
+    </ContentDialog.Style>
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="Would you like to add a garnish?"
+                       Style="{StaticResource TitleStyle}"/>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+
+    <Grid>
+    </Grid>
+</ContentDialog>

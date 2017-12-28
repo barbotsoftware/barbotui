@@ -6,6 +6,7 @@
     <x:Double x:Key="RowHeight">75</x:Double>
     
     <x:Double x:Key="FontSize">62</x:Double>
+    <x:Double x:Key="VolumeFontSize">60</x:Double>
 
     <Style x:Key="IngredientRowGridStyle" TargetType="Grid">
         <Setter Property="Width" Value="Auto" />
@@ -45,11 +46,13 @@
 
     <Style x:Key="IngredientVolumeTextBlockStyle" TargetType="TextBlock">
         <Setter Property="Height" Value="{StaticResource RowHeight}" />
-        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="Width" Value="180" />
+        <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Right" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
-        <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="FontSize" Value="{StaticResource VolumeFontSize}" />
     </Style>
 
     <Style x:Key="IngredientActionStackPanelStyle" TargetType="StackPanel">
