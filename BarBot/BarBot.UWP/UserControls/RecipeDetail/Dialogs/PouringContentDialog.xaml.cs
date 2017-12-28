@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Threading.Tasks;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using static BarBot.Core.Constants;
 
 namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 {
@@ -13,7 +14,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
     {
         private BarbotIOController barbotIOController;
         private bool ice;
-        private int garnish = 0;
+        private GarnishType garnish;
         private string text;
 
         public string Text
@@ -26,7 +27,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             }
         }
 
-        public PouringContentDialog(Recipe orderedRecipe, bool ice, int garnish)
+        public PouringContentDialog(Recipe orderedRecipe, bool ice, GarnishType garnish)
         {
             this.InitializeComponent();
             this.DataContext = this;
@@ -46,7 +47,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             {
                 Dictionary<IO.Devices.IContainer, double> ingredients = Utils.Helpers.GetContainersFromRecipe(recipe, barbotIOController.Containers);
 
-                barbotIOController.PourDrinkSync(ingredients, ice, Core.Constants.GarnishType.NONE);
+                barbotIOController.PourDrinkSync(ingredients, ice, garnish);
             }
 
             // TODO: Update with how many seconds it takes to pour a drink

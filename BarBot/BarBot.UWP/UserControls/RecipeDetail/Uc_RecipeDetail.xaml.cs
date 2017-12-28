@@ -11,6 +11,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
+using static BarBot.Core.Constants;
 
 namespace BarBot.UWP.UserControls.RecipeDetail
 {
@@ -25,6 +26,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         private string maxVolumeLabel;
         private string pourButtonDisplayText;
         private bool ice;
+        private GarnishType garnish;
 
         private Uc_AddIngredientButton AddIngredientButton;
 
@@ -70,6 +72,16 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             {
                 ice = value;
                 OnPropertyChanged("Ice");
+            }
+        }
+
+        public GarnishType Garnish
+        {
+            get { return garnish; }
+            set
+            {
+                garnish = value;
+                OnPropertyChanged("Garnish");
             }
         }
 
@@ -140,7 +152,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             this.Recipe = recipe;
             this.PourButtonDisplayText = string.Format("Pour {0}", Recipe.Name);
             this.MaxVolumeLabel = string.Format("/{0} oz", Constants.MaxVolume);
-            this.ice = false;
+            this.Ice = false;
+            this.Garnish = GarnishType.NONE;
         }
 
         private async void Socket_GetRecipeDetailEvent(object sender, WebSocketEvents.GetRecipeDetailsEventArgs args)
@@ -392,7 +405,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
 
                 // show garnish dialog
-                var garnishDialog = new GarnishContentDialog();
+                // TODO: Load Garnish Options from DB
+                var garnishDialog = new GarnishContentDialog(this, "Lime Wedge", "Lemon Slice");
                 await garnishDialog.ShowAsync();
 
                 if (!garnishDialog.ShouldProceed)
@@ -401,7 +415,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
                 
                 // show pouring dialog
-                var dialog = new PouringContentDialog(Recipe, Ice, /*AddGarnish.IsChecked.Value*/ 0); // TODO: update this to use int value for garnish type
+                var dialog = new PouringContentDialog(Recipe, Ice, Garnish); // TODO: update this to use int value for garnish type
                 await dialog.ShowAsync();
             }
             else

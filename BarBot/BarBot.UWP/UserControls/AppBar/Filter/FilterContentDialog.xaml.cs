@@ -21,7 +21,7 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
         private List<Button> buttons;
 
         private SolidColorBrush BarbotBlue = new SolidColorBrush(Color.FromArgb(255, 0, 75, 153));
-        private Brush DarkGray = new SolidColorBrush(Color.FromArgb(255, 68, 68, 68));
+        private SolidColorBrush DarkGray = new SolidColorBrush(Color.FromArgb(255, 68, 68, 68));
 
         public List<Ingredient> Ingredients
         {

@@ -6,9 +6,8 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    PrimaryButtonText="Continue"
+    x:Name="Dialog"
     CloseButtonText="Cancel"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
     CloseButtonClick="ContentDialog_CloseButtonClick">
 
     <ContentDialog.Resources>
@@ -30,6 +29,7 @@
             <Setter Property="FontSize" Value="50" />
         </Style>
     </ContentDialog.Style>
+    
     <ContentDialog.TitleTemplate>
         <DataTemplate>
             <TextBlock Text="Would you like to add a garnish?"
@@ -37,6 +37,27 @@
         </DataTemplate>
     </ContentDialog.TitleTemplate>
 
-    <Grid>
-    </Grid>
+    <StackPanel x:Name="GarnishStackPanel"
+                Style="{StaticResource GarnishStackPanel}">
+        <Button x:Name="GarnishButton1"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="{Binding Path=GarnishOption1}" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOption1" />
+        <Button x:Name="GarnishButton2"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="{Binding Path=GarnishOption2}" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOption2" />
+        <Button x:Name="GarnishButtonBoth"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="Both" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOptionBoth" />
+        <Button x:Name="GarnishButtonNone"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="None" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOptionNone" />
+    </StackPanel>
 </ContentDialog>

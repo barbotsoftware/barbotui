@@ -81,4 +81,21 @@
         <Setter Property="FontSize" Value="{StaticResource TextBlockFontSize}" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
     </Style>
+    
+    <!-- Garnish Content Dialog -->
+
+    <Style x:Key="GarnishStackPanel" TargetType="StackPanel">
+        <Setter Property="Margin" Value="0,30,0,0" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="GarnishButtonStyle" TargetType="Button">
+        <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="Width" Value="275" />
+        <Setter Property="Height" Value="80" />
+        <Setter Property="Margin" Value="0,0,0,20" />
+    </Style>
 </ResourceDictionary>
