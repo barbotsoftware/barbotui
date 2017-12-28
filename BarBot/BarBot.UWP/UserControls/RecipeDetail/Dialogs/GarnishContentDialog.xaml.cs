@@ -55,6 +55,13 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             this.GarnishOption1 = garnish1;
             this.GarnishOption2 = garnish2;
+
+            if (garnish1.Equals(garnish2))
+            {
+                GarnishButton2.Visibility = Visibility.Collapsed;
+                GarnishButtonBoth.Visibility = Visibility.Collapsed;
+                GarnishButtonNone.Content = "No, thanks";
+            }
         }
 
         private void GarnishButton_Click(object sender, RoutedEventArgs e)

@@ -56,7 +56,7 @@
                 Tag="GarnishOptionBoth" />
         <Button x:Name="GarnishButtonNone"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="None" 
+                Content="Neither" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOptionNone" />
     </StackPanel>
