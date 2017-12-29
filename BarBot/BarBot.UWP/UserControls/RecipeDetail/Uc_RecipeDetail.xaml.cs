@@ -2,6 +2,7 @@
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
 using BarBot.UWP.Pages;
+using BarBot.UWP.UserControls.Dialogs;
 using BarBot.UWP.UserControls.RecipeDetail.Dialogs;
 using BarBot.UWP.Utils;
 using System;
@@ -384,6 +385,20 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         {
             if (app.barbotIOController != null)
             {
+                // check all ingredient volumes
+                foreach (Ingredient i in Recipe.Ingredients)
+                {
+                    Container container = app.Containers.Where(c => c.IngredientId == i.IngredientId).First();
+                    if (container.CurrentVolume < i.Amount)
+                    {
+                        var containerVolumeDialog = new ContainerVolumeContentDialog(container, i, Recipe);
+                        await containerVolumeDialog.ShowAsync();
+
+                        ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu));
+                        return;
+                    }
+                }
+
                 if (app.barbotIOController.CupCount == 0)
                 {
                     // show cup dialog

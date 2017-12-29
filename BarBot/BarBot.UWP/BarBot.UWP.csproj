@@ -191,6 +191,9 @@
       <DependentUpon>ContainerLoadContentDialog.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserControls\ContainerPanel\Tc_ContainerTile.cs" />
+    <Compile Include="UserControls\Dialogs\ContainerVolumeContentDialog.xaml.cs">
+      <DependentUpon>ContainerVolumeContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RecipeDetail\Dialogs\CupContentDialog.xaml.cs">
       <DependentUpon>CupContentDialog.xaml</DependentUpon>
     </Compile>
@@ -387,6 +390,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\CategoryList\Uc_CategoryList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\Dialogs\ContainerVolumeContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
