@@ -52,6 +52,8 @@ namespace BarBot.UWP
 
         public List<Ingredient> FilterIngredients { get; set; }
 
+        public List<Core.Model.Container> Containers { get; set; }
+
         public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
 
         public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
@@ -179,6 +181,8 @@ namespace BarBot.UWP
 
             // Initialize All Recipes List
             AllRecipes = new List<Recipe>();
+
+            Containers = new List<Core.Model.Container>();
 
             // Initialize Global Ingredients List
             IngredientsInBarbot = new Dictionary<string, Ingredient>();

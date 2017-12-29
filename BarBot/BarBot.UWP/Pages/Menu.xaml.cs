@@ -16,7 +16,6 @@ namespace BarBot.UWP.Pages
     public sealed partial class Menu : Page
     {
         private App app;
-        private UWPWebSocketService webSocketService;
         private List<Category> categories = new List<Category>();
         private List<Recipe> recipes = new List<Recipe>();
 
@@ -45,7 +44,6 @@ namespace BarBot.UWP.Pages
         {
             this.InitializeComponent();
             this.app = Application.Current as App;
-            webSocketService = app.webSocketService;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -61,9 +59,13 @@ namespace BarBot.UWP.Pages
 
             if (e.Parameter == null)
             {
-                webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
-                webSocketService.GetCategories();
+                app.webSocketService.Socket.GetCategoriesEvent += Socket_GetCategoriesEvent;
+                app.webSocketService.GetCategories();
                 CategoryList.Visibility = Visibility.Visible;
+
+                // Update Containers
+                app.webSocketService.Socket.GetContainersEvent += Socket_GetContainersEvent;
+                app.webSocketService.GetContainers();
             }
             else if (e.Parameter.GetType() == typeof(Dictionary<string, List<Category>>))
             {
@@ -122,7 +124,18 @@ namespace BarBot.UWP.Pages
                 Categories = args.Categories;
             });
 
-            webSocketService.Socket.GetCategoriesEvent -= Socket_GetCategoriesEvent;
+            app.webSocketService.Socket.GetCategoriesEvent -= Socket_GetCategoriesEvent;
+        }
+
+        private async void Socket_GetContainersEvent(object sender, WebSocketEvents.GetContainersEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                app.Containers = args.Containers;
+            });
+
+            app.webSocketService.Socket.GetContainersEvent -= Socket_GetContainersEvent;
         }
 
         private void HideProgressRing()

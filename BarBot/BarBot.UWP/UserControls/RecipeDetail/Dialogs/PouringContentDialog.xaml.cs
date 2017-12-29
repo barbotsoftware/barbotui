@@ -54,7 +54,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             await Task.Delay(3000);
 
             sender.Hide();
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu));
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

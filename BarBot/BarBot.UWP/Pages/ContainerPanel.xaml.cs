@@ -16,23 +16,12 @@ namespace BarBot.UWP.Pages
     /// </summary>
     public sealed partial class ContainerPanel : Page
     {
-        private UWPWebSocketService webSocketService;
-        private List<Container> containers = new List<Container>();
-
-        public List<Container> Containers
-        {
-            get { return containers; }
-            set
-            {
-                containers = value;
-                ContainerList.Containers = containers;
-            }
-        }
+        private App app;
 
         public ContainerPanel()
         {
             this.InitializeComponent();
-            webSocketService = (Application.Current as App).webSocketService;
+            app = Application.Current as App;
         }
 
         protected override void OnNavigatedTo(NavigationEventArgs e)
@@ -42,8 +31,8 @@ namespace BarBot.UWP.Pages
             ContainerList.Visibility = Visibility.Collapsed;
             if (e.Parameter == null)
             {
-                webSocketService.Socket.GetContainersEvent += Socket_GetContainersEvent;
-                webSocketService.GetContainers();
+                app.webSocketService.Socket.GetContainersEvent += Socket_GetContainersEvent;
+                app.webSocketService.GetContainers();
             }
         }
 
@@ -58,11 +47,12 @@ namespace BarBot.UWP.Pages
                     ProgressRing.Visibility = Visibility.Collapsed;
                 }
 
-                Containers = args.Containers;
+                app.Containers = args.Containers;
+                ContainerList.Containers = args.Containers;
                 ContainerList.Visibility = Visibility.Visible;
             });
 
-            webSocketService.Socket.GetContainersEvent -= Socket_GetContainersEvent;
+            app.webSocketService.Socket.GetContainersEvent -= Socket_GetContainersEvent;
         }
     }
 }

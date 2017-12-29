@@ -1,6 +1,7 @@
 ﻿using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.WebSocket;
+using BarBot.UWP.Pages;
 using BarBot.UWP.UserControls.RecipeDetail.Dialogs;
 using BarBot.UWP.Utils;
 using System;
@@ -417,11 +418,29 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 // show pouring dialog
                 var dialog = new PouringContentDialog(Recipe, Ice, Garnish); // TODO: update this to use int value for garnish type
                 await dialog.ShowAsync();
+
+                SetContainers();
+
+                ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu));
             }
             else
             {
                 System.Diagnostics.Debug.WriteLine("BarbotIOController is null");
             }
+        }
+
+        private void SetContainers()
+        {
+            List<Container> containers = new List<Container>();
+
+            foreach (Ingredient i in Recipe.Ingredients)
+            {
+                Container container = app.Containers.Where(c => c.IngredientId == i.IngredientId).First();
+                container.CurrentVolume -= i.Amount;
+                containers.Add(container);
+            }
+
+            app.webSocketService.SetContainers(containers);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;
