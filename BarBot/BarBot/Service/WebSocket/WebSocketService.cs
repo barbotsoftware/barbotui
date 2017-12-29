@@ -130,7 +130,7 @@ namespace BarBot.Core.Service.WebSocket
             var data = new Dictionary<string, object>
             {
                 { "barbot_id", barbotId },
-                { "barbot_containers", containers }
+                { "containers", containers }
             };
 
             SendMessage(data, Constants.SetContainersForBarbot);
