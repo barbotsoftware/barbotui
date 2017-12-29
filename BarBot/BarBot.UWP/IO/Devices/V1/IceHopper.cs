@@ -48,18 +48,23 @@ namespace BarBot.UWP.IO.Devices.V1
             int cycles = 1;
             while (mcp3008.read(0) <= THRESHOLD_FULL && cycles <= MAX_CYCLES)
             {
+                Debug.WriteLine("Opening ice hopper door...");
+
                 // Open the door (1/4 rev)
                 stepperDriver.run(0.25);
 
+                Debug.WriteLine("Running auger...");
                 // Start the auger motor
                 augerMotor.write(GpioPinValue.High);
 
                 // Wait for the auger to run for a bit
                 delay(RUN_LENGTH);
 
+                Debug.WriteLine("Stopping auger after " + RUN_LENGTH + " seconds");
                 // Stop the auger motor
                 augerMotor.write(GpioPinValue.Low);
 
+                Debug.WriteLine("Closing ice hopper door...");
                 // Close the door (1/4 rev)
                 stepperDriver.runBackwards(0.25);
 
