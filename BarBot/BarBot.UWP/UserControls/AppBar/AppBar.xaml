@@ -85,6 +85,18 @@
                 </Button.Template>
             </Button>
 
+            <Button x:Name="AppBarGarnishButton"
+                Style="{StaticResource AppBarIconButtonStyle}"
+                Click="Open_Garnish" 
+                Visibility="{Binding Path=GarnishButtonVisible}">
+                <Button.Template>
+                    <ControlTemplate TargetType="Button">
+                        <Image Style="{StaticResource AppBarGarnishIconImageStyle}" 
+                               Source="ms-appx:///Assets/garnish.png" />
+                    </ControlTemplate>
+                </Button.Template>
+            </Button>
+
             <Button x:Name="AppBarSettingsButton"
                 Style="{StaticResource AppBarIconButtonStyle}"
                 Click="Open_Settings"

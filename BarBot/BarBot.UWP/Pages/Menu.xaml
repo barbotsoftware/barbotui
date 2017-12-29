@@ -27,6 +27,7 @@
                    HomeButtonVisible="False"
                    FilterButtonVisible="False"
                    SearchButtonVisible="True"
+                   GarnishButtonVisible="False"
                    SettingsButtonVisible="True"></ab:AppBar>
         <ProgressRing x:Name="ProgressRing"
                       Style="{StaticResource ProgressRingStyle}" />

@@ -93,4 +93,10 @@
         <Setter Property="Width" Value="64" />
         <Setter Property="Margin" Value="0,0,0,0" />
     </Style>
+
+    <Style x:Key="AppBarGarnishIconImageStyle" TargetType="Image">
+        <Setter Property="Height" Value="58" />
+        <Setter Property="Width" Value="58" />
+        <Setter Property="Margin" Value="0,0,0,3" />
+    </Style>
 </ResourceDictionary>

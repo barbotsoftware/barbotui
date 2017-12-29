@@ -244,6 +244,7 @@
     <Content Include="Assets\back_arrow.png" />
     <Content Include="Assets\custom_recipe.png" />
     <Content Include="Assets\filter-white.png" />
+    <Content Include="Assets\garnish.png" />
     <Content Include="Assets\HexagonTile.png" />
     <Content Include="Assets\HexagonTileGradient.png" />
     <Content Include="Assets\home.png" />

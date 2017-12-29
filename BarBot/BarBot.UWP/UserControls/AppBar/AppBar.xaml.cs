@@ -102,6 +102,24 @@ namespace BarBot.UWP.UserControls.AppBar
             }
         }
 
+        public static readonly DependencyProperty GarnishButtonVisibleProperty = DependencyProperty.Register
+        (
+            "GarnishButtonVisible",
+            typeof(bool),
+            typeof(AppBar),
+            new PropertyMetadata(false)
+        );
+
+        public bool GarnishButtonVisible
+        {
+            get { return (bool)GetValue(GarnishButtonVisibleProperty); }
+            set
+            {
+                SetValue(GarnishButtonVisibleProperty, value);
+                OnPropertyChanged("GarnishButtonVisible");
+            }
+        }
+
         public static readonly DependencyProperty SettingsButtonVisibleProperty = DependencyProperty.Register
         (
             "SettingsButtonVisible",
@@ -175,6 +193,11 @@ namespace BarBot.UWP.UserControls.AppBar
             var filterDialog = new FilterContentDialog();
             await filterDialog.ShowAsync();
             //SetFilterIcon();
+        }
+
+        private async void Open_Garnish(object sender, RoutedEventArgs e)
+        {
+
         }
 
         private async void Open_Settings(object sender, RoutedEventArgs e)

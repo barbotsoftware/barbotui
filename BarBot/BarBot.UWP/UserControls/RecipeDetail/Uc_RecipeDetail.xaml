@@ -30,6 +30,7 @@
                    HomeButtonVisible="True"
                    FilterButtonVisible="False"
                    SearchButtonVisible="False"
+                   GarnishButtonVisible="False"
                    SettingsButtonVisible="False"></ab:AppBar>
         
         <!-- Recipe Image -->
