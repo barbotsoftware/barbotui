@@ -45,7 +45,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             }
         }
 
-        public GarnishContentDialog(Uc_RecipeDetail parent, string garnish1, string garnish2)
+        public GarnishContentDialog(Uc_RecipeDetail parent)
         {
             this.InitializeComponent();
             this.DataContext = this;
@@ -53,10 +53,12 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             this.parentUserControl = parent;
             this.ShouldProceed = false;
 
-            this.GarnishOption1 = garnish1;
-            this.GarnishOption2 = garnish2;
+            App app = Application.Current as App;
 
-            if (garnish1.Equals(garnish2))
+            this.GarnishOption1 = app.Garnishes.Where(g => g.OptionNumber == 1).First().Name;
+            this.GarnishOption2 = app.Garnishes.Where(g => g.OptionNumber == 2).First().Name;
+
+            if (GarnishOption1.Equals(GarnishOption2))
             {
                 GarnishButton2.Visibility = Visibility.Collapsed;
                 GarnishButtonBoth.Visibility = Visibility.Collapsed;

@@ -421,8 +421,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
 
                 // show garnish dialog
-                // TODO: Load Garnish Options from DB
-                var garnishDialog = new GarnishContentDialog(this, "Lime Wedge", "Lemon Slice");
+                var garnishDialog = new GarnishContentDialog(this);
                 await garnishDialog.ShowAsync();
 
                 if (!garnishDialog.ShouldProceed)
@@ -435,6 +434,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 await dialog.ShowAsync();
 
                 SetContainers();
+                SetGarnishes();
 
                 ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu));
             }
@@ -456,6 +456,25 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             }
 
             app.webSocketService.SetContainers(containers);
+        }
+
+        private void SetGarnishes()
+        {
+            if (Garnish.Equals(GarnishType.GARNISH1) || Garnish.Equals(GarnishType.BOTH))
+            {
+                UpdateGarnish(app.Garnishes.Where(g => g.OptionNumber == 1).First());
+            }
+
+            if (Garnish.Equals(GarnishType.GARNISH2) || Garnish.Equals(GarnishType.BOTH))
+            {
+                UpdateGarnish(app.Garnishes.Where(g => g.OptionNumber == 2).First());
+            }
+        }
+
+        private void UpdateGarnish(Garnish garnish)
+        {
+            garnish.Quantity--;
+            app.webSocketService.UpdateGarnish(garnish);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

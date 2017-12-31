@@ -66,6 +66,10 @@ namespace BarBot.UWP.Pages
                 // Update Containers
                 app.webSocketService.Socket.GetContainersEvent += Socket_GetContainersEvent;
                 app.webSocketService.GetContainers();
+
+                // Update Garnishes
+                app.webSocketService.Socket.GetGarnishesEvent += Socket_GetGarnishesEvent;
+                app.webSocketService.GetGarnishes();
             }
             else if (e.Parameter.GetType() == typeof(Dictionary<string, List<Category>>))
             {
@@ -137,6 +141,18 @@ namespace BarBot.UWP.Pages
 
             app.webSocketService.Socket.GetContainersEvent -= Socket_GetContainersEvent;
         }
+
+        private async void Socket_GetGarnishesEvent(object sender, WebSocketEvents.GetGarnishesEventArgs args)
+        {
+            await Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
+            () =>
+            {
+                app.Garnishes = args.Garnishes;
+            });
+
+            app.webSocketService.Socket.GetGarnishesEvent -= Socket_GetGarnishesEvent;
+        }
+
 
         private void HideProgressRing()
         {
