@@ -41,12 +41,12 @@
                 Style="{StaticResource GarnishStackPanel}">
         <Button x:Name="GarnishButton1"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=GarnishOption1}" 
+                Content="{Binding Path=Garnish1.Name}" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOption1" />
         <Button x:Name="GarnishButton2"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=GarnishOption2}" 
+                Content="{Binding Path=Garnish2.Name}" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOption2" />
         <Button x:Name="GarnishButtonBoth"
@@ -59,5 +59,9 @@
                 Content="Neither" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOptionNone" />
+        <TextBlock x:Name="GarnishEmptyTextBlock"
+               Text="There are no garnishes left. Please reload."
+               Visibility="Collapsed"
+               Style="{StaticResource TextBlockStyle}" />
     </StackPanel>
 </ContentDialog>

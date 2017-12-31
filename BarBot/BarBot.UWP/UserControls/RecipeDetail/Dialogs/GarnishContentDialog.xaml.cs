@@ -1,9 +1,11 @@
-﻿using System;
+﻿using BarBot.Core.Model;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI;
@@ -22,26 +24,26 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
     {
         Uc_RecipeDetail parentUserControl;
         public Boolean ShouldProceed { get; set; }
-        private string garnishOption1;
-        private string garnishOption2;
+        private Garnish garnish1;
+        private Garnish garnish2;
         
-        public string GarnishOption1
+        public Garnish Garnish1
         {
-            get { return garnishOption1; }
+            get { return garnish1; }
             set
             {
-                garnishOption1 = value;
-                OnPropertyChanged("GarnishOption1");
+                garnish1 = value;
+                OnPropertyChanged("Garnish1");
             }
         }
 
-        public string GarnishOption2
+        public Garnish Garnish2
         {
-            get { return garnishOption2; }
+            get { return garnish2; }
             set
             {
-                garnishOption2 = value;
-                OnPropertyChanged("GarnishOption2");
+                garnish2 = value;
+                OnPropertyChanged("Garnish2");
             }
         }
 
@@ -55,14 +57,40 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             App app = Application.Current as App;
 
-            this.GarnishOption1 = app.Garnishes.Where(g => g.OptionNumber == 1).First().Name;
-            this.GarnishOption2 = app.Garnishes.Where(g => g.OptionNumber == 2).First().Name;
+            this.Garnish1 = app.Garnishes.Where(g => g.OptionNumber == 1).First();
+            this.Garnish2 = app.Garnishes.Where(g => g.OptionNumber == 2).First();
 
-            if (GarnishOption1.Equals(GarnishOption2))
+            this.Opened += GarnishContentDialog_OpenedAsync;
+
+            if (Garnish1.Quantity == 0 && Garnish2.Quantity == 0)
+            {
+                GarnishButton1.Visibility = Visibility.Collapsed;
+                GarnishButton2.Visibility = Visibility.Collapsed;
+                GarnishButtonBoth.Visibility = Visibility.Collapsed;
+                GarnishButtonNone.Visibility = Visibility.Collapsed;
+                GarnishEmptyTextBlock.Visibility = Visibility.Visible;
+            }
+            else if (Garnish1.Quantity == 0)
+            {
+                GarnishButton1.Visibility = Visibility.Collapsed;
+                GarnishButtonBoth.Visibility = Visibility.Collapsed;
+                GarnishButtonNone.Content = "No, thanks";
+            }
+            else if (Garnish2.Quantity == 0 || Garnish1.Name.Equals(Garnish2.Name))
             {
                 GarnishButton2.Visibility = Visibility.Collapsed;
                 GarnishButtonBoth.Visibility = Visibility.Collapsed;
                 GarnishButtonNone.Content = "No, thanks";
+            }
+        }
+
+        private async void GarnishContentDialog_OpenedAsync(ContentDialog sender, ContentDialogOpenedEventArgs args)
+        {
+            if (Garnish1.Quantity == 0 && Garnish2.Quantity == 0)
+            {
+                await Task.Delay(3000);
+                ShouldProceed = true;
+                sender.Hide();
             }
         }
 
