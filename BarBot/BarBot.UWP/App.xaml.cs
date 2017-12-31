@@ -54,6 +54,8 @@ namespace BarBot.UWP
 
         public List<Core.Model.Container> Containers { get; set; }
 
+        public List<Garnish> Garnishes { get; set; }
+
         public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
 
         public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
@@ -184,6 +186,8 @@ namespace BarBot.UWP
 
             Containers = new List<Core.Model.Container>();
 
+            Garnishes = new List<Garnish>();
+
             // Initialize Global Ingredients List
             IngredientsInBarbot = new Dictionary<string, Ingredient>();
 
@@ -283,6 +287,17 @@ namespace BarBot.UWP
             webSocketService.Socket.GetIngredientsEvent -= WebSocket_GetIngredientsEvent;
         }
 
+        private async void WebSocket_GetGarnishesEvent(object sender, WebSocketEvents.GetGarnishesEventArgs args)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+            () =>
+            {
+                Garnishes = args.Garnishes;
+            });
+
+            webSocketService.Socket.GetGarnishesEvent -= WebSocket_GetGarnishesEvent;
+        }
+
         /// <summary>
         /// Invoked when the application is launched normally by the end user.  Other entry points
         /// will be used such as when the application is launched to open a specific file.
@@ -333,6 +348,10 @@ namespace BarBot.UWP
             // Attach GetIngredients Event Handler and call GetIngredients
             webSocketService.Socket.GetIngredientsEvent += WebSocket_GetIngredientsEvent;
             webSocketService.GetIngredients();
+
+            // Attach GetGarnishes Event Handler and call GetGarnishes
+            webSocketService.Socket.GetGarnishesEvent += WebSocket_GetGarnishesEvent;
+            webSocketService.GetGarnishes();
         }
 
         /// <summary>

@@ -22,6 +22,7 @@ namespace BarBot.Core.WebSocket
 
         public event WebSocketEvents.GetRecipesEventHandler GetRecipesEvent = delegate { };
         public event WebSocketEvents.DrinkOrderedEventHandler DrinkOrderedEvent = delegate { };
+        public event WebSocketEvents.GetGarnishesEventHandler GetGarnishesEvent = delegate { };
         public event WebSocketEvents.GetIngredientsEventHandler GetIngredientsEvent = delegate { };
         public event WebSocketEvents.GetRecipeDetailsEventHandler GetRecipeDetailsEvent = delegate { };
         public event WebSocketEvents.OrderDrinkEventHandler OrderDrinkEvent = delegate { };
@@ -30,6 +31,7 @@ namespace BarBot.Core.WebSocket
         public event WebSocketEvents.GetCategoryEventHandler GetCategoryEvent = delegate { };
         public event WebSocketEvents.GetContainersEventHandler GetContainersEvent = delegate { };
         public event WebSocketEvents.UpdateContainerEventHandler UpdateContainerEvent = delegate { };
+        public event WebSocketEvents.UpdateGarnishEventHandler UpdateGarnishEvent = delegate { };
 
         #endregion
 
@@ -99,7 +101,7 @@ namespace BarBot.Core.WebSocket
         }
 
         /// <summary>
-        /// Handles responses n shit. 
+        /// Handles WebSocket Server responses
         /// </summary>
         /// <param name="message"></param>
         public void handleResponse (Message message)
@@ -113,6 +115,10 @@ namespace BarBot.Core.WebSocket
                 case Constants.GetRecipeDetails:
                     Recipe recipe = new Recipe(message.Data["recipe"].ToString());
                     GetRecipeDetailsEvent(this, new WebSocketEvents.GetRecipeDetailsEventArgs(recipe));
+                    break;
+                case Constants.GetGarnishesForBarbot:
+                    var GarnishList = new GarnishList(message.Data["garnishes"].ToString());
+                    GetGarnishesEvent(this, new WebSocketEvents.GetGarnishesEventArgs(GarnishList.Garnishes));
                     break;
                 case Constants.GetIngredientsForBarbot:
                     var IngredientList = new IngredientList(message.Data["ingredients"].ToString());

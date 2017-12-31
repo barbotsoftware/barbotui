@@ -82,6 +82,16 @@ namespace BarBot.Core.Service.WebSocket
             SendMessage(data, Constants.GetContainersForBarbot);
         }
 
+        public void GetGarnishes()
+        {
+            var data = new Dictionary<string, object>
+            {
+                { "barbot_id", barbotId }
+            };
+
+            SendMessage(data, Constants.GetGarnishesForBarbot);
+        }
+
         public void GetIngredients()
         {
 			var data = new Dictionary<string, object>
@@ -134,6 +144,17 @@ namespace BarBot.Core.Service.WebSocket
             };
 
             SendMessage(data, Constants.SetContainersForBarbot);
+        }
+
+        public void UpdateGarnish(Garnish garnish)
+        {
+            var data = new Dictionary<string, object>
+            {
+                { "barbot_id", barbotId },
+                { "garnish", garnish }
+            };
+
+            SendMessage(data, Constants.UpdateGarnish);
         }
 
         void SendMessage(Dictionary<string, object> data, string command)

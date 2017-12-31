@@ -18,6 +18,7 @@ namespace BarBot.Core
 
         public const string CreateCustomRecipe = "create_custom_recipe";
         public const string GetContainersForBarbot = "get_containers_for_barbot";
+        public const string GetGarnishesForBarbot = "get_garnishes_for_barbot";
 		public const string GetIngredientsForBarbot = "get_ingredients_for_barbot";
         public const string GetRecipeDetails = "get_recipe_details";
         public const string GetRecipesForBarbot = "get_recipes_for_barbot";
@@ -27,6 +28,7 @@ namespace BarBot.Core
         public const string GetCategories = "get_categories";
         public const string GetCategory = "get_category";
         public const string UpdateContainer = "update_container";
+        public const string UpdateGarnish = "update_garnish";
 
 		public const string IPAddress = "192.168.1.229";
 

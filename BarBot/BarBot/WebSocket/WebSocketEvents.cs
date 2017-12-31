@@ -61,6 +61,23 @@ namespace BarBot.Core.WebSocket
             }
         }
 
+        public delegate void GetGarnishesEventHandler(object sender, GetGarnishesEventArgs args);
+
+        public class GetGarnishesEventArgs : EventArgs
+        {
+            public List<Garnish> garnishes;
+
+            public GetGarnishesEventArgs(List<Garnish> garnishes)
+            {
+                this.garnishes = garnishes;
+            }
+
+            public List<Garnish> Garnishes
+            {
+                get { return garnishes; }
+            }
+        }
+
 		public delegate void GetIngredientsEventHandler(object sender, GetIngredientsEventArgs args);
 
 		public class GetIngredientsEventArgs : EventArgs
@@ -178,6 +195,23 @@ namespace BarBot.Core.WebSocket
             public Container Container
             {
                 get { return container; }
+            }
+        }
+
+        public delegate void UpdateGarnishEventHandler(object sender, UpdateGarnishEventArgs args);
+
+        public class UpdateGarnishEventArgs : EventArgs
+        {
+            private Garnish garnish;
+
+            public UpdateGarnishEventArgs(Garnish garnish)
+            {
+                this.garnish = garnish;
+            }
+
+            public Garnish Garnish
+            {
+                get { return garnish; }
             }
         }
     }
