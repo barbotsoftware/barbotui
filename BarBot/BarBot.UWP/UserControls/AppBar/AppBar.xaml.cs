@@ -1,5 +1,6 @@
 ﻿using BarBot.UWP.Pages;
 using BarBot.UWP.UserControls.AppBar.Filter;
+using BarBot.UWP.UserControls.AppBar.Garnish;
 using BarBot.UWP.UserControls.AppBar.Search;
 using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
@@ -197,7 +198,8 @@ namespace BarBot.UWP.UserControls.AppBar
 
         private async void Open_Garnish(object sender, RoutedEventArgs e)
         {
-
+            var garnishLoadDialog = new GarnishLoadContentDialog();
+            await garnishLoadDialog.ShowAsync();
         }
 
         private async void Open_Settings(object sender, RoutedEventArgs e)

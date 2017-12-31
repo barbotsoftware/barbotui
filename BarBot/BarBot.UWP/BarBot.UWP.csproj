@@ -177,6 +177,9 @@
     <Compile Include="UserControls\AppBar\Filter\FilterContentDialog.xaml.cs">
       <DependentUpon>FilterContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\AppBar\Garnish\GarnishLoadContentDialog.xaml.cs">
+      <DependentUpon>GarnishLoadContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\AppBar\Settings\PasswordContentDialog.xaml.cs">
       <DependentUpon>PasswordContentDialog.xaml</DependentUpon>
     </Compile>
@@ -351,6 +354,10 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Page>
     <Page Include="UserControls\AppBar\Filter\FilterContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserControls\AppBar\Garnish\GarnishLoadContentDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

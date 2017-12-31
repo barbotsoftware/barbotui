@@ -48,6 +48,8 @@ namespace BarBot.Core
 
 		public const double MaxVolume = 12.0;
 
+        public const int GarnishCapacity = 25;
+
         public const string CustomRecipeName = "Custom Cocktail";
 
         public const string CustomCategoryName = "Custom Cocktail";
