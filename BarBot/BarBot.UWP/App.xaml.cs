@@ -192,7 +192,7 @@ namespace BarBot.UWP
             IngredientsInBarbot = new Dictionary<string, Ingredient>();
 
             // Initialize Login Service
-            loginService = new UWPLoginService(Constants.IPAddress + ":" + Constants.PortNumber);
+            loginService = new UWPLoginService(webserverUrl + ":" + Constants.PortNumber);
 
             // Initialize websocket service
             webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);
@@ -329,7 +329,7 @@ namespace BarBot.UWP
 
                 // Place the frame in the current Window
                 Window.Current.Content = rootFrame;
-                //Window.Current.CoreWindow.PointerCursor = null;
+                Window.Current.CoreWindow.PointerCursor = null;
             }
 
             if (e.PrelaunchActivated == false)
