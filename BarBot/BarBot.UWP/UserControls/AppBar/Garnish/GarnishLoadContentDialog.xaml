@@ -44,9 +44,7 @@
                 Style="{StaticResource GarnishStackPanelStyle}">
         <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
             <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
-                       Text="{Binding Path=Garnish1.Name}" />
-            <TextBlock Style="{StaticResource GarnishQuantityTextBlockStyle}"
-                       Text="{Binding Path=Quantity1DisplayText}" />
+                       Text="{Binding Path=Garnish1DisplayText}" />
             <Button x:Name="ReloadGarnish1Button"
                 Style="{StaticResource GarnishButtonStyle}"
                 Content="Reload"
@@ -55,9 +53,7 @@
         </StackPanel>
         <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
             <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
-                       Text="{Binding Path=Garnish2.Name}" />
-            <TextBlock Style="{StaticResource GarnishQuantityTextBlockStyle}"
-                       Text="{Binding Path=Quantity2DisplayText}" />
+                       Text="{Binding Path=Garnish2DisplayText}" />
             <Button x:Name="ReloadGarnish2Button"
                 Style="{StaticResource GarnishButtonStyle}"
                 Content="Reload" 

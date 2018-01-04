@@ -11,8 +11,8 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
         private App app;
         private Core.Model.Garnish garnish1;
         private Core.Model.Garnish garnish2;
-        private string quantity1DisplayText;
-        private string quantity2DisplayText;
+        private string garnish1DisplayText;
+        private string garnish2DisplayText;
         private int garnish1PreviousQuantity;
         private int garnish2PreviousQuantity;
 
@@ -22,7 +22,7 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
             set
             {
                 garnish1 = value;
-                Quantity1DisplayText = Garnish1.Quantity + " Left";
+                Garnish1DisplayText = SetGarnishDisplayText(garnish1);
                 OnPropertyChanged("Garnish1");
             }
         }
@@ -33,28 +33,28 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
             set
             {
                 garnish2 = value;
-                Quantity2DisplayText = Garnish2.Quantity + " Left";
+                Garnish2DisplayText = SetGarnishDisplayText(garnish2);
                 OnPropertyChanged("Garnish2");
             }
         }
 
-        public string Quantity1DisplayText
+        public string Garnish1DisplayText
         {
-            get { return quantity1DisplayText; }
+            get { return garnish1DisplayText; }
             set
             {
-                quantity1DisplayText = value;
-                OnPropertyChanged("Quantity1DisplayText");
+                garnish1DisplayText = value;
+                OnPropertyChanged("Garnish1DisplayText");
             }
         }
 
-        public string Quantity2DisplayText
+        public string Garnish2DisplayText
         {
-            get { return quantity2DisplayText; }
+            get { return garnish2DisplayText; }
             set
             {
-                quantity2DisplayText = value;
-                OnPropertyChanged("Quantity2DisplayText");
+                garnish2DisplayText = value;
+                OnPropertyChanged("Garnish2DisplayText");
             }
         }
 
@@ -70,6 +70,22 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
 
             garnish1PreviousQuantity = garnish1.Quantity;
             garnish2PreviousQuantity = garnish2.Quantity;
+        }
+
+        private string SetGarnishDisplayText(Core.Model.Garnish garnish)
+        {
+            if (garnish.Quantity == 0)
+            {
+                return string.Format("No {0}s Left", garnish.Name);
+            }
+            else if (garnish.Quantity == 1)
+            {
+                return string.Format("{0} {1} Left", garnish.Quantity, garnish.Name);
+            }
+            else
+            {
+                return string.Format("{0} {1}s Left", garnish.Quantity, garnish.Name);
+            }
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
@@ -98,11 +114,11 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
                 {
                     case "Garnish1":
                         Garnish1.Quantity = Constants.GarnishCapacity;
-                        Quantity1DisplayText = Garnish1.Quantity + " Left";
+                        Garnish1DisplayText = SetGarnishDisplayText(Garnish1);
                         break;
                     case "Garnish2":
                         Garnish2.Quantity = Constants.GarnishCapacity;
-                        Quantity2DisplayText = Garnish2.Quantity + " Left";
+                        Garnish2DisplayText = SetGarnishDisplayText(Garnish2);
                         break;
                 }
             }
