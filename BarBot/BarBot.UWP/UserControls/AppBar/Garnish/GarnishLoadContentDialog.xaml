@@ -9,7 +9,8 @@
     x:Name="ContentDialog"
     PrimaryButtonText="Done"
     CloseButtonText="Cancel"
-    PrimaryButtonClick="ContentDialog_PrimaryButtonClick">
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    CloseButtonClick="ContentDialog_CloseButtonClick">
 
     <ContentDialog.Resources>
         <ResourceDictionary>
@@ -40,16 +41,28 @@
     </ContentDialog.TitleTemplate>
 
     <StackPanel x:Name="GarnishStackPanel"
-                Style="{StaticResource GarnishStackPanel}">
-        <Button x:Name="ReloadGarnish1Button"
+                Style="{StaticResource GarnishStackPanelStyle}">
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
+                       Text="{Binding Path=Garnish1.Name}" />
+            <TextBlock Style="{StaticResource GarnishQuantityTextBlockStyle}"
+                       Text="{Binding Path=Quantity1DisplayText}" />
+            <Button x:Name="ReloadGarnish1Button"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=Garnish1.Name}"
+                Content="Reload"
                 Click="ReloadGarnishButton_Click"
                 Tag="Garnish1" />
-        <Button x:Name="ReloadGarnish2Button"
+        </StackPanel>
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
+                       Text="{Binding Path=Garnish2.Name}" />
+            <TextBlock Style="{StaticResource GarnishQuantityTextBlockStyle}"
+                       Text="{Binding Path=Quantity2DisplayText}" />
+            <Button x:Name="ReloadGarnish2Button"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=Garnish2.Name}" 
+                Content="Reload" 
                 Click="ReloadGarnishButton_Click"
                 Tag="Garnish2" />
+        </StackPanel>
     </StackPanel>
 </ContentDialog>

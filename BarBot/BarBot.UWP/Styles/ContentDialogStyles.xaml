@@ -6,7 +6,7 @@
     <x:Double x:Key="ButtonFontSize">38</x:Double>
     <x:Double x:Key="TextBlockFontSize">45</x:Double>
     <x:Double x:Key="ErrorTextBlockFontSize">32</x:Double>
-    
+
     <!-- Shared Content Dialog -->
 
     <Style x:Key="ButtonStyle" TargetType="Button">
@@ -84,18 +84,53 @@
     
     <!-- Garnish Content Dialog -->
 
-    <Style x:Key="GarnishStackPanel" TargetType="StackPanel">
+    <x:Double x:Key="GarnishFontSize">60</x:Double>
+    <x:Double x:Key="GarnishRowHeight">80</x:Double>
+
+    <Style x:Key="GarnishStackPanelStyle" TargetType="StackPanel">
         <Setter Property="Margin" Value="0,30,0,0" />
         <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="HorizontalAlignment" Value="Center" />
     </Style>
 
+    <Style x:Key="GarnishTextStackPanelStyle" TargetType="StackPanel">
+        <Setter Property="Orientation" Value="Horizontal" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="HorizontalAlignment" Value="Center" />
+    </Style>
+
+    <Style x:Key="GarnishTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource GarnishFontSize}" />
+        <Setter Property="Width" Value="325" />
+        <Setter Property="Height" Value="{StaticResource GarnishRowHeight}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="TextWrapping" Value="WrapWholeWords" />
+    </Style>
+
+    <Style x:Key="GarnishQuantityTextBlockStyle" TargetType="TextBlock">
+        <Setter Property="FontSize" Value="{StaticResource GarnishFontSize}" />
+        <Setter Property="Width" Value="225" />
+        <Setter Property="Height" Value="{StaticResource GarnishRowHeight}" />
+        <Setter Property="Foreground" Value="White" />
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
+        <Setter Property="TextAlignment" Value="Left" />
+        <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        <Setter Property="TextWrapping" Value="WrapWholeWords" />
+    </Style>
+
     <Style x:Key="GarnishButtonStyle" TargetType="Button">
+        <Setter Property="HorizontalAlignment" Value="Left" />
+        <Setter Property="VerticalAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Width" Value="275" />
-        <Setter Property="Height" Value="80" />
+        <Setter Property="Width" Value="175" />
+        <Setter Property="Height" Value="{StaticResource GarnishRowHeight}" />
         <Setter Property="Margin" Value="0,0,0,20" />
     </Style>
 </ResourceDictionary>

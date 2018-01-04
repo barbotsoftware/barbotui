@@ -11,6 +11,10 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
         private App app;
         private Core.Model.Garnish garnish1;
         private Core.Model.Garnish garnish2;
+        private string quantity1DisplayText;
+        private string quantity2DisplayText;
+        private int garnish1PreviousQuantity;
+        private int garnish2PreviousQuantity;
 
         public Core.Model.Garnish Garnish1
         {
@@ -18,6 +22,7 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
             set
             {
                 garnish1 = value;
+                Quantity1DisplayText = Garnish1.Quantity + " Left";
                 OnPropertyChanged("Garnish1");
             }
         }
@@ -28,7 +33,28 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
             set
             {
                 garnish2 = value;
+                Quantity2DisplayText = Garnish2.Quantity + " Left";
                 OnPropertyChanged("Garnish2");
+            }
+        }
+
+        public string Quantity1DisplayText
+        {
+            get { return quantity1DisplayText; }
+            set
+            {
+                quantity1DisplayText = value;
+                OnPropertyChanged("Quantity1DisplayText");
+            }
+        }
+
+        public string Quantity2DisplayText
+        {
+            get { return quantity2DisplayText; }
+            set
+            {
+                quantity2DisplayText = value;
+                OnPropertyChanged("Quantity2DisplayText");
             }
         }
 
@@ -41,11 +67,23 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
 
             this.Garnish1 = app.Garnishes.Where(g => g.OptionNumber == 1).First();
             this.Garnish2 = app.Garnishes.Where(g => g.OptionNumber == 2).First();
+
+            garnish1PreviousQuantity = garnish1.Quantity;
+            garnish2PreviousQuantity = garnish2.Quantity;
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
+            app.webSocketService.UpdateGarnish(Garnish1);
+            app.webSocketService.UpdateGarnish(Garnish2);
             sender.Hide();
+        }
+
+        private void ContentDialog_CloseButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
+        {
+            // Roll back changes
+            Garnish1.Quantity = garnish1PreviousQuantity;
+            Garnish2.Quantity = garnish2PreviousQuantity;
         }
 
         private void ReloadGarnishButton_Click(object sender, RoutedEventArgs e)
@@ -60,11 +98,11 @@ namespace BarBot.UWP.UserControls.AppBar.Garnish
                 {
                     case "Garnish1":
                         Garnish1.Quantity = Constants.GarnishCapacity;
-                        app.webSocketService.UpdateGarnish(Garnish1);
+                        Quantity1DisplayText = Garnish1.Quantity + " Left";
                         break;
                     case "Garnish2":
                         Garnish2.Quantity = Constants.GarnishCapacity;
-                        app.webSocketService.UpdateGarnish(Garnish2);
+                        Quantity2DisplayText = Garnish2.Quantity + " Left";
                         break;
                 }
             }
