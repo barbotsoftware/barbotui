@@ -218,10 +218,25 @@
                     <Grid x:Name="IngredientRowGrid"
                           Style="{StaticResource IngredientRowGridStyle}"
                           Background="#222222">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="TapStates">
+                                <VisualState x:Name="PointerDown">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="IngredientRowGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerUp">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation TargetName="IngredientRowGrid" />
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
                         <StackPanel x:Name="IngredientTextStackPanel"
                                     Style="{StaticResource IngredientTextStackPanelStyle}">
-                            <ComboBox x:Name="IngredientComboBox"
-                                      Style="{StaticResource IngredientComboBoxStyle}" />
+                            <TextBlock x:Name="IngredientNameTextBlock"
+                                       Text="{Binding Path=Ingredient.Name}"
+                                       Style="{StaticResource IngredientNameTextBlockStyle}" />
                             <TextBlock x:Name="IngredientVolumeTextBlock"
                                        Text="{Binding Path=VolumeText}"
                                        Style="{StaticResource IngredientVolumeTextBlockStyle}" />       
@@ -234,9 +249,26 @@
                                     Style="{StaticResource ActionButtonStyle}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Image x:Name="MinusImage" 
-                                               Source="ms-appx:///Assets/minus.png"
-                                               Style="{StaticResource ActionImageStyle}" />
+                                        <Grid x:Name="MinusImageGrid">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="TapStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="PointerDown">
+                                                        <Storyboard>
+                                                            <PointerDownThemeAnimation TargetName="MinusImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="PointerUp">
+                                                        <Storyboard>
+                                                            <PointerUpThemeAnimation TargetName="MinusImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Image x:Name="MinusImage" 
+                                                   Source="ms-appx:///Assets/minus.png"
+                                                   Style="{StaticResource ActionImageStyle}" />
+                                        </Grid>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -245,9 +277,26 @@
                                     Style="{StaticResource ActionButtonStyle}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Image x:Name="PlusImage" 
-                                               Source="ms-appx:///Assets/plus.png"
-                                               Style="{StaticResource ActionImageStyle}" />
+                                        <Grid x:Name="PlusImageGrid">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="TapStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="PointerDown">
+                                                        <Storyboard>
+                                                            <PointerDownThemeAnimation TargetName="PlusImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="PointerUp">
+                                                        <Storyboard>
+                                                            <PointerUpThemeAnimation TargetName="PlusImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Image x:Name="PlusImage" 
+                                                   Source="ms-appx:///Assets/plus.png"
+                                                   Style="{StaticResource ActionImageStyle}" />
+                                        </Grid>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>
@@ -256,9 +305,26 @@
                                     Style="{StaticResource ActionButtonStyle}">
                                 <Button.Template>
                                     <ControlTemplate TargetType="Button">
-                                        <Image x:Name="RemoveImage" 
-                                               Source="ms-appx:///Assets/remove.png"
-                                               Style="{StaticResource RemoveImageStyle}" />
+                                        <Grid x:Name="RemoveImageGrid">
+                                            <VisualStateManager.VisualStateGroups>
+                                                <VisualStateGroup x:Name="TapStates">
+                                                    <VisualState x:Name="Normal"/>
+                                                    <VisualState x:Name="PointerDown">
+                                                        <Storyboard>
+                                                            <PointerDownThemeAnimation TargetName="RemoveImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                    <VisualState x:Name="PointerUp">
+                                                        <Storyboard>
+                                                            <PointerUpThemeAnimation TargetName="RemoveImageGrid"/>
+                                                        </Storyboard>
+                                                    </VisualState>
+                                                </VisualStateGroup>
+                                            </VisualStateManager.VisualStateGroups>
+                                            <Image x:Name="RemoveImage" 
+                                                   Source="ms-appx:///Assets/remove.png"
+                                                   Style="{StaticResource RemoveImageStyle}" />
+                                        </Grid>
                                     </ControlTemplate>
                                 </Button.Template>
                             </Button>

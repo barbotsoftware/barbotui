@@ -1,18 +1,13 @@
 ﻿<ContentDialog
-    x:Class="BarBot.UWP.UserControls.AppBar.Filter.FilterContentDialog"
+    x:Class="BarBot.UWP.UserControls.RecipeDetail.IngredientList.Dialogs.IngredientChangeContentDialog"
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-    xmlns:local="using:BarBot.UWP.UserControls.AppBar.Filter"
+    xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail.IngredientList.Dialogs"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    IsPrimaryButtonEnabled="True"
-    IsSecondaryButtonEnabled="True"
-    PrimaryButtonText="Apply"
-    SecondaryButtonText="Clear"
-    CloseButtonText="Cancel"
-    PrimaryButtonClick="FilterDialog_PrimaryButtonClick"
-    SecondaryButtonClick="FilterDialog_SecondaryButtonClick">
+    x:Name="ContentDialog"
+    CloseButtonText="Cancel">
 
     <ContentDialog.Resources>
         <ResourceDictionary>
@@ -21,11 +16,9 @@
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </ContentDialog.Resources>
-    
+
     <ContentDialog.Style>
         <Style TargetType="ContentDialog">
-            <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
-            <Setter Property="SecondaryButtonStyle" Value="{StaticResource ButtonStyle}" />
             <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
             <Setter Property="MaxWidth" Value="1280" />
             <Setter Property="Background" Value="#161616" />
@@ -36,13 +29,13 @@
     </ContentDialog.Style>
     <ContentDialog.TitleTemplate>
         <DataTemplate>
-            <TextBlock Text="Filter By Ingredient:"
+            <TextBlock Text="Choose an Ingredient:"
                        Style="{StaticResource TitleStyle}"/>
         </DataTemplate>
     </ContentDialog.TitleTemplate>
 
     <Grid Width="1200" Height="auto">
-        <ItemsControl Name="icFilterItems" ItemsSource="{Binding}">
+        <ItemsControl Name="icIngredientItems" ItemsSource="{Binding}">
             <ItemsControl.ItemContainerTransitions>
                 <TransitionCollection>
                     <EntranceThemeTransition/>
@@ -50,7 +43,7 @@
             </ItemsControl.ItemContainerTransitions>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
-                    <Grid Name="FilterListIcGrid">
+                    <Grid Name="IngredientListIcGrid">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition></ColumnDefinition>
                             <ColumnDefinition></ColumnDefinition>

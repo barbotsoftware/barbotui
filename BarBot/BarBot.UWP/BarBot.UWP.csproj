@@ -209,6 +209,9 @@
     <Compile Include="UserControls\RecipeDetail\Dialogs\PouringContentDialog.xaml.cs">
       <DependentUpon>PouringContentDialog.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserControls\RecipeDetail\IngredientList\Dialogs\IngredientChangeContentDialog.xaml.cs">
+      <DependentUpon>IngredientChangeContentDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserControls\RecipeDetail\Tc_IngredientRow.cs" />
     <Compile Include="UserControls\RecipeList\Tc_RecipeTile.cs" />
     <Compile Include="UserControls\ToUpperConverter.cs" />
@@ -230,6 +233,7 @@
     <Compile Include="Pages\PartyMode.xaml.cs">
       <DependentUpon>PartyMode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Barbot_Colors.cs" />
     <Compile Include="Utils\Helpers.cs" />
     <Compile Include="Utils\V2_FkMeUp.cs" />
     <Compile Include="Websocket\UWPWebsocketHandler.cs" />
@@ -425,6 +429,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Page>
+    <Page Include="UserControls\RecipeDetail\IngredientList\Dialogs\IngredientChangeContentDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserControls\RecipeDetail\Uc_AddIngredientButton.xaml">
       <SubType>Designer</SubType>

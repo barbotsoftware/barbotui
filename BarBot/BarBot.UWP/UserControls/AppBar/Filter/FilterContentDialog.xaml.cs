@@ -1,15 +1,11 @@
 ﻿using BarBot.Core.Model;
-using BarBot.UWP.UserControls.RecipeList;
 using BarBot.UWP.Utils;
-using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.AppBar.Filter
 {
@@ -19,9 +15,6 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
         private List<Ingredient> ingredients;           // All Ingredients in Barbot
         private List<Ingredient> filterIngredients;     // Filter List local to ContentDialog
         private List<Button> buttons;
-
-        private SolidColorBrush BarbotBlue = new SolidColorBrush(Color.FromArgb(255, 0, 75, 153));
-        private SolidColorBrush DarkGray = new SolidColorBrush(Color.FromArgb(255, 68, 68, 68));
 
         public List<Ingredient> Ingredients
         {
@@ -46,7 +39,7 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
                         FontSize = 34,
                         FontFamily = new FontFamily("Microsoft Yi Baiti"),
                         Margin = new Thickness(0, 0, 0, 30),
-                        Background = app.FilterIngredients.Contains(ingredient) ? BarbotBlue : DarkGray
+                        Background = app.FilterIngredients.Contains(ingredient) ? Barbot_Colors.BarbotBlue : Barbot_Colors.DarkGray
                     };
                     button.SetValue(Grid.ColumnProperty, i % 4);
                     button.SetValue(Grid.RowProperty, i / 4);
@@ -78,12 +71,12 @@ namespace BarBot.UWP.UserControls.AppBar.Filter
             if (this.filterIngredients.Contains(ingredient))
             {
                 this.filterIngredients.Remove(ingredient);
-                button.Background = DarkGray;
+                button.Background = Barbot_Colors.DarkGray;
             }
             else
             {
                 this.filterIngredients.Add(ingredient);
-                button.Background = BarbotBlue;
+                button.Background = Barbot_Colors.BarbotBlue;
             }
         }
 

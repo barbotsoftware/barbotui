@@ -4,6 +4,7 @@ using BarBot.Core.WebSocket;
 using BarBot.UWP.Pages;
 using BarBot.UWP.UserControls.Dialogs;
 using BarBot.UWP.UserControls.RecipeDetail.Dialogs;
+using BarBot.UWP.UserControls.RecipeDetail.IngredientList.Dialogs;
 using BarBot.UWP.Utils;
 using System;
 using System.Collections.Generic;
@@ -212,20 +213,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             AvailableIngredients.Sort((x, y) => x.Name.CompareTo(y.Name));
         }
 
-        // Update Ingredient Row Name Combo Boxes
-        // for all Rows
-        private void UpdateIngredientComboBoxes()
-        {
-            foreach (var ingredientRow in IngredientRowStackPanel.Children)
-            {
-                if (ingredientRow != AddIngredientButton)
-                {
-                    (ingredientRow as Tc_IngredientRow).AvailableIngredients = AvailableIngredients.ToList();
-                    (ingredientRow as Tc_IngredientRow).PopulateComboBox();
-                }
-            }
-        }
-
         // Display all Ingredient Rows
         private void DisplayIngredients()
         {
@@ -240,10 +227,10 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 {
                     var ingredientRow = new Tc_IngredientRow(Recipe.Ingredients[i],
                                                              AvailableIngredients.ToList(),
-                                                             IngredientRow_IngredientChanged,
                                                              IngredientRow_DecrementVolume,
                                                              IngredientRow_IncrementVolume,
                                                              IngredientRow_RemoveIngredient);
+                    ingredientRow.PointerReleased += IngredientRow_PointerReleased;
                     IngredientRowStackPanel.Children.Add(ingredientRow);
                 }
             }
@@ -251,29 +238,28 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             DisplayAddIngredientButton();
         }
 
-        // Ingredient Row Button Event Handlers
-
-        private void IngredientRow_IngredientChanged(object sender, SelectionChangedEventArgs e)
+        private async void IngredientRow_PointerReleased(object sender, PointerRoutedEventArgs e)
         {
-            var senderComboBox = sender as ComboBox;
-            
-            if (senderComboBox.SelectedIndex > 0)
+            var ingredientChangeContentDialog = new IngredientChangeContentDialog(AvailableIngredients);
+            await ingredientChangeContentDialog.ShowAsync();
+
+            if (ingredientChangeContentDialog.SelectedIngredient != null)
             {
-                var ingredientRow = (Tc_IngredientRow)senderComboBox.DataContext;
-                var newIngredient = senderComboBox.Items[senderComboBox.SelectedIndex] as Ingredient;
+                var ingredientRow = sender as Tc_IngredientRow;
+                var ingredient = ingredientRow.Ingredient;
 
-                if (newIngredient != null)
-                {
-                    // update Ingredient Row
-                    ingredientRow.Ingredient.IngredientId = newIngredient.IngredientId;
-                    ingredientRow.Ingredient.Name = newIngredient.Name;
+                var newIngredient = new Ingredient(ingredientChangeContentDialog.SelectedIngredient.IngredientId,
+                                                   ingredientChangeContentDialog.SelectedIngredient.Name, 
+                                                   ingredient.Amount);
 
-                    // Update Available Ingredients
-                    UpdateAvailableIngredients();
-                    UpdateIngredientComboBoxes();
-                }
-            }            
+                ingredientRow.Ingredient = newIngredient;
+
+                Recipe.Ingredients.RemoveAll(i => i.IngredientId == ingredient.IngredientId);
+                Recipe.Ingredients.Add(newIngredient);
+            }
         }
+
+        // Ingredient Row Button Event Handlers
 
         private void IngredientRow_DecrementVolume(object sender, RoutedEventArgs e)
         {
@@ -354,28 +340,31 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             }
         }
 
-        private void AddIngredientBtn_PointerReleased(object sender, PointerRoutedEventArgs e)
-        {
-            var newIngredient = AvailableIngredients.First();
-            newIngredient.Amount = 0.5;
-            Recipe.Ingredients.Add(newIngredient);
+        private async void AddIngredientBtn_PointerReleased(object sender, PointerRoutedEventArgs e)
+        {      
+            var ingredientChangeContentDialog = new IngredientChangeContentDialog(AvailableIngredients);
+            await ingredientChangeContentDialog.ShowAsync();
 
-            UpdateVolumes();
-            UpdateAvailableIngredients();
-            UpdateIngredientComboBoxes();
-            HideAddIngredientButton();
-
-            var newIngredientRow = new Tc_IngredientRow(newIngredient,
-                                                        AvailableIngredients,
-                                                        IngredientRow_IngredientChanged,
-                                                        IngredientRow_DecrementVolume,
-                                                        IngredientRow_IncrementVolume,
-                                                        IngredientRow_RemoveIngredient);
-            IngredientRowStackPanel.Children.Add(newIngredientRow);
-
-            if (AvailableIngredients.Count > 0 && VolumeAvailable >= 0.5)
+            if (ingredientChangeContentDialog.SelectedIngredient != null)
             {
-                DisplayAddIngredientButton();
+                Recipe.Ingredients.Add(ingredientChangeContentDialog.SelectedIngredient);
+
+                UpdateVolumes();
+                UpdateAvailableIngredients();
+                HideAddIngredientButton();
+
+                var newIngredientRow = new Tc_IngredientRow(ingredientChangeContentDialog.SelectedIngredient,
+                                                            AvailableIngredients,
+                                                            IngredientRow_DecrementVolume,
+                                                            IngredientRow_IncrementVolume,
+                                                            IngredientRow_RemoveIngredient);
+                newIngredientRow.PointerReleased += IngredientRow_PointerReleased;
+                IngredientRowStackPanel.Children.Add(newIngredientRow);
+
+                if (AvailableIngredients.Count > 0 && VolumeAvailable >= 0.5)
+                {
+                    DisplayAddIngredientButton();
+                }
             }
         }
 

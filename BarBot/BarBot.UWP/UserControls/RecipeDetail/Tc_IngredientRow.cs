@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 
 namespace BarBot.UWP.UserControls.RecipeDetail
 {
@@ -13,11 +14,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
         private string volumeText;
 
         public List<Ingredient> AvailableIngredients;
-
-        private ComboBox IngredientComboBox;
-
-        // Combo Box Selection Changed Event Handler
-        private SelectionChangedEventHandler IngredientComboBox_SelectionChanged;
 
         // Action Button Click Event Handlers
         private RoutedEventHandler DecrementVolumeButton_Click;
@@ -56,7 +52,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         public Tc_IngredientRow(Ingredient ingredient,
                                 List<Ingredient> availableIngredients,
-                                SelectionChangedEventHandler ingredientComboBox_SelectionChanged,
                                 RoutedEventHandler decrementVolumeButton_Click,
                                 RoutedEventHandler incrementVolumeButton_Click,
                                 RoutedEventHandler removeIngredientButton_Click)
@@ -67,7 +62,6 @@ namespace BarBot.UWP.UserControls.RecipeDetail
             Ingredient = ingredient;
             AvailableIngredients = availableIngredients;
 
-            IngredientComboBox_SelectionChanged += ingredientComboBox_SelectionChanged;
             DecrementVolumeButton_Click += decrementVolumeButton_Click;
             IncrementVolumeButton_Click += incrementVolumeButton_Click;
             RemoveIngredientButton_Click += removeIngredientButton_Click;
@@ -75,30 +69,54 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
         protected override void OnApplyTemplate()
         {
-            IngredientComboBox = GetTemplateChild("IngredientComboBox") as ComboBox;
             var decrementVolumeButton = GetTemplateChild("DecrementVolumeButton") as Button;
             var incrementVolumeButton = GetTemplateChild("IncrementVolumeButton") as Button;
             var removeIngredientButton = GetTemplateChild("RemoveIngredientButton") as Button;
 
-            IngredientComboBox.SelectionChanged += IngredientComboBox_SelectionChanged;
-            PopulateComboBox();
-
             decrementVolumeButton.Click += DecrementVolumeButton_Click;
             incrementVolumeButton.Click += IncrementVolumeButton_Click;
             removeIngredientButton.Click += RemoveIngredientButton_Click;
+
+            List<Button> buttons = new List<Button>()
+            {
+                decrementVolumeButton,
+                incrementVolumeButton,
+                removeIngredientButton
+            };
+
+            foreach (Button btn in buttons)
+            {                
+                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
+            }
         }
 
-        public void PopulateComboBox()
+        // Ingredient Row Action is pressed
+        
+        private void Pointer_Released(object sender, PointerRoutedEventArgs e)
         {
-            IngredientComboBox.Items.Clear();
-            IngredientComboBox.Items.Add(Ingredient.Name);
-            IngredientComboBox.SelectedIndex = 0;
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerUp", true);
+        }
 
-            foreach (Ingredient i in AvailableIngredients)
-            {
-                i.Name = Helpers.UppercaseWords(i.Name);
-                IngredientComboBox.Items.Add(i);
-            }
+        private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerDown", true);
+        }
+
+        // Entire Ingredient Row is pressed
+
+        protected override void OnPointerPressed(PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
+        }
+
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "PointerUp", true);
+            this.ReleasePointerCapture(e.Pointer);
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

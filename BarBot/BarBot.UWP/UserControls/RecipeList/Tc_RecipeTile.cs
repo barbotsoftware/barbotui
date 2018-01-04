@@ -81,18 +81,18 @@ namespace BarBot.UWP.UserControls.RecipeList
             foreach (Button btn in buttons)
             {
                 btn.Click += Recipe_Detail;
-                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(PointerPressed), true);
-                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(PointerReleased), true);
+                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
             }
         }
 
-        private void PointerReleased(object sender, PointerRoutedEventArgs e)
+        private void Pointer_Released(object sender, PointerRoutedEventArgs e)
         {
             this.CapturePointer(e.Pointer);
             VisualStateManager.GoToState(this, "PointerUp", true);
         }
 
-        private void PointerPressed(object sender, PointerRoutedEventArgs e)
+        private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
         {
             this.CapturePointer(e.Pointer);
             VisualStateManager.GoToState(this, "PointerDown", true);
