@@ -256,6 +256,8 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
                 Recipe.Ingredients.RemoveAll(i => i.IngredientId == ingredient.IngredientId);
                 Recipe.Ingredients.Add(newIngredient);
+
+                UpdateAvailableIngredients();
             }
         }
 

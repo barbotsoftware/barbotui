@@ -236,7 +236,7 @@
                                     Style="{StaticResource IngredientTextStackPanelStyle}">
                             <TextBlock x:Name="IngredientNameTextBlock"
                                        Text="{Binding Path=Ingredient.Name}"
-                                       Style="{StaticResource IngredientNameTextBlockStyle}" />
+                                       Style="{StaticResource IngredientRowNameTextBlockStyle}" />
                             <TextBlock x:Name="IngredientVolumeTextBlock"
                                        Text="{Binding Path=VolumeText}"
                                        Style="{StaticResource IngredientVolumeTextBlockStyle}" />       
