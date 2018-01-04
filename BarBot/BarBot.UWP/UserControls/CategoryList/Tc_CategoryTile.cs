@@ -78,7 +78,7 @@ namespace BarBot.UWP.UserControls.CategoryList
         private void PointerReleased(object sender, PointerRoutedEventArgs e)
         {
             this.CapturePointer(e.Pointer);
-            VisualStateManager.GoToState(this, "PointerDown", true);
+            VisualStateManager.GoToState(this, "PointerUp", true);
         }
 
         private void PointerPressed(object sender, PointerRoutedEventArgs e)

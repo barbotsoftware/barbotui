@@ -4,9 +4,11 @@ using BarBot.UWP.UserControls.AppBar.Garnish;
 using BarBot.UWP.UserControls.AppBar.Search;
 using BarBot.UWP.UserControls.AppBar.Settings;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 
 namespace BarBot.UWP.UserControls.AppBar
@@ -139,43 +141,47 @@ namespace BarBot.UWP.UserControls.AppBar
             }
         }
 
-        private string filterIconSource;
-
-        public string FilterIconSource
-        {
-            get { return filterIconSource; }
-            set
-            {
-                filterIconSource = value;
-                OnPropertyChanged("FilterIconSource");
-            }
-        }
-
         public AppBar()
         {
             this.InitializeComponent();
             this.DataContext = this;
 
-            //SetFilterIcon();
+            AddButtonHandlers();
         }
 
-        // Sets Filter Icon Image according to Filter Ingredients List:
-        // White if list is empty, Blue if list is not empty
-        private void SetFilterIcon()
+        private void AddButtonHandlers()
         {
-            string filterIconUri = "ms-appx:///Assets/filter-";
-            filterIconUri += (Application.Current as App).FilterIngredients.Count == 0 ? "white.png" : "blue.png";
+            List<Button> buttons = new List<Button>();
+            buttons.Add(AppBarSearchButton);
+            buttons.Add(AppBarHomeButton);
+            buttons.Add(AppBarFilterButton);
+            buttons.Add(AppBarSettingsButton);
+            buttons.Add(AppBarGarnishButton);
+            buttons.Add(AppBarBackButton);
+            buttons.Add(AppBarBackLabel);
 
-            // only set if value hasn't changed
-            if (!filterIconUri.Equals(FilterIconSource))
+            foreach (Button btn in buttons)
             {
-                FilterIconSource = filterIconUri;
+                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
             }
         }
 
         private void NavigateBack(object sender, RoutedEventArgs e)
         {
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack();
+        }
+
+        private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerDown", true);
+        }
+
+        private void Pointer_Released(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerUp", true);
         }
 
         private async void Open_Search(object sender, RoutedEventArgs e)
@@ -193,7 +199,6 @@ namespace BarBot.UWP.UserControls.AppBar
         {
             var filterDialog = new FilterContentDialog();
             await filterDialog.ShowAsync();
-            //SetFilterIcon();
         }
 
         private async void Open_Garnish(object sender, RoutedEventArgs e)

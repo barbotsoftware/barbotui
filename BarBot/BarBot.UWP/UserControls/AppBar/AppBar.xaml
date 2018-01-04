@@ -28,9 +28,26 @@
                 Visibility="{Binding Path=BackButtonVisible}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <Image x:Name="AppBarBackButtonImage"
-                           Style="{StaticResource AppBarBackButtonImageStyle}"
-                           Source="ms-appx:///Assets/back_arrow.png" />
+                    <Grid x:Name="BackButtonGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="TapStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerDown">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="BackButtonGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerUp">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation TargetName="BackButtonGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Image x:Name="AppBarBackButtonImage"
+                               Style="{StaticResource AppBarBackButtonImageStyle}"
+                               Source="ms-appx:///Assets/back_arrow.png" />
+                    </Grid>
                 </ControlTemplate>
             </Button.Template>
         </Button>
@@ -40,8 +57,25 @@
                 Visibility="{Binding Path=BackButtonVisible}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
-                    <TextBlock x:Name="AppBarBackTextBlock"
-                               Style="{StaticResource AppBarBackTextBlockStyle}" />
+                    <Grid x:Name="BackLabelGrid">
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="TapStates">
+                                <VisualState x:Name="Normal"/>
+                                <VisualState x:Name="PointerDown">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="BackLabelGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="PointerUp">
+                                    <Storyboard>
+                                        <PointerUpThemeAnimation TargetName="BackLabelGrid"/>
+                                    </Storyboard>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <TextBlock x:Name="AppBarBackTextBlock"
+                                   Style="{StaticResource AppBarBackTextBlockStyle}" />
+                    </Grid>
                 </ControlTemplate>
             </Button.Template>
         </Button>
@@ -50,61 +84,151 @@
                    Text="{Binding Path=Title}"/>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <Button x:Name="AppBarSearchButton"
-                Style="{StaticResource AppBarIconButtonStyle}"
-                Click="Open_Search" 
-                Visibility="{Binding Path=SearchButtonVisible}">
+                    Style="{StaticResource AppBarIconButtonStyle}"
+                    Click="Open_Search" 
+                    Visibility="{Binding Path=SearchButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarIconImageStyle}"
-                           Source="ms-appx:///Assets/search.png" />
+                        <Grid x:Name="SearchIconGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="TapStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerDown">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="SearchIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerUp">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation TargetName="SearchIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image x:Name="SearchImage"
+                                   Style="{StaticResource AppBarIconImageStyle}"
+                                   Source="ms-appx:///Assets/search.png" />
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
             <Button x:Name="AppBarHomeButton"
-                Style="{StaticResource AppBarIconButtonStyle}"
-                Click="Open_Home" 
-                Visibility="{Binding Path=HomeButtonVisible}">
+                    Style="{StaticResource AppBarIconButtonStyle}"
+                    Click="Open_Home" 
+                    Visibility="{Binding Path=HomeButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarIconImageStyle}" 
-                               Source="ms-appx:///Assets/home.png" />
+                        <Grid x:Name="HomeIconGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="TapStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerDown">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="HomeIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerUp">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation TargetName="HomeIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image x:Name="HomeImage"
+                                   Style="{StaticResource AppBarIconImageStyle}" 
+                                   Source="ms-appx:///Assets/home.png" />
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
             <Button x:Name="AppBarFilterButton"
-                Style="{StaticResource AppBarIconButtonStyle}"
-                Click="Open_Filter" 
-                Visibility="{Binding Path=FilterButtonVisible}">
+                    Style="{StaticResource AppBarIconButtonStyle}"
+                    Click="Open_Filter" 
+                    Visibility="{Binding Path=FilterButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarIconImageStyle}" 
-                               Source="ms-appx:///Assets/filter-white.png" />
+                        <Grid x:Name="FilterIconGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="TapStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerDown">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="FilterIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerUp">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation TargetName="FilterIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image x:Name="FilterImage"
+                                   Style="{StaticResource AppBarIconImageStyle}" 
+                                   Source="ms-appx:///Assets/filter-white.png" />
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
             <Button x:Name="AppBarGarnishButton"
-                Style="{StaticResource AppBarIconButtonStyle}"
-                Click="Open_Garnish" 
-                Visibility="{Binding Path=GarnishButtonVisible}">
+                    Style="{StaticResource AppBarIconButtonStyle}"
+                    Click="Open_Garnish" 
+                    Visibility="{Binding Path=GarnishButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarGarnishIconImageStyle}" 
-                               Source="ms-appx:///Assets/garnish.png" />
+                        <Grid x:Name="GarnishIconGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="TapStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerDown">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="GarnishIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerUp">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation TargetName="GarnishIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image x:Name="GarnishImage"
+                                   Style="{StaticResource AppBarGarnishIconImageStyle}" 
+                                   Source="ms-appx:///Assets/garnish.png" />
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
 
             <Button x:Name="AppBarSettingsButton"
-                Style="{StaticResource AppBarIconButtonStyle}"
-                Click="Open_Settings"
-                Visibility="{Binding Path=SettingsButtonVisible}">
+                    Style="{StaticResource AppBarIconButtonStyle}"
+                    Click="Open_Settings"
+                    Visibility="{Binding Path=SettingsButtonVisible}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
-                        <Image Style="{StaticResource AppBarIconImageStyle}"
-                           Source="ms-appx:///Assets/settings.png" />
+                        <Grid x:Name="SettingsIconGrid">
+                            <VisualStateManager.VisualStateGroups>
+                                <VisualStateGroup x:Name="TapStates">
+                                    <VisualState x:Name="Normal"/>
+                                    <VisualState x:Name="PointerDown">
+                                        <Storyboard>
+                                            <PointerDownThemeAnimation TargetName="SettingsIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                    <VisualState x:Name="PointerUp">
+                                        <Storyboard>
+                                            <PointerUpThemeAnimation TargetName="SettingsIconGrid"/>
+                                        </Storyboard>
+                                    </VisualState>
+                                </VisualStateGroup>
+                            </VisualStateManager.VisualStateGroups>
+                            <Image x:Name="SettingsImage"
+                                   Style="{StaticResource AppBarIconImageStyle}"
+                                   Source="ms-appx:///Assets/settings.png" />
+                        </Grid>
                     </ControlTemplate>
                 </Button.Template>
             </Button>
