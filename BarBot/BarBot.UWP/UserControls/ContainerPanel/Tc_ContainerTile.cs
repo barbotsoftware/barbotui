@@ -6,11 +6,12 @@ using System.ComponentModel;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 
 namespace BarBot.UWP.UserControls.ContainerPanel
 {
-    public sealed class Tc_ContainerTile : Button, INotifyPropertyChanged
+    public sealed class Tc_ContainerTile : Control, INotifyPropertyChanged
     {
         private UWPWebSocketService webSocketService;
         private Container container;
@@ -66,8 +67,6 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             this.DefaultStyleKey = typeof(Tc_ContainerTile);
             this.DataContext = this;
             webSocketService = (Application.Current as App).webSocketService;
-
-            this.Click += Container_Click;
         }
 
         private void SetMaxVolumeLabel()
@@ -99,7 +98,20 @@ namespace BarBot.UWP.UserControls.ContainerPanel
             }
         }
 
-        private async void Container_Click(object sender, RoutedEventArgs e)
+        protected override void OnPointerPressed(PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
+        }
+
+        protected override void OnPointerReleased(PointerRoutedEventArgs e)
+        {
+            VisualStateManager.GoToState(this, "PointerUp", true);
+            this.ReleasePointerCapture(e.Pointer);
+            ShowContainerDialog();
+        }
+
+        private async void ShowContainerDialog()
         {
             var containerLoadDialog = new ContainerLoadContentDialog(Container, Ingredient, this);
             await containerLoadDialog.ShowAsync();

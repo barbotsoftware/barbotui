@@ -8,12 +8,13 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
-    public sealed class Tc_CategoryTile : Control, INotifyPropertyChanged
+    public sealed class Tc_CategoryTile : Button, INotifyPropertyChanged
     {
         private App app;
         private Category category;
@@ -25,6 +26,13 @@ namespace BarBot.UWP.UserControls.CategoryList
             set
             {
                 category = value;
+                
+                if (category.Name == Constants.CustomCategoryName)
+                {
+                    var imageUri = new Uri(category.Img);
+                    CachedImage = new BitmapImage(imageUri);
+                }
+
                 category.Name = Helpers.UppercaseWords(category.Name);
                 OnPropertyChanged("Category");
             }
@@ -53,15 +61,30 @@ namespace BarBot.UWP.UserControls.CategoryList
 
         protected override void OnApplyTemplate()
         {
-            var hexButton = GetTemplateChild("HexagonButton") as Button;
-            var imageButton = GetTemplateChild("CategoryImageButton") as Button;
-            var hexGradient = GetTemplateChild("HexagonGradientButton") as Button;
-            var recipeName = GetTemplateChild("CategoryNameButton") as Button;
+            var buttons = new List<Button>();
+            buttons.Add(GetTemplateChild("HexagonButton") as Button);
+            buttons.Add(GetTemplateChild("CategoryImageButton") as Button);
+            buttons.Add(GetTemplateChild("HexagonGradientButton") as Button);
+            buttons.Add(GetTemplateChild("CategoryNameButton") as Button);
 
-            hexButton.Click += Category_Click;
-            imageButton.Click += Category_Click;
-            hexGradient.Click += Category_Click;
-            recipeName.Click += Category_Click;
+            foreach (Button btn in buttons)
+            {
+                btn.Click += Category_Click;
+                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(PointerPressed), true);
+                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(PointerReleased), true);
+            }
+        }
+
+        private void PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
+        }
+
+        private void PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
         }
 
         private void Category_Click(object sender, RoutedEventArgs e)

@@ -43,6 +43,11 @@
 
     <Grid Width="1200" Height="auto">
         <ItemsControl Name="icFilterItems" ItemsSource="{Binding}">
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
             <ItemsControl.ItemsPanel>
                 <ItemsPanelTemplate>
                     <Grid Name="ContainerListIcGrid">

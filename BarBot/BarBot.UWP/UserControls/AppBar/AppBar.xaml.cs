@@ -175,7 +175,7 @@ namespace BarBot.UWP.UserControls.AppBar
 
         private void NavigateBack(object sender, RoutedEventArgs e)
         {
-            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack(new DrillInNavigationTransitionInfo());
+            ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.GoBack();
         }
 
         private async void Open_Search(object sender, RoutedEventArgs e)

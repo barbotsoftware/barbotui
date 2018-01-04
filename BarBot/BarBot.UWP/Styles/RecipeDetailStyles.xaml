@@ -25,6 +25,13 @@
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="Height" Value="{StaticResource TileHeight}" />
         <Setter Property="Width" Value="{StaticResource TileWidth}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="HexBackgroundImageStyle" TargetType="Image">
@@ -41,6 +48,13 @@
         <Setter Property="Stretch" Value="Uniform" />
         <Setter Property="Height" Value="350" />
         <Setter Property="Width" Value="350" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="TotalVolumeTextBlockStyle" TargetType="TextBlock">
@@ -51,6 +65,13 @@
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
         <Setter Property="TextWrapping" Value="Wrap" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="VolumeSeparatorRectangleStyle" TargetType="Rectangle">
@@ -61,6 +82,13 @@
         <Setter Property="Stroke" Value="Black" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="RecipeVolumeStackPanelStyle" TargetType="StackPanel">
@@ -78,6 +106,13 @@
         <Setter Property="TextWrapping" Value="Wrap" />
         <Setter Property="FontSize" Value="{StaticResource VolumeFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="MaxVolumeTextBlockStyle" TargetType="TextBlock">
@@ -91,6 +126,13 @@
         <Setter Property="TextAlignment" Value="Center" />
         <Setter Property="FontSize" Value="{StaticResource VolumeFontSize}" />
         <Setter Property="FontFamily" Value="{StaticResource AppFont}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
     
     <!-- Ingredient List -->
@@ -126,5 +168,12 @@
         <Setter Property="Background" Value="#FF004B99" />
         <Setter Property="Foreground" Value="White" />
         <Setter Property="BorderThickness" Value="0" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 </ResourceDictionary>

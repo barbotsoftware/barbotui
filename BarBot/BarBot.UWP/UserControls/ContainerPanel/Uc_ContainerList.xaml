@@ -19,6 +19,11 @@
     <Grid Name="ContainerListMainGrid" Style="{StaticResource ContainerListMainGridStyle}">
         <Grid Name="ContainerListWrapperGrid" Style="{StaticResource ContainerListWrapperGridStyle}">
             <ItemsControl Name="icContainerItems" ItemsSource="{Binding}">
+                <ItemsControl.ItemContainerTransitions>
+                    <TransitionCollection>
+                        <EntranceThemeTransition/>
+                    </TransitionCollection>
+                </ItemsControl.ItemContainerTransitions>
                 <ItemsControl.ItemsPanel>
                     <ItemsPanelTemplate>
                         <Grid Name="ContainerListIcGrid" Style="{StaticResource ContainerListIcGridStyle}">

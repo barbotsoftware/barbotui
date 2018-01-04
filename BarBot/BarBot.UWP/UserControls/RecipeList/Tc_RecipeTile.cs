@@ -2,9 +2,11 @@
 using BarBot.Core.Model;
 using BarBot.UWP.Utils;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Animation;
 using Windows.UI.Xaml.Media.Imaging;
 
@@ -70,15 +72,30 @@ namespace BarBot.UWP.UserControls.RecipeList
 
         protected override void OnApplyTemplate()
         {
-            var hexButton = GetTemplateChild("HexagonButton") as Button;
-            var imageButton = GetTemplateChild("RecipeImageButton") as Button;
-            var hexGradient = GetTemplateChild("HexagonGradientButton") as Button;
-            var recipeName = GetTemplateChild("RecipeNameButton") as Button;
+            var buttons = new List<Button>();
+            buttons.Add(GetTemplateChild("HexagonButton") as Button);
+            buttons.Add(GetTemplateChild("RecipeImageButton") as Button);
+            buttons.Add(GetTemplateChild("HexagonGradientButton") as Button);
+            buttons.Add(GetTemplateChild("RecipeNameButton") as Button);
 
-            hexButton.Click += Recipe_Detail;
-            imageButton.Click += Recipe_Detail;
-            hexGradient.Click += Recipe_Detail;
-            recipeName.Click += Recipe_Detail;
+            foreach (Button btn in buttons)
+            {
+                btn.Click += Recipe_Detail;
+                btn.AddHandler(PointerPressedEvent, new PointerEventHandler(PointerPressed), true);
+                btn.AddHandler(PointerReleasedEvent, new PointerEventHandler(PointerReleased), true);
+            }
+        }
+
+        private void PointerReleased(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
+        }
+
+        private void PointerPressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(this, "PointerDown", true);
         }
 
         private void Recipe_Detail(object sender, RoutedEventArgs e)

@@ -40,6 +40,13 @@
         <Setter Property="ExitDisplayModeOnAccessKeyInvoked" Value="False" />
         <Setter Property="UseSystemFocusVisuals" Value="False" />
         <Setter Property="AllowFocusOnInteraction" Value="False" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="AppBarBackButtonImageStyle" TargetType="Image">
@@ -56,6 +63,13 @@
         <Setter Property="Foreground" Value="White" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="AppBarBackTextBlockStyle" TargetType="TextBlock">
@@ -74,6 +88,13 @@
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
         <Setter Property="FontSize" Value="{StaticResource FontSize}" />
         <Setter Property="SelectionHighlightColor" Value="{x:Null}" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="AppBarIconButtonStyle" TargetType="Button">
@@ -86,6 +107,13 @@
         <Setter Property="ExitDisplayModeOnAccessKeyInvoked" Value="False" />
         <Setter Property="UseSystemFocusVisuals" Value="False" />
         <Setter Property="AllowFocusOnInteraction" Value="False" />
+        <Setter Property="Transitions">
+            <Setter.Value>
+                <TransitionCollection>
+                    <ContentThemeTransition />
+                </TransitionCollection>
+            </Setter.Value>
+        </Setter>
     </Style>
 
     <Style x:Key="AppBarIconImageStyle" TargetType="Image">

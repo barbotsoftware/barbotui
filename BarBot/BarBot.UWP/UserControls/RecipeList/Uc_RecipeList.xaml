@@ -10,9 +10,19 @@
     d:DesignWidth="1280">
 
     <Grid Height="720" Width="1280">
+        <Grid.ChildrenTransitions>
+            <TransitionCollection>
+                <ContentThemeTransition/>
+            </TransitionCollection>
+        </Grid.ChildrenTransitions>
         <Canvas Name="recipeTileCanvas" Height="650" Width="1110" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"></Canvas>
 
         <Button x:Name="BackButton" Click="Previous_Page"  HorizontalAlignment="Left" Height="230" Margin="0,240,20,200" VerticalAlignment="Top" Width="120">
+            <Button.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Button.Transitions>
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Image x:Name="BackButtonImg" Stretch="Uniform" Source="ms-appx:///Assets/BackButton.png"/>
@@ -29,6 +39,11 @@
                    Visibility="Collapsed" />
 
         <Button x:Name="NextButton" Click="Next_Page" HorizontalAlignment="Right" Height="230" Margin="0,240,20,200" VerticalAlignment="Top" Width="120">
+            <Button.Transitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition />
+                </TransitionCollection>
+            </Button.Transitions>
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Image x:Name="NextButtonImg" Stretch="Uniform" Source="ms-appx:///Assets/NextButton.png"/>

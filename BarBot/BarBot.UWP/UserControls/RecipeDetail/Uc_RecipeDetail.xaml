@@ -68,7 +68,18 @@
         
         <ScrollViewer x:Name="IngredientListScrollViewer"
                       Style="{StaticResource IngredientListScrollViewerStyle}">
-            <StackPanel x:Name="IngredientRowStackPanel"/>
+            <StackPanel x:Name="IngredientRowStackPanel">
+                <StackPanel.Transitions>
+                    <TransitionCollection>
+                        <ContentThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.Transitions>
+                <StackPanel.ChildrenTransitions>
+                    <TransitionCollection>
+                        <AddDeleteThemeTransition />
+                    </TransitionCollection>
+                </StackPanel.ChildrenTransitions>
+            </StackPanel>
         </ScrollViewer>
         
         <!-- Recipe Options -->

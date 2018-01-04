@@ -7,6 +7,7 @@ using System.ComponentModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.CategoryList
 {
@@ -26,7 +27,7 @@ namespace BarBot.UWP.UserControls.CategoryList
                 categories = value;
 
                 // Add Custom Cocktail 'Category'. Clicking this goes to Recipe Detail
-                Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, "custom_recipe.png", null, null);
+                Category customCategory = new Category(Constants.CustomCategoryId, Constants.CustomCategoryName, "ms-appx:///Assets/custom_recipe.png", null, null);
 
                 if (categories.Count == 0)
                 {
