@@ -38,7 +38,7 @@
     </ContentDialog.TitleTemplate>
 
     <StackPanel x:Name="GarnishStackPanel"
-                Style="{StaticResource GarnishStackPanel}">
+                Style="{StaticResource GarnishStackPanelStyle}">
         <Button x:Name="GarnishButton1"
                 Style="{StaticResource GarnishButtonStyle}"
                 Content="{Binding Path=Garnish1.Name}" 

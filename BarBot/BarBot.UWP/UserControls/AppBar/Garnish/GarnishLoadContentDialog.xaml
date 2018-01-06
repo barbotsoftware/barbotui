@@ -46,7 +46,7 @@
             <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
                        Text="{Binding Path=Garnish1DisplayText}" />
             <Button x:Name="ReloadGarnish1Button"
-                Style="{StaticResource GarnishButtonStyle}"
+                Style="{StaticResource GarnishReloadButtonStyle}"
                 Content="Reload"
                 Click="ReloadGarnishButton_Click"
                 Tag="Garnish1" />
@@ -55,7 +55,7 @@
             <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
                        Text="{Binding Path=Garnish2DisplayText}" />
             <Button x:Name="ReloadGarnish2Button"
-                Style="{StaticResource GarnishButtonStyle}"
+                Style="{StaticResource GarnishReloadButtonStyle}"
                 Content="Reload" 
                 Click="ReloadGarnishButton_Click"
                 Tag="Garnish2" />
