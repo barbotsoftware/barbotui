@@ -30,8 +30,6 @@ namespace BarBot.UWP.TestClient
 
         private List<IO.Devices.V1.Container> containers = new List<IO.Devices.V1.Container>();
 
-        MCP3008 mcp3008 = new MCP3008();
-
         public TestClient()
         {
             this.InitializeComponent();
@@ -61,11 +59,9 @@ namespace BarBot.UWP.TestClient
                 btn.Tag = c;
                 btn.Click += Btn_Click;
                 ContainersPanel.Children.Add(btn);
-                btn.FontSize = 35;
+                btn.FontSize = 25;
                 i++;
             }
-
-            mcp3008.connect();
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -89,7 +85,7 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("MCP3008: " + mcp3008.read(0));
+            Debug.WriteLine("MCP3008: " + ioController.mcp3008.read(0));
         }
 
         private void RunGarnish1Button_Click(object sender, RoutedEventArgs e)

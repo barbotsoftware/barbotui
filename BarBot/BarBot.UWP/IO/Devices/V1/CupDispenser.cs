@@ -14,7 +14,6 @@ namespace BarBot.UWP.IO.Devices.V1
     public class CupDispenser : ICupDispenser
     {
         private int EMPTY_CUP_THRESHOLD = 100;
-        private int FULL_CUP_THRESHOLD = 500;
 
         public L298NDriver stepperDriver;
 
@@ -25,7 +24,7 @@ namespace BarBot.UWP.IO.Devices.V1
         public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, MCP3008 mcp3008)
         {
             // initialize a new stepper driver
-            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
+            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 4);
 
             // set the analog to digital converter for the force sensor
             this.mcp3008 = mcp3008;
@@ -41,15 +40,29 @@ namespace BarBot.UWP.IO.Devices.V1
                 // Attempt to release a cup
                 stepperDriver.run(1);
 
+                // Jiggle 
+                JiggleForPapi();
+
                 while (!triggered)
                 {
                     // Wait a bit for it to settle
                     Task.Delay(100);
 
                     // Check if the weight sensor has been triggered
-                    triggered = mcp3008.read(0) >= FULL_CUP_THRESHOLD; // TODO hard coded channel #
+                    triggered = mcp3008.read(0) >= EMPTY_CUP_THRESHOLD; // TODO hard coded channel #
                 }
             }
+        }
+
+        public void JiggleForPapi()
+        {
+            stepperDriver.SleepTime = 2; // Papi likes it fast
+
+            // jiggle jiggle jiggle
+            stepperDriver.runBackwards(0.1);
+            stepperDriver.run(0.1);
+
+            stepperDriver.SleepTime = 4;
         }
     }
 }

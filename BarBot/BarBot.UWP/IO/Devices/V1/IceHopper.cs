@@ -51,7 +51,7 @@ namespace BarBot.UWP.IO.Devices.V1
                 Debug.WriteLine("Opening ice hopper door...");
 
                 // Open the door (1/4 rev)
-                stepperDriver.run(0.25);
+                stepperDriver.runBackwards(0.25);
 
                 Debug.WriteLine("Running auger...");
                 // Start the auger motor
@@ -66,7 +66,7 @@ namespace BarBot.UWP.IO.Devices.V1
 
                 Debug.WriteLine("Closing ice hopper door...");
                 // Close the door (1/4 rev)
-                stepperDriver.runBackwards(0.25);
+                stepperDriver.run(0.25);
 
                 // wait for it to settle
                 delay(1);

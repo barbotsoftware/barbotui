@@ -38,7 +38,7 @@ namespace BarBot.UWP.IO
 
         private MCP23017 mcp2;
 
-        private MCP3008 mcp3008 = new MCP3008();
+        public MCP3008 mcp3008 = new MCP3008();
 
         private const int UDDER_VALVE_FLUSH_TIME = 2; // Hold the valve open for 2 seconds after all pumps are finished
 
@@ -62,6 +62,7 @@ namespace BarBot.UWP.IO
             // Initialize I2C Controllers
             initI2C();
 
+            Debug.WriteLine("Connecting to mcp3008...");
             // Connect to MCP3008 analog to digital converter (for force sensor and temperature sensor)
             mcp3008.connect();
 
@@ -73,7 +74,7 @@ namespace BarBot.UWP.IO
             Debug.WriteLine("Auger motor is running on pin " + iceHopper.fsr.address + " board type " + iceHopper.fsr.type);
 
             // Create garnish dispenser
-            GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4));
+            GarnishDispenser = new GarnishDispenser(createIOPort(garnishDispenser.stepper1), createIOPort(garnishDispenser.stepper2), createIOPort(garnishDispenser.stepper3), createIOPort(garnishDispenser.stepper4), createIOPort(garnishDispenser.stepper5), createIOPort(garnishDispenser.stepper6), createIOPort(garnishDispenser.stepper7), createIOPort(garnishDispenser.stepper8));
 
             // Create cup dispenser
             CupDispenser = new CupDispenser(createIOPort(cupDispenser.stepper1), createIOPort(cupDispenser.stepper2), createIOPort(cupDispenser.stepper3),createIOPort(cupDispenser.stepper4), mcp3008);
@@ -175,6 +176,8 @@ namespace BarBot.UWP.IO
                     break;
                 }
             }
+
+            // TODO: get water pump, run for 1 second
 
             // Turn LED off
             LEDOff();
