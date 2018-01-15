@@ -26,7 +26,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             this.parentUserControl = parent;
             this.ShouldProceed = false;
-            this.DisplayText = string.Format("Would you like to add ice to your {0}?", parent.Recipe.Name);
+            this.DisplayText = string.Format("Add Ice to your {0}?", parent.Recipe.Name);
         }
 
         private void ContentDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)

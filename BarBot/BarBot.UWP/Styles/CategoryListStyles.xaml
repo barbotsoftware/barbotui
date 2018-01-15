@@ -3,12 +3,6 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BarBot.UWP.Styles">
 
-    <x:Double x:Key="PageWidth">1280</x:Double>
-    <x:Double x:Key="PageHeight">720</x:Double>
-
-    <x:Double x:Key="WrapperWidth">1200</x:Double>
-    <x:Double x:Key="WrapperHeight">680</x:Double>
-
     <!-- Dimensions -->
     <x:Double x:Key="TileWidth">230</x:Double>
     <x:Double x:Key="TileHeight">240</x:Double>
@@ -24,11 +18,11 @@
     </Style>
 
     <Style x:Key="CategoryListCanvasStyle" TargetType="Canvas">
-        <Setter Property="Height" Value="650" />
-        <Setter Property="Width" Value="1100" />
+        <Setter Property="Height" Value="{StaticResource WrapperHeight}" />
+        <Setter Property="Width" Value="{StaticResource WrapperWidth}" />
         <Setter Property="HorizontalAlignment" Value="Center" />
         <Setter Property="VerticalAlignment" Value="Center" />
-        <Setter Property="Margin" Value="0,100,0,0" />
+        <Setter Property="Margin" Value="0,20,0,0" />
     </Style>
 
     <Style x:Key="CategoryListBackButtonStyle" TargetType="Button">

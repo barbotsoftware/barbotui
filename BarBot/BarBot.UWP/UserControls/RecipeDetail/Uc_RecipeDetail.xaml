@@ -6,9 +6,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:ab="using:BarBot.UWP.UserControls.AppBar"
-    mc:Ignorable="d"
-    d:DesignHeight="720"
-    d:DesignWidth="1280">
+    mc:Ignorable="d">
 
     <UserControl.Resources>
         <ResourceDictionary>
@@ -42,7 +40,7 @@
             <Image x:Name="RecipeImage"
                    Style="{StaticResource RecipeImageStyle}">
                 <Image.Source>
-                    <BitmapImage UriSource="{Binding CachedImage.UriSource}"/>
+                    <BitmapImage UriSource="{x:Bind CachedImage.UriSource, Mode=OneWay}"/>
                 </Image.Source>
             </Image>
         </Grid>
@@ -57,10 +55,10 @@
         <StackPanel x:Name="ContainerVolumeStackPanel"
                                 Style="{StaticResource RecipeVolumeStackPanelStyle}">
             <TextBlock x:Name="RecipeVolumeTextBlock" 
-                   Text="{Binding Path=TotalVolume}"
+                   Text="{x:Bind Path=TotalVolume, Mode=OneWay}"
                    Style="{StaticResource RecipeVolumeTextBlockStyle}" />
             <TextBlock x:Name="MaxVolumeTextBlock"
-                   Text="{Binding Path=MaxVolumeLabel}"
+                   Text="{x:Bind Path=MaxVolumeLabel, Mode=OneWay}"
                    Style="{StaticResource MaxVolumeTextBlockStyle}" />
         </StackPanel>
 
@@ -130,7 +128,7 @@
         
         <!-- Pour Button -->
         <Button x:Name="PourButton"
-                Content="{Binding Path=PourButtonDisplayText}"
+                Content="{x:Bind Path=PourButtonDisplayText, Mode=OneWay}"
                 Click="Pour_Drink"
                 Style="{StaticResource PourButtonStyle}" />
     </Grid>

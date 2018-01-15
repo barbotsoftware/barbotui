@@ -15,6 +15,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
         public Boolean ShouldProceed { get; set; }
         private Garnish garnish1;
         private Garnish garnish2;
+        private string garnishTitleText;
         
         public Garnish Garnish1
         {
@@ -36,6 +37,16 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
             }
         }
 
+        public string GarnishTitleText
+        {
+            get { return garnishTitleText; }
+            set
+            {
+                garnishTitleText = value;
+                OnPropertyChanged("GarnishTitleText");
+            }
+        }
+
         public GarnishContentDialog(Uc_RecipeDetail parent)
         {
             this.InitializeComponent();
@@ -48,6 +59,7 @@ namespace BarBot.UWP.UserControls.RecipeDetail.Dialogs
 
             this.Garnish1 = app.Garnishes.Where(g => g.OptionNumber == 1).First();
             this.Garnish2 = app.Garnishes.Where(g => g.OptionNumber == 2).First();
+            this.GarnishTitleText = string.Format("Add a Garnish to your {0}?", parent.Recipe.Name);
 
             this.Opened += GarnishContentDialog_OpenedAsync;
 

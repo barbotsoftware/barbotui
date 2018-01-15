@@ -3,8 +3,8 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:BarBot.UWP.Styles">
 
-    <x:Double x:Key="ButtonFontSize">38</x:Double>
-    <x:Double x:Key="TextBlockFontSize">45</x:Double>
+    <x:Double x:Key="ButtonFontSize">45</x:Double>
+    <x:Double x:Key="TextBlockFontSize">50</x:Double>
     <x:Double x:Key="ErrorTextBlockFontSize">32</x:Double>
 
     <!-- Shared Content Dialog -->
@@ -65,12 +65,8 @@
     
     <!-- Search Content Dialog -->
 
-    <Style x:Key="AutoSuggestBoxStyle" TargetType="AutoSuggestBox" >
+    <Style x:Key="SearchBoxStyle" TargetType="TextBox">
         <Setter Property="Width" Value="750" />
-        <Setter Property="TextBoxStyle" Value="{StaticResource AutoSuggestBoxTextBoxStyle}" />
-    </Style>
-
-    <Style x:Key="AutoSuggestBoxTextBoxStyle" TargetType="TextBox" >
         <Setter Property="FontSize" Value="{StaticResource TextBlockFontSize}" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
     </Style>
@@ -124,9 +120,9 @@
         <Setter Property="FontSize" Value="{StaticResource ButtonFontSize}" />
         <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
         <Setter Property="Foreground" Value="White" />
-        <Setter Property="Width" Value="250" />
+        <Setter Property="Width" Value="300" />
         <Setter Property="Height" Value="{StaticResource GarnishRowHeight}" />
-        <Setter Property="Margin" Value="0,0,0,20" />
+        <Setter Property="Margin" Value="10,10,10,10" />
         <Setter Property="Transitions">
             <Setter.Value>
                 <TransitionCollection>

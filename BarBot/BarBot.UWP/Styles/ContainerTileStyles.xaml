@@ -4,7 +4,7 @@
     xmlns:local="using:BarBot.UWP.Styles">
 
     <!-- Dimensions -->
-    <x:Double x:Key="TileWidth">300</x:Double>
+    <x:Double x:Key="TileWidth">320</x:Double>
     <x:Double x:Key="TileHeight">145</x:Double>
 
     <!-- Colors -->

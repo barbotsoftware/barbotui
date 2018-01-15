@@ -30,7 +30,7 @@
     </ContentDialog.Style>
 
     <TextBlock x:Name="TextBlock"
-            Text="{Binding Path=DisplayText}"
+            Text="{x:Bind Path=DisplayText, Mode=OneWay}"
             Width="900"
             Style="{StaticResource TextBlockStyle}" />
 </ContentDialog>

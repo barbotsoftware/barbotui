@@ -25,7 +25,7 @@
         <Button x:Name="AppBarBackButton"
                 Style="{StaticResource AppBarBackButtonStyle}"
                 Click="NavigateBack"
-                Visibility="{Binding Path=BackButtonVisible}">
+                Visibility="{x:Bind Path=BackButtonVisible, Mode=OneWay}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Grid x:Name="BackButtonGrid">
@@ -54,7 +54,7 @@
         <Button x:Name="AppBarBackLabel"
                 Style="{StaticResource AppBarBackLabelStyle}"
                 Click="NavigateBack"
-                Visibility="{Binding Path=BackButtonVisible}">
+                Visibility="{x:Bind Path=BackButtonVisible, Mode=OneWay}">
             <Button.Template>
                 <ControlTemplate TargetType="Button">
                     <Grid x:Name="BackLabelGrid">
@@ -81,12 +81,12 @@
         </Button>
         <TextBlock x:Name="AppBarTitleTextBlock"
                    Style="{StaticResource AppBarTitleTextBlockStyle}"
-                   Text="{Binding Path=Title}"/>
+                   Text="{x:Bind Path=Title, Mode=OneWay}"/>
         <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
             <Button x:Name="AppBarSearchButton"
                     Style="{StaticResource AppBarIconButtonStyle}"
                     Click="Open_Search" 
-                    Visibility="{Binding Path=SearchButtonVisible}">
+                    Visibility="{x:Bind Path=SearchButtonVisible, Mode=OneWay}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="SearchIconGrid">
@@ -116,7 +116,7 @@
             <Button x:Name="AppBarHomeButton"
                     Style="{StaticResource AppBarIconButtonStyle}"
                     Click="Open_Home" 
-                    Visibility="{Binding Path=HomeButtonVisible}">
+                    Visibility="{x:Bind Path=HomeButtonVisible, Mode=OneWay}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="HomeIconGrid">
@@ -146,7 +146,7 @@
             <Button x:Name="AppBarFilterButton"
                     Style="{StaticResource AppBarIconButtonStyle}"
                     Click="Open_Filter" 
-                    Visibility="{Binding Path=FilterButtonVisible}">
+                    Visibility="{x:Bind Path=FilterButtonVisible, Mode=OneWay}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="FilterIconGrid">
@@ -176,7 +176,7 @@
             <Button x:Name="AppBarGarnishButton"
                     Style="{StaticResource AppBarIconButtonStyle}"
                     Click="Open_Garnish" 
-                    Visibility="{Binding Path=GarnishButtonVisible}">
+                    Visibility="{x:Bind Path=GarnishButtonVisible, Mode=OneWay}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="GarnishIconGrid">
@@ -206,7 +206,7 @@
             <Button x:Name="AppBarSettingsButton"
                     Style="{StaticResource AppBarIconButtonStyle}"
                     Click="Open_Settings"
-                    Visibility="{Binding Path=SettingsButtonVisible}">
+                    Visibility="{x:Bind Path=SettingsButtonVisible, Mode=OneWay}">
                 <Button.Template>
                     <ControlTemplate TargetType="Button">
                         <Grid x:Name="SettingsIconGrid">

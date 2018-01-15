@@ -33,8 +33,7 @@
         </Style>
     </ContentDialog.Style>
 
-    <AutoSuggestBox
-                x:Name="SearchAutoSuggestBox"
-                PlaceholderText="Search Cocktails"
-                Style="{StaticResource AutoSuggestBoxStyle}" />
+    <TextBox x:Name="SearchTextBox"
+             PlaceholderText="Search Cocktails"
+             Style="{StaticResource SearchBoxStyle}" />
 </ContentDialog>

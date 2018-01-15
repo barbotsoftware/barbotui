@@ -5,17 +5,15 @@
     xmlns:local="using:BarBot.UWP.UserControls.RecipeList"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d"
-    d:DesignHeight="720"
-    d:DesignWidth="1280">
+    mc:Ignorable="d">
 
-    <Grid Height="720" Width="1280">
+    <Grid Height="{StaticResource PageHeight}" Width="{StaticResource PageWidth}">
         <Grid.ChildrenTransitions>
             <TransitionCollection>
                 <ContentThemeTransition/>
             </TransitionCollection>
         </Grid.ChildrenTransitions>
-        <Canvas Name="recipeTileCanvas" Height="650" Width="1110" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,100,0,0"></Canvas>
+        <Canvas Name="recipeTileCanvas" Height="{StaticResource WrapperHeight}" Width="{StaticResource WrapperWidth}" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,20,0,0"></Canvas>
 
         <Button x:Name="BackButton" Click="Previous_Page"  HorizontalAlignment="Left" Height="230" Margin="0,240,20,200" VerticalAlignment="Top" Width="120">
             <Button.Transitions>

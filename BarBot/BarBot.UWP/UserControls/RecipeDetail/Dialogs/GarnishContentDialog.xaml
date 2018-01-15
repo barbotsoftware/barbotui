@@ -29,36 +29,37 @@
             <Setter Property="FontSize" Value="50" />
         </Style>
     </ContentDialog.Style>
-    
-    <ContentDialog.TitleTemplate>
-        <DataTemplate>
-            <TextBlock Text="Would you like to add a garnish?"
-                       Style="{StaticResource TitleStyle}"/>
-        </DataTemplate>
-    </ContentDialog.TitleTemplate>
 
     <StackPanel x:Name="GarnishStackPanel"
                 Style="{StaticResource GarnishStackPanelStyle}">
-        <Button x:Name="GarnishButton1"
+        <TextBlock x:Name="TextBlock"
+               Text="{x:Bind Path=GarnishTitleText, Mode=OneWay}"
+               Style="{StaticResource TextBlockStyle}" />
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}"
+                    Margin="0,20,0,0">
+            <Button x:Name="GarnishButton1"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=Garnish1.Name}" 
+                Content="{x:Bind Path=Garnish1.Name, Mode=OneWay}" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOption1" />
-        <Button x:Name="GarnishButton2"
+            <Button x:Name="GarnishButton2"
                 Style="{StaticResource GarnishButtonStyle}"
-                Content="{Binding Path=Garnish2.Name}" 
+                Content="{x:Bind Path=Garnish2.Name, Mode=OneWay}" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOption2" />
-        <Button x:Name="GarnishButtonBoth"
+        </StackPanel>
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <Button x:Name="GarnishButtonBoth"
                 Style="{StaticResource GarnishButtonStyle}"
                 Content="Both" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOptionBoth" />
-        <Button x:Name="GarnishButtonNone"
+            <Button x:Name="GarnishButtonNone"
                 Style="{StaticResource GarnishButtonStyle}"
                 Content="Neither" 
                 Click="GarnishButton_Click"
                 Tag="GarnishOptionNone" />
+        </StackPanel>
         <TextBlock x:Name="GarnishEmptyTextBlock"
                Text="There are no garnishes left. Please reload."
                Visibility="Collapsed"

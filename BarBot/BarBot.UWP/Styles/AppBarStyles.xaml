@@ -4,16 +4,12 @@
     xmlns:local="using:BarBot.UWP.Styles"
     xmlns:usercontrols="using:BarBot.UWP.UserControls">
 
-    <!-- Dimensions -->
-    <x:Double x:Key="AppBarWidth">1280</x:Double>
-    <x:Double x:Key="AppBarHeight">720</x:Double>
-    
     <!-- Font -->
     <x:Double x:Key="FontSize">68</x:Double>
 
     <Style x:Key="AppBarGridStyle" TargetType="Grid">
-        <Setter Property="Width" Value="{StaticResource AppBarWidth}" />
-        <Setter Property="Height" Value="{StaticResource AppBarHeight}" />
+        <Setter Property="Width" Value="{StaticResource PageWidth}" />
+        <Setter Property="Height" Value="{StaticResource PageHeight}" />
     </Style>
     
     <Style x:Key="AppBarBorderStyle" TargetType="Border">
@@ -26,8 +22,8 @@
         <Setter Property="Fill" Value="#222222" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Width" Value="1280" />
-        <Setter Property="Height" Value="70" />
+        <Setter Property="Width" Value="{StaticResource PageWidth}" />
+        <Setter Property="Height" Value="72" />
     </Style>
 
     <Style x:Key="AppBarBackButtonStyle" TargetType="Button">

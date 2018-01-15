@@ -28,12 +28,12 @@ namespace BarBot.UWP.UserControls.AppBar.Search
 
         private void SearchDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            queryString = Helpers.CleanInput(SearchAutoSuggestBox.Text);
+            queryString = Helpers.CleanInput(SearchTextBox.Text);
 
             if (string.IsNullOrEmpty(queryString))
             {
                 args.Cancel = true;
-                SearchAutoSuggestBox.Focus(FocusState.Keyboard);
+                SearchTextBox.Focus(FocusState.Keyboard);
             } else
             {
                 if (this.app.AllRecipes.Count == 0)
