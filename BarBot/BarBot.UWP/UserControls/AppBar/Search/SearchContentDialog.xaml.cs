@@ -6,6 +6,7 @@ using BarBot.UWP.Websocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Windows.System;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media.Animation;
@@ -28,26 +29,11 @@ namespace BarBot.UWP.UserControls.AppBar.Search
 
         private void SearchDialog_PrimaryButtonClick(ContentDialog sender, ContentDialogButtonClickEventArgs args)
         {
-            queryString = Helpers.CleanInput(SearchTextBox.Text);
-
             if (string.IsNullOrEmpty(queryString))
             {
                 args.Cancel = true;
-                SearchTextBox.Focus(FocusState.Keyboard);
-            } else
-            {
-                if (this.app.AllRecipes.Count == 0)
-                {
-                    webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
-                    webSocketService.GetRecipes();
-                }
-                else
-                {
-                    DisplaySearchResults(this.app.AllRecipes);
-                }
-                
-                sender.Hide();
             }
+            PerformSearch();
         }
 
         private async void Socket_GetRecipesEvent(object sender, Core.WebSocket.WebSocketEvents.GetRecipesEventArgs args)
@@ -62,6 +48,30 @@ namespace BarBot.UWP.UserControls.AppBar.Search
             webSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
         }
 
+        private void PerformSearch()
+        {
+            queryString = Helpers.CleanInput(SearchTextBox.Text);
+
+            if (string.IsNullOrEmpty(queryString))
+            {
+                SearchTextBox.Focus(FocusState.Keyboard);
+            }
+            else
+            {
+                if (this.app.AllRecipes.Count == 0)
+                {
+                    webSocketService.Socket.GetRecipesEvent += Socket_GetRecipesEvent;
+                    webSocketService.GetRecipes();
+                }
+                else
+                {
+                    DisplaySearchResults(this.app.AllRecipes);
+                }
+
+                ContentDialog.Hide();
+            }
+        }
+
         private void DisplaySearchResults(List<Recipe> recipes)
         {
             // Get all Recipes from WS Server then filter, TODO: send query string and do search on server side
@@ -73,6 +83,14 @@ namespace BarBot.UWP.UserControls.AppBar.Search
                 };
 
             ((Window.Current.Content as Frame).Content as MainPage).ContentFrame.Navigate(typeof(Menu), recipeDictionary, new DrillInNavigationTransitionInfo());
+        }
+
+        private void ContentDialog_KeyUp(object sender, Windows.UI.Xaml.Input.KeyRoutedEventArgs args)
+        {
+            if (args.Key == VirtualKey.Enter)
+            {
+                PerformSearch();
+            }
         }
     }
 }

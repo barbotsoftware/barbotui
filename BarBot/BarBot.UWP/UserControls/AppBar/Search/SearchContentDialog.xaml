@@ -10,7 +10,8 @@
     IsPrimaryButtonEnabled="True"
     PrimaryButtonText="Search"
     CloseButtonText="Cancel"
-    PrimaryButtonClick="SearchDialog_PrimaryButtonClick">
+    PrimaryButtonClick="SearchDialog_PrimaryButtonClick"
+    KeyUp="ContentDialog_KeyUp">
 
     <ContentDialog.Resources>
         <ResourceDictionary>
