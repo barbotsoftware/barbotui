@@ -7,10 +7,11 @@ using Android.Widget;
 
 using Calligraphy;
 
-using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
+using BarBot.Core.Service.WebSocket;
+using BarBot.Droid.Utils;
 
 namespace BarBot.Droid.View.Menu
 {
@@ -18,7 +19,7 @@ namespace BarBot.Droid.View.Menu
 	public class DrinkMenuActivity : BaseActivity
 	{
 		MenuViewModel ViewModel => App.Locator.Menu;
-		WebSocketUtil WebSocketUtil => App.WebSocketUtil;
+        WebSocketService WebSocketService => App.WebSocketService;
 
 		protected override void OnCreate(Bundle savedInstanceState)
 		{
@@ -33,21 +34,24 @@ namespace BarBot.Droid.View.Menu
 			SetContentView(Resource.Layout.DrinkMenu);
 
 			// Add Event Handlers
-			WebSocketUtil.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
+            WebSocketService.AddMenuEventHandlers(Socket_GetRecipesEvent, Socket_GetIngredientsEvent);
 
 			// Attempt to load UserId from SharedPrefs
 			App.LoadSharedPreferences();
 
-			if (App.User.UserId == "")
+			if (App.User.Name == "")
 			{
 				ShowNameDialog();
 			}
 			else
 			{
 				App.ConnectWebSocket();
+                WebSocketService.GetRecipes();
+                WebSocketService.GetIngredients();
 			}
 
 			ConfigureAppBar();
+            ConfigureGridView();
 		}
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
@@ -118,29 +122,33 @@ namespace BarBot.Droid.View.Menu
 			ActionBar.SetDisplayShowTitleEnabled(false);
 		}
 
+        GridView gridview;
+
 		void ConfigureGridView()
 		{
-			var gridview = FindViewById<GridView>(Resource.Id.gridview);
+			gridview = FindViewById<GridView>(Resource.Id.gridview);
 			gridview.Adapter = new GridAdapter(this);
 
-			// Add Progress Bar
-			ProgressBar progressBar = new ProgressBar(this);
-			progressBar.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent,
-																	  ViewGroup.LayoutParams.WrapContent);
-			progressBar.Indeterminate = true;
-			gridview.EmptyView = progressBar;
+			//// Add Progress Bar
+			//ProgressBar progressBar = new ProgressBar(this);
+			//progressBar.LayoutParameters = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WrapContent,
+			//														  ViewGroup.LayoutParams.WrapContent);
+			//progressBar.Indeterminate = true;
+			//gridview.EmptyView = progressBar;
 
-			// Must add the progress bar to the root of the layout
-			ViewGroup root = (ViewGroup)FindViewById(Android.Resource.Id.Content);
-			root.AddView(progressBar);
+			//// Must add the progress bar to the root of the layout
+			//ViewGroup root = (ViewGroup)FindViewById(Android.Resource.Id.Content);
+			//root.AddView(progressBar);
 
-			gridview.ItemClick += delegate (object sender, AdapterView.ItemClickEventArgs args)
-			{
-				var recipe = ViewModel.Recipes[args.Position];
-				ViewModel.ShowDrinkDetailsCommand(recipe.RecipeId,
-												  null);
-			};
+            gridview.ItemClick += GridView_ItemClick;
 		}
+
+        void GridView_ItemClick(object sender, AdapterView.ItemClickEventArgs args)
+        {
+            var recipe = ViewModel.Recipes[args.Position];
+            ViewModel.ShowDrinkDetailsCommand(recipe.RecipeId,
+                                              null);
+        }
 
 		// USERNAME REGISTRATION
 
@@ -168,25 +176,21 @@ namespace BarBot.Droid.View.Menu
 
 		async void Socket_GetRecipesEvent(object sender, WebSocketEvents.GetRecipesEventArgs args)
 		{
-			await Task.Run(() => RunOnUiThread(() =>
-			{
-				ViewModel.Recipes.Clear();
+            await Task.Run(() => RunOnUiThread(() =>
+            {
+                ViewModel.Recipes.Clear();
 
-				// Add Custom Recipe
-				var customRecipe = new Recipe(Constants.CustomRecipeId,
-										  	"Custom Drink",
-										  	"",
-										  	null);
+                // Add Custom Recipe
+                var customRecipe = Recipe.CustomRecipe();
 				ViewModel.Recipes.Add(customRecipe);
 
 				foreach (Recipe r in args.Recipes)
 				{
 					ViewModel.Recipes.Add(r);
 				}
-				ConfigureGridView();
 
 				// Detach Event Handler
-				WebSocketUtil.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
+                WebSocketService.Socket.GetRecipesEvent -= Socket_GetRecipesEvent;
 			}));
 		}
 
@@ -197,8 +201,13 @@ namespace BarBot.Droid.View.Menu
 				App.IngredientsInBarBot.Clear();
 				App.IngredientsInBarBot = args.Ingredients;
 
+                foreach (Ingredient i in App.IngredientsInBarBot) 
+                {
+                    i.Name = Helpers.UppercaseWords(i.Name);
+                }
+
 				// Detach Event Handler
-				WebSocketUtil.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
+                WebSocketService.Socket.GetIngredientsEvent -= Socket_GetIngredientsEvent;
 			}));
 		}
 	}

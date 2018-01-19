@@ -4,7 +4,7 @@ using Android.Widget;
 
 using BarBot.Core;
 using BarBot.Core.ViewModel;
-
+using BarBot.Droid.Utils;
 using Square.Picasso;
 
 namespace BarBot.Droid.View.Menu
@@ -65,12 +65,12 @@ namespace BarBot.Droid.View.Menu
 			}
 			else
 			{
-				var url = "http://" + App.HostName + "/" + recipe.Img;
+                var url = "http://" + App.HostName + "/img/" + recipe.Img;
 				Picasso.With(context).Load(url).Fit().CenterInside().Into(drinkImageView);
 			}
 			// populate Recipe name
 			var recipeNameTextView = (TextView)hexagonView.FindViewById(Resource.Id.hexagon_recipe_name);
-			recipeNameTextView.Text = recipe.Name;
+            recipeNameTextView.Text = Helpers.UppercaseWords(recipe.Name);
 
 			return hexagonView;
 		}

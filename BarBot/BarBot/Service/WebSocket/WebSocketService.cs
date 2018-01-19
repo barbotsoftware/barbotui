@@ -31,7 +31,9 @@ namespace BarBot.Core.Service.WebSocket
             this.endpoint = endpoint;
         }
 
-		public async void OpenWebSocket(string username, string password)
+        public bool IsOpen() => Socket.IsOpen;
+
+        public async void OpenWebSocket(string username, string password)
 		{
 			bool success = await webSocket.OpenConnection(endpoint + "/ws?username=" + username 
                                                           + "&password=" + password);
@@ -60,6 +62,38 @@ namespace BarBot.Core.Service.WebSocket
         public void RemoveEventHandler(string eventName)
         {
             
+        }
+
+        public void AddMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+                                 WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+        {
+            Socket.GetRecipesEvent += recipesHandler;
+            Socket.GetIngredientsEvent += ingredientsHandler;
+        }
+
+        public void RemoveMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+                                            WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+        {
+            Socket.GetRecipesEvent -= recipesHandler;
+            Socket.GetIngredientsEvent -= ingredientsHandler;
+        }
+
+        public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
+                                            WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
+                                           WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
+        {
+            Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
+            Socket.OrderDrinkEvent += orderDrinkHandler;
+            Socket.CreateCustomRecipeEvent += createCustomDrinkHandler;
+        }
+
+        public void RemoveDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
+                                              WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
+                                              WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
+        {
+            Socket.GetRecipeDetailsEvent -= recipeDetailsHandler;
+            Socket.OrderDrinkEvent -= orderDrinkHandler;
+            Socket.CreateCustomRecipeEvent -= createCustomDrinkHandler;
         }
 
         public void CreateCustomRecipe(Recipe recipe)

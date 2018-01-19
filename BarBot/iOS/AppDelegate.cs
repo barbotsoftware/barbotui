@@ -4,19 +4,21 @@ using UIKit;
 using System.Collections.Generic;
 
 using GalaSoft.MvvmLight.Ioc;
-using GalaSoft.MvvmLight.Views;
 using GalaSoft.MvvmLight.Threading;
 
 using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.Service.Login;
+using BarBot.Core.Service.Navigation;
 using BarBot.Core.ViewModel;
 using BarBot.Core.WebSocket;
 
 using BarBot.iOS.Service.Login;
+using BarBot.iOS.Service.Navigation;
 using BarBot.iOS.View.Home;
 using BarBot.iOS.View.Menu;
 using BarBot.iOS.View.Detail;
+using BarBot.iOS.WebSocket;
 
 namespace BarBot.iOS
 {
@@ -47,31 +49,31 @@ namespace BarBot.iOS
 		{
 			UserDefaults = NSUserDefaults.StandardUserDefaults;
 
-			//User = new User();
-			//// Check for stored UserID
-			//if (UserDefaults.StringForKey("UserId") != null)
-			//{
-			//	User.UserId = UserDefaults.StringForKey("UserId");
-			//}
+			User = new User();
+			// Check for stored UserID
+			if (UserDefaults.StringForKey("UserId") != null)
+			{
+				User.UserId = UserDefaults.StringForKey("UserId");
+			}
 
-			//// Initialize Ingredient List
-			//IngredientsInBarBot = new List<Ingredient>();
+			// Initialize Ingredient List
+			IngredientsInBarBot = new List<Ingredient>();
 
-			//// Initialize WebsocketHandler
-			//WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
+			// Initialize WebsocketHandler
+			WebSocketUtil = new WebSocketUtil(new IosWebSocketHandler());
 
-			//// Check for stored IP Address
-			//if (UserDefaults.StringForKey("HostName") != null)
-			//{
-			//	HostName = UserDefaults.StringForKey("HostName");
-			//}
-			//else
-			//{
-			//	HostName = Constants.HostName;
-			//}
+			// Check for stored IP Address
+			if (UserDefaults.StringForKey("HostName") != null)
+			{
+				HostName = UserDefaults.StringForKey("HostName");
+			}
+			else
+			{
+				HostName = Constants.HostName;
+			}
 
-			//// Initialize RESTService
-			//LoginService = new LoginService(HostName);
+			// Initialize LoginService
+			LoginService = new LoginService(HostName);
 
 			// create a new window instance based on the screen size
 			Window = new UIWindow(UIScreen.MainScreen.Bounds);
@@ -80,10 +82,10 @@ namespace BarBot.iOS
             UIViewController initialViewController;
 
 			// If User logged in
-			initialViewController = new HomeViewController();
+			//initialViewController = new HomeViewController();
 
             // Else
-            //initialViewController = new DrinkMenuViewController(new HexagonLayout());
+            initialViewController = new DrinkMenuViewController(new HexagonLayout());
 
 			// Add the Navigation Controller and initialize it
 			var navController = new UINavigationController(initialViewController);
@@ -96,12 +98,12 @@ namespace BarBot.iOS
 			DispatcherHelper.Initialize(application);
 
 			// Initialize and register the Navigation Service
-			var nav = new NavigationService();
+			var nav = new Service.Navigation.NavigationService();
             nav.Initialize(navController);
 
             // Register Services with IoC Container
             SimpleIoc.Default.Register<INavigationService>(() => nav);
-            SimpleIoc.Default.Register<IDialogService, DialogService>();
+            //SimpleIoc.Default.Register<IDialogService, DialogService>();
             SimpleIoc.Default.Register<ILoginService, LoginService>();
 			
             // Configure pages with Navigation Service

@@ -1,11 +1,9 @@
 ﻿using BarBot.Core.Model;
+using BarBot.Core.Service.Navigation;
 using BarBot.Core.Service.WebSocket;
 using BarBot.Core.WebSocket;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
 
 namespace BarBot.Core.ViewModel
 {
@@ -14,10 +12,10 @@ namespace BarBot.Core.ViewModel
         private readonly INavigationService navigationService;
         private readonly IWebSocketService webSocketService;
 
-        private RelayCommand getRecipesCommand;
-        private RelayCommand<RecipeDetailViewModel> showRecipeDetailCommand;
+        //private RelayCommand getRecipesCommand;
+        //private RelayCommand<RecipeDetailViewModel> showRecipeDetailCommand;
 
-        public ObservableCollection<RecipeDetailViewModel> Recipes { get; }
+        //public ObservableCollection<RecipeDetailViewModel> Recipes { get; }
 
         private List<Recipe> _recipes;
         private bool _shouldDisplaySearch = false;
@@ -29,7 +27,7 @@ namespace BarBot.Core.ViewModel
             this.navigationService = navigationService;
             this.webSocketService = webSocketService;
 
-            Recipes = new ObservableCollection<RecipeDetailViewModel>();
+            //Recipes = new ObservableCollection<RecipeDetailViewModel>();
 
             _recipes = new List<Recipe>();
             _imageCache = new Dictionary<string, byte[]>();
@@ -37,7 +35,7 @@ namespace BarBot.Core.ViewModel
             {
                 _shouldDisplaySearch = shouldDisplaySearch;
             });
-            Title = "DRINK MENU";
+            Title = "Menu";
         }
 
         public string Title
@@ -46,7 +44,7 @@ namespace BarBot.Core.ViewModel
             set;
         }
 
-        public List<Recipe> RecipeList
+        public List<Recipe> Recipes
         {
             get { return _recipes; }
             set { Set(ref _recipes, value); }
@@ -66,43 +64,42 @@ namespace BarBot.Core.ViewModel
 
         #region Command
 
-        public RelayCommand GetRecipesCommand
-        {
-            get
-            {
-                return getRecipesCommand ?? (getRecipesCommand = new RelayCommand(webSocketService.GetRecipes));
-            }
-        }
-
-        public RelayCommand<RecipeDetailViewModel> ShowRecipeDetailCommand
-        {
-            get
-            {
-                return showRecipeDetailCommand
-                       ?? (showRecipeDetailCommand = new RelayCommand<RecipeDetailViewModel>(
-                           recipe =>
-                           {
-                               if (!ShowRecipeDetailCommand.CanExecute(recipe))
-                               {
-                                   return;
-                               }
-
-                               navigationService.NavigateTo(ViewModelLocator.RecipeDetailPageKey, recipe);
-                           },
-                           recipe => recipe != null));
-            }
-        }
-
-        //public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)
+        //public RelayCommand GetRecipesCommand
         //{
-        //    // recipeIdentifier = name for Custom, recipeId otherwise
-        //    MessengerInstance.Send(recipeIdentifier);
-        //    if (imageContents != null)
+        //    get
         //    {
-        //        MessengerInstance.Send(imageContents);
+        //        return getRecipesCommand ?? (getRecipesCommand = new RelayCommand(webSocketService.GetRecipes));
         //    }
-        //    navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
         //}
+
+        //public RelayCommand<RecipeDetailViewModel> ShowRecipeDetailCommand
+        //{
+        //    get
+        //    {
+        //        return showRecipeDetailCommand
+        //               ?? (showRecipeDetailCommand = new RelayCommand<RecipeDetailViewModel>(
+        //                   recipe =>
+        //                   {
+        //                       if (!ShowRecipeDetailCommand.CanExecute(recipe))
+        //                       {
+        //                           return;
+        //                       }
+
+        //                       navigationService.NavigateTo(ViewModelLocator.RecipeDetailPageKey, recipe);
+        //                   },
+        //                   recipe => recipe != null));
+        //    }
+        //}
+
+        public void ShowDrinkDetailsCommand(string recipeIdentifier, byte[] imageContents)
+        {
+            MessengerInstance.Send(recipeIdentifier);
+            if (imageContents != null)
+            {
+                MessengerInstance.Send(imageContents);
+            }
+            navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
+        }
 
 		#endregion
 

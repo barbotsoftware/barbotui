@@ -98,6 +98,7 @@ namespace BarBot.Core.Model
         public static Recipe CustomRecipe()
         {
             var customRecipe = new Recipe();
+            customRecipe.RecipeId = Constants.CustomRecipeId;
             customRecipe.Name = Constants.CustomRecipeName;
             customRecipe.Ingredients = new List<Ingredient>();
             customRecipe.Img = "custom_recipe.png";

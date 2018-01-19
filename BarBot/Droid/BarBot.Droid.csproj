@@ -96,6 +96,8 @@
     <Compile Include="View\BaseActivity.cs" />
     <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="View\Container\ContainerActivity.cs" />
+    <Compile Include="Utils\Helpers.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -169,6 +171,8 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Login\" />
     <Folder Include="Service\Navigation\" />
+    <Folder Include="View\Container\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
@@ -184,10 +188,7 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical">
-            <inheritsSet />
-            <inheritsScope />
-          </DotNetNamingPolicy>
+          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
         </Policies>
       </Properties>
     </MonoDevelop>

@@ -22,7 +22,7 @@
 	<!-- ActionBar Title -->
 	<style name="BarBotTheme_ActionBar_Title" parent="android:TextAppearance.Holo.Widget.ActionBar.Title">
 		<item name="android:textColor">@android:color/white</item>
-		<item name="android:textSize">20sp</item>
+		<item name="android:textSize">32sp</item>
 	</style>
 
 	<style name="BarBotTheme_AlertDialog">

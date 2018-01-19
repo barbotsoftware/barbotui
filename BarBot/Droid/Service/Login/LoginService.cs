@@ -16,23 +16,14 @@ namespace BarBot.Droid.Service.Login
         {
             httpClient = new HttpClient();
             httpClient.MaxResponseContentBufferSize = 256000;
-
-            // Set Host
-            if (!host.StartsWith("http://", StringComparison.InvariantCultureIgnoreCase))
-            {
-                Host = "http://" + host;
-            }
-            else
-            {
-                Host = host;
-            }
+            Host = host;
         }
 
         public async Task<User> RegisterUser(string name, string email, string password)
         {
             try
             {
-                var uri = new Uri("http://" + Host + "/auth/register?name=" + name + "&email=" + email + "&password=" + password);
+                var uri = new Uri(Host + "/auth/register?name=" + name + "&email=" + email + "&password=" + password);
 
                 var content = new StringContent("");
 
@@ -41,6 +32,9 @@ namespace BarBot.Droid.Service.Login
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
+
+                    System.Diagnostics.Debug.WriteLine(responseContent);
+
                     if (responseContent.Contains("The name has already been taken"))
                     {
                         return new User("", "name_taken", "", "");
@@ -62,11 +56,11 @@ namespace BarBot.Droid.Service.Login
         /*
          * Logs in an existing User.
          */
-        public async Task<bool> LoginUser(string email, string password)
+        public async Task<bool> LoginUser(string type, string username, string password)
         {
             try
             {
-                var uri = new Uri("http://" + Host + "/auth/login?email=" + email + "&password=" + password);
+                var uri = new Uri(Host + "/auth/login?type=" + type + "&username" + username + "&password=" + password);
 
                 var content = new StringContent("");
 
@@ -75,9 +69,9 @@ namespace BarBot.Droid.Service.Login
                 if (response.IsSuccessStatusCode)
                 {
                     var responseContent = await response.Content.ReadAsStringAsync();
-					// check response content
+                    // check response content
 
-					return true;
+                    return true;
                 }
                 else
                 {
@@ -91,34 +85,34 @@ namespace BarBot.Droid.Service.Login
             return false;
         }
 
-		public async Task<bool> ForgotPassword(string emailAddress)
-		{
-			try
-			{
-				var uri = new Uri("http://" + Host + "/auth/resetpassword?email=" + emailAddress);
+        public async Task<bool> ForgotPassword(string emailAddress)
+        {
+            try
+            {
+                var uri = new Uri(Host + "/auth/resetpassword?email=" + emailAddress);
 
-				var content = new StringContent("");
+                var content = new StringContent("");
 
-				HttpResponseMessage response = await httpClient.PostAsync(uri, content);
+                HttpResponseMessage response = await httpClient.PostAsync(uri, content);
 
-				if (response.IsSuccessStatusCode)
-				{
-					var responseContent = await response.Content.ReadAsStringAsync();
+                if (response.IsSuccessStatusCode)
+                {
+                    var responseContent = await response.Content.ReadAsStringAsync();
 
-					// check response content
+                    // check response content
 
-					return true;
-				}
-				else
-				{
-					return false;
-				}
-			}
-			catch (Exception e)
-			{
-				System.Diagnostics.Debug.WriteLine(e.ToString());
-			}
-			return false;
-		}
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception e)
+            {
+                System.Diagnostics.Debug.WriteLine(e.ToString());
+            }
+            return false;
+        }
     }
 }

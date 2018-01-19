@@ -17,7 +17,7 @@
 
 	<style name="BarBotTheme_TitleText" parent="BarBotTheme">
 		<item name="android:textColor">@color/text_white</item>
-		<item name="android:textSize">25sp</item>
+		<item name="android:textSize">35sp</item>
 		<item name="android:background">@color/actionbar_gray</item>
 	</style>
 

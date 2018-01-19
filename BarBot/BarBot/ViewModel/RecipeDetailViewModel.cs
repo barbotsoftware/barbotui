@@ -1,7 +1,6 @@
 ﻿using BarBot.Core.Model;
 using GalaSoft.MvvmLight;
-using GalaSoft.MvvmLight.Command;
-using GalaSoft.MvvmLight.Views;
+using BarBot.Core.Service.Navigation;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,46 +12,37 @@ namespace BarBot.Core.ViewModel
 		private readonly INavigationService navigationService;
 
         // Commands
-        private RelayCommand goToMenuCommand;
-
-        // Model
-        public Recipe Recipe
-        {
-            get;
-            set;
-        }
+        //private RelayCommand goToMenuCommand;
 
         private byte[] _imageContents;
+        private Recipe _recipe;
 		private List<double> _quantities;
 		private List<Ingredient> _availableIngredients;
 		private List<Ingredient> _ingredientsInBarBot;
 		private bool _isCustomRecipe;
 
-		public RecipeDetailViewModel(INavigationService navigationService, Recipe recipe)
+		public RecipeDetailViewModel(INavigationService navigationService)
 		{
-			this.navigationService = navigationService;
-            Recipe = recipe;
+            this.navigationService = navigationService;
 
-			//MessengerInstance.Register<string>(this, passedString =>
-			//{
-			//	if (passedString.StartsWith("recipe_", System.StringComparison.CurrentCulture))
-			//	{
-			//		RecipeId = passedString;
-			//	}
-			//	else
-			//	{
-			//		// Custom Recipe
-			//		Recipe = new Recipe(Constants.CustomRecipeId, 
-			//		                    passedString,
-			//		                    null,
-			//		                    new List<Ingredient>());
-			//		RecipeId = Constants.CustomRecipeId;
-			//	}
-			//});
-			//MessengerInstance.Register<byte[]>(this, imageContents =>
-			//{
-			//	ImageContents = imageContents;
-			//});
+            MessengerInstance.Register<string>(this, passedString =>
+            {
+                if (passedString.Equals(Constants.CustomRecipeId))
+                {
+                    Recipe = Recipe.CustomRecipe();
+				}
+                else
+                {
+                    Recipe = new Recipe
+                    {
+                        RecipeId = passedString
+                    };
+                }
+            });
+			MessengerInstance.Register<byte[]>(this, imageContents =>
+			{
+				ImageContents = imageContents;
+			});
 
 			_availableIngredients = new List<Ingredient>();
 			_ingredientsInBarBot = new List<Ingredient>();
@@ -62,6 +52,15 @@ namespace BarBot.Core.ViewModel
 				Quantities.Add(i);
 			}
 		}
+
+        public Recipe Recipe
+        {
+            get { return _recipe; }
+            set
+            {
+                Set(ref _recipe, value);
+            }
+        }
 
 		public byte[] ImageContents
 		{
@@ -112,27 +111,27 @@ namespace BarBot.Core.ViewModel
 			}
 		}
 
-		//public void ShowDrinkMenuCommand(bool shouldDisplaySearch)
-		//{
-		//	MessengerInstance.Send(shouldDisplaySearch);
-		//	this.navigationService.GoBack();
-		//}
+		public void ShowDrinkMenuCommand(bool shouldDisplaySearch)
+		{
+			MessengerInstance.Send(shouldDisplaySearch);
+			this.navigationService.CloseModal();
+		}
 
         #region Command
 
-        public RelayCommand GoToMenuCommand
-        {
-            get
-            {
-                return goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenuPage));
-            }
-        }
+        //public RelayCommand GoToMenuCommand
+        //{
+        //    get
+        //    {
+        //        return goToMenuCommand ?? (goToMenuCommand = new RelayCommand(GoToMenuPage));
+        //    }
+        //}
 
         #endregion
 
-        private void GoToMenuPage()
-        {
-            navigationService.GoBack();
-        }
+        //private void GoToMenuPage()
+        //{
+        //    navigationService.GoBack();
+        //}
     }
 }

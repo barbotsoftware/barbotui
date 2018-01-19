@@ -12,7 +12,7 @@ namespace BarBot.Droid.View.Detail
 {
 	public class CustomNameDialogFragment : DialogFragment
 	{
-		DetailViewModel ViewModel => App.Locator.Detail;
+		RecipeDetailViewModel ViewModel => App.Locator.Detail;
 
 		EditText NameEditText;
 

@@ -2,8 +2,6 @@
 
 using Microsoft.Practices.ServiceLocation;
 
-using BarBot.Core.Service.WebSocket;
-
 namespace BarBot.Core.ViewModel
 {
 	public class ViewModelLocator
@@ -18,15 +16,12 @@ namespace BarBot.Core.ViewModel
 	    {
 	    	ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
 
-            // Register Services
-            SimpleIoc.Default.Register<IWebSocketService, WebSocketService>();
-
             // Register ViewModels
             SimpleIoc.Default.Register<HomeViewModel>();
             SimpleIoc.Default.Register<LoginViewModel>();
             SimpleIoc.Default.Register<SignUpViewModel>();
-	    	SimpleIoc.Default.Register<MenuViewModel>();
-			SimpleIoc.Default.Register<RecipeDetailViewModel>();
+	    	SimpleIoc.Default.Register<MenuViewModel>(true);
+			SimpleIoc.Default.Register<RecipeDetailViewModel>(true);
 	    }
 
         public HomeViewModel Home
