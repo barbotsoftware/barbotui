@@ -56,16 +56,19 @@ namespace BarBot.Droid.View.Menu
 
 		public override bool OnCreateOptionsMenu(IMenu menu)
 		{
-			// uncomment to add search button
-			//MenuInflater.Inflate(Resource.Menu.top_menus, menu);
+			MenuInflater.Inflate(Resource.Menu.top_menus, menu);
 			return base.OnCreateOptionsMenu(menu);
 		}
 
 		public override bool OnOptionsItemSelected(IMenuItem item)
 		{
-			// TODO: Implement Search
-			Toast.MakeText(this, "Action selected: " + item.TitleFormatted,
-				ToastLength.Short).Show();
+            switch (item.TitleFormatted.ToString()) {
+                case "Containers":
+                    ViewModel.ShowContainersCommand();
+                    break;
+                default:
+                    break;
+            }
 			return base.OnOptionsItemSelected(item);
 		}
 

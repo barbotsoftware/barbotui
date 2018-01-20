@@ -101,6 +101,10 @@ namespace BarBot.Core.ViewModel
             navigationService.OpenModal(ViewModelLocator.RecipeDetailPageKey);
         }
 
+        public void ShowContainersCommand() {
+            navigationService.OpenModal(ViewModelLocator.ContainersPageKey);
+        }
+
 		#endregion
 
 		#region Event Handlers

@@ -65,6 +65,7 @@
     <Compile Include="AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ContainersViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>

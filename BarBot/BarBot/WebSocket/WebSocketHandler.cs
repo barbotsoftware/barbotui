@@ -129,8 +129,8 @@ namespace BarBot.Core.WebSocket
                     GetContainersEvent(this, new WebSocketEvents.GetContainersEventArgs(ContainerList.Containers));
                     break;
                 case Constants.OrderDrink:
-                    string DrinkOrderId = message.Data["drink_order_id"].ToString();
-                    OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrderId));
+                    var DrinkOrder = new DrinkOrder(message.Data["drink_order"].ToString());
+                    OrderDrinkEvent(this, new WebSocketEvents.OrderDrinkEventArgs(DrinkOrder.DrinkOrderId));
                     break;
 				case Constants.CreateCustomRecipe:
 					string RecipeId = message.Data["recipe_id"].ToString();

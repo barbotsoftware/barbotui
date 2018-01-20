@@ -23,6 +23,7 @@ using BarBot.Droid.View.Menu;
 using BarBot.Droid.WebSocket;
 using BarBot.Core.Service.WebSocket;
 using BarBot.Core.Service.Navigation;
+using BarBot.Droid.View.Container;
 
 namespace BarBot.Droid
 {
@@ -76,13 +77,14 @@ namespace BarBot.Droid
                     SimpleIoc.Default.Register<IWebSocketService>(() => WebSocketService);
 
                     // Configure PageKeys
-                    nav.Configure(
-					  ViewModelLocator.MenuPageKey,
-					  typeof(DrinkMenuActivity));
+                    nav.Configure(ViewModelLocator.MenuPageKey,
+					    typeof(DrinkMenuActivity));
 
-					nav.Configure(
-					  ViewModelLocator.RecipeDetailPageKey,
-					  typeof(DrinkDetailActivity));
+					nav.Configure(ViewModelLocator.RecipeDetailPageKey,
+					    typeof(DrinkDetailActivity));
+
+                    nav.Configure(ViewModelLocator.ContainersPageKey,
+                        typeof(ContainerActivity));
 
 					locator = new ViewModelLocator();
 				}
