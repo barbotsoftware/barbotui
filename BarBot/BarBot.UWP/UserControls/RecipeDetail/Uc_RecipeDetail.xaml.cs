@@ -51,14 +51,18 @@ namespace BarBot.UWP.UserControls.RecipeDetail
 
                 AppBar.Title = Recipe.Name;
 
-                if (!Recipe.Name.Equals(Constants.CustomRecipeName))
+                if (!Recipe.Name.Equals(Constants.CustomRecipeName) && Recipe.Ingredients.Count == 0)
                 {
                     // Attach event handler and then call GetRecipeDetails
                     app.webSocketService.AddDetailEventHandlers(Socket_GetRecipeDetailEvent, null, null);
-                    app.webSocketService.GetRecipeDetails(Recipe.RecipeId);
+                    app.webSocketService.GetRecipeDetails(Recipe.RecipeId);                    
                 }
                 else
                 {
+                    foreach (Ingredient i in Recipe.Ingredients)
+                    {
+                        i.Name = app.IngredientsInBarbot[i.IngredientId].Name;
+                    }
                     DisplayIngredients();
                 }
 
