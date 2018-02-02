@@ -30,7 +30,7 @@
         <Setter Property="Width" Value="120" />
         <Setter Property="HorizontalAlignment" Value="Left" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Margin" Value="0,240,20,200" />
+        <Setter Property="Margin" Value="60,218,0,0" />
         <Setter Property="Visibility" Value="Collapsed" />
     </Style>
 
@@ -39,7 +39,7 @@
         <Setter Property="Width" Value="120" />
         <Setter Property="HorizontalAlignment" Value="Right" />
         <Setter Property="VerticalAlignment" Value="Top" />
-        <Setter Property="Margin" Value="0,240,20,200" />
+        <Setter Property="Margin" Value="0,218,80,0" />
         <Setter Property="Visibility" Value="Collapsed" />
     </Style>
 </ResourceDictionary>

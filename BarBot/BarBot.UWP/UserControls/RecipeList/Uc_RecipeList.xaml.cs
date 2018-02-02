@@ -9,6 +9,7 @@ using BarBot.Core.Model;
 using BarBot.UWP.Websocket;
 using BarBot.UWP.Utils;
 using System.Collections.ObjectModel;
+using Windows.UI.Xaml.Input;
 
 namespace BarBot.UWP.UserControls.RecipeList
 {
@@ -56,6 +57,12 @@ namespace BarBot.UWP.UserControls.RecipeList
             webSocketService = app.webSocketService;
 
             app.FilterApplied += App_FilterApplied;
+
+            NextButton.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+            NextButton.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
+
+            BackButton.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+            BackButton.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
         }
 
         private void displayPage(int page)
@@ -88,6 +95,18 @@ namespace BarBot.UWP.UserControls.RecipeList
             {
                 NoRecipesFoundTextBlock.Visibility = Visibility.Collapsed;
             }
+        }
+
+        private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerDown", true);
+        }
+
+        private void Pointer_Released(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerUp", true);
         }
 
         private void Next_Page(object sender, RoutedEventArgs e)

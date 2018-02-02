@@ -7,6 +7,7 @@ using System.ComponentModel;
 using Windows.Foundation;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media.Imaging;
 
 namespace BarBot.UWP.UserControls.CategoryList
@@ -54,9 +55,27 @@ namespace BarBot.UWP.UserControls.CategoryList
             }
         }
 
+        private void Pointer_Pressed(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerDown", true);
+        }
+
+        private void Pointer_Released(object sender, PointerRoutedEventArgs e)
+        {
+            this.CapturePointer(e.Pointer);
+            VisualStateManager.GoToState(sender as Button, "PointerUp", true);
+        }
+
         public Uc_CategoryList()
         {
             this.InitializeComponent();
+
+            CategoryListNextButton.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+            CategoryListNextButton.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
+
+            CategoryListBackButton.AddHandler(PointerPressedEvent, new PointerEventHandler(Pointer_Pressed), true);
+            CategoryListBackButton.AddHandler(PointerReleasedEvent, new PointerEventHandler(Pointer_Released), true);
         }
 
         private void displayPage(int page)
