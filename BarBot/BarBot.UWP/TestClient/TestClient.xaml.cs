@@ -85,7 +85,7 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            Debug.WriteLine("MCP3008: " + ioController.mcp3008.read(0));
+            Debug.WriteLine("MCP3008: " + ioController.mcp3008.read(0, 5));
         }
 
         private void RunGarnish1Button_Click(object sender, RoutedEventArgs e)

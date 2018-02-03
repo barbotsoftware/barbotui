@@ -148,8 +148,8 @@ namespace BarBot.UWP.IO
             AddGarnish(garnish);
 
             // Open the udder valve -- using it as a "pump" type because the IO logic is the same
-            Pump udder = Pumps.Where(x => x.IOPort.Name.Equals("udder valve")).First();
-            udder.StartPump();
+            //Pump udder = Pumps.Where(x => x.IOPort.Name.Equals("udder valve")).First();
+            //udder.StartPump();
 
             // Start pouring each ingredient
             for (int i = 0; i < ingredients.Count; i++)
@@ -165,19 +165,10 @@ namespace BarBot.UWP.IO
                 Timeout((long)(TimeSpan.TicksPerSecond * (amount * container.FlowSensor.CalibrationFactor)), container.Pump);
             }
 
-            // Wait 5 seconds for the udder to clear
-            long start = DateTime.Now.Ticks;
-            while (true)
-            {
-                if (DateTime.Now.Ticks - start > TimeSpan.TicksPerSecond * UDDER_VALVE_FLUSH_TIME)
-                {
-                    // Stop the udder
-                    udder.StopPump();
-                    break;
-                }
-            }
-
-            // TODO: get water pump, run for 1 second
+            // Get water pump, run it for 1 second
+            Pump waterPump = Pumps.Where(x => x.IOPort.Name.Equals("water pump")).First();
+            waterPump.StartPump();
+            Timeout((long)(TimeSpan.TicksPerSecond), waterPump);
 
             // Turn LED off
             LEDOff();

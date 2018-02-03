@@ -13,7 +13,7 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class IceHopper : IIceHopper
     {
-        private const int THRESHOLD_FULL = 500;
+        private const int THRESHOLD_FULL = 350;
 
         public L298NDriver stepperDriver;
 
@@ -23,7 +23,7 @@ namespace BarBot.UWP.IO.Devices.V1
 
         IOPort augerMotor;
 
-        private double RUN_LENGTH = 1.5; // run ice hopper in 1.5 second increments
+        private double RUN_LENGTH = 3; // run ice hopper in 3 second increments
 
         private int MAX_CYCLES = 5; // maximum number of times the ice hopper should run its cycle, in case it gets stuck or is empty it won't keep goin
 
@@ -46,12 +46,12 @@ namespace BarBot.UWP.IO.Devices.V1
             Debug.WriteLine(string.Format("Running ice hopper"));
 
             int cycles = 1;
-            while (mcp3008.read(0) <= THRESHOLD_FULL && cycles <= MAX_CYCLES)
+            while (mcp3008.read(0, 5) <= THRESHOLD_FULL && cycles <= MAX_CYCLES)
             {
                 Debug.WriteLine("Opening ice hopper door...");
 
                 // Open the door (1/4 rev)
-                stepperDriver.runBackwards(0.25);
+                stepperDriver.runBackwards(0.22);
 
                 Debug.WriteLine("Running auger...");
                 // Start the auger motor
@@ -66,7 +66,7 @@ namespace BarBot.UWP.IO.Devices.V1
 
                 Debug.WriteLine("Closing ice hopper door...");
                 // Close the door (1/4 rev)
-                stepperDriver.run(0.25);
+                stepperDriver.run(0.22);
 
                 // wait for it to settle
                 delay(1);

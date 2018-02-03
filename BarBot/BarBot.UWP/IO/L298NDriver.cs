@@ -50,21 +50,25 @@ namespace BarBot.UWP.IO
                 portA.write(GpioPinValue.Low);
                 portB.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); }); 
                 Task.Delay(SleepTime).Wait();
 
                 portD.write(GpioPinValue.Low);
                 portC.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
 
                 portB.write(GpioPinValue.Low);
                 portA.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
 
                 portC.write(GpioPinValue.Low);
                 portD.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
             }
 

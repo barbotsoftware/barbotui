@@ -202,13 +202,21 @@ namespace BarBot.UWP
 
             Debug.WriteLine("Attempted to open websocket...");
 
-            // Wait until the websocket connection is open
+            // Wait until the websocket connection is open, timeout after 10 seconds RIP
+            long ticks = TimeSpan.TicksPerSecond * 10;
+            long start = DateTime.Now.Ticks;
             while (!webSocketService.Socket.IsOpen)
             {
-                Task.Delay(10).Wait();
+                if(DateTime.Now.Ticks - start > ticks)
+                {
+                    Debug.WriteLine("Failed to open websocket after 10 seconds...");
+                    break;
+                }
             }
 
-            Debug.WriteLine("Opened websocket successfully!");
+            if (webSocketService.Socket.IsOpen) {
+                Debug.WriteLine("Opened websocket successfully!");
+            }
 
             DrinkOrders = new List<Core.Model.DrinkOrder>();
             webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;

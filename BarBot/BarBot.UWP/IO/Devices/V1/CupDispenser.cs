@@ -13,7 +13,7 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class CupDispenser : ICupDispenser
     {
-        private int EMPTY_CUP_THRESHOLD = 100;
+        private int EMPTY_CUP_THRESHOLD = 30;
 
         public L298NDriver stepperDriver;
 
@@ -24,7 +24,7 @@ namespace BarBot.UWP.IO.Devices.V1
         public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, MCP3008 mcp3008)
         {
             // initialize a new stepper driver
-            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 4);
+            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 2);
 
             // set the analog to digital converter for the force sensor
             this.mcp3008 = mcp3008;
@@ -34,7 +34,7 @@ namespace BarBot.UWP.IO.Devices.V1
         {
             Debug.WriteLine(string.Format("Running cup dispenser"));
 
-            bool triggered = mcp3008.read(0) >= EMPTY_CUP_THRESHOLD; // TODO: hard coded channel #
+            bool triggered = mcp3008.read(0, 5) >= EMPTY_CUP_THRESHOLD; // TODO: hard coded channel #
             if (!triggered)
             {
                 // Attempt to release a cup
@@ -49,20 +49,22 @@ namespace BarBot.UWP.IO.Devices.V1
                     Task.Delay(100);
 
                     // Check if the weight sensor has been triggered
-                    triggered = mcp3008.read(0) >= EMPTY_CUP_THRESHOLD; // TODO hard coded channel #
+                    triggered = mcp3008.read(0, 5) >= EMPTY_CUP_THRESHOLD; // TODO hard coded channel #
                 }
             }
         }
 
         public void JiggleForPapi()
         {
-            stepperDriver.SleepTime = 2; // Papi likes it fast
+            stepperDriver.SleepTime = 1; // Papi likes it fast
 
             // jiggle jiggle jiggle
             stepperDriver.runBackwards(0.1);
             stepperDriver.run(0.1);
+            stepperDriver.runBackwards(0.1);
+            stepperDriver.run(0.1);
 
-            stepperDriver.SleepTime = 4;
+            stepperDriver.SleepTime = 2;
         }
     }
 }

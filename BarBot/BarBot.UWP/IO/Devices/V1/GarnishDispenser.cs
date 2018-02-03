@@ -26,7 +26,7 @@ namespace BarBot.UWP.IO.Devices.V1
         public GarnishDispenser() { }
 
         // 1/3 rev = 120 degrees
-        private double revolutions = 0.4;
+        private double revolutions = 1.0;
 
         public GarnishDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IIOPort stepper5, IIOPort stepper6, IIOPort stepper7, IIOPort stepper8)
         {
@@ -44,21 +44,21 @@ namespace BarBot.UWP.IO.Devices.V1
                 stepperDriver.runBackwards(revolutions);
 
                 // Return to starting position
-                stepperDriver.run(revolutions);
+                //stepperDriver.run(revolutions);
 
                 // Run the rotating plate
-                stepperDriver2.runBackwards(1);
+                //stepperDriver2.runBackwards(1.5);
             }
             else if(garnishType == 2) // second garnish type, run in the other direction
             {
                 // Rotate once to dispense garnish
-                stepperDriver.run(revolutions);
-
-                //Return to starting position
                 stepperDriver.runBackwards(revolutions);
 
+                //Return to starting position
+                //stepperDriver.runBackwards(revolutions);
+
                 // Run the rotating plate
-                stepperDriver2.runBackwards(1);
+                //stepperDriver2.runBackwards(1.5);
             }
         }
     }

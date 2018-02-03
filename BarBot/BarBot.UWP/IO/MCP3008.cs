@@ -68,5 +68,17 @@ namespace BarBot.UWP.IO
 
             return result;
         }
+
+        public int read(int channel, int samples)
+        {
+            int val = 0;
+            for(int i = 0; i < samples; i++)
+            {
+                val += read(channel);
+                Task.Delay(10);
+            }
+
+            return val / samples;
+        }
     }
 }
