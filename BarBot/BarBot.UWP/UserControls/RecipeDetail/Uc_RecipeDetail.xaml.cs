@@ -416,12 +416,15 @@ namespace BarBot.UWP.UserControls.RecipeDetail
                 }
 
                 // show garnish dialog
-                var garnishDialog = new GarnishContentDialog(this);
-                await garnishDialog.ShowAsync();
-
-                if (!garnishDialog.ShouldProceed)
+                if (app.Garnishes.Count > 0)
                 {
-                    return;
+                    var garnishDialog = new GarnishContentDialog(this);
+                    await garnishDialog.ShowAsync();
+
+                    if (!garnishDialog.ShouldProceed)
+                    {
+                        return;
+                    }
                 }
                 
                 // show pouring dialog
