@@ -11,7 +11,7 @@ namespace BarBot.Droid.View.Detail
 	public class IngredientDialogFragment : DialogFragment
 	{
 		Context context;
-		DetailViewModel ViewModel => App.Locator.Detail;
+		RecipeDetailViewModel ViewModel => App.Locator.Detail;
 		int index;
 
 		public static IngredientDialogFragment NewInstance(Bundle bundle, Context c, int position)
@@ -30,7 +30,7 @@ namespace BarBot.Droid.View.Detail
 
 		public override Dialog OnCreateDialog(Bundle savedInstanceState)
 		{
-			var ingredient = ViewModel.Ingredients[index];
+			var ingredient = ViewModel.Recipe.Ingredients[index];
 			var quantity = ingredient.Amount;
 
 			AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(Activity, Resource.Style.BarBotTheme_AlertDialog));
@@ -42,7 +42,7 @@ namespace BarBot.Droid.View.Detail
 			builder.SetPositiveButton(Resource.String.positive_ingredient_alert, (sender, e) =>
 			{
 				// commits all changes to ViewModel
-				ViewModel.Ingredients[index] = ingredient;
+				ViewModel.Recipe.Ingredients[index] = ingredient;
 				ViewModel.AvailableIngredients.Remove(ingredient);
 				ViewModel.IsCustomRecipe = true;
 				(Activity as DrinkDetailActivity).ReloadListView();
@@ -58,9 +58,9 @@ namespace BarBot.Droid.View.Detail
 			dialog.Show();
 
 			// add current ingredient to Available Ingredients
-			if (index < (ViewModel.Ingredients.Count - 1))
+			if (index < (ViewModel.Recipe.Ingredients.Count - 1))
 			{
-				ViewModel.AvailableIngredients.Insert(0, ViewModel.Ingredients[index]);
+				ViewModel.AvailableIngredients.Insert(0, ViewModel.Recipe.Ingredients[index]);
 			}
 
 			// Configure Ingredient Spinner

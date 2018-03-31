@@ -9,8 +9,8 @@ namespace BarBot.Core.Model
         string barbotId;
         string ingredientId;
         int number;
-        int currentVolume;
-        int maxVolume;
+        double currentVolume;
+        double maxVolume;
 
         [JsonProperty("barbot_id")]
         public string BarbotId
@@ -58,7 +58,7 @@ namespace BarBot.Core.Model
         }
 
         [JsonProperty("current_volume")]
-        public int CurrentVolume
+        public double CurrentVolume
         {
             get
             {
@@ -73,7 +73,7 @@ namespace BarBot.Core.Model
         }
 
         [JsonProperty("max_volume")]
-        public int MaxVolume
+        public double MaxVolume
         {
             get
             {
@@ -92,7 +92,7 @@ namespace BarBot.Core.Model
         }
 
         public Container(string barbotId, string ingredientId, int number,
-                         int currentVolume, int maxVolume)
+                         double currentVolume, double maxVolume)
         {
             BarbotId = barbotId;
             IngredientId = ingredientId;

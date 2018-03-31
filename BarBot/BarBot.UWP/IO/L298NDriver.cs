@@ -23,6 +23,14 @@ namespace BarBot.UWP.IO
         private int STEPS_PER_REVOLUTION = 50;
         public int SleepTime { get; set; } 
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// <param name="stepper1"></param>
+        /// <param name="stepper2"></param>
+        /// <param name="stepper3"></param>
+        /// <param name="stepper4"></param>
+        /// <param name="sleepTime">Time between each step. Lower time = faster rotations.</param>
         public L298NDriver(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, int sleepTime = 15)
         {
             portA = stepper1;
@@ -42,21 +50,25 @@ namespace BarBot.UWP.IO
                 portA.write(GpioPinValue.Low);
                 portB.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); }); 
                 Task.Delay(SleepTime).Wait();
 
                 portD.write(GpioPinValue.Low);
                 portC.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
 
                 portB.write(GpioPinValue.Low);
                 portA.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
 
                 portC.write(GpioPinValue.Low);
                 portD.write(GpioPinValue.High);
 
+                //await Task.Run(async () => { await Task.Delay(SleepTime); });
                 Task.Delay(SleepTime).Wait();
             }
 

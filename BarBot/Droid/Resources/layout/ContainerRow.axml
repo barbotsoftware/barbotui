@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_row"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:paddingLeft="10dp"
+    android:paddingTop="7dp"
+    android:paddingBottom="7dp"
+    android:descendantFocusability="blocksDescendants">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="top"
+        android:orientation="vertical">
+        <TextView
+            android:id="@+id/ingredient_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_white"
+            android:textSize="35dp"
+            fontPath="fonts/Microsoft-Yi-Baiti.ttf" />
+        <TextView
+            android:id="@+id/container_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/text_white"
+            android:textSize="28dp"
+            fontPath="fonts/Microsoft-Yi-Baiti.ttf" />
+    </LinearLayout>
+    <TextView
+        android:id="@+id/volume_textview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:textColor="@color/text_white"
+        android:textSize="40dp"
+        android:paddingRight="20dp"
+        fontPath="fonts/Microsoft-Yi-Baiti.ttf"
+        android:layout_alignParentRight="true" />
+</RelativeLayout>

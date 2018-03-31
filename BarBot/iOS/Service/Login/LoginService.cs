@@ -80,11 +80,11 @@ namespace BarBot.iOS.Service.Login
         /*
          * Logs in an existing User.
          */
-        public async Task<bool> LoginUser(string emailAddress, string password)
+        public async Task<bool> LoginUser(string type, string username, string password)
         {
             try
             {
-                var uri = new Uri("http://" + Host + "/auth/login?email=" + emailAddress + "&password=" + password);
+                var uri = new Uri("http://" + Host + "/auth/login?type=" + type + "&username=" + username + "&password=" + password);
 
                 var content = new StringContent("");
 

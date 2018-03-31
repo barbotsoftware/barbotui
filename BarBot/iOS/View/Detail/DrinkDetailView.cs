@@ -29,7 +29,7 @@ namespace BarBot.iOS.View.Detail
 		const int ORDER_LEFT_OFFSET = 20;
 
 		// ViewModel
-		DetailViewModel ViewModel => Application.Locator.Detail;
+		RecipeDetailViewModel ViewModel => Application.Locator.Detail;
 
 		// Keep track of bindings to avoid premature garbage collection
 		private readonly List<Binding> bindings = new List<Binding>();
@@ -78,7 +78,7 @@ namespace BarBot.iOS.View.Detail
 			{
 				IngredientTableView.SetEditing(false, true);
 				topItem.RightBarButtonItem = edit;
-				if (ViewModel.Ingredients.Count > 0)
+				if (ViewModel.Recipe.Ingredients.Count > 0)
 				{
 					OrderButton.Enabled = true;
 				}
@@ -94,7 +94,7 @@ namespace BarBot.iOS.View.Detail
 				OrderButton.Enabled = false;
 			});
 
-			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			if (ViewModel.Recipe.RecipeId.Equals(Constants.CustomRecipeId))
 			{
 				topItem.RightBarButtonItem = done;
 			}
@@ -212,7 +212,7 @@ namespace BarBot.iOS.View.Detail
 
 			bindings.Add(
 				this.SetBinding(
-					() => ViewModel.Ingredients,
+					() => ViewModel.Recipe.Ingredients,
 					() => source.Rows));
 
 			AddSubview(IngredientTableView);

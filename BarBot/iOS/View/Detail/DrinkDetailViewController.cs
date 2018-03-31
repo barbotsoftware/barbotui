@@ -15,7 +15,7 @@ namespace BarBot.iOS.View.Detail
 	public class DrinkDetailViewController : UIViewController
 	{
 		// ViewModel
-		private DetailViewModel ViewModel => Application.Locator.Detail;
+		private RecipeDetailViewModel ViewModel => Application.Locator.Detail;
 
 		// Data Properties
 		AppDelegate Delegate;
@@ -54,18 +54,18 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewWillAppear(bool animated)
 		{
 			// Add Event Handlers
-			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
+			WebSocketUtil.AddDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomRecipeEvent);
 
-			if (!ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+			if (!ViewModel.Recipe.RecipeId.Equals(Constants.CustomRecipeId))
 			{
-				WebSocketUtil.GetRecipeDetails(ViewModel.RecipeId);
+				WebSocketUtil.GetRecipeDetails(ViewModel.Recipe.RecipeId);
 			}
 		}
 
 		public override void ViewDidAppear(bool animated)
 		{
 			// Custom Recipe
-			if (ViewModel.RecipeId.Equals(Constants.CustomRecipeId))
+            if (ViewModel.Recipe.RecipeId.Equals(Constants.CustomRecipeId))
 			{
 				// Get Custom Recipe Name
 				ShowCustomAlertController();
@@ -81,7 +81,7 @@ namespace BarBot.iOS.View.Detail
 		public override void ViewWillDisappear(bool animated)
 		{
 			// Remove Event Handlers
-			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomDrinkEvent);
+			WebSocketUtil.RemoveDetailEventHandlers(Socket_GetRecipeDetailsEvent, Socket_OrderDrinkEvent, Socket_CreateCustomRecipeEvent);
 
 			// Clear ViewModel
 			ViewModel.Clear();
@@ -137,7 +137,7 @@ namespace BarBot.iOS.View.Detail
 		}
 
 		// CreateCustomDrink
-		async void Socket_CreateCustomDrinkEvent(object sender, WebSocketEvents.CreateCustomDrinkEventArgs args)
+		async void Socket_CreateCustomRecipeEvent(object sender, WebSocketEvents.CreateCustomRecipeEventArgs args)
 		{
 			await Task.Run(() => UIApplication.SharedApplication.InvokeOnMainThread(() =>
 			{
@@ -146,7 +146,7 @@ namespace BarBot.iOS.View.Detail
 				                         (View as DrinkDetailView).GarnishSwitch.On);
 
 				// Detach Event Handler
-				WebSocketUtil.Socket.CreateCustomDrinkEvent -= Socket_CreateCustomDrinkEvent;
+				WebSocketUtil.Socket.CreateCustomRecipeEvent -= Socket_CreateCustomRecipeEvent;
 			}));
 		}
 
@@ -155,7 +155,7 @@ namespace BarBot.iOS.View.Detail
 		{
 			if (ViewModel.IsCustomRecipe)
 			{
-				var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Ingredients);
+				var recipe = new Recipe("", ViewModel.Recipe.Name, "", ViewModel.Recipe.Ingredients);
 				if (recipe.GetVolume() > Constants.MaxVolume)
 				{
 					ShowVolumeAlert();
@@ -167,7 +167,7 @@ namespace BarBot.iOS.View.Detail
 			}
 			else
 			{
-				WebSocketUtil.OrderDrink(ViewModel.RecipeId,
+				WebSocketUtil.OrderDrink(ViewModel.Recipe.RecipeId,
 										 (View as DrinkDetailView).IceSwitch.On,
 										 (View as DrinkDetailView).GarnishSwitch.On);
 			}

@@ -29,6 +29,12 @@
     <ConsolePause>false</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\Category.cs" />
+    <Compile Include="Model\CategoryList.cs" />
+    <Compile Include="Model\ContainerList.cs" />
+    <Compile Include="Model\Garnish.cs" />
+    <Compile Include="Model\GarnishList.cs" />
+    <Compile Include="WebSocket\DictinaryOrEmptyArrayConverter.cs" />
     <Compile Include="WebSocket\Message.cs" />
     <Compile Include="Model\Ingredient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -37,7 +43,7 @@
     <Compile Include="Model\JsonModelObject.cs" />
     <Compile Include="WebSocket\WebSocketEvents.cs" />
     <Compile Include="WebSocket\WebSocketHandler.cs" />
-    <Compile Include="ViewModel\DetailViewModel.cs" />
+    <Compile Include="ViewModel\RecipeDetailViewModel.cs" />
     <Compile Include="ViewModel\MenuViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Compile Include="Model\IngredientList.cs" />
@@ -59,6 +65,7 @@
     <Compile Include="AppResources.Designer.cs">
       <DependentUpon>AppResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="ViewModel\ContainersViewModel.cs" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -89,12 +96,7 @@
       <SubType>Designer</SubType>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Service\" />
-    <Folder Include="Service\Login\" />
-    <Folder Include="Service\WebSocket\" />
-    <Folder Include="Service\Navigation\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="AppResources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

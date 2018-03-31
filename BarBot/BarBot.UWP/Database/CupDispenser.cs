@@ -22,7 +22,7 @@ namespace BarBot.UWP.Database
         public IOPort stepper4 { get; set; }
 
         /// <summary>
-        /// IO port for the FSR
+        /// IO port for the auger
         /// </summary>
         public IOPort fsr { get; set; }
     }

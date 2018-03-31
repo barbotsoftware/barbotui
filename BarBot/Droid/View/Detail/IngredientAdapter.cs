@@ -12,7 +12,7 @@ namespace BarBot.Droid.View.Detail
 {
 	public class IngredientAdapter : ArrayAdapter<Ingredient>
 	{
-		DetailViewModel ViewModel => App.Locator.Detail;
+		RecipeDetailViewModel ViewModel => App.Locator.Detail;
 
 		public IngredientAdapter(Context context, List<Ingredient> ingredients) : base(context, 0, ingredients)
 		{
@@ -22,7 +22,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			get
 			{
-				return ViewModel.Ingredients.Count;
+				return ViewModel.Recipe.Ingredients.Count;
 			}
 		}
 
@@ -30,7 +30,7 @@ namespace BarBot.Droid.View.Detail
 		{
 			LayoutInflater inflater = (LayoutInflater)Context.GetSystemService(Context.LayoutInflaterService);
 
-			var ingredient = ViewModel.Ingredients[position];
+            var ingredient = ViewModel.Recipe.Ingredients[position];
 
 			// Check if an existing view is being reused, otherwise inflate the view
 			if (convertView == null)
@@ -39,7 +39,7 @@ namespace BarBot.Droid.View.Detail
 				var rmBtn = convertView.FindViewById<Button>(Resource.Id.listview_removebutton);
 				rmBtn.Click += (sender, e) =>
 				{
-					ViewModel.Ingredients.RemoveAt(position);
+                    ViewModel.Recipe.Ingredients.RemoveAt(position);
 					Remove(position);
 					NotifyDataSetChanged();
 

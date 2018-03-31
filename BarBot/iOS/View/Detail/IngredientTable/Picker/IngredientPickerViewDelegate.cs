@@ -7,7 +7,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 {
 	public class IngredientPickerViewDelegate : UIPickerViewDelegate
 	{
-		DetailViewModel ViewModel => Application.Locator.Detail;
+		RecipeDetailViewModel ViewModel => Application.Locator.Detail;
 		IngredientTableView TableView;
 
 		public IngredientPickerViewDelegate(IngredientTableView tableView)
@@ -53,12 +53,12 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 
 			if (component == 0)
 			{
-				ViewModel.Ingredients[parentCellIndexPath.Row].Amount = ViewModel.Quantities[(int)row];
+				ViewModel.Recipe.Ingredients[parentCellIndexPath.Row].Amount = ViewModel.Quantities[(int)row];
 			}
 			else if (component == 1)
 			{
-				ViewModel.Ingredients[parentCellIndexPath.Row].IngredientId = ViewModel.AvailableIngredients[(int)row].IngredientId;
-				ViewModel.Ingredients[parentCellIndexPath.Row].Name = ViewModel.AvailableIngredients[(int)row].Name;
+				ViewModel.Recipe.Ingredients[parentCellIndexPath.Row].IngredientId = ViewModel.AvailableIngredients[(int)row].IngredientId;
+				ViewModel.Recipe.Ingredients[parentCellIndexPath.Row].Name = ViewModel.AvailableIngredients[(int)row].Name;
 			}
 
 			ViewModel.IsCustomRecipe = true;

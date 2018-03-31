@@ -12,6 +12,9 @@ namespace BarBot.UWP.UserControls
     {
         public object Convert(object value, Type targetType, object parameter, string language)
         {
+            if (value == null)
+                return value;
+
             return (value as String).ToUpper();
         }
 

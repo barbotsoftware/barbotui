@@ -96,6 +96,9 @@
     <Compile Include="View\BaseActivity.cs" />
     <Compile Include="Service\Login\LoginService.cs" />
     <Compile Include="Service\Navigation\NavigationService.cs" />
+    <Compile Include="View\Container\ContainerActivity.cs" />
+    <Compile Include="Utils\Helpers.cs" />
+    <Compile Include="View\Container\ContainerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -156,6 +159,13 @@
     <AndroidResource Include="Resources\drawable-xhdpi\ic_clear_white_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxhdpi\ic_clear_white_48dp.png" />
     <AndroidResource Include="Resources\drawable-xxxhdpi\ic_clear_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\ic_settings_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\ic_settings_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_settings_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxhdpi\ic_settings_white_48dp.png" />
+    <AndroidResource Include="Resources\drawable-xxxhdpi\ic_settings_white_48dp.png" />
+    <AndroidResource Include="Resources\layout\ContainersLayout.axml" />
+    <AndroidResource Include="Resources\layout\ContainerRow.axml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="View\" />
@@ -169,6 +179,8 @@
     <Folder Include="Service\" />
     <Folder Include="Service\Login\" />
     <Folder Include="Service\Navigation\" />
+    <Folder Include="View\Container\" />
+    <Folder Include="Utils\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\BarBot\BarBot.Core.csproj">
@@ -184,10 +196,7 @@
     <MonoDevelop>
       <Properties>
         <Policies>
-          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical">
-            <inheritsSet />
-            <inheritsScope />
-          </DotNetNamingPolicy>
+          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedHierarchical" />
         </Policies>
       </Properties>
     </MonoDevelop>

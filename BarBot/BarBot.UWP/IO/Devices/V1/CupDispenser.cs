@@ -13,27 +13,35 @@ namespace BarBot.UWP.IO.Devices.V1
     /// </summary>
     public class CupDispenser : ICupDispenser
     {
+        private int EMPTY_CUP_THRESHOLD = 30;
+
         public L298NDriver stepperDriver;
 
-        public IOPort fsr1;
+        public MCP3008 mcp3008;
 
         public CupDispenser() { }
 
-        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, IOPort fsr1)
+        public CupDispenser(IIOPort stepper1, IIOPort stepper2, IIOPort stepper3, IIOPort stepper4, MCP3008 mcp3008)
         {
-            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 7);
-            this.fsr1 = fsr1;
+            // initialize a new stepper driver
+            stepperDriver = new L298NDriver(stepper1, stepper2, stepper3, stepper4, 2);
+
+            // set the analog to digital converter for the force sensor
+            this.mcp3008 = mcp3008;
         }
 
         public void DispenseCup()
         {
             Debug.WriteLine(string.Format("Running cup dispenser"));
 
-            bool triggered = fsr1.GpioPin.Read().Equals(GpioPinValue.High);
+            bool triggered = mcp3008.read(0, 5) >= EMPTY_CUP_THRESHOLD; // TODO: hard coded channel #
             if (!triggered)
             {
                 // Attempt to release a cup
                 stepperDriver.run(1);
+
+                // Jiggle 
+                JiggleForPapi();
 
                 while (!triggered)
                 {
@@ -41,9 +49,22 @@ namespace BarBot.UWP.IO.Devices.V1
                     Task.Delay(100);
 
                     // Check if the weight sensor has been triggered
-                    triggered = fsr1.GpioPin.Read().Equals(GpioPinValue.High);
+                    triggered = mcp3008.read(0, 5) >= EMPTY_CUP_THRESHOLD; // TODO hard coded channel #
                 }
             }
+        }
+
+        public void JiggleForPapi()
+        {
+            stepperDriver.SleepTime = 1; // Papi likes it fast
+
+            // jiggle jiggle jiggle
+            stepperDriver.runBackwards(0.1);
+            stepperDriver.run(0.1);
+            stepperDriver.runBackwards(0.1);
+            stepperDriver.run(0.1);
+
+            stepperDriver.SleepTime = 2;
         }
     }
 }

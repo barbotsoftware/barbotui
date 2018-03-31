@@ -1,31 +1,23 @@
-﻿using System;
+﻿using BarBot.Core;
+using BarBot.Core.Model;
+using BarBot.Core.WebSocket;
+using BarBot.UWP.Database;
+using BarBot.UWP.IO;
+using BarBot.UWP.Service.Login;
+using BarBot.UWP.Websocket;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
-using System.IO;
+using System.Diagnostics;
 using System.Linq;
-using System.Runtime.InteropServices.WindowsRuntime;
+using System.Threading.Tasks;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
 using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using BarBot.Core.WebSocket;
-using BarBot.UWP.Database;
-using BarBot.UWP.Bluetooth;
-using BarBot.Core;
-using BarBot.Core.Model;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using BarBot.UWP.IO;
-using System.Diagnostics;
-using BarBot.UWP.Websocket;
 
 namespace BarBot.UWP
 {
@@ -36,7 +28,9 @@ namespace BarBot.UWP
     {
         #region Global App Properties
 
-        public WebSocketUtil webSocketUtil { get; set; }
+        public UWPWebSocketService webSocketService { get; set; }
+
+        public UWPLoginService loginService { get; set; }
 
         public BarbotContext barbotDB { get; set; }
 
@@ -44,13 +38,27 @@ namespace BarBot.UWP
 
         public string barbotID { get; set; }
 
+        public string barbotName { get; set; }
+
         public string webserverUrl { get; set; }
 
         public Constants.BarbotStatus Status { get; set; }
 
         public List<Core.Model.DrinkOrder> DrinkOrders { get; set; }
 
-        Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
+        public List<Recipe> AllRecipes { get; set; }
+
+        public List<Recipe> RecipesToFilter { get; set; }
+
+        public List<Ingredient> FilterIngredients { get; set; }
+
+        public List<Core.Model.Container> Containers { get; set; }
+
+        public List<Garnish> Garnishes { get; set; }
+
+        public Dictionary<string, Ingredient> IngredientsInBarbot { get; set; }
+
+        public Dictionary<string, BitmapImage> _ImageCache = new Dictionary<string ,BitmapImage>();
 
         #endregion
 
@@ -72,6 +80,25 @@ namespace BarBot.UWP
             public Core.Model.DrinkOrder DrinkOrder
             {
                 get { return drinkOrder; }
+            }
+        }
+
+        public event FilterAppliedHandler FilterApplied = delegate { };
+
+        public delegate void FilterAppliedHandler(object sender, FilterAppliedEventArgs args);
+
+        public class FilterAppliedEventArgs : EventArgs
+        {
+            private List<Ingredient> filteredIngredients;
+
+            public FilterAppliedEventArgs(List<Ingredient> filteredIngredients)
+            {
+                this.filteredIngredients = filteredIngredients;
+            }
+
+            public List<Ingredient> FilteredIngredients
+            {
+                get { return filteredIngredients; }
             }
         }
 
@@ -103,6 +130,7 @@ namespace BarBot.UWP
             // Default config values to fall back on
             string endpoint = "ws://" + Constants.IPAddress + ":" + Constants.PortNumber;
             barbotID = Constants.BarBotId;
+            barbotName = Constants.BarBotName;
 
             // Get database configuration
             try
@@ -115,11 +143,17 @@ namespace BarBot.UWP
                     webserverUrl = config.ElementAt(0).apiEndpoint;
                     endpoint = "ws://" + webserverUrl + ":" + Constants.PortNumber;
                 }
+                else
+                {
+                    webserverUrl = Constants.IPAddress;
+                }
             }
             catch (Exception e)
             {
                 Debug.WriteLine(string.Format("Failed to retrieve barbot configuration settings: {0}.", e.Message));
             }
+
+            Debug.WriteLine("Using websocket address: " + endpoint);
 
             // Initialize IO Controller
             try
@@ -141,72 +175,91 @@ namespace BarBot.UWP
                 Debug.WriteLine(string.Format("Failed to initialize barbot controller: {0}", e.Message));
             }
 
-            // Initialize websocket connection
-            webSocketUtil = new WebSocketUtil(new UWPWebsocketHandler());
-            webSocketUtil.EndPoint = endpoint;
+            // Initialize List of Recipes to Filter
+            RecipesToFilter = new List<Recipe>();
 
-            // Opening websocket, with barbID, false bool for isMobile
-            webSocketUtil.OpenWebSocket("barbot_" + barbotID, false);
+            // Initialize Filter Ingredients List
+            FilterIngredients = new List<Ingredient>();
 
-            // Wait until the websocket connection is open
-            while (!webSocketUtil.Socket.IsOpen)
+            // Initialize All Recipes List
+            AllRecipes = new List<Recipe>();
+
+            Containers = new List<Core.Model.Container>();
+
+            Garnishes = new List<Garnish>();
+
+            // Initialize Global Ingredients List
+            IngredientsInBarbot = new Dictionary<string, Ingredient>();
+
+            // Initialize Login Service
+            loginService = new UWPLoginService(webserverUrl + ":" + Constants.PortNumber);
+
+            // Initialize websocket service
+            webSocketService = new UWPWebSocketService(new UWPWebsocketHandler(), barbotID, endpoint);
+
+            // Opening websocket, with barbID/password
+            webSocketService.OpenWebSocket("password");
+
+            Debug.WriteLine("Attempted to open websocket...");
+
+            // Wait until the websocket connection is open, timeout after 10 seconds RIP
+            long ticks = TimeSpan.TicksPerSecond * 10;
+            long start = DateTime.Now.Ticks;
+            while (!webSocketService.Socket.IsOpen)
             {
-                Task.Delay(10).Wait();
+                if(DateTime.Now.Ticks - start > ticks)
+                {
+                    Debug.WriteLine("Failed to open websocket after 10 seconds...");
+                    break;
+                }
+            }
+
+            if (webSocketService.Socket.IsOpen) {
+                Debug.WriteLine("Opened websocket successfully!");
             }
 
             DrinkOrders = new List<Core.Model.DrinkOrder>();
-            webSocketUtil.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
+            webSocketService.Socket.DrinkOrderedEvent += WebSocket_DrinkOrderedEvent;
 
-            webSocketUtil.Socket.GetRecipesEvent += CacheImages;
-            webSocketUtil.GetRecipes();
-
-            
+            Status = Constants.BarbotStatus.READY;
         }
 
-        private async void CacheImages(object sender, WebSocketEvents.GetRecipesEventArgs args)
+        // Filter Methods
+
+        public void ApplyFilters(List<Ingredient> ingredients)
         {
-            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(Windows.UI.Core.CoreDispatcherPriority.High,
-            () =>
-            {
-                _ImageCache = new Dictionary<string, BitmapImage>();
+            this.FilterIngredients.AddRange(ingredients);
+            
+            FilterApplied(this, new FilterAppliedEventArgs(this.FilterIngredients));
+        }
 
-                // Get the custom_recipe
-                //var imageUri = new Uri("http://" + webserverUrl + "/barbotweb/public/img/recipe_images/custom_recipe.png");
-                //var recipeImage = new BitmapImage(imageUri);
-                //_ImageCache.Add("Custom Recipe", recipeImage);
+        public Boolean IsFilterOn()
+        {
+            return this.FilterIngredients.Count > 0;
+        }
 
-                // Populate AllRecipes
-                for (var i = 0; i < args.Recipes.Count; i++)
-                {
-                    var imageUri = new Uri("http://" + webserverUrl + "/" + args.Recipes[i].Img);
-                    var recipeImage = new BitmapImage(imageUri);
-                    if (!_ImageCache.ContainsKey(args.Recipes[i].Name))
-                    {
-                        _ImageCache.Add(args.Recipes[i].Name, recipeImage);
-                    }
-                }
+        public void ClearFilters()
+        {
+            this.FilterIngredients.Clear();
 
-                // Remove event handler when done
-                webSocketUtil.Socket.GetRecipesEvent -= CacheImages;
-                Status = Constants.BarbotStatus.READY;
-            });
+            FilterApplied(this, new FilterAppliedEventArgs(this.FilterIngredients));
         }
 
         public BitmapImage getCachedImage(Recipe recipe)
         {
-
-            if (_ImageCache[recipe.Name] != null)
+           
+            if (_ImageCache.ContainsKey(recipe.Name))
             {
                 return _ImageCache[recipe.Name];
             } else
             {
-                var imageUri = new Uri("http://" + webserverUrl + "/" + recipe.Img);
-                var image = new BitmapImage(imageUri);
-                if(image != null)
+                UriBuilder uriBuilder = new UriBuilder("http", webserverUrl, Int32.Parse(Constants.PortNumber), "/img/" + recipe.Img);
+                BitmapImage recipeImage = new BitmapImage(uriBuilder.Uri);
+                if (recipeImage != null)
                 {
-                    _ImageCache.Add(recipe.Name, image);
+                    _ImageCache.Add(recipe.Name, recipeImage);
                 }
-                return image;
+                return recipeImage;
 
             }
         }
@@ -220,6 +273,37 @@ namespace BarBot.UWP
             DrinkOrderAdded(this, new DrinkOrderAddedEventArgs(args.DrinkOrder));
 
             Debug.WriteLine(string.Format("Received drink order for {0} from {1}", args.DrinkOrder.Recipe.Name, args.DrinkOrder.UserName));
+        }
+
+        /// <summary>
+        /// WebSocket Event Handler for GetIngredients Event
+        /// Populates the Application's Global Ingredient List
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="args"></param>
+        private async void WebSocket_GetIngredientsEvent(object sender, WebSocketEvents.GetIngredientsEventArgs args)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+            () =>
+            {
+                for (var i = 0; i < args.Ingredients.Count; i++)
+                {
+                    IngredientsInBarbot.Add(args.Ingredients[i].IngredientId, args.Ingredients[i]);
+                }
+            });
+
+            webSocketService.Socket.GetIngredientsEvent -= WebSocket_GetIngredientsEvent;
+        }
+
+        private async void WebSocket_GetGarnishesEvent(object sender, WebSocketEvents.GetGarnishesEventArgs args)
+        {
+            await Windows.ApplicationModel.Core.CoreApplication.MainView.CoreWindow.Dispatcher.RunAsync(CoreDispatcherPriority.High,
+            () =>
+            {
+                Garnishes = args.Garnishes;
+            });
+
+            webSocketService.Socket.GetGarnishesEvent -= WebSocket_GetGarnishesEvent;
         }
 
         /// <summary>
@@ -268,6 +352,14 @@ namespace BarBot.UWP
                 // Ensure the current window is active
                 Window.Current.Activate();
             }
+
+            // Attach GetIngredients Event Handler and call GetIngredients
+            webSocketService.Socket.GetIngredientsEvent += WebSocket_GetIngredientsEvent;
+            webSocketService.GetIngredients();
+
+            // Attach GetGarnishes Event Handler and call GetGarnishes
+            webSocketService.Socket.GetGarnishesEvent += WebSocket_GetGarnishesEvent;
+            webSocketService.GetGarnishes();
         }
 
         /// <summary>

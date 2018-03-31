@@ -9,7 +9,6 @@ using Android.Preferences;
 
 using GalaSoft.MvvmLight.Ioc;
 using GalaSoft.MvvmLight.Threading;
-using GalaSoft.MvvmLight.Views;
 
 using Calligraphy;
 
@@ -17,12 +16,14 @@ using BarBot.Core;
 using BarBot.Core.Model;
 using BarBot.Core.Service.Login;
 using BarBot.Core.ViewModel;
-using BarBot.Core.WebSocket;
 
 using BarBot.Droid.Service.Login;
 using BarBot.Droid.View.Detail;
 using BarBot.Droid.View.Menu;
 using BarBot.Droid.WebSocket;
+using BarBot.Core.Service.WebSocket;
+using BarBot.Core.Service.Navigation;
+using BarBot.Droid.View.Container;
 
 namespace BarBot.Droid
 {
@@ -30,8 +31,8 @@ namespace BarBot.Droid
 	public class App : Application
 	{
 		private static ViewModelLocator locator;
-		private static WebSocketUtil webSocketUtil;
-		private static LoginService loginService;
+		private static WebSocketService webSocketService;
+        private static LoginService loginService;
 		private static List<Ingredient> ingredientsInBarBot;
 		private static User user;
 		private static string hostName;
@@ -67,22 +68,23 @@ namespace BarBot.Droid
 					// MVVMLight's DispatcherHelper for cross-thread handling.
 					DispatcherHelper.Initialize();
 
-					// Initialize NavigationService
-					var nav = new NavigationService();
+                    var nav = new Service.Navigation.NavigationService();
+                    nav.Initialize();
 
                     // Register Services with IoC Container
                     SimpleIoc.Default.Register<INavigationService>(() => nav);
-                    SimpleIoc.Default.Register<IDialogService, DialogService>();
-                    SimpleIoc.Default.Register<ILoginService, LoginService>();
+                    SimpleIoc.Default.Register<ILoginService>(() => LoginService);
+                    SimpleIoc.Default.Register<IWebSocketService>(() => WebSocketService);
 
                     // Configure PageKeys
-                    nav.Configure(
-					  ViewModelLocator.MenuPageKey,
-					  typeof(DrinkMenuActivity));
+                    nav.Configure(ViewModelLocator.MenuPageKey,
+					    typeof(DrinkMenuActivity));
 
-					nav.Configure(
-					  ViewModelLocator.RecipeDetailPageKey,
-					  typeof(DrinkDetailActivity));
+					nav.Configure(ViewModelLocator.RecipeDetailPageKey,
+					    typeof(DrinkDetailActivity));
+
+                    nav.Configure(ViewModelLocator.ContainersPageKey,
+                        typeof(ContainerActivity));
 
 					locator = new ViewModelLocator();
 				}
@@ -91,19 +93,21 @@ namespace BarBot.Droid
 			}
 		}
 
-		public static WebSocketUtil WebSocketUtil 
-		{ 
-			get
-			{
-				if (webSocketUtil == null)
-				{
-					webSocketUtil = new WebSocketUtil(new DroidWebSocketHandler());
-					webSocketUtil.EndPoint = "ws://" + HostName + ":" + Constants.PortNumber;
-				}
+        public static WebSocketService WebSocketService
+        {
+            get
+            {
+                if (webSocketService == null)
+                {
+                    var host = "ws://" + HostName;
+                    webSocketService = new WebSocketService(new DroidWebSocketHandler(),
+                                                   Constants.BarBotId,
+                                                   host);
+                }
 
-				return webSocketUtil;
-			}
-		}
+                return webSocketService;
+            }
+        }
 
 		public static LoginService LoginService
 		{
@@ -111,7 +115,8 @@ namespace BarBot.Droid
 			{
 				if (loginService == null)
 				{
-					loginService = new LoginService(Constants.IPAddress);
+                    var host = "http://" + HostName;
+					loginService = new LoginService(host);
 				}
 
 				return loginService;
@@ -142,9 +147,12 @@ namespace BarBot.Droid
 			{
 				if (user == null)
 				{
-					user = new User();
-					//user.Uid = "user_3f2bb9";
-				}
+                    user = new User
+                    {
+                        Name = "panda",
+                        Password = "password"
+                    };
+                }
 
 				return user;
 			}
@@ -158,15 +166,7 @@ namespace BarBot.Droid
 		{ 
 			get 
 			{
-				//if (Preferences.GetString("HostName", null) != null)
-				//{
-				//	hostName = Preferences.GetString("HostName", "");
-				//}
-				//else
-				//{
-				hostName = Constants.IPAddress;
-				//}
-
+                hostName = Constants.IPAddress + ":" + Constants.PortNumber;
 				return hostName;
 			} 
 		}
@@ -174,13 +174,13 @@ namespace BarBot.Droid
 		// WEBSOCKET
 		public static void ConnectWebSocket()
 		{
-			if (WebSocketUtil != null)
+			if (WebSocketService != null)
 			{
-				if (!WebSocketUtil.Socket.IsOpen)
+                if (!WebSocketService.Socket.IsOpen)
 				{
 					// Open WebSocket
-					WebSocketUtil.OpenWebSocket(user.UserId, true);
-					while (!WebSocketUtil.Socket.IsOpen)
+					WebSocketService.OpenWebSocket(user.Name, user.Password);
+					while (!WebSocketService.IsOpen())
 					{
 						Task.Delay(10).Wait();
 					}
@@ -190,11 +190,11 @@ namespace BarBot.Droid
 
 		public static void DisconnectWebSocket()
 		{
-			if (webSocketUtil != null)
+            if (WebSocketService != null)
 			{
-				if (WebSocketUtil.Socket.IsOpen)
+                if (WebSocketService.IsOpen())
 				{
-					WebSocketUtil.CloseWebSocket();
+                    WebSocketService.CloseWebSocket();
 				}
 			}
 		}

@@ -1,0 +1,64 @@
+﻿<ContentDialog
+    x:Class="BarBot.UWP.UserControls.RecipeDetail.IngredientList.Dialogs.IngredientChangeContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail.IngredientList.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="ContentDialog"
+    CloseButtonText="Cancel">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <ContentDialog.Style>
+        <Style TargetType="ContentDialog">
+            <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontSize" Value="50" />
+        </Style>
+    </ContentDialog.Style>
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="Choose an Ingredient:"
+                       Style="{StaticResource TitleStyle}"/>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+
+    <Grid Width="1200" Height="auto">
+        <ItemsControl Name="icIngredientItems" ItemsSource="{Binding}">
+            <ItemsControl.ItemContainerTransitions>
+                <TransitionCollection>
+                    <EntranceThemeTransition/>
+                </TransitionCollection>
+            </ItemsControl.ItemContainerTransitions>
+            <ItemsControl.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid Name="IngredientListIcGrid">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                            <ColumnDefinition></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                            <RowDefinition></RowDefinition>
+                        </Grid.RowDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </ItemsControl.ItemsPanel>
+        </ItemsControl>
+    </Grid>
+</ContentDialog>

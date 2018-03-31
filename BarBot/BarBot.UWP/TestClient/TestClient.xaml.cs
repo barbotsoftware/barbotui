@@ -28,16 +28,7 @@ namespace BarBot.UWP.TestClient
 
         public BarbotIOController ioController;
 
-        private List<IO.Devices.V1.Container> containers;
-
-        //HX711 weightSensor;
-
-        private int CALIBRATION_FACTOR = 0;
-        private int MAX_WEIGHT = 100;
-
-        private bool isOpen = false;
-
-        GpioPin pin;
+        private List<IO.Devices.V1.Container> containers = new List<IO.Devices.V1.Container>();
 
         public TestClient()
         {
@@ -68,21 +59,9 @@ namespace BarBot.UWP.TestClient
                 btn.Tag = c;
                 btn.Click += Btn_Click;
                 ContainersPanel.Children.Add(btn);
-                btn.FontSize = 35;
+                btn.FontSize = 25;
                 i++;
             }
-
-            //GpioPin dt = ioController.gpio.OpenPin(6);
-            //GpioPin clk = ioController.gpio.OpenPin(13);
-            //weightSensor = new HX711(clk, dt);
-            //weightSensor.PowerOn();
-
-            //calibrate();
-        }
-
-        private void Pin_ValueChanged(GpioPin sender, GpioPinValueChangedEventArgs args)
-        {
-            isOpen = args.Edge.Equals(GpioPinEdge.RisingEdge);
         }
 
         private void Btn_Click(object sender, RoutedEventArgs e)
@@ -91,7 +70,7 @@ namespace BarBot.UWP.TestClient
             Dictionary<IO.Devices.IContainer, double> recipe = new Dictionary<IO.Devices.IContainer, double>();
             recipe.Add(c, 1);
             
-            ioController.PourDrinkSync(recipe, false, false, false);
+            ioController.PourDrinkSync(recipe, false, Core.Constants.GarnishType.NONE, false);
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -106,18 +85,17 @@ namespace BarBot.UWP.TestClient
 
         private void ReadSensorButton_Click(object sender, RoutedEventArgs e)
         {
-            ioController.AddGarnish();
+            Debug.WriteLine("MCP3008: " + ioController.mcp3008.read(0, 5));
         }
 
-        private void calibrate()
+        private void RunGarnish1Button_Click(object sender, RoutedEventArgs e)
         {
-            /*CALIBRATION_FACTOR = weightSensor.Read();
-            for(int i = 0; i < 10; i++)
-            {
-                CALIBRATION_FACTOR = (CALIBRATION_FACTOR + weightSensor.Read()) / 2;
-            }
+            ioController.AddGarnish(Core.Constants.GarnishType.GARNISH1);
+        }
 
-            Debug.WriteLine("Calibration factor set to " + CALIBRATION_FACTOR / 1000 + " grams.");*/
+        private void RunGarnish2Button_Click(object sender, RoutedEventArgs e)
+        {
+            ioController.AddGarnish(Core.Constants.GarnishType.GARNISH2);
         }
     }
 }

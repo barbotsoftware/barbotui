@@ -67,7 +67,7 @@ namespace BarBot.Core.ViewModel
                     {
                         IsLoading = true;
 
-                        var result = await loginService.LoginUser(Model.EmailAddress, Model.Password);
+                        var result = await loginService.LoginUser("user", Model.EmailAddress, Model.Password);
 
                         if (!result)
                         {

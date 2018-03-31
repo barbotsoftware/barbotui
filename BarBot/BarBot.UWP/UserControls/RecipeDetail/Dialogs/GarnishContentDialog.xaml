@@ -1,0 +1,68 @@
+﻿<ContentDialog
+    x:Class="BarBot.UWP.UserControls.RecipeDetail.Dialogs.GarnishContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls.RecipeDetail.Dialogs"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="Dialog"
+    CloseButtonText="Cancel"
+    CloseButtonClick="ContentDialog_CloseButtonClick">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <ContentDialog.Style>
+        <Style TargetType="ContentDialog">
+            <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
+            <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontSize" Value="50" />
+        </Style>
+    </ContentDialog.Style>
+
+    <StackPanel x:Name="GarnishStackPanel"
+                Style="{StaticResource GarnishStackPanelStyle}">
+        <TextBlock x:Name="TextBlock"
+               Text="{x:Bind Path=GarnishTitleText, Mode=OneWay}"
+               Style="{StaticResource TextBlockStyle}" />
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}"
+                    Margin="0,20,0,0">
+            <Button x:Name="GarnishButton1"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="{x:Bind Path=Garnish1.Name, Mode=OneWay}" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOption1" />
+            <Button x:Name="GarnishButton2"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="{x:Bind Path=Garnish2.Name, Mode=OneWay}" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOption2" />
+        </StackPanel>
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <Button x:Name="GarnishButtonBoth"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="Both" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOptionBoth" />
+            <Button x:Name="GarnishButtonNone"
+                Style="{StaticResource GarnishButtonStyle}"
+                Content="Neither" 
+                Click="GarnishButton_Click"
+                Tag="GarnishOptionNone" />
+        </StackPanel>
+        <TextBlock x:Name="GarnishEmptyTextBlock"
+               Text="There are no garnishes left. Please reload."
+               Visibility="Collapsed"
+               Style="{StaticResource TextBlockStyle}" />
+    </StackPanel>
+</ContentDialog>

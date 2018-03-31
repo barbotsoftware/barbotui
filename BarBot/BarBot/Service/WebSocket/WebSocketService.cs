@@ -7,9 +7,22 @@ namespace BarBot.Core.Service.WebSocket
 {
     public class WebSocketService : IWebSocketService
     {
-        private readonly WebSocketHandler webSocket;
-        private string barbotId;
-        private string endpoint;
+        protected WebSocketHandler webSocket;
+        protected string barbotId;
+        protected string endpoint;
+
+        public WebSocketHandler Socket
+        {
+            get
+            {
+                return webSocket;
+            }
+
+            set
+            {
+                webSocket = value;
+            }
+        }
 
         public WebSocketService(WebSocketHandler webSocket, string barbotId, string endpoint)
         {
@@ -18,7 +31,9 @@ namespace BarBot.Core.Service.WebSocket
             this.endpoint = endpoint;
         }
 
-		public async void OpenWebSocket(string username, string password)
+        public bool IsOpen() => Socket.IsOpen;
+
+        public async void OpenWebSocket(string username, string password)
 		{
 			bool success = await webSocket.OpenConnection(endpoint + "/ws?username=" + username 
                                                           + "&password=" + password);
@@ -49,6 +64,38 @@ namespace BarBot.Core.Service.WebSocket
             
         }
 
+        public void AddMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+                                 WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+        {
+            Socket.GetRecipesEvent += recipesHandler;
+            Socket.GetIngredientsEvent += ingredientsHandler;
+        }
+
+        public void RemoveMenuEventHandlers(WebSocketEvents.GetRecipesEventHandler recipesHandler,
+                                            WebSocketEvents.GetIngredientsEventHandler ingredientsHandler)
+        {
+            Socket.GetRecipesEvent -= recipesHandler;
+            Socket.GetIngredientsEvent -= ingredientsHandler;
+        }
+
+        public void AddDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
+                                            WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
+                                           WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
+        {
+            Socket.GetRecipeDetailsEvent += recipeDetailsHandler;
+            Socket.OrderDrinkEvent += orderDrinkHandler;
+            Socket.CreateCustomRecipeEvent += createCustomDrinkHandler;
+        }
+
+        public void RemoveDetailEventHandlers(WebSocketEvents.GetRecipeDetailsEventHandler recipeDetailsHandler,
+                                              WebSocketEvents.OrderDrinkEventHandler orderDrinkHandler,
+                                              WebSocketEvents.CreateCustomRecipeEventHandler createCustomDrinkHandler)
+        {
+            Socket.GetRecipeDetailsEvent -= recipeDetailsHandler;
+            Socket.OrderDrinkEvent -= orderDrinkHandler;
+            Socket.CreateCustomRecipeEvent -= createCustomDrinkHandler;
+        }
+
         public void CreateCustomRecipe(Recipe recipe)
         {
             var data = new Dictionary<string, object>
@@ -67,6 +114,16 @@ namespace BarBot.Core.Service.WebSocket
 			};
 
             SendMessage(data, Constants.GetContainersForBarbot);
+        }
+
+        public void GetGarnishes()
+        {
+            var data = new Dictionary<string, object>
+            {
+                { "barbot_id", barbotId }
+            };
+
+            SendMessage(data, Constants.GetGarnishesForBarbot);
         }
 
         public void GetIngredients()
@@ -117,10 +174,21 @@ namespace BarBot.Core.Service.WebSocket
             var data = new Dictionary<string, object>
             {
                 { "barbot_id", barbotId },
-                { "barbot_containers", containers }
+                { "containers", containers }
             };
 
             SendMessage(data, Constants.SetContainersForBarbot);
+        }
+
+        public void UpdateGarnish(Garnish garnish)
+        {
+            var data = new Dictionary<string, object>
+            {
+                { "barbot_id", barbotId },
+                { "garnish", garnish }
+            };
+
+            SendMessage(data, Constants.UpdateGarnish);
         }
 
         void SendMessage(Dictionary<string, object> data, string command)

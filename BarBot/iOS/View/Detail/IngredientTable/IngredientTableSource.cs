@@ -12,11 +12,11 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 	{
 		public List<Ingredient> Rows { get; private set; }
 
-		private DetailViewModel ViewModel => Application.Locator.Detail;
+		private RecipeDetailViewModel ViewModel => Application.Locator.Detail;
 
 		public IngredientTableSource()
 		{
-			Rows = ViewModel.Ingredients;
+			Rows = ViewModel.Recipe.Ingredients;
 		}
 
 		public override nint RowsInSection(UITableView tableview, nint section)
@@ -60,7 +60,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable
 				// Delete the row from the data source
 
 				// Remove Ingredient from Recipe
-				ViewModel.Ingredients.RemoveAt(indexPath.Row);
+				ViewModel.Recipe.Ingredients.RemoveAt(indexPath.Row);
 
 				var ingredientTableView = tableView as IngredientTableView;
 

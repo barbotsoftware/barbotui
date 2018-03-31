@@ -6,7 +6,7 @@ namespace BarBot.iOS.View.Detail.IngredientTable.Picker
 {
 	public class IngredientPickerViewDataSource : UIPickerViewDataSource
 	{
-		private DetailViewModel ViewModel => Application.Locator.Detail;
+		private RecipeDetailViewModel ViewModel => Application.Locator.Detail;
 
 		public IngredientPickerViewDataSource()
 		{

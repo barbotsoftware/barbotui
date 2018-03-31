@@ -14,6 +14,8 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using BarBot.UWP.UserControls;
+using BarBot.UWP.Pages;
+using Windows.UI.Xaml.Media.Animation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x409
 
@@ -29,7 +31,9 @@ namespace BarBot.UWP
             this.InitializeComponent();
 
             //ContentFrame.Content = new Uc_Menu();
-            ContentFrame.Content = new Uc_PartyMode();
+            
+            ContentFrame.Navigate(typeof(Menu), null, new DrillInNavigationTransitionInfo());
+            //ContentFrame.Content = new Uc_PartyMode();
             //App app = App.Current as App;
             //ContentFrame.Content = new TestClient.TestClient(app.barbotDB, app.barbotIOController);
         }

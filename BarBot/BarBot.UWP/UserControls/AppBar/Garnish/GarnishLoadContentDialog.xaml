@@ -1,0 +1,64 @@
+﻿<ContentDialog
+    x:Class="BarBot.UWP.UserControls.AppBar.Garnish.GarnishLoadContentDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:BarBot.UWP.UserControls.AppBar.Garnish"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    x:Name="ContentDialog"
+    PrimaryButtonText="Done"
+    CloseButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    CloseButtonClick="ContentDialog_CloseButtonClick">
+
+    <ContentDialog.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="ms-appx:///Styles/ContentDialogStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </ContentDialog.Resources>
+
+    <ContentDialog.Style>
+        <Style TargetType="ContentDialog">
+            <Setter Property="PrimaryButtonStyle" Value="{StaticResource ButtonStyle}" />
+            <Setter Property="CloseButtonStyle" Value="{StaticResource CloseButtonStyle}" />
+            <Setter Property="Width" Value="900" />
+            <Setter Property="MaxWidth" Value="1280" />
+            <Setter Property="Background" Value="#161616" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="#222222" />
+            <Setter Property="FontFamily" Value="Microsoft Yi Baiti" />
+        </Style>
+    </ContentDialog.Style>
+
+    <ContentDialog.TitleTemplate>
+        <DataTemplate>
+            <TextBlock Text="Which garnish would you like to reload?"
+                       Style="{StaticResource TitleStyle}"/>
+        </DataTemplate>
+    </ContentDialog.TitleTemplate>
+
+    <StackPanel x:Name="GarnishStackPanel"
+                Style="{StaticResource GarnishStackPanelStyle}">
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
+                       Text="{x:Bind Path=Garnish1DisplayText, Mode=OneWay}" />
+            <Button x:Name="ReloadGarnish1Button"
+                Style="{StaticResource GarnishReloadButtonStyle}"
+                Content="Reload"
+                Click="ReloadGarnishButton_Click"
+                Tag="Garnish1" />
+        </StackPanel>
+        <StackPanel Style="{StaticResource GarnishTextStackPanelStyle}">
+            <TextBlock Style="{StaticResource GarnishTextBlockStyle}"
+                       Text="{x:Bind Path=Garnish2DisplayText, Mode=OneWay}" />
+            <Button x:Name="ReloadGarnish2Button"
+                Style="{StaticResource GarnishReloadButtonStyle}"
+                Content="Reload" 
+                Click="ReloadGarnishButton_Click"
+                Tag="Garnish2" />
+        </StackPanel>
+    </StackPanel>
+</ContentDialog>

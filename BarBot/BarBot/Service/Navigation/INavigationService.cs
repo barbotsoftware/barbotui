@@ -4,6 +4,6 @@
 	{
 		void OpenModal(string key);
 		void CloseModal();
-        void NavigateTo(string key);
+        void GoBack();
 	}
 }

@@ -61,6 +61,23 @@ namespace BarBot.Core.WebSocket
             }
         }
 
+        public delegate void GetGarnishesEventHandler(object sender, GetGarnishesEventArgs args);
+
+        public class GetGarnishesEventArgs : EventArgs
+        {
+            public List<Garnish> garnishes;
+
+            public GetGarnishesEventArgs(List<Garnish> garnishes)
+            {
+                this.garnishes = garnishes;
+            }
+
+            public List<Garnish> Garnishes
+            {
+                get { return garnishes; }
+            }
+        }
+
 		public delegate void GetIngredientsEventHandler(object sender, GetIngredientsEventArgs args);
 
 		public class GetIngredientsEventArgs : EventArgs
@@ -96,13 +113,13 @@ namespace BarBot.Core.WebSocket
 			}
 		}
 
-		public delegate void CreateCustomDrinkEventHandler(object sender, CreateCustomDrinkEventArgs args);
+		public delegate void CreateCustomRecipeEventHandler(object sender, CreateCustomRecipeEventArgs args);
 
-		public class CreateCustomDrinkEventArgs : EventArgs
+		public class CreateCustomRecipeEventArgs : EventArgs
 		{
 			private string recipeId;
 
-			public CreateCustomDrinkEventArgs(string recipeId)
+			public CreateCustomRecipeEventArgs(string recipeId)
 			{
 				this.recipeId = recipeId;
 			}
@@ -112,5 +129,90 @@ namespace BarBot.Core.WebSocket
 				get { return recipeId; }
 			}
 		}
+
+        public delegate void GetCategoriesEventHandler(object sender, GetCategoriesEventArgs args);
+
+        public class GetCategoriesEventArgs : EventArgs
+        {
+            private List<Category> categories;
+
+            public GetCategoriesEventArgs(List<Category> categories)
+            {
+                this.categories = categories;
+            }
+
+            public List<Category> Categories
+            {
+                get { return categories; }
+            }
+        }
+
+        public delegate void GetCategoryEventHandler(object sender, GetCategoryEventArgs args);
+
+        public class GetCategoryEventArgs : EventArgs
+        {
+            private Category category;
+
+            public GetCategoryEventArgs(Category category)
+            {
+                this.category = category;
+            }
+
+            public Category Category
+            {
+                get { return category; }
+            }
+        }
+
+        public delegate void GetContainersEventHandler(object sender, GetContainersEventArgs args);
+
+        public class GetContainersEventArgs : EventArgs
+        {
+            private List<Container> containers;
+
+            public GetContainersEventArgs(List<Container> containers)
+            {
+                this.containers = containers;
+            }
+
+            public List<Container> Containers
+            {
+                get { return containers; }
+            }
+        }
+
+        public delegate void UpdateContainerEventHandler(object sender, UpdateContainerEventArgs args);
+
+        public class UpdateContainerEventArgs : EventArgs
+        {
+            private Container container;
+
+            public UpdateContainerEventArgs(Container container)
+            {
+                this.container = container;
+            }
+
+            public Container Container
+            {
+                get { return container; }
+            }
+        }
+
+        public delegate void UpdateGarnishEventHandler(object sender, UpdateGarnishEventArgs args);
+
+        public class UpdateGarnishEventArgs : EventArgs
+        {
+            private Garnish garnish;
+
+            public UpdateGarnishEventArgs(Garnish garnish)
+            {
+                this.garnish = garnish;
+            }
+
+            public Garnish Garnish
+            {
+                get { return garnish; }
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace BarBot.Droid.View.Detail
 {
 	public class SuccessDialogFragment : DialogFragment
 	{
-		DetailViewModel ViewModel => App.Locator.Detail;
+		RecipeDetailViewModel ViewModel => App.Locator.Detail;
 
 		public static SuccessDialogFragment NewInstance(Bundle bundle)
 		{

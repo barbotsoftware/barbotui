@@ -12,10 +12,12 @@ namespace BarBot.Core.Service.WebSocket
         void RemoveEventHandler(string eventName);
         void CreateCustomRecipe(Recipe recipe);
         void GetContainers();
+        void GetGarnishes();
         void GetIngredients();
         void GetRecipeDetails(string recipeId);
         void GetRecipes();
         void OrderDrink(string recipeId, bool ice, bool garnish);
         void SetContainers<Container>(List<Container> containers);
+        void UpdateGarnish(Garnish garnish);
     }
 }
